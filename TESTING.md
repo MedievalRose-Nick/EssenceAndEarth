@@ -4,6 +4,10 @@ Everything below is built but not yet checked in-game. Tick items off as they pa
 
 Before starting: upload the latest `addon/*.mcaddon` to the server, and use creative mode or `/give` for anything expensive.
 
+## Anima materials in the Guide (v0.19.1)
+
+- [ ] The Guide's Materials page says 2 Anima Dust makes Anima Ingots and Gemstones, and both recipes work as it says.
+
 ## Shorter farmland (v0.18.2)
 
 The farmland is now 15/16 of a block tall, like vanilla farmland, using a custom model instead of `geometry.full_block`. Crops now sit one pixel lower to meet it.
