@@ -4,6 +4,10 @@ Everything below is built but not yet checked in-game. Tick items off as they pa
 
 Before starting: upload the latest `addon/*.mcaddon` to the server, and use creative mode or `/give` for anything expensive.
 
+## Essence Hoe texture (v0.20.1)
+
+- [ ] The hoe shows its new straight blade, in the inventory and held in the hand.
+
 ## New machines and altar enchanting (v0.20.0)
 
 Quickest setup: `/give @s ee:seed_reprocessor`, `/give @s ee:soul_extractor`, `/give @s ee:essence_furnace`, `/give @s coal 16`, `/give @s ee:soul_jar`.
