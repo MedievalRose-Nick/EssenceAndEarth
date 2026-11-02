@@ -6,6 +6,11 @@ Before starting: upload the latest `addon/*.mcaddon` to the server, and use crea
 
 # Still to test
 
+## Crate picture model (v0.22.2)
+
+- [ ] A new world without Deepcore loads with no `ee:dq_icons` geometry or `geometry.default` errors.
+- [ ] With Deepcore, our items on crates still show their pictures, the same size and in the same place.
+
 ## Machine title and test kits (v0.22.1)
 
 - [ ] Seed Reprocessor, Soul Extractor and Essence Furnace titles stay on one line, clear of the fuel bar.
@@ -100,7 +105,7 @@ The farmland is now 15/16 of a block tall, like vanilla farmland, using a custom
 
 Needs Deepcore v4.65.0 or newer.
 
-- [ ] **Check this first:** the add-on loads with no script errors, with and without Deepcore installed. Note any content log complaint about `geometry.dq_crate_icon` without Deepcore, since that geometry comes from its pack.
+- [ ] **Check this first:** the add-on loads with no script errors, with and without Deepcore installed.
 - [ ] An Essence & Earth item in a Deep Storage Crate shows its own picture instead of a **?**. Try the first and last items too, like a tier essence and a machine upgrade base.
 - [ ] The picture goes away when the crate changes item, empties or is mined, and leaves no entity behind.
 - [ ] Pictures still show after a server restart. The content log has no `[DQ] dq:add_icon` lines.

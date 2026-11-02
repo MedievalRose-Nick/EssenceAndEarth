@@ -1780,10 +1780,18 @@ write(path.join(RP, "entity", "dq_icons.entity.json"), {
       identifier: `${NS}:dq_icons`,
       materials: { default: "entity_alphatest" },
       textures: Object.fromEntries(crateIconItems.map((id) => [id, `textures/items/${id}`])),
-      geometry: { default: "geometry.dq_crate_icon" }, // comes from Deepcore's pack
+      geometry: { default: `geometry.${NS}_crate_icon` },
       render_controllers: [`controller.render.${NS}_dq_icons`],
     },
   },
+});
+// Our own copy of the flat square Deepcore draws its crate icons on, so the entity also loads without Deepcore.
+write(path.join(RP, "models", "entity", `${NS}_crate_icon.geo.json`), {
+  format_version: "1.12.0",
+  "minecraft:geometry": [{
+    description: { identifier: `geometry.${NS}_crate_icon`, texture_width: 16, texture_height: 16, visible_bounds_width: 1.5, visible_bounds_height: 1.5, visible_bounds_offset: [0, 0.5, 0] },
+    bones: [{ name: "icon", pivot: [0, 0, 0], cubes: [{ origin: [-2.5, 7, -0.15], size: [5, 5, 0], uv: { north: { uv: [0, 0], uv_size: [16, 16] } } }] }],
+  }],
 });
 write(path.join(RP, "render_controllers", "dq_icons.render_controllers.json"), {
   format_version: "1.10.0",
