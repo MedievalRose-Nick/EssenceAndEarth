@@ -6,6 +6,11 @@ Before starting: upload the latest `addon/*.mcaddon` to the server, and use crea
 
 # Still to test
 
+## Machine title and test kits (v0.22.1)
+
+- [ ] Seed Reprocessor, Soul Extractor and Essence Furnace titles stay on one line, clear of the fuel bar.
+- [ ] `/function ee/kit_machines`, `kit_altar`, `kit_gear`, `kit_farming` and `kit_explore` each give their items. Note any line the content log rejects.
+
 ## Fuel from a chest on top (v0.22.0)
 
 - [ ] **Harvester:** coal in a chest on top moves to the fuel slot and the fuel bar fills. Other items stay in the chest.

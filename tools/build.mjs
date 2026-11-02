@@ -1650,7 +1650,7 @@ const readout = (index, offset, size, text_alignment) => ({
 const processorTop = (name) => ({
   type: "collection_panel", collection_name: "container_items", size: ["100%", "50%"], offset: [0, 12], ...topLeft,
   controls: [
-    { title: { type: "label", layer: 2, offset: [7, -1], size: ["50%", "default"], text: name, color: "$title_text_color", ...topLeft } },
+    { title: { type: "label", layer: 2, offset: [7, -1], size: ["100%", "default"], text: name, color: "$title_text_color", ...topLeft } },
     { status: readout(24, [43, 58], [126, 8], "right") },
     { [`fuel@${SCREENS_NS}.slot`]: at(0, [7, 9]) },
     { fuel_ghost: ghostSlot(0, "ghost_fuel", [8, 10]) },
