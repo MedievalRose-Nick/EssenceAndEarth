@@ -444,7 +444,7 @@ const upgradeItem = (t) => ({ name: `${title(t.id)} Machine Upgrade`, icon: `img
 const processorPage = (id, name, summary, body, ingot, side, balance) => ({
   slug: id.replaceAll("_", "-"), name, icon: `img/icons/${id}_front.png`, summary,
   blocks: [
-    facts([["Open it", "Tap it with an empty hand"], ["Mine it", "Hold a tool, or sneak"], ["Pause it", "Redstone power"], ["Feed it", "A chest or barrel on top"], ["Empty it", "A chest or barrel touching its back"], ["Speed", `${balance.operationTicks / 20} s per item, ${(balance.operationTicks * balance.fuelPerTick).toLocaleString("en-US")} fuel`]]),
+    facts([["Open it", "Tap it with an empty hand"], ["Mine it", "Hold a tool, or sneak"], ["Pause it", "Redstone power"], ["Feed it", "A chest, barrel or hopper on top, for items and fuel"], ["Empty it", "A chest or barrel touching its back"], ["Speed", `${balance.operationTicks / 20} s per item, ${(balance.operationTicks * balance.fuelPerTick).toLocaleString("en-US")} fuel`]]),
     ...body,
     h2("Recipe"),
     (() => { const i = vanilla("minecraft:iron_ingot"), a = named(ingot); return recipe({ name, icon: `img/icons/${id}_front.png` }, 1, [[i, a, i], [side, { name: "Machine Frame", icon: "img/icons/machine_frame.png" }, side], [i, a, i]]); })(),
@@ -459,7 +459,7 @@ const machines = {
       slug: "harvester", name: "Harvester", icon: "img/icons/harvester_front.png",
       summary: "Harvests and replants ripe crops, and stores what they drop.",
       blocks: [
-        facts([["Place it", "At the height of your crops, with its front facing them"], ["Open it", "Tap it with an empty hand"], ["Mine it", "Hold a tool, or sneak"], ["Pause it", "Redstone power"], ["Storage", "21 stacks, or a chest or barrel touching its back"]]),
+        facts([["Place it", "At the height of your crops, with its front facing them"], ["Open it", "Tap it with an empty hand"], ["Mine it", "Hold a tool, or sneak"], ["Pause it", "Redstone power"], ["Fuel it", "A chest, barrel or hopper on top"], ["Storage", "21 stacks, or a chest or barrel touching its back"]]),
         p("It works on a square of blocks in front of it, one block at a time. A ripe crop is harvested and replanted, using one seed from its drops. Farmland bonus essence and second seeds work as normal. It handles every essence crop, plus wheat, carrots, potatoes and beetroot."),
         p("The top left slot of its screen takes fuel and the bottom left takes a Machine Upgrade. The screen shows its fuel, upgrade, area and speed. You can also look at the machine to see them."),
         h2("Recipe"),

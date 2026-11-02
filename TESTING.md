@@ -6,6 +6,15 @@ Before starting: upload the latest `addon/*.mcaddon` to the server, and use crea
 
 # Still to test
 
+## Fuel from a chest on top (v0.22.0)
+
+- [ ] **Harvester:** coal in a chest on top moves to the fuel slot and the fuel bar fills. Other items stay in the chest.
+- [ ] **Seed Reprocessor and Soul Extractor:** a chest on top with coal and valid input fills both slots.
+- [ ] **Essence Furnace:** logs in the chest go to the input and are not burned as fuel. Coal goes to the fuel slot.
+- [ ] A lava bucket in the chest fuels the machine, and the empty bucket returns to the chest and doesn't block the next fuel.
+- [ ] A hopper on top works in place of the chest.
+- [ ] A Deepcore pipe side set to Output into the top chest keeps the machine fuelled.
+
 ## Armor and tools (v0.21.0)
 
 Quickest setup: `/give @s ee:terra_chestplate`, `/give @s ee:astra_pickaxe`, and a diamond sword with `/give @s diamond_sword` for the altar.

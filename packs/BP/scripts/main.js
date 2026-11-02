@@ -674,6 +674,23 @@ function refuel(screen, container, tank) {
   }
 }
 
+// A chest, barrel or hopper on top keeps the fuel slot stocked, which lets hoppers and pipes fuel the machine. Empty lava buckets go back up.
+function fuelFromAbove(block, container, isInput) {
+  const { x, y, z } = block.location;
+  const above = block.dimension.getBlock({ x, y: y + 1, z })?.getComponent("minecraft:inventory")?.container;
+  if (!above) return;
+  const current = container.getItem(FUEL_SLOT);
+  if (current?.typeId === "minecraft:bucket") container.setItem(FUEL_SLOT, above.addItem(current));
+  if (container.getItem(FUEL_SLOT)) return;
+  for (let i = 0; i < above.size; i++) {
+    const item = above.getItem(i);
+    if (!item || !burnTicks(item) || isInput?.(item)) continue;
+    container.setItem(FUEL_SLOT, item);
+    above.setItem(i);
+    return;
+  }
+}
+
 // Puts a stack in the output slots and returns how many didn't fit. addItem would also fill the fuel and upgrade slots.
 function storeOutput(container, stack, end = OUTPUT_END) {
   let left = stack.amount;
@@ -751,6 +768,7 @@ function harvesterTick(block) {
   const settings = harvesterSettings(container);
   const facing = DIRECTIONS[block.permutation.getState(FACING)];
   refuel(screen, container, settings.tank);
+  fuelFromAbove(block, container);
   emptyIntoChest(block, container, facing);
   if (!(block.getRedstonePower?.() > 0)) harvesterWork(block, screen, settings, facing);
   updateReadouts(block, screen, container, settings);
@@ -960,6 +978,7 @@ function processorTick(block) {
   const facing = DIRECTIONS[block.permutation.getState(FACING)];
   sortSlots(machine, container);
   refuel(screen, container, settings.tank);
+  fuelFromAbove(block, container, machine.accepts);
   moveThroughChests(block, machine, container, facing);
   if (!(block.getRedstonePower?.() > 0)) processorWork(machine, screen, container, settings);
   updateProcessorReadouts(block, machine, screen, container, settings);

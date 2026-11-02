@@ -1,10 +1,10 @@
 {
  "name": "Essence & Earth",
  "release": {
-  "version": "0.21.0",
-  "file": "EssenceAndEarth_v0.21.0.mcaddon",
+  "version": "0.22.0",
+  "file": "EssenceAndEarth_v0.22.0.mcaddon",
   "minBedrock": "1.21.90",
-  "download": "https://github.com/MedievalRose-Nick/EssenceAndEarth/raw/main/addon/EssenceAndEarth_v0.21.0.mcaddon",
+  "download": "https://github.com/MedievalRose-Nick/EssenceAndEarth/raw/main/addon/EssenceAndEarth_v0.22.0.mcaddon",
   "repo": "https://github.com/MedievalRose-Nick/EssenceAndEarth"
  },
  "stats": {
@@ -4428,6 +4428,10 @@
          "Redstone power"
         ],
         [
+         "Fuel it",
+         "A chest, barrel or hopper on top"
+        ],
+        [
          "Storage",
          "21 stacks, or a chest or barrel touching its back"
         ]
@@ -4627,7 +4631,7 @@
         ],
         [
          "Feed it",
-         "A chest or barrel on top"
+         "A chest, barrel or hopper on top, for items and fuel"
         ],
         [
          "Empty it",
@@ -4729,7 +4733,7 @@
         ],
         [
          "Feed it",
-         "A chest or barrel on top"
+         "A chest, barrel or hopper on top, for items and fuel"
         ],
         [
          "Empty it",
@@ -5020,7 +5024,7 @@
         ],
         [
          "Feed it",
-         "A chest or barrel on top"
+         "A chest, barrel or hopper on top, for items and fuel"
         ],
         [
          "Empty it",
