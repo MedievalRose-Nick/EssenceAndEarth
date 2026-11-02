@@ -30,11 +30,24 @@ Needs Deepcore v4.65.0 or newer.
 - [ ] Pictures still show after a server restart. The content log has no `[DQ] dq:add_icon` lines.
 - [ ] Block items such as ores and storage blocks still show a **?**. They have no item texture to use.
 
+## Harvester refit (v0.19.0)
+
+- [ ] **Check this first, with Deepcore installed:** open a Harvester and one of Deepcore's machines. Both should show their own custom screens, and a normal chest should stay normal. **If one add-on's screens turn into plain chests, the two UI edits are clashing.**
+- [ ] The Harvester has the Thresher front, vented sides, a hatch on top and an arrow on the back. They line up in all four facing directions.
+- [ ] The screen has a fuel slot top left, an upgrade slot bottom left, a bar between them and 21 harvest slots, with nothing overlapping. Note anything misplaced, as the layout was never seen in-game before release.
+- [ ] Empty fuel and upgrade slots show faint pictures, which disappear when an item goes in.
+- [ ] The bar and the percentage rise with coal and fall with harvests while the screen stays open. Note if the bar looks stretched or blurry, or if the text flickers.
+- [ ] The status line is correct for No upgrade, each upgrade, Running, Paused and Out of fuel.
+- [ ] Shift-clicking stacks in fills the visible slots and never loses anything. Shift-click many different stacks to test the limit.
+- [ ] A Harvester placed before v0.19.0 keeps its fuel and upgrade, and items from its old last slots move to the harvest slots or drop beside it.
+- [ ] Breaking it drops the block and items but none of the hidden readout items. They're also not in the creative menu or `/give`.
+- [ ] A chest at the back never receives the hidden items.
+
 ## Harvester (v0.17.0)
 
 Quickest setup: `/give @s ee:harvester`, `/give @s coal 8`, and a `/give @s ee:ignis_machine_upgrade`. Fertilizer ripens test crops fast.
 
-- [ ] **Check this first:** place one and tap it with an empty hand. A 27-slot screen titled Harvester should open. **The hitbox switching is the biggest unknown.** Note if the screen won't open, or if the block can't be mined.
+- [ ] **Check this first:** place one and tap it with an empty hand. A screen titled Harvester should open. **The hitbox switching is the biggest unknown.** Note if the screen won't open, or if the block can't be mined.
 - [ ] A pickaxe mines it from every side, and so does sneaking. Anything held in the hand stops the screen opening.
 - [ ] Its front faces where you stood when you placed it. Check all four directions, and that the back plate is opposite.
 - [ ] With coal in slot 1, looking at it shows its fuel going up. With no fuel it shows "Out of fuel" and does nothing.

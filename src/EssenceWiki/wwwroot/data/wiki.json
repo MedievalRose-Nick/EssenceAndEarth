@@ -1,17 +1,17 @@
 {
  "name": "Essence & Earth",
  "release": {
-  "version": "0.18.2",
-  "file": "EssenceAndEarth_v0.18.2.mcaddon",
+  "version": "0.19.0",
+  "file": "EssenceAndEarth_v0.19.0.mcaddon",
   "minBedrock": "1.21.90",
-  "download": "https://github.com/NicholasAmbrose/EssenceAndEarth/raw/main/addon/EssenceAndEarth_v0.18.2.mcaddon",
+  "download": "https://github.com/NicholasAmbrose/EssenceAndEarth/raw/main/addon/EssenceAndEarth_v0.19.0.mcaddon",
   "repo": "https://github.com/NicholasAmbrose/EssenceAndEarth"
  },
  "stats": {
   "crops": 54,
   "tiers": 5,
   "recipes": 311,
-  "items": 214
+  "items": 230
  },
  "categories": [
   {
@@ -3980,7 +3980,7 @@
         ],
         [
          "Storage",
-         "25 stacks, or a chest or barrel touching its back"
+         "21 stacks, or a chest or barrel touching its back"
         ]
        ]
       },
@@ -3990,7 +3990,7 @@
       },
       {
        "t": "p",
-       "html": "The first slot of its screen takes fuel and the second takes a Machine Upgrade. Look at the machine to see its upgrade, area and fuel."
+       "html": "The top left slot of its screen takes fuel and the bottom left takes a Machine Upgrade. The screen shows its fuel, upgrade, area and speed. You can also look at the machine to see them."
       },
       {
        "t": "h2",
@@ -4163,7 +4163,7 @@
      "blocks": [
       {
        "t": "p",
-       "html": "Each upgrade is crafted from the one before, so you keep the cost of the last. Put one in the machine's second slot."
+       "html": "Each upgrade is crafted from the one before, so you keep the cost of the last. Put one in the machine's upgrade slot."
       },
       {
        "t": "items",

@@ -627,7 +627,7 @@ const GUIDE_PAGES = [
   { title: "Materials", body: `Vita Ore, between y -60 and 24, drops ${range(BAL.vitaShards)} Vita Shards. Or craft 4 ${tierTitle(cfg.tiers[0])} Blocks around a flint for 4 shards.\n\nAnima Ore, in the Nether, drops ${range(BAL.animaDust)} Anima Dust. Or craft 4 ${tierTitle(cfg.tiers[1])} Blocks around soul sand for 4 dust.\n\n4 shards around an iron ingot make a Vita Ingot, and around a diamond a Vita Gemstone. Add 2 tier essence to either for that tier's version.\n\nNine of anything stores in a block, and ingots break down into 9 nuggets.` },
   { title: "Fertilizer", body: `Ripe crops have a ${pct(BAL.fertilizedEssenceChance)} chance of dropping Fertilized Essence, which advances a crop a stage or two.\n\nEssence Fertilizer ripens a crop at once. 4 Terra Essence, 4 bone meal and a diamond make 4, or use Fertilized Essence instead of bone meal to make 8.` },
   { title: "Tools", body: `Essence Sickle: break a ripe crop to harvest every ripe crop in the 3x3 around it. It won't break unripe crops.\n\nEssence Hoe: right-click a ripe crop to harvest and replant it. The replant takes one seed from the drops.\n\nBoth last ${BAL.toolDurability} uses and repair with ${tierTitle(cfg.tiers[1])} Essence in an anvil.` },
-  { title: "Harvester", body: `Harvests and replants ripe crops for you. Place it at the height of your crops, with its front facing them. It works on the square in front of it, one block at a time.\n\nTap it with an empty hand to open it. The first slot takes fuel, the second a Machine Upgrade, and the rest hold the harvest. To mine it, hold a tool or sneak.\n\nFuel: coal, charcoal, coal blocks, lava buckets, blaze rods, logs, planks or sticks. Each one fills an internal tank, and each crop harvested uses some. Look at the machine to see its tank.\n\nA chest or barrel touching its back gets the harvest automatically, and hoppers can take it from there. Redstone power pauses it.\n\nUpgrades make it wider and faster, but it burns much more fuel:\n${["No upgrade", ...cfg.tiers.map(tierTitle)].map((name, i) => { const side = (BAL.harvester.range + (BAL.harvester.upgrades[i - 1]?.range ?? 0)) * 2 + 1; return `${name}: ${side}x${side}`; }).join("\n")}` },
+  { title: "Harvester", body: `Harvests and replants ripe crops for you. Place it at the height of your crops, with its front facing them. It works on the square in front of it, one block at a time.\n\nTap it with an empty hand to open it. The top left slot takes fuel, the bottom left takes a Machine Upgrade, and the block on the right holds the harvest. To mine it, hold a tool or sneak.\n\nFuel: coal, charcoal, coal blocks, lava buckets, blaze rods, logs, planks or sticks. Each one fills an internal tank, shown by the bar on its screen, and each crop harvested uses some.\n\nA chest or barrel touching its back gets the harvest automatically, and hoppers can take it from there. Redstone power pauses it.\n\nUpgrades make it wider and faster, but it burns much more fuel:\n${["No upgrade", ...cfg.tiers.map(tierTitle)].map((name, i) => { const side = (BAL.harvester.range + (BAL.harvester.upgrades[i - 1]?.range ?? 0)) * 2 + 1; return `${name}: ${side}x${side}`; }).join("\n")}` },
   { title: "Crops by Tier", body:`${cfg.tiers.map((t, i) => [t, cfg.crops.filter((c) => c.tier === i + 1 && !c.retired)]).filter(([, crops]) => crops.length).map(([t, crops]) => `${tierTitle(t)}: ${crops.map((c) => title(c.id)).join(", ")}`).join("\n\n")}\n\nFull recipes: nicholasambrose.github.io/EssenceAndEarth` },
 ];
 
@@ -1333,9 +1333,25 @@ const machinePlate = (x, y) => {
 };
 const inSquare = (x, y, from, to) => x >= from && x <= to && y >= from && y <= to;
 blockTexture("machine_frame", grid((x, y) => (inSquare(x, y, 3, 12) ? "x" : machinePlate(x, y))), TOOL_TIER.color, MACHINE_PALETTE);
-blockTexture("harvester_side", grid(machinePlate), TOOL_TIER.color, MACHINE_PALETTE);
-blockTexture("harvester_front", grid((x, y) => (SICKLE[y][x] === "." ? machinePlate(x, y) : SICKLE[y][x])), TOOL_TIER.color, MACHINE_PALETTE);
-blockTexture("harvester_back", grid((x, y) => (inSquare(x, y, 5, 10) ? "x" : inSquare(x, y, 4, 11) ? "n" : machinePlate(x, y))), TOOL_TIER.color, MACHINE_PALETTE);
+// "." in these masks is the plate: bevelled steel with a rivet in each corner.
+const HARVESTER_PALETTE = { K: "#14161b", D: "#262a32", S: "#3a404a", s: "#333943", M: "#535a66", L: "#7d8695", W: "#bcc4cf", b: "#4fb6ff", B: "#1f6fb8", c: "#a9e2ff", n: "#0d2436" };
+const harvesterPlate = (x, y) => {
+  if (x === 0 || y === 0 || x === 15 || y === 15) return "D";
+  if ((x === 2 || x === 13) && (y === 2 || y === 13)) return "L";
+  if (x === 1 || y === 1) return "M";
+  if (x === 14 || y === 14) return "K";
+  return (x + y * 3) % 11 === 0 ? "s" : "S";
+};
+const HARVESTER_MASKS = {
+  // Thresher: a reel of steel teeth around a glowing axle.
+  front: ["................", "................", "..KKKKKKKKKKKK..", "..KWLKKWLKKWLK..", "..KMWLKMWLKMWK..", "..KKMWLKMWLKMK..", "..DDDDDDDDDDDD..", "..BbbcbbcbbcbB..", "..DDDDDDDDDDDD..", "..KKMWLKMWLKMK..", "..KMWLKMWLKMWK..", "..KWLKKWLKKWLK..", "..KKKKKKKKKKKK..", "................", "................", "................"],
+  side: ["................", "................", "................", "................", "...KKKKKKKKKK...", "...DMMMMMMMMD...", "...KKKKKKKKKK...", "...DMMMMMMMMD...", "...KKKKKKKKKK...", "...DMMMMMMMMD...", "...KKKKKKKKKK...", "................", "....BbbbbbbB....", "................", "................", "................"],
+  top: ["................", "................", "....KKKKKKKK....", "...KDDDDDDDDK...", "..KDMKMKMKMKDK..", "..KDMKMKMKMKDK..", "..KDMKMbbKMKDK..", "..KDMKbccbMKDK..", "..KDMKbccbMKDK..", "..KDMKMbbKMKDK..", "..KDMKMKMKMKDK..", "..KDMKMKMKMKDK..", "...KDDDDDDDDK...", "....KKKKKKKK....", "................", "................"],
+  // An arrow pointing out, to where a chest goes.
+  back: ["................", "................", "................", "....KKKKKKKK....", "...KBBBBBBBBK...", "...KBnnnnnnBK...", "...KBnnbbnnBK...", "...KBnbccbnBK...", "...KBbccccbBK...", "...KBnnccnnBK...", "...KBnnccnnBK...", "...KBnnnnnnBK...", "...KBBBBBBBBK...", "....KKKKKKKK....", "................", "................"],
+};
+for (const [face, mask] of Object.entries(HARVESTER_MASKS))
+  blockTexture(`harvester_${face}`, grid((x, y) => (mask[y][x] === "." ? harvesterPlate(x, y) : mask[y][x])), null, HARVESTER_PALETTE);
 block("machine_frame", "metal", { menu_category: { category: "items" } }, {
   "minecraft:display_name": "Machine Frame",
   "minecraft:geometry": "minecraft:geometry.full_block",
@@ -1351,7 +1367,7 @@ block("harvester", "metal", {
   "minecraft:display_name": "Harvester",
   "minecraft:geometry": "minecraft:geometry.full_block",
   "minecraft:destructible_by_mining": { seconds_to_destroy: 2.5 },
-  "minecraft:material_instances": { "*": { texture: `${NS}_harvester_side` }, north: { texture: `${NS}_harvester_front` }, south: { texture: `${NS}_harvester_back` } },
+  "minecraft:material_instances": { "*": { texture: `${NS}_harvester_side` }, up: { texture: `${NS}_harvester_top` }, north: { texture: `${NS}_harvester_front` }, south: { texture: `${NS}_harvester_back` } },
   "minecraft:loot": loot("harvester", [drop(`${NS}:harvester`)]),
   "minecraft:tick": { interval_range: [BAL.harvester.tickEvery, BAL.harvester.tickEvery], looping: true },
   [`${NS}:harvester`]: {},
@@ -1415,6 +1431,103 @@ write(path.join(BP, "entities", "harvester_screen.json"), {
       [`${NS}:open`]: { remove: { component_groups: [`${NS}:closed`] }, add: { component_groups: [`${NS}:open`] } },
       [`${NS}:close`]: { remove: { component_groups: [`${NS}:open`] }, add: { component_groups: [`${NS}:closed`] } },
     },
+  },
+});
+
+// Its layout, the way Deepcore's machine screens work: the chest screen swaps to it when the entity's hidden title matches, so real chests are untouched.
+// Readouts are hidden items in slots the layout doesn't draw, which scripts/main.js swaps: an icon for the fuel bar, and item names for text.
+const uiItem = (id, mask, palette) => {
+  texture(`textures/items/ui_${id}`, mask, null, palette);
+  itemTextures[`${NS}_ui_${id}`] = { textures: `textures/items/ui_${id}` };
+  write(path.join(BP, "items", `ui_${id}.json`), {
+    format_version: FMT,
+    "minecraft:item": {
+      description: { identifier: `${NS}:ui_${id}`, menu_category: { category: "none", is_hidden_in_commands: true } },
+      components: { "minecraft:icon": `${NS}_ui_${id}`, "minecraft:max_stack_size": 1 },
+    },
+  });
+};
+// The bar is drawn inside a square icon, as item icons are square. Level 0 is empty, level 14 full.
+for (let level = 0; level <= 14; level++)
+  uiItem(`fuel_${level}`, grid((x, y) => {
+    if (x < 6 || x > 9) return ".";
+    if (x === 6 || x === 9 || y === 0 || y === 15) return "K";
+    return y >= 15 - level ? (y % 3 ? "f" : "F") : "x";
+  }), { K: "#14161b", x: "#262a32", f: "#e8602c", F: "#ffb45e" });
+uiItem("blank", Array(16).fill(".".repeat(16)), {});
+
+// What an empty slot shows: a faint white picture.
+const ghost = (id, mask) => {
+  const px = render(mask, null, { "#": "#ffffff" });
+  for (let i = 3; i < px.length; i += 4) if (px[i]) px[i] = 90;
+  write(path.join(RP, "textures", "ui", NS, `${id}.png`), png(16, px));
+};
+ghost("ghost_fuel", ["................", ".......##.......", "......###.......", "......####......", ".....#####......", ".....######.#...", "...#.######.##..", "...##.#####.##..", "..###.######.#..", "..####.##.####..", "..#####.#.####..", "..#####...####..", "...####...###...", "...#####.####...", ".....#######....", "................"]);
+ghost("ghost_upgrade", UPGRADE.map((row) => row.replace(/[^.]/g, "#")));
+
+const SCREENS_NS = `${NS}_screens`;
+const topLeft = { anchor_from: "top_left", anchor_to: "top_left" };
+const collection = { binding_name: "#hover_text", binding_type: "collection", binding_collection_name: "container_items" };
+const at = (collection_index, offset, more = {}) => ({ collection_index, offset, ...topLeft, ...more });
+const ghostSlot = (index, id, offset) => ({
+  type: "panel", collection_index: index, offset, size: [16, 16], ...topLeft,
+  controls: [{ picture: { type: "image", texture: `textures/ui/${NS}/${id}`, size: [16, 16], layer: 8, bindings: [collection, { binding_type: "view", source_property_name: "(#hover_text = '')", target_property_name: "#visible" }] } }],
+});
+const readout = (index, offset, size, text_alignment) => ({
+  type: "panel", collection_index: index, offset, size, ...topLeft,
+  controls: [{ text: { type: "label", layer: 7, shadow: false, font_scale_factor: 0.5, size: ["100%", "100%"], text: "#hover_text", text_alignment, bindings: [collection] } }],
+});
+const outputSlots = Array.from({ length: 21 }, (_, i) => ({
+  [`output_${i}@${SCREENS_NS}.slot`]: at(i + 2, [43 + (i % 7) * 18, 9 + Math.floor(i / 7) * 18]),
+}));
+write(path.join(RP, "ui", "_ui_defs.json"), { ui_defs: [`ui/${SCREENS_NS}.json`] });
+write(path.join(RP, "ui", `${SCREENS_NS}.json`), {
+  namespace: SCREENS_NS,
+  "slot@chest.chest_grid_item": {},
+  "icon@common.item_renderer": { $item_collection_name: "container_items", layer: 6 },
+  harvester_top: {
+    type: "collection_panel", collection_name: "container_items", size: ["100%", "50%"], offset: [0, 12], ...topLeft,
+    controls: [
+      { title: { type: "label", layer: 2, offset: [7, -1], size: ["50%", "default"], text: "Harvester", color: "$title_text_color", ...topLeft } },
+      { status: readout(24, [59, 0], [110, 8], "right") },
+      { [`fuel@${SCREENS_NS}.slot`]: at(0, [7, 9]) },
+      { fuel_ghost: ghostSlot(0, "ghost_fuel", [8, 10]) },
+      { fuel_percent: readout(23, [7, 31], [18, 8], "center") },
+      { [`upgrade@${SCREENS_NS}.slot`]: at(1, [7, 45]) },
+      { upgrade_ghost: ghostSlot(1, "ghost_upgrade", [8, 46]) },
+      { [`fuel_bar@${SCREENS_NS}.icon`]: at(23, [10, 12], { size: [48, 48] }) },
+      ...outputSlots,
+    ],
+  },
+  harvester_panel: {
+    type: "panel",
+    controls: [
+      { "container_gamepad_helpers@common.container_gamepad_helpers": {} },
+      { "selected_item_details_factory@common.selected_item_details_factory": {} },
+      { "item_lock_notification_factory@common.item_lock_notification_factory": {} },
+      { "root_panel@common.root_panel": { layer: 1, controls: [
+        { "common_panel@common.common_panel": {} },
+        { chest_panel: { type: "panel", layer: 5, controls: [
+          { [`machine_top@${SCREENS_NS}.harvester_top`]: {} },
+          { "inventory_panel_bottom_half_with_label@common.inventory_panel_bottom_half_with_label": {} },
+          { "hotbar_grid@common.hotbar_grid_template": {} },
+          { "inventory_take_progress_icon_button@common.inventory_take_progress_icon_button": {} },
+          { "flying_item_renderer@common.flying_item_renderer": { layer: 15 } },
+        ] } },
+        { "inventory_selected_icon_button@common.inventory_selected_icon_button": {} },
+        { "gamepad_cursor@common.gamepad_cursor_button": {} },
+      ] } },
+    ],
+  },
+});
+write(path.join(RP, "ui", "chest_screen.json"), {
+  namespace: "chest",
+  small_chest_screen: {
+    [`$${NS}_container_title|default`]: "$container_title",
+    modifications: [{
+      array_name: "variables", operation: "insert_back",
+      value: [{ requires: `($${NS}_container_title = '${BAL.harvester.screenTitle}')`, $screen_content: `${SCREENS_NS}.harvester_panel`, $screen_bg_content: "common.screen_background" }],
+    }],
   },
 });
 

@@ -36,7 +36,7 @@ for (const dir of ["icons", "vanilla"]) fs.rmSync(path.join(WWW, "img", dir), { 
 fs.mkdirSync(path.join(WWW, "img", "icons"), { recursive: true });
 fs.mkdirSync(path.join(WWW, "img", "vanilla"), { recursive: true });
 for (const sub of ["items", "blocks"])
-  for (const f of fs.readdirSync(path.join(RP, "textures", sub))) fs.copyFileSync(path.join(RP, "textures", sub, f), path.join(WWW, "img", "icons", f));
+  for (const f of fs.readdirSync(path.join(RP, "textures", sub))) if (!f.startsWith("ui_")) fs.copyFileSync(path.join(RP, "textures", sub, f), path.join(WWW, "img", "icons", f));
 fs.copyFileSync(path.join(RP, "pack_icon.png"), path.join(WWW, "img", "pack_icon.png"));
 
 function vanilla(id) {
@@ -449,9 +449,9 @@ const machines = {
       slug: "harvester", name: "Harvester", icon: "img/icons/harvester_front.png",
       summary: "Harvests and replants ripe crops, and stores what they drop.",
       blocks: [
-        facts([["Place it", "At the height of your crops, with its front facing them"], ["Open it", "Tap it with an empty hand"], ["Mine it", "Hold a tool, or sneak"], ["Pause it", "Redstone power"], ["Storage", "25 stacks, or a chest or barrel touching its back"]]),
+        facts([["Place it", "At the height of your crops, with its front facing them"], ["Open it", "Tap it with an empty hand"], ["Mine it", "Hold a tool, or sneak"], ["Pause it", "Redstone power"], ["Storage", "21 stacks, or a chest or barrel touching its back"]]),
         p("It works on a square of blocks in front of it, one block at a time. A ripe crop is harvested and replanted, using one seed from its drops. Farmland bonus essence and second seeds work as normal. It handles every essence crop, plus wheat, carrots, potatoes and beetroot."),
-        p("The first slot of its screen takes fuel and the second takes a Machine Upgrade. Look at the machine to see its upgrade, area and fuel."),
+        p("The top left slot of its screen takes fuel and the bottom left takes a Machine Upgrade. The screen shows its fuel, upgrade, area and speed. You can also look at the machine to see them."),
         h2("Recipe"),
         (() => { const i = vanilla("minecraft:iron_ingot"), a = named("anima_ingot"), s = named("essence_sickle"); return recipe({ name: "Harvester", icon: "img/icons/harvester_front.png" }, 1, [[i, a, i], [s, { name: "Machine Frame", icon: "img/icons/machine_frame.png" }, s], [i, a, i]]); })(),
         h2("Machine Frame"),
@@ -465,7 +465,7 @@ const machines = {
       slug: "machine-upgrades", name: "Machine Upgrades", icon: `img/icons/${cfg.tiers[0].id}_machine_upgrade.png`,
       summary: "Make a machine wider and faster, for much more fuel.",
       blocks: [
-        p("Each upgrade is crafted from the one before, so you keep the cost of the last. Put one in the machine's second slot."),
+        p("Each upgrade is crafted from the one before, so you keep the cost of the last. Put one in the machine's upgrade slot."),
         list([
           { name: "No upgrade", icon: "img/icons/harvester_front.png", sub: `${machineSide(0)}×${machineSide(0)}, ${HV.operationTicks / 20} s per block, ${HV.fuelPerHarvest} fuel per crop` },
           ...cfg.tiers.map((t, i) => ({ ...upgradeItem(t), sub: `${machineSide(i + 1)}×${machineSide(i + 1)}, ${+((HV.operationTicks * HV.upgrades[i].time) / 20).toFixed(3)} s per block, ${(HV.fuelPerHarvest * HV.upgrades[i].fuel).toLocaleString("en-US")} fuel per crop` })),

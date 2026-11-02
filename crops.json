@@ -1,7 +1,7 @@
 {
   "name": "Essence & Earth",
   "namespace": "ee",
-  "version": [0, 18, 2],
+  "version": [0, 19, 0],
   "balance": {
     "growChance": 0.43,
     "grassEssenceChance": 0.2,
@@ -28,6 +28,7 @@
     "attunedSoulMultiplier": 1.5,
     "harvester": {
       "tickEvery": 5,
+      "screenTitle": "§e§e§h",
       "operationTicks": 100,
       "fuelPerHarvest": 40,
       "fuelPerScan": 10,

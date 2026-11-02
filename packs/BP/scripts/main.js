@@ -536,6 +536,11 @@ const MACHINE_UPGRADES = __MACHINE_UPGRADES__; // upgrade item -> { name, time, 
 const FUEL_SLOT = 0;
 const UPGRADE_SLOT = 1;
 const FIRST_OUTPUT_SLOT = 2;
+const OUTPUT_END = 23; // slots from here on aren't drawn by the screen, and hold its readouts
+const FUEL_GAUGE_SLOT = 23;
+const STATUS_SLOT = 24;
+const FUEL_GAUGE_LEVELS = 14;
+const SCREEN_ITEM = "__NS__:ui_";
 const FUEL = "__NS__:fuel";
 const SCAN = "__NS__:scan";
 const FACING = "minecraft:cardinal_direction";
@@ -592,7 +597,7 @@ function refuel(screen, container, tank) {
 // Puts a stack in the output slots and returns how many didn't fit. addItem would also fill the fuel and upgrade slots.
 function storeOutput(container, stack) {
   let left = stack.amount;
-  for (let i = FIRST_OUTPUT_SLOT; i < container.size && left; i++) {
+  for (let i = FIRST_OUTPUT_SLOT; i < OUTPUT_END && left; i++) {
     const item = container.getItem(i);
     if (!item?.isStackableWith(stack) || item.amount >= item.maxAmount) continue;
     const moved = Math.min(left, item.maxAmount - item.amount);
@@ -600,7 +605,7 @@ function storeOutput(container, stack) {
     container.setItem(i, item);
     left -= moved;
   }
-  for (let i = FIRST_OUTPUT_SLOT; i < container.size && left; i++) {
+  for (let i = FIRST_OUTPUT_SLOT; i < OUTPUT_END && left; i++) {
     if (container.getItem(i)) continue;
     const item = stack.clone();
     item.amount = left;
@@ -632,7 +637,7 @@ function emptyIntoChest(block, container, facing) {
   const { x, y, z } = block.location;
   const chest = block.dimension.getBlock({ x: x - facing.x, y, z: z - facing.z })?.getComponent("minecraft:inventory")?.container;
   if (!chest) return;
-  for (let i = FIRST_OUTPUT_SLOT; i < container.size; i++) {
+  for (let i = FIRST_OUTPUT_SLOT; i < OUTPUT_END; i++) {
     const item = container.getItem(i);
     if (!item) continue;
     container.setItem(i, chest.addItem(item));
@@ -665,10 +670,14 @@ function harvesterTick(block) {
   const container = screen.getComponent("minecraft:inventory").container;
   const settings = harvesterSettings(container);
   const facing = DIRECTIONS[block.permutation.getState(FACING)];
+  if (screen.nameTag !== HARVESTER_BALANCE.screenTitle) screen.nameTag = HARVESTER_BALANCE.screenTitle; // includes machines from before the screen had a layout
   refuel(screen, container, settings.tank);
   emptyIntoChest(block, container, facing);
-  if (block.getRedstonePower?.() > 0) return;
+  if (!(block.getRedstonePower?.() > 0)) harvesterWork(block, screen, settings, facing);
+  updateReadouts(block, screen, container, settings);
+}
 
+function harvesterWork(block, screen, settings, facing) {
   let fuel = screen.getDynamicProperty(FUEL) ?? 0;
   if (fuel < settings.fuel) return;
   let ticks = (progress.get(screen.id) ?? 0) + HARVESTER_BALANCE.tickEvery;
@@ -680,12 +689,42 @@ function harvesterTick(block) {
   screen.setDynamicProperty(FUEL, fuel);
 }
 
+const fuelPercent = (fuel, settings) => Math.min(100, Math.floor((fuel / settings.tank) * 100));
+
+// Rewrites a readout only when it changes. Anything else found in the slot, like harvest from before the
+// screen had a layout or a shift-clicked stack, goes to the harvest slots, or to the ground if they're full.
+function setReadout(screen, container, slot, id, name) {
+  const held = container.getItem(slot);
+  if (held?.typeId === id && held.nameTag === name) return;
+  if (held && !held.typeId.startsWith(SCREEN_ITEM)) {
+    const left = storeOutput(container, held);
+    if (left) {
+      held.amount = left;
+      screen.dimension.spawnItem(held, screen.location);
+    }
+  }
+  const readout = new ItemStack(id);
+  readout.nameTag = name;
+  container.setItem(slot, readout);
+}
+
+function updateReadouts(block, screen, container, settings) {
+  const fuel = screen.getDynamicProperty(FUEL) ?? 0;
+  const side = settings.range * 2 + 1;
+  const level = fuel > 0 ? Math.max(1, Math.min(FUEL_GAUGE_LEVELS, Math.floor((fuel / settings.tank) * FUEL_GAUGE_LEVELS))) : 0;
+  const state = fuel < settings.fuel ? "§4Out of fuel" : block.getRedstonePower?.() > 0 ? "§6Paused" : "§2Running";
+  setReadout(screen, container, FUEL_GAUGE_SLOT, `${SCREEN_ITEM}fuel_${level}`, `§8${fuelPercent(fuel, settings)}%`);
+  setReadout(screen, container, STATUS_SLOT, `${SCREEN_ITEM}blank`, `§8${settings.name} · ${side}×${side} · ${(settings.ticks / 20).toFixed(1)}s · ${state}`);
+  // Full slots the screen doesn't draw, or a shift-click could lose a stack in them.
+  for (let i = STATUS_SLOT + 1; i < container.size; i++) setReadout(screen, container, i, `${SCREEN_ITEM}blank`, "§r");
+}
+
 function harvesterStatus(block, screen) {
   const settings = harvesterSettings(screen.getComponent("minecraft:inventory").container);
   const side = settings.range * 2 + 1;
   const fuel = screen.getDynamicProperty(FUEL) ?? 0;
   const state = fuel < settings.fuel ? " · §cOut of fuel§r" : block.getRedstonePower?.() > 0 ? " · Paused" : "";
-  return `Harvester · ${settings.name} ${side}×${side} · Fuel ${Math.min(100, Math.floor((fuel / settings.tank) * 100))}%${state}`;
+  return `Harvester · ${settings.name} ${side}×${side} · Fuel ${fuelPercent(fuel, settings)}%${state}`;
 }
 
 // Shows a machine's status while it's looked at, and gives its screen a hitbox only for an empty hand.
@@ -729,7 +768,7 @@ system.runInterval(() => {
         const container = screen.getComponent("minecraft:inventory").container;
         for (let i = 0; i < container.size; i++) {
           const item = container.getItem(i);
-          if (item) dimension.spawnItem(item, screen.location);
+          if (item && !item.typeId.startsWith(SCREEN_ITEM)) dimension.spawnItem(item, screen.location);
         }
         progress.delete(screen.id);
         screen.remove();
