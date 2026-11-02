@@ -6,6 +6,11 @@ Before starting: upload the latest `addon/*.mcaddon` to the server, and use crea
 
 # Still to test
 
+## Soul Jar display (v0.22.4)
+
+- [ ] The first kill with an Anima Dagger shows on the jar straight away, in creative and survival, with the inventory closed and open.
+- [ ] Several quick kills all count, and no jar goes missing.
+
 ## Crate picture model (v0.22.2)
 
 - [ ] A new world without Deepcore loads with no `ee:dq_icons` geometry or `geometry.default` errors.

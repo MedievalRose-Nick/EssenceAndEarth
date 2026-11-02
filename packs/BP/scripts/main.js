@@ -560,6 +560,26 @@ function fillJar(stack, soul, amount) {
   return added;
 }
 
+// The game doesn't redraw a slot when only an item's data and lore change, so the jar leaves its slot for a tick to force it.
+// ponytail: a jar is lost if its owner disconnects during that one tick; store it on the player first if that ever bites.
+function refreshSlot(player, container, slot) {
+  system.run(() => {
+    if (!player.isValid) return;
+    const stack = container.getItem(slot);
+    if (stack?.typeId !== JAR) return;
+    container.setItem(slot);
+    system.run(() => {
+      if (!player.isValid) return;
+      if (container.getItem(slot)) {
+        const left = container.addItem(stack);
+        if (left) player.dimension.spawnItem(left, player.location);
+      } else {
+        container.setItem(slot, stack);
+      }
+    });
+  });
+}
+
 // Pours souls into the player's jars, starting with ones that already hold this mob type, as far as they'll go.
 function addSouls(player, soul, amount) {
   const container = player.getComponent("minecraft:inventory")?.container;
@@ -579,6 +599,7 @@ function addSouls(player, soul, amount) {
     if (added <= 0) continue;
     amount -= added;
     container.setItem(i, stack);
+    refreshSlot(player, container, i);
   }
 }
 
