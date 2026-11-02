@@ -339,11 +339,6 @@ system.beforeEvents.startup.subscribe(({ blockComponentRegistry }) => {
       }
     },
   });
-  blockComponentRegistry.registerCustomComponent("__NS__:altar", {
-    onTick({ block }) {
-      if ((block.getRedstonePower?.() ?? 0) > 0) startInfusion(block);
-    },
-  });
   blockComponentRegistry.registerCustomComponent("__NS__:harvester", {
     onTick({ block }) {
       try {
@@ -499,7 +494,7 @@ function startInfusion(altar, player) {
   if (infusing.has(key)) return;
   const { recipe, problem } = findRecipe(altar);
   if (!recipe) {
-    if (player) player.onScreenDisplay.setActionBar(problem);
+    player.onScreenDisplay.setActionBar(problem);
     return;
   }
   infusing.set(key, { dimension: altar.dimension, location: altar.location, ticks: 0, recipe });

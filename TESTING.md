@@ -139,7 +139,6 @@ Needs Deepcore v4.61.0 or newer.
 - [ ] With 8 pedestals in place, a Vita Seed Base on the altar and 4 iron ingots + 4 Ignis Essence on the pedestals, a wand starts the craft. After 5 seconds iron seeds sit on the altar and the pedestals are empty.
 - [ ] Pedestal order doesn't matter. With a pedestal missing, or items that don't fit, the wand shows a message and nothing happens.
 - [ ] Taking an item away mid-craft stops it and uses nothing.
-- [ ] Redstone power starts the craft, if `getRedstonePower` is available. Note if it isn't.
 - [ ] New seeds no longer craft at a table, except Terra. Old seeds in inventories still plant.
 - [ ] Soulstone and Anima Ore generate in new Nether chunks. **Anima Ore relies on `final_pass` running after the soulstone, so check it actually appears.** Soulstone drops cobble, and Anima Ore drops 1–3 dust.
 - [ ] Furnace chain: cobble → soulstone → smooth → Soul Dust. Bricks → cracked bricks. Soul Glass crafts, and shows see-through.

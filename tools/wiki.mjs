@@ -378,7 +378,7 @@ const infusion = {
       slug: "infusion-altar", name: "Infusion Altar", icon: "img/icons/infusion_altar.png",
       summary: "An altar and eight pedestals that craft seeds.",
       blocks: [
-        facts([["Layout", "8 pedestals at the altar's height: 3 blocks away on each side, 2 away on each diagonal"], ["Place items", "Use an item on the block. Each holds one"], ["Take items", "Use an empty hand"], ["Start", "Use a Wand on the altar, or power it with redstone"], ["Time", `${BAL.altarTicks / 20} seconds`]]),
+        facts([["Layout", "8 pedestals at the altar's height: 3 blocks away on each side, 2 away on each diagonal"], ["Place items", "Use an item on the block. Each holds one"], ["Take items", "Use an empty hand"], ["Start", "Use a Wand on the altar"], ["Time", `${BAL.altarTicks / 20} seconds`]]),
         p("Pedestal order doesn't matter. Taking an item away stops the craft, and breaking a block drops what it held."),
         h2("Infusion Altar"),
         (() => { const g = vanilla("minecraft:gold_ingot"), c = vanilla("minecraft:red_wool"), s = vanilla("minecraft:stone"); return recipe(named("infusion_altar"), 1, [[g, c, g], [null, s, null], [s, s, s]]); })(),

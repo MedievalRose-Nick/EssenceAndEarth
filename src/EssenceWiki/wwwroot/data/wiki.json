@@ -1,10 +1,10 @@
 {
  "name": "Essence & Earth",
  "release": {
-  "version": "0.22.2",
-  "file": "EssenceAndEarth_v0.22.2.mcaddon",
+  "version": "0.22.3",
+  "file": "EssenceAndEarth_v0.22.3.mcaddon",
   "minBedrock": "1.21.90",
-  "download": "https://github.com/MedievalRose-Nick/EssenceAndEarth/raw/main/addon/EssenceAndEarth_v0.22.2.mcaddon",
+  "download": "https://github.com/MedievalRose-Nick/EssenceAndEarth/raw/main/addon/EssenceAndEarth_v0.22.3.mcaddon",
   "repo": "https://github.com/MedievalRose-Nick/EssenceAndEarth"
  },
  "stats": {
@@ -2179,7 +2179,7 @@
         ],
         [
          "Start",
-         "Use a Wand on the altar, or power it with redstone"
+         "Use a Wand on the altar"
         ],
         [
          "Time",

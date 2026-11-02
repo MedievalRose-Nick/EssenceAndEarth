@@ -10,4 +10,3 @@ give @s ee:experience_essence 16
 give @s quartz 16
 give @s book
 give @s diamond_sword
-give @s redstone_block
