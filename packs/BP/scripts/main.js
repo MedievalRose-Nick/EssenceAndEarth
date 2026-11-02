@@ -101,6 +101,20 @@ function takeSeed(dimension, location, seed) {
   }
 }
 
+// Our tiered tools wear through scripts, like the sickle and hoe. Unbreaking gives the same chance to skip wear as vanilla.
+const GEAR_TOOLS = new Set(__GEAR_TOOLS__);
+function wearGearTool(player) {
+  const tool = player.getComponent("minecraft:equippable")?.getEquipment(EquipmentSlot.Mainhand);
+  if (!GEAR_TOOLS.has(tool?.typeId)) return;
+  const unbreaking = tool.getComponent("minecraft:enchantable")?.getEnchantment("unbreaking")?.level ?? 0;
+  if (Math.random() < 1 / (unbreaking + 1)) wear(player, 1);
+}
+world.afterEvents.playerBreakBlock.subscribe(({ player }) => wearGearTool(player));
+world.afterEvents.entityHurt.subscribe(({ damageSource }) => {
+  const player = damageSource.damagingEntity;
+  if (player?.typeId === "minecraft:player" && !damageSource.damagingProjectile) wearGearTool(player);
+});
+
 function useOne(player) {
   if (player.getGameMode() === GameMode.Creative) return;
   const equip = player.getComponent("minecraft:equippable");
@@ -418,8 +432,9 @@ system.runInterval(() => {
 
 const fullJar = (stack, soul) => stack?.typeId === JAR && stack.getDynamicProperty(SOUL_TYPE) === soul && stack.getDynamicProperty(SOUL_COUNT) >= SOULS[soul].need;
 
-// Pedestal order doesn't matter: each ingredient takes the first unused pedestal that fits it.
+// Pedestal order doesn't matter: each ingredient takes the first unused pedestal that fits it. Spare items stop the craft, as it would use them up.
 function matchRecipe(recipe, items) {
+  if (items.filter(Boolean).length !== recipe.ingredients.length) return false;
   const free = items.map((_, i) => i);
   for (const ingredient of recipe.ingredients) {
     const slot = free.findIndex((i) => (typeof ingredient === "string" ? items[i]?.typeId === ingredient : fullJar(items[i], ingredient.soul)));
@@ -451,6 +466,20 @@ function enchanted(input, enchant) {
   }
 }
 
+// A gear upgrade keeps what the piece already had. The new tier may be unbreakable, or have less durability than the damage to carry over.
+function upgraded(input, id) {
+  const output = new ItemStack(id);
+  output.nameTag = input.nameTag;
+  const damage = input.getComponent("minecraft:durability")?.damage ?? 0;
+  const durability = output.getComponent("minecraft:durability");
+  if (durability) durability.damage = Math.min(damage, durability.maxDurability - 1);
+  const enchantable = output.getComponent("minecraft:enchantable");
+  for (const enchantment of input.getComponent("minecraft:enchantable")?.getEnchantments() ?? []) {
+    if (enchantable?.canAddEnchantment(enchantment)) enchantable.addEnchantment(enchantment);
+  }
+  return output;
+}
+
 function findRecipe(altar) {
   const input = standItem(altar);
   if (!input) return { problem: "Put something on the altar first." };
@@ -478,7 +507,8 @@ function startInfusion(altar, player) {
 }
 
 function finishInfusion(altar, recipe, pedestals) {
-  const output = recipe.enchant ? enchanted(standItem(altar), recipe.enchant) : new ItemStack(recipe.output);
+  const input = standItem(altar);
+  const output = recipe.enchant ? enchanted(input, recipe.enchant) : recipe.upgrade ? upgraded(input, recipe.output) : new ItemStack(recipe.output);
   if (!output) return;
   for (const pedestal of pedestals) {
     const item = standItem(pedestal);

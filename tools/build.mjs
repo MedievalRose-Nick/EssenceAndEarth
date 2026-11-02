@@ -631,6 +631,52 @@ const GUIDE_PAGES = [
   { title: "Crops by Tier", body:`${cfg.tiers.map((t, i) => [t, cfg.crops.filter((c) => c.tier === i + 1 && !c.retired)]).filter(([, crops]) => crops.length).map(([t, crops]) => `${tierTitle(t)}: ${crops.map((c) => title(c.id)).join(", ")}`).join("\n\n")}\n\nFull recipes: medievalrose-nick.github.io/EssenceAndEarth` },
 ];
 
+// Tiered gear. Each piece upgrades at the altar from the one below it, starting from diamond.
+const GEAR_TOOLS = {
+  sword: { tag: "sword", mask: ["................", ".............oo.", "............obbo", "...........obgbo", "..........obgbo.", ".........obgbo..", "........obgbo...", ".......obgbo....", "..oo..obgbo.....", "..obooobgbo.....", "...obbbbbo......", "...oobbbo.......", "...ohoboo.......", "..ohHo.oo.......", "..oHo...........", "...o............"] },
+  pickaxe: { tag: "pickaxe", destroys: "minecraft:is_pickaxe_item_destructible", mask: ["................", "...ooooooo......", "..obbbbbbboo....", "...oogbbbbbbo...", ".....oohobgbo...", "......ohHobbo...", ".....ohHo.obbo..", "....ohHo..obbo..", "...ohHo...obgo..", "..ohHo.....obo..", ".ohHo......obo..", ".oHo........o...", "..o.............", "................", "................", "................"] },
+  axe: { tag: "axe", destroys: "minecraft:is_axe_item_destructible", mask: ["................", ".....oooo.......", "....obbbboo.....", "...obgbbbbbo....", "...obbgbhHbo....", "...obbbhHobo....", "....obhHoobo....", ".....ohHo.oo....", "....ohHo........", "...ohHo.........", "..ohHo..........", ".ohHo...........", ".oHo............", "..o.............", "................", "................"] },
+  shovel: { tag: "shovel", destroys: "minecraft:is_shovel_item_destructible", mask: ["................", "..........ooo...", ".........obbbo..", "........obgbbo..", "........obbgbo..", ".........obbbo..", "........ohoo....", ".......ohHo.....", "......ohHo......", ".....ohHo.......", "....ohHo........", "...ohHo.........", "..ohHo..........", "..oHo...........", "...o............", "................"] },
+};
+const GEAR_ARMOR = {
+  helmet: { slot: "slot.armor.head", enchantSlot: "armor_head", mask: ["................", "................", "................", "....oooooooo....", "...obbbbbbbbo...", "..obbbggbbbbbo..", "..obbbbbbbbbbo..", "..obbbbbbbbbbo..", "..obooooooo.bo..", "..obo.....o.bo..", "..oo.......oo...", "................", "................", "................", "................", "................"] },
+  chestplate: { slot: "slot.armor.chest", enchantSlot: "armor_torso", mask: ["................", "..ooo......ooo..", ".obbbo....obbbo.", ".obbbboooobbbbo.", ".obbbbbbbbbbbbo.", ".ooobbbggbbbooo.", "...obbbggbbbo...", "...obbbbbbbbo...", "...obbbbbbbbo...", "...obbbbbbbbo...", "...obbbbbbbbo...", "...obbbbbbbbo...", "...oooooooooo...", "................", "................", "................"] },
+  leggings: { slot: "slot.armor.legs", enchantSlot: "armor_legs", mask: ["................", "................", "...oooooooooo...", "...obbggggbbo...", "...obbbbbbbbo...", "...obbbbbbbbo...", "...obbboobbbo...", "...obbo..obbo...", "...obbo..obbo...", "...obbo..obbo...", "...obbo..obbo...", "...obbo..obbo...", "...obbo..obbo...", "...oooo..oooo...", "................", "................"] },
+  boots: { slot: "slot.armor.feet", enchantSlot: "armor_feet", mask: ["................", "................", "................", "................", "...oooo..oooo...", "...obbo..obbo...", "...obgo..ogbo...", "...obbo..obbo...", "...obbo..obbo...", "..obbbo..obbbo..", ".obbbbo..obbbbo.", ".obbbbo..obbbbo.", ".oooooo..oooooo.", "................", "................", "................"] },
+};
+const GEAR_PIECES = [...Object.keys(GEAR_TOOLS), ...Object.keys(GEAR_ARMOR)];
+const GEAR_RECIPES = cfg.tiers.flatMap((t, i) => GEAR_PIECES.map((piece) => ({
+  upgrade: true,
+  input: i ? `${NS}:${cfg.tiers[i - 1].id}_${piece}` : `minecraft:diamond_${piece}`,
+  ingredients: [`${NS}:${t.id}_gemstone`, `${NS}:${t.id}_gemstone`, `${NS}:${t.id}_ingot`, `${NS}:${t.id}_ingot`],
+  output: `${NS}:${t.id}_${piece}`,
+})));
+
+// One armor texture per tier. Every tier shares the design, and each adds a gem to the chest: Terra has 1, Astra 5.
+function armorTexture(t, tierIndex) {
+  const base = hex(t.color);
+  const px = Buffer.alloc(64 * 64 * 4);
+  const set = (x, y, rgb, a = 255) => { const i = (y * 64 + x) * 4; px[i] = rgb[0]; px[i + 1] = rgb[1]; px[i + 2] = rgb[2]; px[i + 3] = a; };
+  const fill = (x0, y0, w, h) => {
+    for (let y = y0; y < y0 + h; y++)
+      for (let x = x0; x < x0 + w; x++) {
+        const border = x === x0 || y === y0 || x === x0 + w - 1 || y === y0 + h - 1;
+        set(x, y, border ? shade(base, -0.55) : shade(base, (noise(x, y, 31) - 0.5) * 0.3 - 0.05));
+      }
+  };
+  fill(0, 0, 32, 16); fill(16, 16, 24, 16); fill(40, 16, 16, 16); fill(0, 16, 16, 14); fill(0, 32, 16, 16); fill(16, 32, 24, 6);
+  // The helmet is open under its visor and at its base, so the face shows.
+  for (let y = 12; y < 16; y++) for (let x = 10; x < 14; x++) set(x, y, [0, 0, 0], 0);
+  for (let x = 8; x < 16; x++) set(x, 11, shade(base, -0.7));
+  for (let y = 0; y < 8; y++) for (let x = 16; x < 24; x++) set(x, y, [0, 0, 0], 0);
+  // The chest's gems run down the middle of its front.
+  for (let n = 0; n <= tierIndex; n++) for (const [dx, dy] of [[0, 0], [1, 0], [0, 1], [1, 1]]) set(23 + dx, 21 + n * 2 + dy, n % 2 ? shade(base, 0.75) : [244, 251, 255]);
+  // A trim on the boots' and arms' cuffs.
+  for (let x = 0; x < 16; x++) set(x, 28, shade(base, 0.45));
+  for (let x = 40; x < 56; x++) set(x, 29, shade(base, 0.45));
+  return px;
+}
+
 // Infusion recipes for the script: a seed base on the altar, 4 of the ingredient and 4 tier essence on the pedestals.
 const FULL_JAR = (soul) => ({ soul });
 const ATTUNED_DAGGERS = [["passive", ["pig", "chicken", "cow", "sheep"]], ["hostile", ["zombie", "skeleton", "creeper", "spider"]]];
@@ -640,6 +686,7 @@ const ALTAR_RECIPES = [
     ingredients: [...Array(4).fill(c.soul ? FULL_JAR(c.soul) : c.ingredient), ...Array(4).fill(`${NS}:${cfg.tiers[c.tier - 1].id}_essence`)],
     output: `${NS}:${c.id}_seeds`,
   })),
+  ...GEAR_RECIPES,
   ...ATTUNED_DAGGERS.map(([kind, mobs]) => ({
     input: `${NS}:anima_dagger`,
     ingredients: [`${NS}:anima_ingot`, `${NS}:anima_ingot`, `${NS}:anima_gemstone`, `${NS}:anima_gemstone`, ...mobs.map(FULL_JAR)],
@@ -672,6 +719,7 @@ GUIDE_PAGES.splice(GUIDE_PAGES.findIndex((g) => g.title === "Crops by Tier"), 0,
   { title: "Seed Reprocessor", body: `Turns a seed into ${BAL.seedReprocessor.essencePerSeed} of its essence, using fuel. Use it on spare seeds from essence farmland.\n\nTap it with an empty hand to open it. Fuel and upgrades go on the left. Seeds go in the middle slot, and essence comes out on the right.\n\nA chest on top feeds it, and a chest at its back takes the essence. Redstone power pauses it. Upgrades make it faster but burn more fuel, and don't change the essence per seed.` },
   { title: "Soul Extractor", body: `Fills a Soul Jar from mob drops instead of kills. Put a jar in the right slot and drops in the middle slot, and fuel and upgrades on the left. A jar holds one mob type, so mixed drops wait until you swap the jar.\n\nA chest on top feeds drops in, and a full jar moves to a chest at its back.\n\nWhat each drop is worth:\n${Object.entries(BAL.soulExtractor.items).map(([id, [soul, worth]]) => `${title(id.split(":")[1])}: ${worth} ${title(soul)}`).join("\n")}` },
   { title: "Essence Furnace", body: `A furnace that takes Machine Upgrades. One block, with no tiers to craft: each upgrade makes it faster but burn more fuel.\n\nPut fuel and an upgrade on the left, what you're smelting in the middle, and take the result on the right. A chest on top feeds it, and a chest at its back takes the result.\n\nIt only knows common recipes: ores and raw metals, sand, stone, clay, food, logs and a few others. Use a normal furnace for anything else. It gives no experience.` },
+  { title: "Armor and Tools", body: `Each tier has a helmet, chestplate, leggings, boots, sword, pickaxe, axe and shovel. Make them at the Infusion Altar: put the piece on the altar, and 2 Gemstones and 2 Ingots of the new tier on the pedestals, leaving the other pedestals empty. Use the wand.\n\n${tierTitle(cfg.tiers[0])} gear starts from diamond gear, and each later tier upgrades the one below it. Enchantments, damage and names carry over.\n\nRepair gear with its tier's Gemstones on an anvil. ${tierTitle(cfg.tiers[4])} tools never break.` },
   { title: "Enchanting", body: `Enchant at the Infusion Altar. Put a book or the item to enchant on the altar. On the pedestals, put 4 Experience Essence and 4 of the enchantment's ingredient. Use the wand.\n\nEach craft adds one level, so craft again with the same items to go higher. A book becomes an Enchanted Book for the anvil. Enchantments that clash can't be combined.\n\nIngredients:\n${ENCHANT_RECIPES.map((r) => `${title(r.enchant)}: ${title(r.ingredient.split(":")[1])}`).join("\n")}` },
 );
 GUIDE_PAGES.push({
@@ -696,6 +744,7 @@ for (const file of fs.readdirSync(path.join(BP, "scripts"), { recursive: true })
       .replaceAll("__ESSENCE_FARMLAND__", JSON.stringify(Object.fromEntries(cfg.tiers.map((t) => [`${NS}:${t.id}_essence`, `${NS}:${t.id}_farmland`]))))
       .replaceAll("__GUIDE_PAGES__", JSON.stringify(GUIDE_PAGES))
       .replaceAll("__ALTAR_RECIPES__", JSON.stringify(ALTAR_RECIPES))
+      .replaceAll("__GEAR_TOOLS__", JSON.stringify(cfg.tiers.flatMap((t) => Object.keys(GEAR_TOOLS).map((tool) => `${NS}:${t.id}_${tool}`))))
       .replaceAll("__ENCHANT_RECIPES__", JSON.stringify(ENCHANT_RECIPES.map(({ enchant, ingredients }) => ({ enchant, ingredients }))))
       .replaceAll("__REPROCESS__", JSON.stringify(Object.fromEntries(cfg.crops.filter((c) => !c.retired).map((c) => [`${NS}:${c.id}_seeds`, `${NS}:${c.id}_essence`]))))
       .replaceAll("__MACHINE_UPGRADES__", JSON.stringify(Object.fromEntries(cfg.tiers.map((t, i) => [`${NS}:${t.id}_machine_upgrade`, { name: tierTitle(t), ...BAL.harvester.upgrades[i] }]))))
@@ -859,6 +908,72 @@ for (const [id, mask, pattern] of [
   }, { b: TOOL_TIER.color, o: "#12263c", h: "#6b4a2f", H: "#93704a" });
   recipe(id, "shaped", { pattern, key: { E: { item: toolEssence }, S: { item: "minecraft:stick" } }, result: { item: `${NS}:${id}` } }, toolEssence);
 }
+
+// Tiered armor and tools, using MA's numbers. Tools wear through scripts/main.js, and Astra tools have no durability, so they never break.
+const gearItemColors = (t) => ({ b: t.color, o: "#12263c", h: "#6b4a2f", H: "#93704a", g: "#f4fbff" });
+cfg.tiers.forEach((t, i) => {
+  const G = BAL.gear;
+  const repair = (durability) => ({ "minecraft:repairable": { repair_items: [{ items: [`${NS}:${t.id}_gemstone`], repair_amount: Math.ceil(durability / 4) }] } });
+  for (const [tool, { mask, tag, destroys }] of Object.entries(GEAR_TOOLS)) {
+    const durability = G.toolDurability[i];
+    item(`${t.id}_${tool}`, mask, t.color, {
+      "minecraft:max_stack_size": 1,
+      "minecraft:hand_equipped": true,
+      "minecraft:damage": { value: G.attack[i] + G.toolAttackBonus[tool] },
+      "minecraft:enchantable": { slot: tool, value: G.enchantability[i] },
+      "minecraft:tags": { tags: [`minecraft:is_${tag}`, "minecraft:is_tool", "minecraft:diamond_tier"] },
+      ...(destroys && { "minecraft:digger": { use_efficiency: true, destroy_speeds: [{ block: { tags: `q.any_tag('${destroys}')` }, speed: G.miningSpeed[i] }] } }),
+      ...(durability && { "minecraft:durability": { max_durability: durability }, ...repair(durability) }),
+    }, gearItemColors(t));
+  }
+  for (const [piece, { mask, slot, enchantSlot }] of Object.entries(GEAR_ARMOR)) {
+    const durability = G.armorBaseDurability[piece] * G.armorDurabilityMultiplier[i];
+    item(`${t.id}_${piece}`, mask, t.color, {
+      "minecraft:max_stack_size": 1,
+      "minecraft:wearable": { slot, protection: G.armorPoints[piece][i] },
+      "minecraft:enchantable": { slot: enchantSlot, value: G.enchantability[i] },
+      "minecraft:tags": { tags: ["minecraft:is_armor"] },
+      "minecraft:durability": { max_durability: durability },
+      ...repair(durability),
+    }, gearItemColors(t));
+    write(path.join(RP, "attachables", `${t.id}_${piece}.json`), {
+      format_version: "1.10.0",
+      "minecraft:attachable": { description: {
+        identifier: `${NS}:${t.id}_${piece}`,
+        materials: { default: "armor", enchanted: "armor_enchanted" },
+        textures: { default: `textures/models/armor/${t.id}`, enchanted: "textures/misc/enchanted_actor_glint" },
+        geometry: { default: `geometry.${NS}_armor_${piece}` },
+        scripts: { parent_setup: `variable.${{ helmet: "helmet", chestplate: "chest", leggings: "leg", boots: "boot" }[piece]}_layer_visible = 0.0;` },
+        render_controllers: ["controller.render.armor"],
+      } },
+    });
+  }
+  write(path.join(RP, "textures", "models", "armor", `${t.id}.png`), png(64, armorTexture(t, i)));
+});
+
+// Every piece's model, sharing one 64x64 texture per tier: head 0,0; body 16,16; arms 40,16; boots 0,16; legs 0,32; belt 16,32.
+const armorGeometry = (piece, bones) => ({ description: { identifier: `geometry.${NS}_armor_${piece}`, texture_width: 64, texture_height: 64, visible_bounds_width: 3, visible_bounds_height: 3.5, visible_bounds_offset: [0, 1.5, 0] }, bones });
+const cube = (origin, size, uv, inflate, mirror) => ({ origin, size, uv, inflate, ...(mirror && { mirror }) });
+write(path.join(RP, "models", "entity", `${NS}_armor.geo.json`), {
+  format_version: "1.16.0",
+  "minecraft:geometry": [
+    armorGeometry("helmet", [{ name: "head", pivot: [0, 24, 0], cubes: [cube([-4, 24, -4], [8, 8, 8], [0, 0], 1)] }]),
+    armorGeometry("chestplate", [
+      { name: "body", pivot: [0, 24, 0], cubes: [cube([-4, 12, -2], [8, 12, 4], [16, 16], 1.01)] },
+      { name: "rightArm", pivot: [-5, 22, 0], cubes: [cube([-8, 12, -2], [4, 12, 4], [40, 16], 1)] },
+      { name: "leftArm", pivot: [5, 22, 0], cubes: [cube([4, 12, -2], [4, 12, 4], [40, 16], 1, true)] },
+    ]),
+    armorGeometry("leggings", [
+      { name: "body", pivot: [0, 24, 0], cubes: [cube([-4, 11.5, -2], [8, 2, 4], [16, 32], 0.6)] },
+      { name: "rightLeg", pivot: [-1.9, 12, 0], cubes: [cube([-3.9, 0, -2], [4, 12, 4], [0, 32], 0.5)] },
+      { name: "leftLeg", pivot: [1.9, 12, 0], cubes: [cube([-0.1, 0, -2], [4, 12, 4], [0, 32], 0.5, true)] },
+    ]),
+    armorGeometry("boots", [
+      { name: "rightLeg", pivot: [-1.9, 12, 0], cubes: [cube([-3.9, 0, -2], [4, 6, 4], [0, 16], 1)] },
+      { name: "leftLeg", pivot: [1.9, 12, 0], cubes: [cube([-0.1, 0, -2], [4, 6, 4], [0, 16], 1, true)] },
+    ]),
+  ],
+});
 
 // Essence Guide: using it opens the menu in scripts/main.js.
 item("essence_guide", BOOK, cfg.tiers[0].color, { "minecraft:max_stack_size": 1 }, { c: cfg.tiers[0].color, d: "#2f6e20", g: "#dff5d4", p: "#efe9d8" });

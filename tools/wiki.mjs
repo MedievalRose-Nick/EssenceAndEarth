@@ -502,7 +502,27 @@ const machines = {
   ],
 };
 
-const categories = [guide, essence, materials, infusion, farmland, accelerators, tools, machines, ...cropCategories];
+const G = BAL.gear;
+const GEAR_TOOL_NAMES = ["sword", "pickaxe", "axe", "shovel"];
+const GEAR_ARMOR_NAMES = ["helmet", "chestplate", "leggings", "boots"];
+const gear = {
+  slug: "armor-and-tools", title: "Armor and Tools", group: "Getting started", icon: `img/icons/${cfg.tiers[0].id}_sword.png`,
+  blurb: "Five tiers of armor and tools, upgraded at the Infusion Altar.",
+  entries: cfg.tiers.map((t, i) => ({
+    slug: t.id, name: `${title(t.id)} Gear`, icon: `img/icons/${t.id}_chestplate.png`,
+    summary: `${G.toolDurability[i] ? `${G.toolDurability[i].toLocaleString("en-US")} tool durability` : "Tools never break"}, ${GEAR_ARMOR_NAMES.reduce((sum, a) => sum + G.armorPoints[a][i], 0)} armor points.`,
+    blocks: [
+      p(`Upgrade each piece at the Infusion Altar. Put ${i ? `the ${title(cfg.tiers[i - 1].id)} piece` : "the diamond piece"} on the altar, and 2 ${title(t.id)} Gemstones and 2 ${title(t.id)} Ingots on the pedestals. Leave the other pedestals empty. Enchantments, damage and names carry over.`),
+      facts([["Mining speed", `${G.miningSpeed[i]}`], ["Repair", `${title(t.id)} Gemstones on an anvil`], ...(G.toolDurability[i] ? [["Tool durability", G.toolDurability[i].toLocaleString("en-US")]] : [["Tool durability", "Never breaks"]])]),
+      h2("Tools"),
+      list(GEAR_TOOL_NAMES.map((tool) => ({ name: `${title(t.id)} ${title(tool)}`, icon: `img/icons/${t.id}_${tool}.png`, sub: `${G.attack[i] + G.toolAttackBonus[tool]} attack damage` }))),
+      h2("Armor"),
+      list(GEAR_ARMOR_NAMES.map((a) => ({ name: `${title(t.id)} ${title(a)}`, icon: `img/icons/${t.id}_${a}.png`, sub: `${G.armorPoints[a][i]} armor, ${(G.armorBaseDurability[a] * G.armorDurabilityMultiplier[i]).toLocaleString("en-US")} durability` }))),
+    ],
+  })),
+};
+
+const categories = [guide, essence, materials, infusion, farmland, accelerators, tools, gear, machines, ...cropCategories];
 for (const c of categories) for (const e of c.entries) e.href = `wiki/${c.slug}/${e.slug}`;
 
 const gallery = [
@@ -518,6 +538,7 @@ const gallery = [
   { title: "Fertilizer", items: [fertilized, fertilizer] },
   { title: "Infusion and souls", items: ["infusion_altar", "infusion_pedestal", "wand", "vita_seed_base", "anima_seed_base", "soul_jar", "anima_dagger", "passive_anima_dagger", "hostile_anima_dagger", "soul_dust", "anima_dust", "soulstone", "soulstone_cobble", "soulstone_smooth", "soulstone_bricks", "soulstone_cracked_bricks", "soul_glass", "anima_ore"].map((id) => ({ name: title(id), icon: `img/icons/${id}.png` })) },
   { title: "Tools and guide", items: [sickleItem, hoeItem, guideItem] },
+  { title: "Armor and tools", items: cfg.tiers.flatMap((t) => [...GEAR_ARMOR_NAMES, ...GEAR_TOOL_NAMES].map((piece) => ({ name: `${title(t.id)} ${title(piece)}`, icon: `img/icons/${t.id}_${piece}.png` }))) },
   { title: "Machines", items: [{ name: "Harvester", icon: "img/icons/harvester_front.png" }, ...["seed_reprocessor", "soul_extractor", "essence_furnace"].map((id) => ({ name: title(id), icon: `img/icons/${id}_front.png` })), named("machine_frame"), named("upgrade_base"), ...cfg.tiers.map(upgradeItem)] },
   { title: "Growth stages", items: stages(cfg.crops[0]).slice(0, 3) },
 ];

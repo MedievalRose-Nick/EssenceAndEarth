@@ -1,7 +1,7 @@
 {
   "name": "Essence & Earth",
   "namespace": "ee",
-  "version": [0, 20, 1],
+  "version": [0, 21, 0],
   "balance": {
     "growChance": 0.43,
     "grassEssenceChance": 0.2,
@@ -51,6 +51,21 @@
         { "time": 0.125, "fuel": 16, "tank": 5, "range": 4 },
         { "time": 0.025, "fuel": 48, "tank": 6, "range": 5 }
       ]
+    },
+    "gear": {
+      "toolDurability": [2000, 2800, 4000, 6000, 0],
+      "miningSpeed": [9, 11, 14, 19, 25],
+      "attack": [4, 6, 9, 13, 20],
+      "toolAttackBonus": { "sword": 4, "pickaxe": 2, "axe": 6, "shovel": 2 },
+      "armorPoints": {
+        "helmet": [3, 4, 4, 5, 5],
+        "chestplate": [8, 8, 9, 9, 10],
+        "leggings": [6, 7, 8, 8, 8],
+        "boots": [4, 4, 5, 5, 6]
+      },
+      "armorDurabilityMultiplier": [40, 60, 80, 140, 280],
+      "armorBaseDurability": { "helmet": 11, "chestplate": 16, "leggings": 15, "boots": 13 },
+      "enchantability": [12, 14, 16, 18, 20]
     },
     "seedReprocessor": { "screenTitle": "§e§e§r", "operationTicks": 200, "fuelPerTick": 20, "essencePerSeed": 2 },
     "soulExtractor": {

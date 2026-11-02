@@ -1,17 +1,17 @@
 {
  "name": "Essence & Earth",
  "release": {
-  "version": "0.20.1",
-  "file": "EssenceAndEarth_v0.20.1.mcaddon",
+  "version": "0.21.0",
+  "file": "EssenceAndEarth_v0.21.0.mcaddon",
   "minBedrock": "1.21.90",
-  "download": "https://github.com/MedievalRose-Nick/EssenceAndEarth/raw/main/addon/EssenceAndEarth_v0.20.1.mcaddon",
+  "download": "https://github.com/MedievalRose-Nick/EssenceAndEarth/raw/main/addon/EssenceAndEarth_v0.21.0.mcaddon",
   "repo": "https://github.com/MedievalRose-Nick/EssenceAndEarth"
  },
  "stats": {
   "crops": 54,
   "tiers": 5,
   "recipes": 314,
-  "items": 241
+  "items": 281
  },
  "categories": [
   {
@@ -3943,6 +3943,455 @@
       }
      ],
      "href": "wiki/tools/essence-hoe"
+    }
+   ]
+  },
+  {
+   "slug": "armor-and-tools",
+   "title": "Armor and Tools",
+   "group": "Getting started",
+   "icon": "img/icons/terra_sword.png",
+   "blurb": "Five tiers of armor and tools, upgraded at the Infusion Altar.",
+   "entries": [
+    {
+     "slug": "terra",
+     "name": "Terra Gear",
+     "icon": "img/icons/terra_chestplate.png",
+     "summary": "2,000 tool durability, 21 armor points.",
+     "blocks": [
+      {
+       "t": "p",
+       "html": "Upgrade each piece at the Infusion Altar. Put the diamond piece on the altar, and 2 Terra Gemstones and 2 Terra Ingots on the pedestals. Leave the other pedestals empty. Enchantments, damage and names carry over."
+      },
+      {
+       "t": "facts",
+       "facts": [
+        [
+         "Mining speed",
+         "9"
+        ],
+        [
+         "Repair",
+         "Terra Gemstones on an anvil"
+        ],
+        [
+         "Tool durability",
+         "2,000"
+        ]
+       ]
+      },
+      {
+       "t": "h2",
+       "text": "Tools"
+      },
+      {
+       "t": "items",
+       "items": [
+        {
+         "name": "Terra Sword",
+         "icon": "img/icons/terra_sword.png",
+         "sub": "8 attack damage"
+        },
+        {
+         "name": "Terra Pickaxe",
+         "icon": "img/icons/terra_pickaxe.png",
+         "sub": "6 attack damage"
+        },
+        {
+         "name": "Terra Axe",
+         "icon": "img/icons/terra_axe.png",
+         "sub": "10 attack damage"
+        },
+        {
+         "name": "Terra Shovel",
+         "icon": "img/icons/terra_shovel.png",
+         "sub": "6 attack damage"
+        }
+       ]
+      },
+      {
+       "t": "h2",
+       "text": "Armor"
+      },
+      {
+       "t": "items",
+       "items": [
+        {
+         "name": "Terra Helmet",
+         "icon": "img/icons/terra_helmet.png",
+         "sub": "3 armor, 440 durability"
+        },
+        {
+         "name": "Terra Chestplate",
+         "icon": "img/icons/terra_chestplate.png",
+         "sub": "8 armor, 640 durability"
+        },
+        {
+         "name": "Terra Leggings",
+         "icon": "img/icons/terra_leggings.png",
+         "sub": "6 armor, 600 durability"
+        },
+        {
+         "name": "Terra Boots",
+         "icon": "img/icons/terra_boots.png",
+         "sub": "4 armor, 520 durability"
+        }
+       ]
+      }
+     ],
+     "href": "wiki/armor-and-tools/terra"
+    },
+    {
+     "slug": "aqua",
+     "name": "Aqua Gear",
+     "icon": "img/icons/aqua_chestplate.png",
+     "summary": "2,800 tool durability, 23 armor points.",
+     "blocks": [
+      {
+       "t": "p",
+       "html": "Upgrade each piece at the Infusion Altar. Put the Terra piece on the altar, and 2 Aqua Gemstones and 2 Aqua Ingots on the pedestals. Leave the other pedestals empty. Enchantments, damage and names carry over."
+      },
+      {
+       "t": "facts",
+       "facts": [
+        [
+         "Mining speed",
+         "11"
+        ],
+        [
+         "Repair",
+         "Aqua Gemstones on an anvil"
+        ],
+        [
+         "Tool durability",
+         "2,800"
+        ]
+       ]
+      },
+      {
+       "t": "h2",
+       "text": "Tools"
+      },
+      {
+       "t": "items",
+       "items": [
+        {
+         "name": "Aqua Sword",
+         "icon": "img/icons/aqua_sword.png",
+         "sub": "10 attack damage"
+        },
+        {
+         "name": "Aqua Pickaxe",
+         "icon": "img/icons/aqua_pickaxe.png",
+         "sub": "8 attack damage"
+        },
+        {
+         "name": "Aqua Axe",
+         "icon": "img/icons/aqua_axe.png",
+         "sub": "12 attack damage"
+        },
+        {
+         "name": "Aqua Shovel",
+         "icon": "img/icons/aqua_shovel.png",
+         "sub": "8 attack damage"
+        }
+       ]
+      },
+      {
+       "t": "h2",
+       "text": "Armor"
+      },
+      {
+       "t": "items",
+       "items": [
+        {
+         "name": "Aqua Helmet",
+         "icon": "img/icons/aqua_helmet.png",
+         "sub": "4 armor, 660 durability"
+        },
+        {
+         "name": "Aqua Chestplate",
+         "icon": "img/icons/aqua_chestplate.png",
+         "sub": "8 armor, 960 durability"
+        },
+        {
+         "name": "Aqua Leggings",
+         "icon": "img/icons/aqua_leggings.png",
+         "sub": "7 armor, 900 durability"
+        },
+        {
+         "name": "Aqua Boots",
+         "icon": "img/icons/aqua_boots.png",
+         "sub": "4 armor, 780 durability"
+        }
+       ]
+      }
+     ],
+     "href": "wiki/armor-and-tools/aqua"
+    },
+    {
+     "slug": "ignis",
+     "name": "Ignis Gear",
+     "icon": "img/icons/ignis_chestplate.png",
+     "summary": "4,000 tool durability, 26 armor points.",
+     "blocks": [
+      {
+       "t": "p",
+       "html": "Upgrade each piece at the Infusion Altar. Put the Aqua piece on the altar, and 2 Ignis Gemstones and 2 Ignis Ingots on the pedestals. Leave the other pedestals empty. Enchantments, damage and names carry over."
+      },
+      {
+       "t": "facts",
+       "facts": [
+        [
+         "Mining speed",
+         "14"
+        ],
+        [
+         "Repair",
+         "Ignis Gemstones on an anvil"
+        ],
+        [
+         "Tool durability",
+         "4,000"
+        ]
+       ]
+      },
+      {
+       "t": "h2",
+       "text": "Tools"
+      },
+      {
+       "t": "items",
+       "items": [
+        {
+         "name": "Ignis Sword",
+         "icon": "img/icons/ignis_sword.png",
+         "sub": "13 attack damage"
+        },
+        {
+         "name": "Ignis Pickaxe",
+         "icon": "img/icons/ignis_pickaxe.png",
+         "sub": "11 attack damage"
+        },
+        {
+         "name": "Ignis Axe",
+         "icon": "img/icons/ignis_axe.png",
+         "sub": "15 attack damage"
+        },
+        {
+         "name": "Ignis Shovel",
+         "icon": "img/icons/ignis_shovel.png",
+         "sub": "11 attack damage"
+        }
+       ]
+      },
+      {
+       "t": "h2",
+       "text": "Armor"
+      },
+      {
+       "t": "items",
+       "items": [
+        {
+         "name": "Ignis Helmet",
+         "icon": "img/icons/ignis_helmet.png",
+         "sub": "4 armor, 880 durability"
+        },
+        {
+         "name": "Ignis Chestplate",
+         "icon": "img/icons/ignis_chestplate.png",
+         "sub": "9 armor, 1,280 durability"
+        },
+        {
+         "name": "Ignis Leggings",
+         "icon": "img/icons/ignis_leggings.png",
+         "sub": "8 armor, 1,200 durability"
+        },
+        {
+         "name": "Ignis Boots",
+         "icon": "img/icons/ignis_boots.png",
+         "sub": "5 armor, 1,040 durability"
+        }
+       ]
+      }
+     ],
+     "href": "wiki/armor-and-tools/ignis"
+    },
+    {
+     "slug": "aether",
+     "name": "Aether Gear",
+     "icon": "img/icons/aether_chestplate.png",
+     "summary": "6,000 tool durability, 27 armor points.",
+     "blocks": [
+      {
+       "t": "p",
+       "html": "Upgrade each piece at the Infusion Altar. Put the Ignis piece on the altar, and 2 Aether Gemstones and 2 Aether Ingots on the pedestals. Leave the other pedestals empty. Enchantments, damage and names carry over."
+      },
+      {
+       "t": "facts",
+       "facts": [
+        [
+         "Mining speed",
+         "19"
+        ],
+        [
+         "Repair",
+         "Aether Gemstones on an anvil"
+        ],
+        [
+         "Tool durability",
+         "6,000"
+        ]
+       ]
+      },
+      {
+       "t": "h2",
+       "text": "Tools"
+      },
+      {
+       "t": "items",
+       "items": [
+        {
+         "name": "Aether Sword",
+         "icon": "img/icons/aether_sword.png",
+         "sub": "17 attack damage"
+        },
+        {
+         "name": "Aether Pickaxe",
+         "icon": "img/icons/aether_pickaxe.png",
+         "sub": "15 attack damage"
+        },
+        {
+         "name": "Aether Axe",
+         "icon": "img/icons/aether_axe.png",
+         "sub": "19 attack damage"
+        },
+        {
+         "name": "Aether Shovel",
+         "icon": "img/icons/aether_shovel.png",
+         "sub": "15 attack damage"
+        }
+       ]
+      },
+      {
+       "t": "h2",
+       "text": "Armor"
+      },
+      {
+       "t": "items",
+       "items": [
+        {
+         "name": "Aether Helmet",
+         "icon": "img/icons/aether_helmet.png",
+         "sub": "5 armor, 1,540 durability"
+        },
+        {
+         "name": "Aether Chestplate",
+         "icon": "img/icons/aether_chestplate.png",
+         "sub": "9 armor, 2,240 durability"
+        },
+        {
+         "name": "Aether Leggings",
+         "icon": "img/icons/aether_leggings.png",
+         "sub": "8 armor, 2,100 durability"
+        },
+        {
+         "name": "Aether Boots",
+         "icon": "img/icons/aether_boots.png",
+         "sub": "5 armor, 1,820 durability"
+        }
+       ]
+      }
+     ],
+     "href": "wiki/armor-and-tools/aether"
+    },
+    {
+     "slug": "astra",
+     "name": "Astra Gear",
+     "icon": "img/icons/astra_chestplate.png",
+     "summary": "Tools never break, 29 armor points.",
+     "blocks": [
+      {
+       "t": "p",
+       "html": "Upgrade each piece at the Infusion Altar. Put the Aether piece on the altar, and 2 Astra Gemstones and 2 Astra Ingots on the pedestals. Leave the other pedestals empty. Enchantments, damage and names carry over."
+      },
+      {
+       "t": "facts",
+       "facts": [
+        [
+         "Mining speed",
+         "25"
+        ],
+        [
+         "Repair",
+         "Astra Gemstones on an anvil"
+        ],
+        [
+         "Tool durability",
+         "Never breaks"
+        ]
+       ]
+      },
+      {
+       "t": "h2",
+       "text": "Tools"
+      },
+      {
+       "t": "items",
+       "items": [
+        {
+         "name": "Astra Sword",
+         "icon": "img/icons/astra_sword.png",
+         "sub": "24 attack damage"
+        },
+        {
+         "name": "Astra Pickaxe",
+         "icon": "img/icons/astra_pickaxe.png",
+         "sub": "22 attack damage"
+        },
+        {
+         "name": "Astra Axe",
+         "icon": "img/icons/astra_axe.png",
+         "sub": "26 attack damage"
+        },
+        {
+         "name": "Astra Shovel",
+         "icon": "img/icons/astra_shovel.png",
+         "sub": "22 attack damage"
+        }
+       ]
+      },
+      {
+       "t": "h2",
+       "text": "Armor"
+      },
+      {
+       "t": "items",
+       "items": [
+        {
+         "name": "Astra Helmet",
+         "icon": "img/icons/astra_helmet.png",
+         "sub": "5 armor, 3,080 durability"
+        },
+        {
+         "name": "Astra Chestplate",
+         "icon": "img/icons/astra_chestplate.png",
+         "sub": "10 armor, 4,480 durability"
+        },
+        {
+         "name": "Astra Leggings",
+         "icon": "img/icons/astra_leggings.png",
+         "sub": "8 armor, 4,200 durability"
+        },
+        {
+         "name": "Astra Boots",
+         "icon": "img/icons/astra_boots.png",
+         "sub": "6 armor, 3,640 durability"
+        }
+       ]
+      }
+     ],
+     "href": "wiki/armor-and-tools/astra"
     }
    ]
   },
@@ -39236,6 +39685,171 @@
      "name": "Essence Guide",
      "icon": "img/icons/essence_guide.png",
      "href": "wiki/guide/essence-guide"
+    }
+   ]
+  },
+  {
+   "title": "Armor and tools",
+   "items": [
+    {
+     "name": "Terra Helmet",
+     "icon": "img/icons/terra_helmet.png"
+    },
+    {
+     "name": "Terra Chestplate",
+     "icon": "img/icons/terra_chestplate.png"
+    },
+    {
+     "name": "Terra Leggings",
+     "icon": "img/icons/terra_leggings.png"
+    },
+    {
+     "name": "Terra Boots",
+     "icon": "img/icons/terra_boots.png"
+    },
+    {
+     "name": "Terra Sword",
+     "icon": "img/icons/terra_sword.png"
+    },
+    {
+     "name": "Terra Pickaxe",
+     "icon": "img/icons/terra_pickaxe.png"
+    },
+    {
+     "name": "Terra Axe",
+     "icon": "img/icons/terra_axe.png"
+    },
+    {
+     "name": "Terra Shovel",
+     "icon": "img/icons/terra_shovel.png"
+    },
+    {
+     "name": "Aqua Helmet",
+     "icon": "img/icons/aqua_helmet.png"
+    },
+    {
+     "name": "Aqua Chestplate",
+     "icon": "img/icons/aqua_chestplate.png"
+    },
+    {
+     "name": "Aqua Leggings",
+     "icon": "img/icons/aqua_leggings.png"
+    },
+    {
+     "name": "Aqua Boots",
+     "icon": "img/icons/aqua_boots.png"
+    },
+    {
+     "name": "Aqua Sword",
+     "icon": "img/icons/aqua_sword.png"
+    },
+    {
+     "name": "Aqua Pickaxe",
+     "icon": "img/icons/aqua_pickaxe.png"
+    },
+    {
+     "name": "Aqua Axe",
+     "icon": "img/icons/aqua_axe.png"
+    },
+    {
+     "name": "Aqua Shovel",
+     "icon": "img/icons/aqua_shovel.png"
+    },
+    {
+     "name": "Ignis Helmet",
+     "icon": "img/icons/ignis_helmet.png"
+    },
+    {
+     "name": "Ignis Chestplate",
+     "icon": "img/icons/ignis_chestplate.png"
+    },
+    {
+     "name": "Ignis Leggings",
+     "icon": "img/icons/ignis_leggings.png"
+    },
+    {
+     "name": "Ignis Boots",
+     "icon": "img/icons/ignis_boots.png"
+    },
+    {
+     "name": "Ignis Sword",
+     "icon": "img/icons/ignis_sword.png"
+    },
+    {
+     "name": "Ignis Pickaxe",
+     "icon": "img/icons/ignis_pickaxe.png"
+    },
+    {
+     "name": "Ignis Axe",
+     "icon": "img/icons/ignis_axe.png"
+    },
+    {
+     "name": "Ignis Shovel",
+     "icon": "img/icons/ignis_shovel.png"
+    },
+    {
+     "name": "Aether Helmet",
+     "icon": "img/icons/aether_helmet.png"
+    },
+    {
+     "name": "Aether Chestplate",
+     "icon": "img/icons/aether_chestplate.png"
+    },
+    {
+     "name": "Aether Leggings",
+     "icon": "img/icons/aether_leggings.png"
+    },
+    {
+     "name": "Aether Boots",
+     "icon": "img/icons/aether_boots.png"
+    },
+    {
+     "name": "Aether Sword",
+     "icon": "img/icons/aether_sword.png"
+    },
+    {
+     "name": "Aether Pickaxe",
+     "icon": "img/icons/aether_pickaxe.png"
+    },
+    {
+     "name": "Aether Axe",
+     "icon": "img/icons/aether_axe.png"
+    },
+    {
+     "name": "Aether Shovel",
+     "icon": "img/icons/aether_shovel.png"
+    },
+    {
+     "name": "Astra Helmet",
+     "icon": "img/icons/astra_helmet.png"
+    },
+    {
+     "name": "Astra Chestplate",
+     "icon": "img/icons/astra_chestplate.png"
+    },
+    {
+     "name": "Astra Leggings",
+     "icon": "img/icons/astra_leggings.png"
+    },
+    {
+     "name": "Astra Boots",
+     "icon": "img/icons/astra_boots.png"
+    },
+    {
+     "name": "Astra Sword",
+     "icon": "img/icons/astra_sword.png"
+    },
+    {
+     "name": "Astra Pickaxe",
+     "icon": "img/icons/astra_pickaxe.png"
+    },
+    {
+     "name": "Astra Axe",
+     "icon": "img/icons/astra_axe.png"
+    },
+    {
+     "name": "Astra Shovel",
+     "icon": "img/icons/astra_shovel.png"
     }
    ]
   },

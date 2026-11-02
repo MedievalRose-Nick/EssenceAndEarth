@@ -8,6 +8,24 @@ Before starting: upload the latest `addon/*.mcaddon` to the server, and use crea
 
 - [ ] The hoe shows its new straight blade, in the inventory and held in the hand.
 
+## Armor and tools (v0.21.0)
+
+Quickest setup: `/give @s ee:terra_chestplate`, `/give @s ee:astra_pickaxe`, and a diamond sword with `/give @s diamond_sword` for the altar.
+
+- [ ] **Check this first:** the add-on loads with no content log errors about items, attachables or `minecraft:damage`. All 40 items appear in the creative menu with their own pictures.
+- [ ] **Each armor piece shows on the player** in all five colours, in third person, and the vanilla piece doesn't show underneath. Note if parts are misplaced or stretched. The helmet is open under its visor, so note if that shows as a solid block or a hole. The chest should show 1 gem for Terra and 5 for Astra.
+- [ ] An enchanted armor piece has the glint.
+- [ ] **Armor points:** the armor bar fills as expected. **Does a higher tier actually protect more?** Compare damage from the same mob in Terra and Astra. If they match, Bedrock caps armor as suspected, and this goes in the balance pass.
+- [ ] Armor loses durability when hit, and breaks when it runs out.
+- [ ] **Mining levels:** each pickaxe tier mines iron, diamond and obsidian with drops. Axes speed up wood and shovels speed up dirt. Nothing mines faster than it should, and swords deal their damage.
+- [ ] **Tool wear:** a Terra pickaxe loses 1 durability per block and on a hit. **Note if it loses 2**, which means Bedrock wears it natively too and the script should stop. Astra tools never lose any.
+- [ ] Unbreaking makes a tool wear more slowly.
+- [ ] **Upgrades:** a diamond sword on the altar, with 2 Terra Gemstones and 2 Terra Ingots on pedestals and 4 pedestals empty, makes a Terra Sword. Terra upgrades to Aqua, and so on up to Astra.
+- [ ] An enchanted, damaged, renamed sword keeps all three through an upgrade. Upgrading to Astra drops the damage, as it has no durability.
+- [ ] A spare item on an empty pedestal stops any altar craft and says "These items don't make anything". All old seed and dagger recipes still work.
+- [ ] Gemstones repair gear on an anvil. Normal enchanting tables and anvils accept the gear, and altar enchanting works on it.
+- [ ] Items keep working after a server restart, and the Guide and wiki match.
+
 ## New machines and altar enchanting (v0.20.0)
 
 Quickest setup: `/give @s ee:seed_reprocessor`, `/give @s ee:soul_extractor`, `/give @s ee:essence_furnace`, `/give @s coal 16`, `/give @s ee:soul_jar`.
@@ -200,7 +218,7 @@ Already answered by reading Deepcore v4.58's package:
 Still needs testing in-game:
 
 - [ ] **Crystal wear:** can a crafting recipe return a damaged tool? Try a shaped recipe with a damaged item as an ingredient. Until this is settled, tier upgrades stay at 4 essence with no Infusion Crystal.
-- [ ] **Flight:** nothing in Deepcore grants flight, and I found no script call for it. Confirm whether `/ability` works on the server. If not, the flight augment becomes Levitation or Slow Falling.
+- **Flight is settled:** on 2026-11-02 the user confirmed `/ability` doesn't work on Bedrock, even on a new world, so there's no flight augment.
 
 ## Farming rebalance (v0.11.0)
 
