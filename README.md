@@ -25,7 +25,7 @@ resource pack.
 
 ## Wiki
 
-https://nicholasambrose.github.io/EssenceAndEarth/ is a Blazor WebAssembly site in `src/EssenceWiki`. Its pages aren't
+https://medievalrose-nick.github.io/EssenceAndEarth/ is a Blazor WebAssembly site in `src/EssenceWiki`. Its pages aren't
 written by hand: every build runs `tools/wiki.mjs`, which writes `wwwroot/data/wiki.json` from `crops.json` and copies
 every texture into `wwwroot/img/icons/`. On every push to `main`, `.github/workflows/deploy.yml` rebuilds it and deploys
 it to GitHub Pages.

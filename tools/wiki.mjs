@@ -5,7 +5,7 @@
 import fs from "node:fs";
 import path from "node:path";
 
-const REPO = "NicholasAmbrose/EssenceAndEarth";
+const REPO = "MedievalRose-Nick/EssenceAndEarth";
 const MIN_BEDROCK = "1.21.90";
 
 const ROOT = path.resolve(import.meta.dirname, "..");

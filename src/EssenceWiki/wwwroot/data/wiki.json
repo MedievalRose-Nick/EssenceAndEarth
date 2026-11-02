@@ -4,8 +4,8 @@
   "version": "0.20.0",
   "file": "EssenceAndEarth_v0.20.0.mcaddon",
   "minBedrock": "1.21.90",
-  "download": "https://github.com/NicholasAmbrose/EssenceAndEarth/raw/main/addon/EssenceAndEarth_v0.20.0.mcaddon",
-  "repo": "https://github.com/NicholasAmbrose/EssenceAndEarth"
+  "download": "https://github.com/MedievalRose-Nick/EssenceAndEarth/raw/main/addon/EssenceAndEarth_v0.20.0.mcaddon",
+  "repo": "https://github.com/MedievalRose-Nick/EssenceAndEarth"
  },
  "stats": {
   "crops": 54,
