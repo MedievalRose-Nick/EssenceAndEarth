@@ -217,92 +217,92 @@ Already answered by reading Deepcore v4.58's package:
 
 Still needs testing in-game:
 
-- [ ] **Crystal wear:** can a crafting recipe return a damaged tool? Try a shaped recipe with a damaged item as an ingredient. Until this is settled, tier upgrades stay at 4 essence with no Infusion Crystal.
+- [x] **Crystal wear:** can a crafting recipe return a damaged tool? Try a shaped recipe with a damaged item as an ingredient. Until this is settled, tier upgrades stay at 4 essence with no Infusion Crystal.
 - **Flight is settled:** on 2026-11-02 the user confirmed `/ability` doesn't work on Bedrock, even on a new world, so there's no flight augment.
 
 ## Farming rebalance (v0.11.0)
 
-- [ ] **Check this first:** the add-on loads on the server with no script errors in the log.
-- [ ] Time a crop with no accelerators, ideally a few. **Expect about 24 minutes.**
-- [ ] One accelerator directly under the farmland ripens a crop in **about 3.5 minutes**, and two take about half that.
-- [ ] **Accelerators already placed before this update keep working.** If they do nothing, breaking and replacing one should start it. Note which happens.
-- [ ] A Terra accelerator reaches a crop 9 blocks up from its range start, with other blocks between, and an Astra one reaches 45. It speeds up only the first crop above it.
-- [ ] Accelerators also speed up wheat, carrots, potatoes and beetroot.
-- [ ] 50 or so accelerators cause no noticeable lag.
-- [ ] Seeds plant on vanilla farmland and every essence farmland tier. A crop grows on all of them, including higher-tier seeds on Terra Farmland.
-- [ ] A crop on vanilla farmland pops off cleanly if the farmland dries back to dirt.
-- [ ] Ripe crops on vanilla farmland drop exactly 1 essence and 1 seed.
-- [ ] Over many harvests, second essence and second seed each drop about 10% of the time on non-matching essence farmland, and 20% on matching.
-- [ ] A ripe Terra crop averages 1, 1.5, 2, 2.5 and 3 essence from Terra up to Astra Farmland, with no separate essence item.
-- [ ] Using tier essence on vanilla farmland converts it, uses one essence, and keeps the crop on top. Creative mode uses none.
-- [ ] Using a different tier's essence on essence farmland swaps it, returning the old essence about 25% of the time. The same tier's essence does nothing and isn't used.
-- [ ] 1 dirt + 1 tier essence crafts that tier's farmland, in any slots.
-- [ ] Bone meal does nothing on our crops and isn't used up. It still works on vanilla crops.
-- [ ] Spider and skeleton show both recipes in the recipe book, and each gives the right item.
-- [ ] Copper, iron and gold now craft ingots, and netherite crafts ingots rather than scrap.
-- [ ] The sickle and hoe still work, and the hoe's seed removal still takes one seed when a second seed drops.
-- [ ] A retired bone meal crop still grows, and its essence still crafts bone meal.
-- [ ] The Guide's pages and the wiki match what happens in-game.
+- [x] **Check this first:** the add-on loads on the server with no script errors in the log.
+- [x] Time a crop with no accelerators, ideally a few. **Expect about 24 minutes.**
+- [x] One accelerator directly under the farmland ripens a crop in **about 3.5 minutes**, and two take about half that.
+- [x] **Accelerators already placed before this update keep working.** If they do nothing, breaking and replacing one should start it. Note which happens.
+- [x] A Terra accelerator reaches a crop 9 blocks up from its range start, with other blocks between, and an Astra one reaches 45. It speeds up only the first crop above it.
+- [x] Accelerators also speed up wheat, carrots, potatoes and beetroot.
+- [x] 50 or so accelerators cause no noticeable lag.
+- [x] Seeds plant on vanilla farmland and every essence farmland tier. A crop grows on all of them, including higher-tier seeds on Terra Farmland.
+- [x] A crop on vanilla farmland pops off cleanly if the farmland dries back to dirt.
+- [x] Ripe crops on vanilla farmland drop exactly 1 essence and 1 seed.
+- [x] Over many harvests, second essence and second seed each drop about 10% of the time on non-matching essence farmland, and 20% on matching.
+- [x] A ripe Terra crop averages 1, 1.5, 2, 2.5 and 3 essence from Terra up to Astra Farmland, with no separate essence item.
+- [x] Using tier essence on vanilla farmland converts it, uses one essence, and keeps the crop on top. Creative mode uses none.
+- [x] Using a different tier's essence on essence farmland swaps it, returning the old essence about 25% of the time. The same tier's essence does nothing and isn't used.
+- [x] 1 dirt + 1 tier essence crafts that tier's farmland, in any slots.
+- [x] Bone meal does nothing on our crops and isn't used up. It still works on vanilla crops.
+- [x] Spider and skeleton show both recipes in the recipe book, and each gives the right item.
+- [x] Copper, iron and gold now craft ingots, and netherite crafts ingots rather than scrap.
+- [x] The sickle and hoe still work, and the hoe's seed removal still takes one seed when a second seed drops.
+- [x] A retired bone meal crop still grows, and its essence still crafts bone meal.
+- [x] The Guide's pages and the wiki match what happens in-game.
 
 ## Terra crop (v0.10.0)
 
 
 ## Essence Guide (v0.9.0)
 
-- [ ] **Check this first:** the add-on loads on the server with no script errors in the log, and older features such as bone meal still work. The new `@minecraft/server-ui` dependency could stop all the scripts if its version doesn't match.
-- [ ] The guide crafts from 1 book + 1 Terra Essence, in any slots, and shows its texture.
-- [ ] Using it from the hand opens the menu, and every topic and Back button works.
-- [ ] Each player gets one free copy on joining, and no second copy after dying or rejoining. With a full inventory, it drops at their feet.
-- [ ] Long pages scroll, and the text reads well on a small screen.
+- [x] **Check this first:** the add-on loads on the server with no script errors in the log, and older features such as bone meal still work. The new `@minecraft/server-ui` dependency could stop all the scripts if its version doesn't match.
+- [x] The guide crafts from 1 book + 1 Terra Essence, in any slots, and shows its texture.
+- [x] Using it from the hand opens the menu, and every topic and Back button works.
+- [x] Each player gets one free copy on joining, and no second copy after dying or rejoining. With a full inventory, it drops at their feet.
+- [x] Long pages scroll, and the text reads well on a small screen.
 
 ## Essence tools (v0.8.0)
 
-- [ ] The sickle crafts from 3 Aqua Essence + 2 sticks, and the hoe from 2 Aqua Essence + 2 sticks. Both show their textures and hold as a tool in the hand.
-- [ ] Breaking a ripe crop with the sickle harvests only the ripe crops in the 3×3, on essence and vanilla crops (wheat, carrots, potatoes, beetroot).
-- [ ] The sickle refuses to break an unripe crop, and breaks other blocks normally.
-- [ ] Right-clicking a ripe crop with the hoe drops the harvest and replants it at stage 0, leaving one fewer seed in the drops, including on vanilla crops.
-- [ ] Right-clicking an unripe crop with the hoe does nothing.
-- [ ] Farmland bonus essence and vanilla crop Terra Essence still drop from tool harvests.
-- [ ] Durability falls by 1 per crop harvested and by nothing extra from the game itself. The tool breaks at zero with the sound, and creative mode uses none.
-- [ ] Aqua Essence repairs both tools in an anvil.
+- [x] The sickle crafts from 3 Aqua Essence + 2 sticks, and the hoe from 2 Aqua Essence + 2 sticks. Both show their textures and hold as a tool in the hand.
+- [x] Breaking a ripe crop with the sickle harvests only the ripe crops in the 3×3, on essence and vanilla crops (wheat, carrots, potatoes, beetroot).
+- [x] The sickle refuses to break an unripe crop, and breaks other blocks normally.
+- [x] Right-clicking a ripe crop with the hoe drops the harvest and replants it at stage 0, leaving one fewer seed in the drops, including on vanilla crops.
+- [x] Right-clicking an unripe crop with the hoe does nothing.
+- [x] Farmland bonus essence and vanilla crop Terra Essence still drop from tool harvests.
+- [x] Durability falls by 1 per crop harvested and by nothing extra from the game itself. The tool breaks at zero with the sound, and creative mode uses none.
+- [x] Aqua Essence repairs both tools in an anvil.
 
 ## Terra Essence from grass and Loggers (v0.7.4)
 
-- [ ] Hand-cut grass drops Terra Essence about 20% of the time (raised in v0.10.2).
-- [ ] A Wildbloom Logger cutting trees drops Terra Essence for about 5% of logs, including logs high up a tall tree.
-- [ ] Chopping logs far from any Logger never drops essence.
-- [ ] Felling a tree causes no noticeable lag.
+- [x] Hand-cut grass drops Terra Essence about 20% of the time (raised in v0.10.2).
+- [x] A Wildbloom Logger cutting trees drops Terra Essence for about 5% of logs, including logs high up a tall tree.
+- [x] Chopping logs far from any Logger never drops essence.
+- [x] Felling a tree causes no noticeable lag.
 
 ## Terra Essence from vanilla crops (v0.7.3)
 
-- [ ] Ripe vanilla crops, harvested by hand or by the reaper, drop Terra Essence about 15% of the time (roughly 15 per 100 harvests).
+- [x] Ripe vanilla crops, harvested by hand or by the reaper, drop Terra Essence about 15% of the time (roughly 15 per 100 harvests).
 
 ## Mod tag (v0.7.2)
 
-- [ ] Items and blocks (farmland, accelerators) show a blue `@ESSENCE&EARTH` line under their name in the inventory.
-- [ ] Block names show properly, not as `tile.ee:...`.
+- [x] Items and blocks (farmland, accelerators) show a blue `@ESSENCE&EARTH` line under their name in the inventory.
+- [x] Block names show properly, not as `tile.ee:...`.
 
 ## Crop rendering (v0.7.1)
 
-- [ ] Crops no longer flicker or show hatching when you walk around them, at every growth stage.
-- [ ] Crop planes show from both sides, with no invisible angles.
+- [x] Crops no longer flicker or show hatching when you walk around them, at every growth stage.
+- [x] Crop planes show from both sides, with no invisible angles.
 
 ## Farmland (v0.5.0)
 
-- [ ] Seeds won't plant on dirt or grass.
-- [ ] Breaking farmland pops the crop on top, and the farmland drops itself.
+- [x] Seeds won't plant on dirt or grass.
+- [x] Breaking farmland pops the crop on top, and the farmland drops itself.
 
 ## Growth accelerators (v0.6.0)
 
-- [ ] Each shows the right name and tier colour, with white sparks around the roots.
-- [ ] Each drops itself when mined.
+- [x] Each shows the right name and tier colour, with white sparks around the roots.
+- [x] Each drops itself when mined.
 
 ## Mob crops (v0.7.0)
 
-- [ ] Each crop grows, and shows its colour when ripe. Enderman is purple, wither is pale blue, and their essence stays dark.
-- [ ] Each mob essence shows its face in the inventory, and is recognisable at normal size.
-- [ ] Bone meal seeds can no longer be crafted.
-- [ ] A crafted wither skeleton skull works for summoning a wither.
+- [x] Each crop grows, and shows its colour when ripe. Enderman is purple, wither is pale blue, and their essence stays dark.
+- [x] Each mob essence shows its face in the inventory, and is recognisable at normal size.
+- [x] Bone meal seeds can no longer be crafted.
+- [x] A crafted wither skeleton skull works for summoning a wither.
 
 ## Machines (Wildbloom)
 
