@@ -1,4 +1,4 @@
-import { system, world, BlockVolume, EntityInitializationCause, EquipmentSlot, GameMode, ItemStack } from "@minecraft/server";
+import { system, world, BlockVolume, EnchantmentTypes, EntityInitializationCause, EquipmentSlot, GameMode, ItemStack } from "@minecraft/server";
 import { ActionFormData } from "@minecraft/server-ui";
 
 // NS, ESSENCE (the tier-1 essence), BALANCE, ALTAR_RECIPES, SOULS, ACCELERATOR_RANGE, GUIDE_PAGES, FARMLAND_TIER, CROP_TIER and ESSENCE_FARMLAND placeholders are filled in from crops.json at build time.
@@ -17,6 +17,9 @@ const {
   altarTicks: ALTAR_TICKS,
   attunedSoulMultiplier: ATTUNED_SOULS,
   harvester: HARVESTER_BALANCE,
+  seedReprocessor: REPROCESSOR_BALANCE,
+  soulExtractor: EXTRACTOR_BALANCE,
+  essenceFurnace: FURNACE_BALANCE,
 } = __BALANCE__;
 
 // Accelerator id -> how many blocks above itself it reaches.
@@ -336,6 +339,15 @@ system.beforeEvents.startup.subscribe(({ blockComponentRegistry }) => {
       }
     },
   });
+  blockComponentRegistry.registerCustomComponent("__NS__:processor", {
+    onTick({ block }) {
+      try {
+        processorTick(block);
+      } catch {
+        // unloaded chunk
+      }
+    },
+  });
   blockComponentRegistry.registerCustomComponent("__NS__:accelerator", {
     // Speeds up the first crop above it, within its range.
     onTick({ block }) {
@@ -360,6 +372,8 @@ const WAND = "__NS__:wand";
 const DISPLAY = "__NS__:item_display";
 const PEDESTAL_OFFSETS = [[3, 0], [0, 3], [-3, 0], [0, -3], [2, 2], [2, -2], [-2, 2], [-2, -2]];
 const ALTAR_RECIPES = __ALTAR_RECIPES__;
+const ENCHANT_RECIPES = __ENCHANT_RECIPES__; // [{ enchant, ingredients }]
+const BOOK = "minecraft:book";
 
 const displayLocation = ({ x, y, z }) => ({ x: x + 0.5, y: y + 1, z: z + 0.5 });
 
@@ -419,6 +433,24 @@ const infusing = new Map(); // altar location key -> { dimension, location, tick
 const locationKey = ({ x, y, z }, dimension) => `${dimension.id}:${x},${y},${z}`;
 const pedestalsOf = (altar) => PEDESTAL_OFFSETS.map(([dx, dz]) => altar.dimension.getBlock({ x: altar.location.x + dx, y: altar.location.y, z: altar.location.z + dz }));
 
+// The input with this enchantment one level higher, or nothing if it can't take it. A plain book becomes an enchanted book.
+function enchanted(input, enchant) {
+  try {
+    const type = EnchantmentTypes.get(enchant);
+    const result = input.typeId === BOOK ? new ItemStack("minecraft:enchanted_book") : input.clone();
+    const enchantable = result.getComponent("minecraft:enchantable");
+    if (!type || !enchantable) return undefined;
+    const level = (enchantable.getEnchantment(type)?.level ?? 0) + 1;
+    if (level > type.maxLevel) return undefined;
+    if (level > 1) enchantable.removeEnchantment(type);
+    if (!enchantable.canAddEnchantment({ type, level })) return undefined;
+    enchantable.addEnchantment({ type, level });
+    return result;
+  } catch {
+    return undefined; // Bedrock refused it
+  }
+}
+
 function findRecipe(altar) {
   const input = standItem(altar);
   if (!input) return { problem: "Put something on the altar first." };
@@ -427,7 +459,10 @@ function findRecipe(altar) {
   if (missing) return { problem: `${missing} of the 8 pedestals are missing or in the wrong place.` };
   const items = pedestals.map(standItem);
   const recipe = ALTAR_RECIPES.find((r) => r.input === input.typeId && matchRecipe(r, items));
-  return recipe ? { recipe, pedestals } : { problem: "These items don't make anything." };
+  if (recipe) return { recipe, pedestals };
+  const enchant = ENCHANT_RECIPES.find((r) => matchRecipe(r, items));
+  if (!enchant) return { problem: "These items don't make anything." };
+  return enchanted(input, enchant.enchant) ? { recipe: enchant, pedestals } : { problem: "This can't take that enchantment, or it's already at the highest level." };
 }
 
 function startInfusion(altar, player) {
@@ -443,6 +478,8 @@ function startInfusion(altar, player) {
 }
 
 function finishInfusion(altar, recipe, pedestals) {
+  const output = recipe.enchant ? enchanted(standItem(altar), recipe.enchant) : new ItemStack(recipe.output);
+  if (!output) return;
   for (const pedestal of pedestals) {
     const item = standItem(pedestal);
     // A soul jar goes back on its pedestal, empty.
@@ -450,7 +487,7 @@ function finishInfusion(altar, recipe, pedestals) {
     else setStandItem(pedestal);
     pedestal.dimension.spawnParticle("minecraft:basic_smoke_particle", pedestal.center());
   }
-  setStandItem(altar, new ItemStack(recipe.output));
+  setStandItem(altar, output);
   altar.dimension.spawnParticle("minecraft:crop_growth_emitter", altar.center());
   altar.dimension.playSound("random.levelup", altar.center());
 }
@@ -486,11 +523,22 @@ const SOUL_OF_MOB = Object.fromEntries(Object.entries(SOULS).flatMap(([soul, { m
 const DAGGERS = { "__NS__:anima_dagger": null, "__NS__:passive_anima_dagger": true, "__NS__:hostile_anima_dagger": false };
 const soulTitle = (soul) => soul.replace(/(^|_)(\w)/g, (_, sep, c) => (sep ? " " : "") + c.toUpperCase());
 
+// Adds up to `amount` souls to a jar stack and returns how many went in.
+function fillJar(stack, soul, amount) {
+  const need = SOULS[soul].need;
+  const count = stack.getDynamicProperty(SOUL_COUNT) ?? 0;
+  const added = Math.min(need - count, amount);
+  if (added <= 0) return 0;
+  stack.setDynamicProperty(SOUL_TYPE, soul);
+  stack.setDynamicProperty(SOUL_COUNT, count + added);
+  stack.setLore([`${soulTitle(soul)} Souls: ${+(count + added).toFixed(1)} / ${need}`]);
+  return added;
+}
+
 // Pours souls into the player's jars, starting with ones that already hold this mob type, as far as they'll go.
 function addSouls(player, soul, amount) {
   const container = player.getComponent("minecraft:inventory")?.container;
   if (!container) return;
-  const need = SOULS[soul].need;
   const slots = [];
   for (let i = 0; i < container.size; i++) {
     const stack = container.getItem(i);
@@ -502,13 +550,9 @@ function addSouls(player, soul, amount) {
   for (const i of slots) {
     if (amount <= 0) return;
     const stack = container.getItem(i);
-    const count = stack.getDynamicProperty(SOUL_COUNT) ?? 0;
-    const added = Math.min(need - count, amount);
+    const added = fillJar(stack, soul, amount);
     if (added <= 0) continue;
     amount -= added;
-    stack.setDynamicProperty(SOUL_TYPE, soul);
-    stack.setDynamicProperty(SOUL_COUNT, count + added);
-    stack.setLore([`${soulTitle(soul)} Souls: ${+(count + added).toFixed(1)} / ${need}`]);
     container.setItem(i, stack);
   }
 }
@@ -562,6 +606,12 @@ function screenOf(block) {
   return screen;
 }
 
+function machineScreen(block, title) {
+  const screen = screenOf(block) ?? block.dimension.spawnEntity(HARVESTER_SCREEN, { x: block.location.x + 0.5, y: block.location.y, z: block.location.z + 0.5 });
+  if (screen.nameTag !== title) screen.nameTag = title; // includes machines from before the screen had a layout
+  return screen;
+}
+
 function harvesterSettings(container) {
   const upgrade = MACHINE_UPGRADES[container.getItem(UPGRADE_SLOT)?.typeId];
   const range = HARVESTER_BALANCE.range + (upgrade?.range ?? 0);
@@ -595,9 +645,9 @@ function refuel(screen, container, tank) {
 }
 
 // Puts a stack in the output slots and returns how many didn't fit. addItem would also fill the fuel and upgrade slots.
-function storeOutput(container, stack) {
+function storeOutput(container, stack, end = OUTPUT_END) {
   let left = stack.amount;
-  for (let i = FIRST_OUTPUT_SLOT; i < OUTPUT_END && left; i++) {
+  for (let i = FIRST_OUTPUT_SLOT; i < end && left; i++) {
     const item = container.getItem(i);
     if (!item?.isStackableWith(stack) || item.amount >= item.maxAmount) continue;
     const moved = Math.min(left, item.maxAmount - item.amount);
@@ -605,7 +655,7 @@ function storeOutput(container, stack) {
     container.setItem(i, item);
     left -= moved;
   }
-  for (let i = FIRST_OUTPUT_SLOT; i < OUTPUT_END && left; i++) {
+  for (let i = FIRST_OUTPUT_SLOT; i < end && left; i++) {
     if (container.getItem(i)) continue;
     const item = stack.clone();
     item.amount = left;
@@ -666,11 +716,10 @@ function harvesterOperation(block, screen, settings, facing) {
 }
 
 function harvesterTick(block) {
-  const screen = screenOf(block) ?? block.dimension.spawnEntity(HARVESTER_SCREEN, { x: block.location.x + 0.5, y: block.location.y, z: block.location.z + 0.5 });
+  const screen = machineScreen(block, HARVESTER_BALANCE.screenTitle);
   const container = screen.getComponent("minecraft:inventory").container;
   const settings = harvesterSettings(container);
   const facing = DIRECTIONS[block.permutation.getState(FACING)];
-  if (screen.nameTag !== HARVESTER_BALANCE.screenTitle) screen.nameTag = HARVESTER_BALANCE.screenTitle; // includes machines from before the screen had a layout
   refuel(screen, container, settings.tank);
   emptyIntoChest(block, container, facing);
   if (!(block.getRedstonePower?.() > 0)) harvesterWork(block, screen, settings, facing);
@@ -693,11 +742,11 @@ const fuelPercent = (fuel, settings) => Math.min(100, Math.floor((fuel / setting
 
 // Rewrites a readout only when it changes. Anything else found in the slot, like harvest from before the
 // screen had a layout or a shift-clicked stack, goes to the harvest slots, or to the ground if they're full.
-function setReadout(screen, container, slot, id, name) {
+function setReadout(screen, container, slot, id, name, outputEnd = OUTPUT_END) {
   const held = container.getItem(slot);
   if (held?.typeId === id && held.nameTag === name) return;
   if (held && !held.typeId.startsWith(SCREEN_ITEM)) {
-    const left = storeOutput(container, held);
+    const left = storeOutput(container, held, outputEnd);
     if (left) {
       held.amount = left;
       screen.dimension.spawnItem(held, screen.location);
@@ -727,15 +776,182 @@ function harvesterStatus(block, screen) {
   return `Harvester · ${settings.name} ${side}×${side} · Fuel ${fuelPercent(fuel, settings)}%${state}`;
 }
 
+// ---------- Seed Reprocessor, Soul Extractor and Essence Furnace ----------
+// One input and one output, on the Harvester's screen entity, fuel and upgrades. Their slots start where the Harvester's harvest does.
+const INPUT_SLOT = 2;
+const OUTPUT_SLOT = 3;
+const FILLER_START = 4;
+const PROGRESS_SLOT = 22;
+const PROGRESS_LEVELS = 7;
+const REPROCESS = __REPROCESS__; // seed -> essence
+const SMELTING = FURNACE_BALANCE.recipes;
+const SOUL_ITEMS = EXTRACTOR_BALANCE.items; // item -> [soul, how many it's worth]
+
+// The output slot with `amount` of an item added, or nothing if there's no room.
+function added(output, id, amount) {
+  if (!output) return new ItemStack(id, amount);
+  if (output.typeId !== id || output.amount + amount > output.maxAmount) return undefined;
+  const stack = output.clone();
+  stack.amount += amount;
+  return stack;
+}
+
+const PROCESSORS = {
+  "__NS__:seed_reprocessor": {
+    name: "Seed Reprocessor", balance: REPROCESSOR_BALANCE,
+    accepts: (input) => input.typeId in REPROCESS,
+    craft: (input, output) => added(output, REPROCESS[input.typeId], REPROCESSOR_BALANCE.essencePerSeed),
+  },
+  "__NS__:soul_extractor": {
+    name: "Soul Extractor", balance: EXTRACTOR_BALANCE, holdsJars: true,
+    accepts: (input) => input.typeId in SOUL_ITEMS,
+    craft(input, jar) {
+      if (jar?.typeId !== JAR) return undefined;
+      const [soul, worth] = SOUL_ITEMS[input.typeId];
+      if ((jar.getDynamicProperty(SOUL_TYPE) ?? soul) !== soul) return undefined;
+      const filled = jar.clone();
+      return fillJar(filled, soul, worth) > 0 ? filled : undefined;
+    },
+    // A jar stays until it's full, so it keeps filling. Anything else in the slot can leave.
+    finished(stack) {
+      if (stack.typeId !== JAR) return true;
+      const soul = stack.getDynamicProperty(SOUL_TYPE);
+      return soul !== undefined && fullJar(stack, soul);
+    },
+  },
+  "__NS__:essence_furnace": {
+    name: "Essence Furnace", balance: FURNACE_BALANCE,
+    accepts: (input) => input.typeId in SMELTING || input.hasTag("minecraft:logs"),
+    craft: (input, output) => added(output, SMELTING[input.typeId] ?? "minecraft:charcoal", 1),
+  },
+};
+const MACHINE_BLOCKS = new Set([HARVESTER, ...Object.keys(PROCESSORS)]);
+
+function processorSettings(machine, container) {
+  const upgrade = MACHINE_UPGRADES[container.getItem(UPGRADE_SLOT)?.typeId];
+  const ticks = machine.balance.operationTicks * (upgrade?.time ?? 1);
+  return {
+    name: upgrade?.name ?? "No upgrade",
+    ticks,
+    fuel: machine.balance.fuelPerTick * (upgrade?.fuel ?? 1) * ticks,
+    tank: HARVESTER_BALANCE.tank * (upgrade?.tank ?? 1),
+  };
+}
+
+// A shift-click drops items in the first open slot, whatever it is, so each one gets moved to where it belongs.
+function sortSlots(machine, container) {
+  const move = (from, to) => {
+    if (container.getItem(to)) return;
+    container.setItem(to, container.getItem(from));
+    container.setItem(from);
+  };
+  for (const slot of [FUEL_SLOT, INPUT_SLOT]) {
+    const stack = container.getItem(slot);
+    if (!stack) continue;
+    if (stack.typeId in MACHINE_UPGRADES) move(slot, UPGRADE_SLOT);
+    else if (machine.holdsJars && stack.typeId === JAR) move(slot, OUTPUT_SLOT);
+    else if (slot === FUEL_SLOT && !burnTicks(stack)) move(slot, INPUT_SLOT);
+    else if (slot === INPUT_SLOT && !machine.accepts(stack) && burnTicks(stack)) move(slot, FUEL_SLOT);
+  }
+}
+
+// A chest or barrel on top feeds the input, and one at the back takes the output.
+function moveThroughChests(block, machine, container, facing) {
+  const { x, y, z } = block.location;
+  const above = block.dimension.getBlock({ x, y: y + 1, z })?.getComponent("minecraft:inventory")?.container;
+  if (above && !container.getItem(INPUT_SLOT)) {
+    for (let i = 0; i < above.size; i++) {
+      const item = above.getItem(i);
+      if (!item || !machine.accepts(item)) continue;
+      container.setItem(INPUT_SLOT, item);
+      above.setItem(i);
+      break;
+    }
+  }
+  const output = container.getItem(OUTPUT_SLOT);
+  const behind = block.dimension.getBlock({ x: x - facing.x, y, z: z - facing.z })?.getComponent("minecraft:inventory")?.container;
+  if (output && behind && (machine.finished?.(output) ?? true)) container.setItem(OUTPUT_SLOT, behind.addItem(output));
+}
+
+function processorWork(machine, screen, container, settings) {
+  let fuel = screen.getDynamicProperty(FUEL) ?? 0;
+  let ticks = (progress.get(screen.id) ?? 0) + HARVESTER_BALANCE.tickEvery;
+  while (true) {
+    const input = container.getItem(INPUT_SLOT);
+    const result = input && machine.accepts(input) ? machine.craft(input, container.getItem(OUTPUT_SLOT)) : undefined;
+    if (!result || fuel < settings.fuel) {
+      ticks = 0;
+      break;
+    }
+    if (ticks < settings.ticks) break;
+    ticks -= settings.ticks;
+    fuel -= settings.fuel;
+    container.setItem(OUTPUT_SLOT, result);
+    if (input.amount > 1) {
+      input.amount -= 1;
+      container.setItem(INPUT_SLOT, input);
+    } else {
+      container.setItem(INPUT_SLOT);
+    }
+  }
+  progress.set(screen.id, ticks);
+  screen.setDynamicProperty(FUEL, fuel);
+}
+
+function processorState(block, machine, screen, container, settings) {
+  const fuel = screen.getDynamicProperty(FUEL) ?? 0;
+  if (fuel < settings.fuel) return "§4Out of fuel";
+  if (block.getRedstonePower?.() > 0) return "§6Paused";
+  const input = container.getItem(INPUT_SLOT);
+  if (!input) return "§8Waiting";
+  if (!machine.accepts(input)) return "§4Can't use that";
+  return machine.craft(input, container.getItem(OUTPUT_SLOT)) ? "§2Running" : machine.holdsJars ? "§4Needs a matching jar" : "§4Output full";
+}
+
+function updateProcessorReadouts(block, machine, screen, container, settings) {
+  const fuel = screen.getDynamicProperty(FUEL) ?? 0;
+  const level = fuel > 0 ? Math.max(1, Math.min(FUEL_GAUGE_LEVELS, Math.floor((fuel / settings.tank) * FUEL_GAUGE_LEVELS))) : 0;
+  const done = Math.min(PROGRESS_LEVELS, Math.floor(((progress.get(screen.id) ?? 0) / settings.ticks) * (PROGRESS_LEVELS + 1)));
+  const readout = (slot, id, name) => setReadout(screen, container, slot, id, name, FIRST_OUTPUT_SLOT);
+  for (let i = FILLER_START; i < container.size; i++) {
+    if (i === PROGRESS_SLOT || i === FUEL_GAUGE_SLOT || i === STATUS_SLOT) continue;
+    readout(i, `${SCREEN_ITEM}blank`, "§r");
+  }
+  readout(PROGRESS_SLOT, `${SCREEN_ITEM}progress_${done}`, "§r");
+  readout(FUEL_GAUGE_SLOT, `${SCREEN_ITEM}fuel_${level}`, `§8${fuelPercent(fuel, settings)}%`);
+  readout(STATUS_SLOT, `${SCREEN_ITEM}blank`, `§8${settings.name} · ${(settings.ticks / 20).toFixed(2)}s · ${processorState(block, machine, screen, container, settings)}`);
+}
+
+function processorTick(block) {
+  const machine = PROCESSORS[block.typeId];
+  const screen = machineScreen(block, machine.balance.screenTitle);
+  const container = screen.getComponent("minecraft:inventory").container;
+  const settings = processorSettings(machine, container);
+  const facing = DIRECTIONS[block.permutation.getState(FACING)];
+  sortSlots(machine, container);
+  refuel(screen, container, settings.tank);
+  moveThroughChests(block, machine, container, facing);
+  if (!(block.getRedstonePower?.() > 0)) processorWork(machine, screen, container, settings);
+  updateProcessorReadouts(block, machine, screen, container, settings);
+}
+
+function machineStatus(block, screen) {
+  const machine = PROCESSORS[block.typeId];
+  if (!machine) return harvesterStatus(block, screen);
+  const container = screen.getComponent("minecraft:inventory").container;
+  const settings = processorSettings(machine, container);
+  return `${machine.name} · ${settings.name} · Fuel ${fuelPercent(screen.getDynamicProperty(FUEL) ?? 0, settings)}% · ${processorState(block, machine, screen, container, settings)}`;
+}
+
 // Shows a machine's status while it's looked at, and gives its screen a hitbox only for an empty hand.
 system.runInterval(() => {
   const looked = new Map(); // screen entity id -> { screen, open }
   for (const player of world.getPlayers()) {
     const block = player.getBlockFromViewDirection({ maxDistance: LOOK_DISTANCE })?.block;
-    if (block?.typeId !== HARVESTER) continue;
+    if (!MACHINE_BLOCKS.has(block?.typeId)) continue;
     const screen = screenOf(block);
     if (!screen) continue;
-    player.onScreenDisplay.setActionBar(harvesterStatus(block, screen));
+    player.onScreenDisplay.setActionBar(machineStatus(block, screen));
     const open = !player.isSneaking && !player.getComponent("minecraft:equippable")?.getEquipment(EquipmentSlot.Mainhand);
     looked.set(screen.id, { screen, open: open || looked.get(screen.id)?.open });
   }
@@ -756,7 +972,7 @@ system.runInterval(() => {
   }
 }, 4);
 
-// Breaking a Harvester by any means leaves its screen behind, so this sweep drops what it held and clears the entity.
+// Breaking a machine by any means leaves its screen behind, so this sweep drops what it held and clears the entity.
 system.runInterval(() => {
   for (const name of ["overworld", "nether", "the_end"]) {
     const dimension = world.getDimension(name);
@@ -764,7 +980,7 @@ system.runInterval(() => {
       try {
         const { x, y, z } = screen.location;
         const id = dimension.getBlock({ x: Math.floor(x), y: Math.floor(y), z: Math.floor(z) })?.typeId;
-        if (id === undefined || id === HARVESTER) continue;
+        if (id === undefined || MACHINE_BLOCKS.has(id)) continue;
         const container = screen.getComponent("minecraft:inventory").container;
         for (let i = 0; i < container.size; i++) {
           const item = container.getItem(i);

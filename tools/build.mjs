@@ -647,6 +647,14 @@ const ALTAR_RECIPES = [
   })),
 ];
 
+// Enchanting at the altar: a book or an item on the altar, 4 of the enchantment's ingredient and 4 Experience Essence on the pedestals. Each craft adds a level.
+const ENCHANT_RECIPES = Object.entries(BAL.enchanting).map(([enchant, ingredient]) => ({
+  enchant,
+  ingredient,
+  ingredients: [...Array(4).fill(ingredient), ...Array(4).fill(`${NS}:experience_essence`)],
+}));
+for (const [item, [soul]] of Object.entries(BAL.soulExtractor.items)) if (!cfg.souls[soul]) throw new Error(`${item} gives unknown soul ${soul}`);
+
 // Guide pages listing every altar recipe, one per tier. There's no recipe viewer on Bedrock, and these don't show in the recipe book.
 cfg.tiers.forEach((t, i) => {
   const crops = cfg.crops.filter((c) => !c.retired && !c.essenceCrop && c.tier === i + 1);
@@ -660,6 +668,12 @@ cfg.tiers.forEach((t, i) => {
     ].join("\n\n"),
   });
 });
+GUIDE_PAGES.splice(GUIDE_PAGES.findIndex((g) => g.title === "Crops by Tier"), 0,
+  { title: "Seed Reprocessor", body: `Turns a seed into ${BAL.seedReprocessor.essencePerSeed} of its essence, using fuel. Use it on spare seeds from essence farmland.\n\nTap it with an empty hand to open it. Fuel and upgrades go on the left. Seeds go in the middle slot, and essence comes out on the right.\n\nA chest on top feeds it, and a chest at its back takes the essence. Redstone power pauses it. Upgrades make it faster but burn more fuel, and don't change the essence per seed.` },
+  { title: "Soul Extractor", body: `Fills a Soul Jar from mob drops instead of kills. Put a jar in the right slot and drops in the middle slot, and fuel and upgrades on the left. A jar holds one mob type, so mixed drops wait until you swap the jar.\n\nA chest on top feeds drops in, and a full jar moves to a chest at its back.\n\nWhat each drop is worth:\n${Object.entries(BAL.soulExtractor.items).map(([id, [soul, worth]]) => `${title(id.split(":")[1])}: ${worth} ${title(soul)}`).join("\n")}` },
+  { title: "Essence Furnace", body: `A furnace that takes Machine Upgrades. One block, with no tiers to craft: each upgrade makes it faster but burn more fuel.\n\nPut fuel and an upgrade on the left, what you're smelting in the middle, and take the result on the right. A chest on top feeds it, and a chest at its back takes the result.\n\nIt only knows common recipes: ores and raw metals, sand, stone, clay, food, logs and a few others. Use a normal furnace for anything else. It gives no experience.` },
+  { title: "Enchanting", body: `Enchant at the Infusion Altar. Put a book or the item to enchant on the altar. On the pedestals, put 4 Experience Essence and 4 of the enchantment's ingredient. Use the wand.\n\nEach craft adds one level, so craft again with the same items to go higher. A book becomes an Enchanted Book for the anvil. Enchantments that clash can't be combined.\n\nIngredients:\n${ENCHANT_RECIPES.map((r) => `${title(r.enchant)}: ${title(r.ingredient.split(":")[1])}`).join("\n")}` },
+);
 GUIDE_PAGES.push({
   title: "Altar Recipes: Daggers",
   body: `Put an Anima Dagger on the altar. On the pedestals, put 2 Anima Ingots, 2 Anima Gemstones and 4 full Soul Jars.\n\n${ATTUNED_DAGGERS.map(([kind, mobs]) => `${title(kind)} dagger: ${mobs.map(title).join(", ")} jars`).join("\n")}`,
@@ -682,6 +696,8 @@ for (const file of fs.readdirSync(path.join(BP, "scripts"), { recursive: true })
       .replaceAll("__ESSENCE_FARMLAND__", JSON.stringify(Object.fromEntries(cfg.tiers.map((t) => [`${NS}:${t.id}_essence`, `${NS}:${t.id}_farmland`]))))
       .replaceAll("__GUIDE_PAGES__", JSON.stringify(GUIDE_PAGES))
       .replaceAll("__ALTAR_RECIPES__", JSON.stringify(ALTAR_RECIPES))
+      .replaceAll("__ENCHANT_RECIPES__", JSON.stringify(ENCHANT_RECIPES.map(({ enchant, ingredients }) => ({ enchant, ingredients }))))
+      .replaceAll("__REPROCESS__", JSON.stringify(Object.fromEntries(cfg.crops.filter((c) => !c.retired).map((c) => [`${NS}:${c.id}_seeds`, `${NS}:${c.id}_essence`]))))
       .replaceAll("__MACHINE_UPGRADES__", JSON.stringify(Object.fromEntries(cfg.tiers.map((t, i) => [`${NS}:${t.id}_machine_upgrade`, { name: tierTitle(t), ...BAL.harvester.upgrades[i] }]))))
       .replaceAll("__SOULS__", JSON.stringify(cfg.souls))
       .replaceAll("__DEEPCORE_ORES__", JSON.stringify(DEEPCORE_ORES))
@@ -1334,7 +1350,7 @@ const machinePlate = (x, y) => {
 const inSquare = (x, y, from, to) => x >= from && x <= to && y >= from && y <= to;
 blockTexture("machine_frame", grid((x, y) => (inSquare(x, y, 3, 12) ? "x" : machinePlate(x, y))), TOOL_TIER.color, MACHINE_PALETTE);
 // "." in these masks is the plate: bevelled steel with a rivet in each corner.
-const HARVESTER_PALETTE = { K: "#14161b", D: "#262a32", S: "#3a404a", s: "#333943", M: "#535a66", L: "#7d8695", W: "#bcc4cf", b: "#4fb6ff", B: "#1f6fb8", c: "#a9e2ff", n: "#0d2436" };
+const HARVESTER_PALETTE = { K: "#14161b", D: "#262a32", S: "#3a404a", s: "#333943", M: "#535a66", L: "#7d8695", W: "#bcc4cf", b: "#4fb6ff", B: "#1f6fb8", c: "#a9e2ff", n: "#0d2436", H: "#6b4a2f", P: cfg.anima.color, p: "#a98be6", v: "#e6dcff", O: "#e8602c", o: "#ffb45e", y: "#ffe9a8" };
 const harvesterPlate = (x, y) => {
   if (x === 0 || y === 0 || x === 15 || y === 15) return "D";
   if ((x === 2 || x === 13) && (y === 2 || y === 13)) return "L";
@@ -1343,8 +1359,8 @@ const harvesterPlate = (x, y) => {
   return (x + y * 3) % 11 === 0 ? "s" : "S";
 };
 const HARVESTER_MASKS = {
-  // Thresher: a reel of steel teeth around a glowing axle.
-  front: ["................", "................", "..KKKKKKKKKKKK..", "..KWLKKWLKKWLK..", "..KMWLKMWLKMWK..", "..KKMWLKMWLKMK..", "..DDDDDDDDDDDD..", "..BbbcbbcbbcbB..", "..DDDDDDDDDDDD..", "..KKMWLKMWLKMK..", "..KMWLKMWLKMWK..", "..KWLKKWLKKWLK..", "..KKKKKKKKKKKK..", "................", "................", "................"],
+  // Scythe port: a glowing blade sweeping across a round port.
+  front: ["................", "................", "....KKKKKKKK....", "...KnnnnnnnnK...", "..KnnnbbbbnnnK..", "..KnnbccbbbnnK..", "..KnbcnnnnbbnK..", "..KnbnnnnnnBnK..", "..KnnnnnnnBbnK..", "..KnnnnnnBbnnK..", "..KnnnnHBbnnnK..", "..KnnnHHnnnnnK..", "...KnHHnnnnnK...", "....KKKKKKKK....", "................", "................"],
   side: ["................", "................", "................", "................", "...KKKKKKKKKK...", "...DMMMMMMMMD...", "...KKKKKKKKKK...", "...DMMMMMMMMD...", "...KKKKKKKKKK...", "...DMMMMMMMMD...", "...KKKKKKKKKK...", "................", "....BbbbbbbB....", "................", "................", "................"],
   top: ["................", "................", "....KKKKKKKK....", "...KDDDDDDDDK...", "..KDMKMKMKMKDK..", "..KDMKMKMKMKDK..", "..KDMKMbbKMKDK..", "..KDMKbccbMKDK..", "..KDMKbccbMKDK..", "..KDMKMbbKMKDK..", "..KDMKMKMKMKDK..", "..KDMKMKMKMKDK..", "...KDDDDDDDDK...", "....KKKKKKKK....", "................", "................"],
   // An arrow pointing out, to where a chest goes.
@@ -1352,6 +1368,17 @@ const HARVESTER_MASKS = {
 };
 for (const [face, mask] of Object.entries(HARVESTER_MASKS))
   blockTexture(`harvester_${face}`, grid((x, y) => (mask[y][x] === "." ? harvesterPlate(x, y) : mask[y][x])), null, HARVESTER_PALETTE);
+// The other machines share the Harvester's sides, top and back, and differ by their front.
+const MACHINE_FRONTS = {
+  // Thresher: a reel of steel teeth around a glowing axle.
+  seed_reprocessor: ["................", "................", "..KKKKKKKKKKKK..", "..KWLKKWLKKWLK..", "..KMWLKMWLKMWK..", "..KKMWLKMWLKMK..", "..DDDDDDDDDDDD..", "..BbbcbbcbbcbB..", "..DDDDDDDDDDDD..", "..KKMWLKMWLKMK..", "..KMWLKMWLKMWK..", "..KWLKKWLKKWLK..", "..KKKKKKKKKKKK..", "................", "................", "................"],
+  // A soul jar, glowing purple.
+  soul_extractor: ["................", "................", "......KKKK......", ".....KWLLWK.....", "......KLLK......", ".....KnnnnK.....", "....KnnPPnnK....", "....KnPppPnK....", "....KnPpvpnK....", "....KnPvpPnK....", "....KnnPPnnK....", "....KnnnnnnK....", ".....KKKKKK.....", "....PPPPPPPP....", "................", "................"],
+  // A firebox behind a grate.
+  essence_furnace: ["................", "................", "..KKKKKKKKKKKK..", "..KDDDDDDDDDDK..", "..KDKKKKKKKKDK..", "..KDKKKKOKKKDK..", "..KDKKKOOKKKDK..", "..KDKOKOoOKKDK..", "..KDKOOoyOOKDK..", "..KDKOoyyoOKDK..", "..KDKOoyyoOKDK..", "..KDMMMMMMMMDK..", "..KDDDDDDDDDDK..", "..KKKKKKKKKKKK..", "................", "................"],
+};
+for (const [id, mask] of Object.entries(MACHINE_FRONTS))
+  blockTexture(`${id}_front`, grid((x, y) => (mask[y][x] === "." ? harvesterPlate(x, y) : mask[y][x])), null, HARVESTER_PALETTE);
 block("machine_frame", "metal", { menu_category: { category: "items" } }, {
   "minecraft:display_name": "Machine Frame",
   "minecraft:geometry": "minecraft:geometry.full_block",
@@ -1375,6 +1402,22 @@ block("harvester", "metal", {
   condition: `q.block_state('minecraft:cardinal_direction') == '${facing}'`,
   components: { "minecraft:transformation": { rotation: [0, y, 0] } },
 })));
+for (const id of Object.keys(MACHINE_FRONTS))
+  block(id, "metal", {
+    menu_category: { category: "items" },
+    traits: { "minecraft:placement_direction": { enabled_states: ["minecraft:cardinal_direction"], y_rotation_offset: 180 } },
+  }, {
+    "minecraft:display_name": title(id),
+    "minecraft:geometry": "minecraft:geometry.full_block",
+    "minecraft:destructible_by_mining": { seconds_to_destroy: 2.5 },
+    "minecraft:material_instances": { "*": { texture: `${NS}_harvester_side` }, up: { texture: `${NS}_harvester_top` }, north: { texture: `${NS}_${id}_front` }, south: { texture: `${NS}_harvester_back` } },
+    "minecraft:loot": loot(id, [drop(`${NS}:${id}`)]),
+    "minecraft:tick": { interval_range: [BAL.harvester.tickEvery, BAL.harvester.tickEvery], looping: true },
+    [`${NS}:processor`]: {},
+  }, Object.entries(FACING_ROTATIONS).map(([facing, y]) => ({
+    condition: `q.block_state('minecraft:cardinal_direction') == '${facing}'`,
+    components: { "minecraft:transformation": { rotation: [0, y, 0] } },
+  })));
 const UPGRADE = [
   "................",
   "................",
@@ -1398,6 +1441,10 @@ item("upgrade_base", UPGRADE, cfg.vita.color, {}, { g: "#e0b84a" });
 cfg.tiers.forEach((t) => item(`${t.id}_machine_upgrade`, UPGRADE, t.color, { "minecraft:max_stack_size": 1 }, { g: "#e0b84a" }));
 recipe("machine_frame", "shaped", { pattern: ["IRI", "RSR", "IRI"], key: { I: v_("iron_ingot"), R: v_("redstone"), S: v_("stone") }, result: nsItem("machine_frame") }, "minecraft:redstone");
 recipe("harvester", "shaped", { pattern: ["IAI", "SFS", "IAI"], key: { I: v_("iron_ingot"), A: nsItem("anima_ingot"), S: nsItem("essence_sickle"), F: nsItem("machine_frame") }, result: nsItem("harvester") }, `${NS}:machine_frame`);
+const machineRecipe = (id, ingot, side) => recipe(id, "shaped", { pattern: ["IAI", "SFS", "IAI"], key: { I: v_("iron_ingot"), A: nsItem(ingot), S: side, F: nsItem("machine_frame") }, result: nsItem(id) }, `${NS}:machine_frame`);
+machineRecipe("seed_reprocessor", "anima_ingot", v_("iron_hoe"));
+machineRecipe("soul_extractor", "anima_ingot", nsItem("anima_dagger"));
+machineRecipe("essence_furnace", "vita_ingot", v_("furnace"));
 recipe("upgrade_base", "shaped", { pattern: ["SVS", "VDV", "SVS"], key: { S: nsItem("vita_shard"), V: nsItem("vita_ingot"), D: v_("diamond") }, result: nsItem("upgrade_base") }, `${NS}:vita_ingot`);
 cfg.tiers.forEach((t, i) => recipe(`${t.id}_machine_upgrade`, "shaped", {
   pattern: ["EIE", "IUI", "EIE"],
@@ -1454,6 +1501,13 @@ for (let level = 0; level <= 14; level++)
     if (x === 6 || x === 9 || y === 0 || y === 15) return "K";
     return y >= 15 - level ? (y % 3 ? "f" : "F") : "x";
   }), { K: "#14161b", x: "#262a32", f: "#e8602c", F: "#ffb45e" });
+// The arrow between a machine's input and output fills left to right. Level 7 is nearly full, as the operation ends there.
+for (let level = 0; level <= 7; level++)
+  uiItem(`progress_${level}`, grid((x, y) => {
+    const inArrow = x < 10 ? y >= 5 && y <= 9 : Math.abs(y - 7) <= 13 - x;
+    if (x < 1 || x > 13 || y < 2 || y > 12 || !inArrow) return ".";
+    return x <= level * 2 ? "b" : "x";
+  }), { b: "#4fb6ff", x: "#262a32" });
 uiItem("blank", Array(16).fill(".".repeat(16)), {});
 
 // What an empty slot shows: a faint white picture.
@@ -1477,6 +1531,45 @@ const readout = (index, offset, size, text_alignment) => ({
   type: "panel", collection_index: index, offset, size, ...topLeft,
   controls: [{ text: { type: "label", layer: 7, shadow: false, font_scale_factor: 0.5, size: ["100%", "100%"], text: "#hover_text", text_alignment, bindings: [collection] } }],
 });
+// The top half of the single-input machines' screens: fuel and upgrade as on the Harvester, then input, arrow and output.
+const processorTop = (name) => ({
+  type: "collection_panel", collection_name: "container_items", size: ["100%", "50%"], offset: [0, 12], ...topLeft,
+  controls: [
+    { title: { type: "label", layer: 2, offset: [7, -1], size: ["50%", "default"], text: name, color: "$title_text_color", ...topLeft } },
+    { status: readout(24, [43, 58], [126, 8], "right") },
+    { [`fuel@${SCREENS_NS}.slot`]: at(0, [7, 9]) },
+    { fuel_ghost: ghostSlot(0, "ghost_fuel", [8, 10]) },
+    { fuel_percent: readout(23, [7, 31], [18, 8], "center") },
+    { [`upgrade@${SCREENS_NS}.slot`]: at(1, [7, 45]) },
+    { upgrade_ghost: ghostSlot(1, "ghost_upgrade", [8, 46]) },
+    { [`fuel_bar@${SCREENS_NS}.icon`]: at(23, [10, 12], { size: [48, 48] }) },
+    { [`input@${SCREENS_NS}.slot`]: at(2, [61, 27]) },
+    { [`arrow@${SCREENS_NS}.icon`]: at(22, [88, 27], { size: [18, 18] }) },
+    { [`output@${SCREENS_NS}.slot`]: at(3, [115, 27]) },
+  ],
+});
+// The chest screen wrapper around a machine's top half.
+const machinePanel = (top) => ({
+  type: "panel",
+  controls: [
+    { "container_gamepad_helpers@common.container_gamepad_helpers": {} },
+    { "selected_item_details_factory@common.selected_item_details_factory": {} },
+    { "item_lock_notification_factory@common.item_lock_notification_factory": {} },
+    { "root_panel@common.root_panel": { layer: 1, controls: [
+      { "common_panel@common.common_panel": {} },
+      { chest_panel: { type: "panel", layer: 5, controls: [
+        { [`machine_top@${SCREENS_NS}.${top}`]: {} },
+        { "inventory_panel_bottom_half_with_label@common.inventory_panel_bottom_half_with_label": {} },
+        { "hotbar_grid@common.hotbar_grid_template": {} },
+        { "inventory_take_progress_icon_button@common.inventory_take_progress_icon_button": {} },
+        { "flying_item_renderer@common.flying_item_renderer": { layer: 15 } },
+      ] } },
+      { "inventory_selected_icon_button@common.inventory_selected_icon_button": {} },
+      { "gamepad_cursor@common.gamepad_cursor_button": {} },
+    ] } },
+  ],
+});
+const PROCESSOR_SCREENS = [["seed_reprocessor", BAL.seedReprocessor], ["soul_extractor", BAL.soulExtractor], ["essence_furnace", BAL.essenceFurnace]];
 const outputSlots = Array.from({ length: 21 }, (_, i) => ({
   [`output_${i}@${SCREENS_NS}.slot`]: at(i + 2, [43 + (i % 7) * 18, 9 + Math.floor(i / 7) * 18]),
 }));
@@ -1499,26 +1592,8 @@ write(path.join(RP, "ui", `${SCREENS_NS}.json`), {
       ...outputSlots,
     ],
   },
-  harvester_panel: {
-    type: "panel",
-    controls: [
-      { "container_gamepad_helpers@common.container_gamepad_helpers": {} },
-      { "selected_item_details_factory@common.selected_item_details_factory": {} },
-      { "item_lock_notification_factory@common.item_lock_notification_factory": {} },
-      { "root_panel@common.root_panel": { layer: 1, controls: [
-        { "common_panel@common.common_panel": {} },
-        { chest_panel: { type: "panel", layer: 5, controls: [
-          { [`machine_top@${SCREENS_NS}.harvester_top`]: {} },
-          { "inventory_panel_bottom_half_with_label@common.inventory_panel_bottom_half_with_label": {} },
-          { "hotbar_grid@common.hotbar_grid_template": {} },
-          { "inventory_take_progress_icon_button@common.inventory_take_progress_icon_button": {} },
-          { "flying_item_renderer@common.flying_item_renderer": { layer: 15 } },
-        ] } },
-        { "inventory_selected_icon_button@common.inventory_selected_icon_button": {} },
-        { "gamepad_cursor@common.gamepad_cursor_button": {} },
-      ] } },
-    ],
-  },
+  harvester_panel: machinePanel("harvester_top"),
+  ...Object.fromEntries(PROCESSOR_SCREENS.flatMap(([id]) => [[`${id}_top`, processorTop(title(id))], [`${id}_panel`, machinePanel(`${id}_top`)]])),
 });
 write(path.join(RP, "ui", "chest_screen.json"), {
   namespace: "chest",
@@ -1526,7 +1601,7 @@ write(path.join(RP, "ui", "chest_screen.json"), {
     [`$${NS}_container_title|default`]: "$container_title",
     modifications: [{
       array_name: "variables", operation: "insert_back",
-      value: [{ requires: `($${NS}_container_title = '${BAL.harvester.screenTitle}')`, $screen_content: `${SCREENS_NS}.harvester_panel`, $screen_bg_content: "common.screen_background" }],
+      value: [["harvester", BAL.harvester], ...PROCESSOR_SCREENS].map(([id, { screenTitle }]) => ({ requires: `($${NS}_container_title = '${screenTitle}')`, $screen_content: `${SCREENS_NS}.${id}_panel`, $screen_bg_content: "common.screen_background" })),
     }],
   },
 });

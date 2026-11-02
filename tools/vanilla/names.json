@@ -237,5 +237,7 @@
   "minecraft:glass": "Glass",
   "minecraft:golden_sword": "Golden Sword",
   "minecraft:bone_block": "Bone Block",
-  "minecraft:coal_block": "Block of Coal"
+  "minecraft:coal_block": "Block of Coal",
+  "minecraft:iron_hoe": "Iron Hoe",
+  "minecraft:furnace": "Furnace"
 }

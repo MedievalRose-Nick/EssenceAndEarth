@@ -1,17 +1,17 @@
 {
  "name": "Essence & Earth",
  "release": {
-  "version": "0.19.1",
-  "file": "EssenceAndEarth_v0.19.1.mcaddon",
+  "version": "0.20.0",
+  "file": "EssenceAndEarth_v0.20.0.mcaddon",
   "minBedrock": "1.21.90",
-  "download": "https://github.com/NicholasAmbrose/EssenceAndEarth/raw/main/addon/EssenceAndEarth_v0.19.1.mcaddon",
+  "download": "https://github.com/NicholasAmbrose/EssenceAndEarth/raw/main/addon/EssenceAndEarth_v0.20.0.mcaddon",
   "repo": "https://github.com/NicholasAmbrose/EssenceAndEarth"
  },
  "stats": {
   "crops": 54,
   "tiers": 5,
-  "recipes": 311,
-  "items": 230
+  "recipes": 314,
+  "items": 241
  },
  "categories": [
   {
@@ -3951,7 +3951,7 @@
    "title": "Machines",
    "group": "Getting started",
    "icon": "img/icons/harvester_front.png",
-   "blurb": "A machine that harvests and replants your crops.",
+   "blurb": "Machines that harvest crops, recycle seeds, fill Soul Jars and smelt.",
    "entries": [
     {
      "slug": "harvester",
@@ -4154,6 +4154,730 @@
       }
      ],
      "href": "wiki/machines/harvester"
+    },
+    {
+     "slug": "seed-reprocessor",
+     "name": "Seed Reprocessor",
+     "icon": "img/icons/seed_reprocessor_front.png",
+     "summary": "Turns spare seeds into essence.",
+     "blocks": [
+      {
+       "t": "facts",
+       "facts": [
+        [
+         "Open it",
+         "Tap it with an empty hand"
+        ],
+        [
+         "Mine it",
+         "Hold a tool, or sneak"
+        ],
+        [
+         "Pause it",
+         "Redstone power"
+        ],
+        [
+         "Feed it",
+         "A chest or barrel on top"
+        ],
+        [
+         "Empty it",
+         "A chest or barrel touching its back"
+        ],
+        [
+         "Speed",
+         "10 s per item, 4,000 fuel"
+        ]
+       ]
+      },
+      {
+       "t": "p",
+       "html": "Each seed becomes 2 of its essence. Good for the extra seeds that essence farmland gives you."
+      },
+      {
+       "t": "h2",
+       "text": "Recipe"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Seed Reprocessor",
+        "icon": "img/icons/seed_reprocessor_front.png",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Iron Ingot",
+          "icon": "img/vanilla/iron_ingot.png"
+         },
+         {
+          "name": "Anima Ingot",
+          "icon": "img/icons/anima_ingot.png"
+         },
+         {
+          "name": "Iron Ingot",
+          "icon": "img/vanilla/iron_ingot.png"
+         }
+        ],
+        [
+         {
+          "name": "Iron Hoe",
+          "icon": "img/vanilla/iron_hoe.png"
+         },
+         {
+          "name": "Machine Frame",
+          "icon": "img/icons/machine_frame.png"
+         },
+         {
+          "name": "Iron Hoe",
+          "icon": "img/vanilla/iron_hoe.png"
+         }
+        ],
+        [
+         {
+          "name": "Iron Ingot",
+          "icon": "img/vanilla/iron_ingot.png"
+         },
+         {
+          "name": "Anima Ingot",
+          "icon": "img/icons/anima_ingot.png"
+         },
+         {
+          "name": "Iron Ingot",
+          "icon": "img/vanilla/iron_ingot.png"
+         }
+        ]
+       ]
+      },
+      {
+       "t": "p",
+       "html": "It takes the same fuel as the Harvester and any Machine Upgrade. Upgrades make it faster but use more fuel per item."
+      }
+     ],
+     "href": "wiki/machines/seed-reprocessor"
+    },
+    {
+     "slug": "soul-extractor",
+     "name": "Soul Extractor",
+     "icon": "img/icons/soul_extractor_front.png",
+     "summary": "Fills Soul Jars from mob drops.",
+     "blocks": [
+      {
+       "t": "facts",
+       "facts": [
+        [
+         "Open it",
+         "Tap it with an empty hand"
+        ],
+        [
+         "Mine it",
+         "Hold a tool, or sneak"
+        ],
+        [
+         "Pause it",
+         "Redstone power"
+        ],
+        [
+         "Feed it",
+         "A chest or barrel on top"
+        ],
+        [
+         "Empty it",
+         "A chest or barrel touching its back"
+        ],
+        [
+         "Speed",
+         "5 s per item, 4,000 fuel"
+        ]
+       ]
+      },
+      {
+       "t": "p",
+       "html": "Put a Soul Jar in the output slot and mob drops in the input slot. A jar holds one mob type, so a drop for another mob waits until you swap the jar. A full jar moves to a chest at the back."
+      },
+      {
+       "t": "h2",
+       "text": "What each drop is worth"
+      },
+      {
+       "t": "items",
+       "items": [
+        {
+         "name": "Arrow",
+         "icon": "img/icons/soul_jar.png",
+         "sub": "0.1 Skeleton Souls"
+        },
+        {
+         "name": "Bone",
+         "icon": "img/icons/soul_jar.png",
+         "sub": "0.5 Skeleton Souls"
+        },
+        {
+         "name": "Skeleton Skull",
+         "icon": "img/icons/soul_jar.png",
+         "sub": "3 Skeleton Souls"
+        },
+        {
+         "name": "Rotten Flesh",
+         "icon": "img/icons/soul_jar.png",
+         "sub": "0.5 Zombie Souls"
+        },
+        {
+         "name": "Zombie Head",
+         "icon": "img/icons/soul_jar.png",
+         "sub": "3 Zombie Souls"
+        },
+        {
+         "name": "Gunpowder",
+         "icon": "img/icons/soul_jar.png",
+         "sub": "0.5 Creeper Souls"
+        },
+        {
+         "name": "Creeper Head",
+         "icon": "img/icons/soul_jar.png",
+         "sub": "3 Creeper Souls"
+        },
+        {
+         "name": "String",
+         "icon": "img/icons/soul_jar.png",
+         "sub": "0.25 Spider Souls"
+        },
+        {
+         "name": "Spider Eye",
+         "icon": "img/icons/soul_jar.png",
+         "sub": "1 Spider Soul"
+        },
+        {
+         "name": "Beef",
+         "icon": "img/icons/soul_jar.png",
+         "sub": "0.5 Cow Souls"
+        },
+        {
+         "name": "Leather",
+         "icon": "img/icons/soul_jar.png",
+         "sub": "0.25 Cow Souls"
+        },
+        {
+         "name": "Porkchop",
+         "icon": "img/icons/soul_jar.png",
+         "sub": "0.5 Pig Souls"
+        },
+        {
+         "name": "Chicken",
+         "icon": "img/icons/soul_jar.png",
+         "sub": "0.5 Chicken Souls"
+        },
+        {
+         "name": "Feather",
+         "icon": "img/icons/soul_jar.png",
+         "sub": "0.25 Chicken Souls"
+        },
+        {
+         "name": "Egg",
+         "icon": "img/icons/soul_jar.png",
+         "sub": "0.25 Chicken Souls"
+        },
+        {
+         "name": "Mutton",
+         "icon": "img/icons/soul_jar.png",
+         "sub": "0.5 Sheep Souls"
+        },
+        {
+         "name": "White Wool",
+         "icon": "img/icons/soul_jar.png",
+         "sub": "0.2 Sheep Souls"
+        },
+        {
+         "name": "Rabbit",
+         "icon": "img/icons/soul_jar.png",
+         "sub": "0.5 Rabbit Souls"
+        },
+        {
+         "name": "Rabbit Hide",
+         "icon": "img/icons/soul_jar.png",
+         "sub": "0.25 Rabbit Souls"
+        },
+        {
+         "name": "Rabbit Foot",
+         "icon": "img/icons/soul_jar.png",
+         "sub": "0.25 Rabbit Souls"
+        },
+        {
+         "name": "Ink Sac",
+         "icon": "img/icons/soul_jar.png",
+         "sub": "0.25 Squid Souls"
+        },
+        {
+         "name": "Glow Ink Sac",
+         "icon": "img/icons/soul_jar.png",
+         "sub": "0.25 Squid Souls"
+        },
+        {
+         "name": "Cod",
+         "icon": "img/icons/soul_jar.png",
+         "sub": "0.5 Fish Souls"
+        },
+        {
+         "name": "Salmon",
+         "icon": "img/icons/soul_jar.png",
+         "sub": "0.5 Fish Souls"
+        },
+        {
+         "name": "Tropical Fish",
+         "icon": "img/icons/soul_jar.png",
+         "sub": "0.5 Fish Souls"
+        },
+        {
+         "name": "Pufferfish",
+         "icon": "img/icons/soul_jar.png",
+         "sub": "1 Fish Soul"
+        },
+        {
+         "name": "Slime Ball",
+         "icon": "img/icons/soul_jar.png",
+         "sub": "0.5 Slime Souls"
+        },
+        {
+         "name": "Turtle Scute",
+         "icon": "img/icons/soul_jar.png",
+         "sub": "0.5 Turtle Souls"
+        },
+        {
+         "name": "Armadillo Scute",
+         "icon": "img/icons/soul_jar.png",
+         "sub": "0.5 Armadillo Souls"
+        },
+        {
+         "name": "Phantom Membrane",
+         "icon": "img/icons/soul_jar.png",
+         "sub": "0.5 Phantom Souls"
+        },
+        {
+         "name": "Breeze Rod",
+         "icon": "img/icons/soul_jar.png",
+         "sub": "0.5 Breeze Souls"
+        },
+        {
+         "name": "Blaze Rod",
+         "icon": "img/icons/soul_jar.png",
+         "sub": "0.5 Blaze Souls"
+        },
+        {
+         "name": "Ghast Tear",
+         "icon": "img/icons/soul_jar.png",
+         "sub": "0.5 Ghast Souls"
+        },
+        {
+         "name": "Ender Pearl",
+         "icon": "img/icons/soul_jar.png",
+         "sub": "0.5 Enderman Souls"
+        },
+        {
+         "name": "Coal",
+         "icon": "img/icons/soul_jar.png",
+         "sub": "0.1 Wither Skeleton Souls"
+        },
+        {
+         "name": "Wither Skeleton Skull",
+         "icon": "img/icons/soul_jar.png",
+         "sub": "3 Wither Skeleton Souls"
+        }
+       ]
+      },
+      {
+       "t": "h2",
+       "text": "Recipe"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Soul Extractor",
+        "icon": "img/icons/soul_extractor_front.png",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Iron Ingot",
+          "icon": "img/vanilla/iron_ingot.png"
+         },
+         {
+          "name": "Anima Ingot",
+          "icon": "img/icons/anima_ingot.png"
+         },
+         {
+          "name": "Iron Ingot",
+          "icon": "img/vanilla/iron_ingot.png"
+         }
+        ],
+        [
+         {
+          "name": "Anima Dagger",
+          "icon": "img/icons/anima_dagger.png"
+         },
+         {
+          "name": "Machine Frame",
+          "icon": "img/icons/machine_frame.png"
+         },
+         {
+          "name": "Anima Dagger",
+          "icon": "img/icons/anima_dagger.png"
+         }
+        ],
+        [
+         {
+          "name": "Iron Ingot",
+          "icon": "img/vanilla/iron_ingot.png"
+         },
+         {
+          "name": "Anima Ingot",
+          "icon": "img/icons/anima_ingot.png"
+         },
+         {
+          "name": "Iron Ingot",
+          "icon": "img/vanilla/iron_ingot.png"
+         }
+        ]
+       ]
+      },
+      {
+       "t": "p",
+       "html": "It takes the same fuel as the Harvester and any Machine Upgrade. Upgrades make it faster but use more fuel per item."
+      }
+     ],
+     "href": "wiki/machines/soul-extractor"
+    },
+    {
+     "slug": "essence-furnace",
+     "name": "Essence Furnace",
+     "icon": "img/icons/essence_furnace_front.png",
+     "summary": "A furnace that takes Machine Upgrades.",
+     "blocks": [
+      {
+       "t": "facts",
+       "facts": [
+        [
+         "Open it",
+         "Tap it with an empty hand"
+        ],
+        [
+         "Mine it",
+         "Hold a tool, or sneak"
+        ],
+        [
+         "Pause it",
+         "Redstone power"
+        ],
+        [
+         "Feed it",
+         "A chest or barrel on top"
+        ],
+        [
+         "Empty it",
+         "A chest or barrel touching its back"
+        ],
+        [
+         "Speed",
+         "10 s per item, 4,000 fuel"
+        ]
+       ]
+      },
+      {
+       "t": "p",
+       "html": "One block, with no tiers to craft: its upgrade decides how fast it runs. It smelts common items only, and gives no experience. Use a normal furnace for anything else."
+      },
+      {
+       "t": "h2",
+       "text": "What it smelts"
+      },
+      {
+       "t": "items",
+       "items": [
+        {
+         "name": "Raw Iron",
+         "icon": "img/icons/essence_furnace_front.png",
+         "sub": "Iron Ingot"
+        },
+        {
+         "name": "Raw Gold",
+         "icon": "img/icons/essence_furnace_front.png",
+         "sub": "Gold Ingot"
+        },
+        {
+         "name": "Raw Copper",
+         "icon": "img/icons/essence_furnace_front.png",
+         "sub": "Copper Ingot"
+        },
+        {
+         "name": "Iron Ore",
+         "icon": "img/icons/essence_furnace_front.png",
+         "sub": "Iron Ingot"
+        },
+        {
+         "name": "Deepslate Iron Ore",
+         "icon": "img/icons/essence_furnace_front.png",
+         "sub": "Iron Ingot"
+        },
+        {
+         "name": "Gold Ore",
+         "icon": "img/icons/essence_furnace_front.png",
+         "sub": "Gold Ingot"
+        },
+        {
+         "name": "Deepslate Gold Ore",
+         "icon": "img/icons/essence_furnace_front.png",
+         "sub": "Gold Ingot"
+        },
+        {
+         "name": "Nether Gold Ore",
+         "icon": "img/icons/essence_furnace_front.png",
+         "sub": "Gold Ingot"
+        },
+        {
+         "name": "Copper Ore",
+         "icon": "img/icons/essence_furnace_front.png",
+         "sub": "Copper Ingot"
+        },
+        {
+         "name": "Deepslate Copper Ore",
+         "icon": "img/icons/essence_furnace_front.png",
+         "sub": "Copper Ingot"
+        },
+        {
+         "name": "Coal Ore",
+         "icon": "img/icons/essence_furnace_front.png",
+         "sub": "Coal"
+        },
+        {
+         "name": "Deepslate Coal Ore",
+         "icon": "img/icons/essence_furnace_front.png",
+         "sub": "Coal"
+        },
+        {
+         "name": "Diamond Ore",
+         "icon": "img/icons/essence_furnace_front.png",
+         "sub": "Diamond"
+        },
+        {
+         "name": "Deepslate Diamond Ore",
+         "icon": "img/icons/essence_furnace_front.png",
+         "sub": "Diamond"
+        },
+        {
+         "name": "Emerald Ore",
+         "icon": "img/icons/essence_furnace_front.png",
+         "sub": "Emerald"
+        },
+        {
+         "name": "Deepslate Emerald Ore",
+         "icon": "img/icons/essence_furnace_front.png",
+         "sub": "Emerald"
+        },
+        {
+         "name": "Lapis Ore",
+         "icon": "img/icons/essence_furnace_front.png",
+         "sub": "Lapis Lazuli"
+        },
+        {
+         "name": "Deepslate Lapis Ore",
+         "icon": "img/icons/essence_furnace_front.png",
+         "sub": "Lapis Lazuli"
+        },
+        {
+         "name": "Redstone Ore",
+         "icon": "img/icons/essence_furnace_front.png",
+         "sub": "Redstone"
+        },
+        {
+         "name": "Deepslate Redstone Ore",
+         "icon": "img/icons/essence_furnace_front.png",
+         "sub": "Redstone"
+        },
+        {
+         "name": "Quartz Ore",
+         "icon": "img/icons/essence_furnace_front.png",
+         "sub": "Quartz"
+        },
+        {
+         "name": "Ancient Debris",
+         "icon": "img/icons/essence_furnace_front.png",
+         "sub": "Netherite Scrap"
+        },
+        {
+         "name": "Sand",
+         "icon": "img/icons/essence_furnace_front.png",
+         "sub": "Glass"
+        },
+        {
+         "name": "Red Sand",
+         "icon": "img/icons/essence_furnace_front.png",
+         "sub": "Glass"
+        },
+        {
+         "name": "Cobblestone",
+         "icon": "img/icons/essence_furnace_front.png",
+         "sub": "Stone"
+        },
+        {
+         "name": "Stone",
+         "icon": "img/icons/essence_furnace_front.png",
+         "sub": "Smooth Stone"
+        },
+        {
+         "name": "Cobbled Deepslate",
+         "icon": "img/icons/essence_furnace_front.png",
+         "sub": "Deepslate"
+        },
+        {
+         "name": "Clay Ball",
+         "icon": "img/icons/essence_furnace_front.png",
+         "sub": "Brick"
+        },
+        {
+         "name": "Clay",
+         "icon": "img/icons/essence_furnace_front.png",
+         "sub": "Hardened Clay"
+        },
+        {
+         "name": "Netherrack",
+         "icon": "img/icons/essence_furnace_front.png",
+         "sub": "Netherbrick"
+        },
+        {
+         "name": "Cactus",
+         "icon": "img/icons/essence_furnace_front.png",
+         "sub": "Green Dye"
+        },
+        {
+         "name": "Sea Pickle",
+         "icon": "img/icons/essence_furnace_front.png",
+         "sub": "Lime Dye"
+        },
+        {
+         "name": "Kelp",
+         "icon": "img/icons/essence_furnace_front.png",
+         "sub": "Dried Kelp"
+        },
+        {
+         "name": "Wet Sponge",
+         "icon": "img/icons/essence_furnace_front.png",
+         "sub": "Sponge"
+        },
+        {
+         "name": "Chorus Fruit",
+         "icon": "img/icons/essence_furnace_front.png",
+         "sub": "Popped Chorus Fruit"
+        },
+        {
+         "name": "Beef",
+         "icon": "img/icons/essence_furnace_front.png",
+         "sub": "Cooked Beef"
+        },
+        {
+         "name": "Porkchop",
+         "icon": "img/icons/essence_furnace_front.png",
+         "sub": "Cooked Porkchop"
+        },
+        {
+         "name": "Chicken",
+         "icon": "img/icons/essence_furnace_front.png",
+         "sub": "Cooked Chicken"
+        },
+        {
+         "name": "Mutton",
+         "icon": "img/icons/essence_furnace_front.png",
+         "sub": "Cooked Mutton"
+        },
+        {
+         "name": "Rabbit",
+         "icon": "img/icons/essence_furnace_front.png",
+         "sub": "Cooked Rabbit"
+        },
+        {
+         "name": "Cod",
+         "icon": "img/icons/essence_furnace_front.png",
+         "sub": "Cooked Cod"
+        },
+        {
+         "name": "Salmon",
+         "icon": "img/icons/essence_furnace_front.png",
+         "sub": "Cooked Salmon"
+        },
+        {
+         "name": "Potato",
+         "icon": "img/icons/essence_furnace_front.png",
+         "sub": "Baked Potato"
+        },
+        {
+         "name": "Any log",
+         "icon": "img/icons/essence_furnace_front.png",
+         "sub": "Charcoal"
+        }
+       ]
+      },
+      {
+       "t": "h2",
+       "text": "Recipe"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Essence Furnace",
+        "icon": "img/icons/essence_furnace_front.png",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Iron Ingot",
+          "icon": "img/vanilla/iron_ingot.png"
+         },
+         {
+          "name": "Vita Ingot",
+          "icon": "img/icons/vita_ingot.png"
+         },
+         {
+          "name": "Iron Ingot",
+          "icon": "img/vanilla/iron_ingot.png"
+         }
+        ],
+        [
+         {
+          "name": "Furnace",
+          "icon": "img/vanilla/furnace.png"
+         },
+         {
+          "name": "Machine Frame",
+          "icon": "img/icons/machine_frame.png"
+         },
+         {
+          "name": "Furnace",
+          "icon": "img/vanilla/furnace.png"
+         }
+        ],
+        [
+         {
+          "name": "Iron Ingot",
+          "icon": "img/vanilla/iron_ingot.png"
+         },
+         {
+          "name": "Vita Ingot",
+          "icon": "img/icons/vita_ingot.png"
+         },
+         {
+          "name": "Iron Ingot",
+          "icon": "img/vanilla/iron_ingot.png"
+         }
+        ]
+       ]
+      },
+      {
+       "t": "p",
+       "html": "It takes the same fuel as the Harvester and any Machine Upgrade. Upgrades make it faster but use more fuel per item."
+      }
+     ],
+     "href": "wiki/machines/essence-furnace"
     },
     {
      "slug": "machine-upgrades",
@@ -36742,6 +37466,159 @@
   },
   {
    "result": {
+    "name": "Seed Reprocessor",
+    "icon": "img/icons/seed_reprocessor_front.png",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Iron Ingot",
+      "icon": "img/vanilla/iron_ingot.png"
+     },
+     {
+      "name": "Anima Ingot",
+      "icon": "img/icons/anima_ingot.png"
+     },
+     {
+      "name": "Iron Ingot",
+      "icon": "img/vanilla/iron_ingot.png"
+     }
+    ],
+    [
+     {
+      "name": "Iron Hoe",
+      "icon": "img/vanilla/iron_hoe.png"
+     },
+     {
+      "name": "Machine Frame",
+      "icon": "img/icons/machine_frame.png"
+     },
+     {
+      "name": "Iron Hoe",
+      "icon": "img/vanilla/iron_hoe.png"
+     }
+    ],
+    [
+     {
+      "name": "Iron Ingot",
+      "icon": "img/vanilla/iron_ingot.png"
+     },
+     {
+      "name": "Anima Ingot",
+      "icon": "img/icons/anima_ingot.png"
+     },
+     {
+      "name": "Iron Ingot",
+      "icon": "img/vanilla/iron_ingot.png"
+     }
+    ]
+   ]
+  },
+  {
+   "result": {
+    "name": "Soul Extractor",
+    "icon": "img/icons/soul_extractor_front.png",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Iron Ingot",
+      "icon": "img/vanilla/iron_ingot.png"
+     },
+     {
+      "name": "Anima Ingot",
+      "icon": "img/icons/anima_ingot.png"
+     },
+     {
+      "name": "Iron Ingot",
+      "icon": "img/vanilla/iron_ingot.png"
+     }
+    ],
+    [
+     {
+      "name": "Anima Dagger",
+      "icon": "img/icons/anima_dagger.png"
+     },
+     {
+      "name": "Machine Frame",
+      "icon": "img/icons/machine_frame.png"
+     },
+     {
+      "name": "Anima Dagger",
+      "icon": "img/icons/anima_dagger.png"
+     }
+    ],
+    [
+     {
+      "name": "Iron Ingot",
+      "icon": "img/vanilla/iron_ingot.png"
+     },
+     {
+      "name": "Anima Ingot",
+      "icon": "img/icons/anima_ingot.png"
+     },
+     {
+      "name": "Iron Ingot",
+      "icon": "img/vanilla/iron_ingot.png"
+     }
+    ]
+   ]
+  },
+  {
+   "result": {
+    "name": "Essence Furnace",
+    "icon": "img/icons/essence_furnace_front.png",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Iron Ingot",
+      "icon": "img/vanilla/iron_ingot.png"
+     },
+     {
+      "name": "Vita Ingot",
+      "icon": "img/icons/vita_ingot.png"
+     },
+     {
+      "name": "Iron Ingot",
+      "icon": "img/vanilla/iron_ingot.png"
+     }
+    ],
+    [
+     {
+      "name": "Furnace",
+      "icon": "img/vanilla/furnace.png"
+     },
+     {
+      "name": "Machine Frame",
+      "icon": "img/icons/machine_frame.png"
+     },
+     {
+      "name": "Furnace",
+      "icon": "img/vanilla/furnace.png"
+     }
+    ],
+    [
+     {
+      "name": "Iron Ingot",
+      "icon": "img/vanilla/iron_ingot.png"
+     },
+     {
+      "name": "Vita Ingot",
+      "icon": "img/icons/vita_ingot.png"
+     },
+     {
+      "name": "Iron Ingot",
+      "icon": "img/vanilla/iron_ingot.png"
+     }
+    ]
+   ]
+  },
+  {
+   "result": {
     "name": "Upgrade Base",
     "icon": "img/icons/upgrade_base.png",
     "count": 1
@@ -38368,6 +39245,18 @@
     {
      "name": "Harvester",
      "icon": "img/icons/harvester_front.png"
+    },
+    {
+     "name": "Seed Reprocessor",
+     "icon": "img/icons/seed_reprocessor_front.png"
+    },
+    {
+     "name": "Soul Extractor",
+     "icon": "img/icons/soul_extractor_front.png"
+    },
+    {
+     "name": "Essence Furnace",
+     "icon": "img/icons/essence_furnace_front.png"
     },
     {
      "name": "Machine Frame",

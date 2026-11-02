@@ -4,6 +4,27 @@ Everything below is built but not yet checked in-game. Tick items off as they pa
 
 Before starting: upload the latest `addon/*.mcaddon` to the server, and use creative mode or `/give` for anything expensive.
 
+## New machines and altar enchanting (v0.20.0)
+
+Quickest setup: `/give @s ee:seed_reprocessor`, `/give @s ee:soul_extractor`, `/give @s ee:essence_furnace`, `/give @s coal 16`, `/give @s ee:soul_jar`.
+
+- [ ] **Check this first:** the add-on loads with no script errors, and the Harvester still works as before. All machines share one script path now.
+- [ ] The Harvester now has the Scythe port front, and the Seed Reprocessor has the Thresher. The Soul Extractor shows a purple jar and the Essence Furnace a firebox. All line up in all four facing directions.
+- [ ] Each machine's screen opens with its own title, with fuel and upgrade on the left, then input, arrow and output, and the status line below them. Note anything misplaced, as this layout was never seen in-game. Deepcore's screens and normal chests should be unaffected.
+- [ ] The arrow fills as an item is worked on. Note if it looks stretched or blurry.
+- [ ] Shift-clicking fuel, an upgrade and the input in any order ends with each in its own slot. **Note if a stack gets stuck in the output slot**, since a full input spills there.
+- [ ] **Seed Reprocessor:** a seed becomes 2 of its essence every 10 s with no upgrade. It uses 4,000 fuel per seed, and stops with "Output full" when essence can't fit.
+- [ ] **Soul Extractor:** a jar fills from drops at the values in the Guide, and its lore updates. Bone then a zombie drop waits with "Needs a matching jar". Half souls add up correctly, and a jar never overfills. **A filled jar works on the altar.**
+- [ ] **Essence Furnace:** a raw iron, sand, cooked food and a log (charcoal) all smelt. A log in the input smelts, and a log in the fuel slot burns. **Spot-check that smelting ids exist on Bedrock**, such as `hardened_clay` and `netherbrick`. A wrong one spawns nothing and can stop the machine, so note any script errors.
+- [ ] Upgrades speed all three up and raise their fuel use. At Astra they run several items per tick with no lag.
+- [ ] A chest on top feeds the input with only items it accepts, and a chest at the back takes the output. A half-filled jar stays in the Soul Extractor.
+- [ ] Breaking each machine drops the block and its contents, but no hidden readouts.
+- [ ] **Altar enchanting, book:** a book on the altar, 4 quartz and 4 Experience Essence on the pedestals, then the wand, gives an Enchanted Book of Sharpness I. **Whether scripts can make enchanted books is the biggest unknown.** If not, the altar says it can't take that enchantment, and nothing is used up.
+- [ ] **Altar enchanting, gear:** the same with a diamond sword gives Sharpness I. Doing it again gives II, and so on to V, then it refuses. A conflicting enchantment refuses (Smite on a Sharpness sword). Enchants already on the item stay.
+- [ ] Taking an enchanted item back off the altar keeps its enchantments, and a nearly-broken tool keeps its damage.
+- [ ] Spot-check item ids for a few enchantments, especially Aqua Affinity (`waterlily`), Thorns (`rose_bush`) and Wind Burst (`wind_charge`).
+- [ ] The Guide pages and wiki match what happens.
+
 ## Anima materials in the Guide (v0.19.1)
 
 - [ ] The Guide's Materials page says 2 Anima Dust makes Anima Ingots and Gemstones, and both recipes work as it says.

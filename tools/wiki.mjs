@@ -441,9 +441,19 @@ const infusion = {
 const HV = BAL.harvester;
 const machineSide = (i) => (HV.range + (HV.upgrades[i - 1]?.range ?? 0)) * 2 + 1;
 const upgradeItem = (t) => ({ name: `${title(t.id)} Machine Upgrade`, icon: `img/icons/${t.id}_machine_upgrade.png` });
+const processorPage = (id, name, summary, body, ingot, side, balance) => ({
+  slug: id.replaceAll("_", "-"), name, icon: `img/icons/${id}_front.png`, summary,
+  blocks: [
+    facts([["Open it", "Tap it with an empty hand"], ["Mine it", "Hold a tool, or sneak"], ["Pause it", "Redstone power"], ["Feed it", "A chest or barrel on top"], ["Empty it", "A chest or barrel touching its back"], ["Speed", `${balance.operationTicks / 20} s per item, ${(balance.operationTicks * balance.fuelPerTick).toLocaleString("en-US")} fuel`]]),
+    ...body,
+    h2("Recipe"),
+    (() => { const i = vanilla("minecraft:iron_ingot"), a = named(ingot); return recipe({ name, icon: `img/icons/${id}_front.png` }, 1, [[i, a, i], [side, { name: "Machine Frame", icon: "img/icons/machine_frame.png" }, side], [i, a, i]]); })(),
+    p("It takes the same fuel as the Harvester and any Machine Upgrade. Upgrades make it faster but use more fuel per item."),
+  ],
+});
 const machines = {
   slug: "machines", title: "Machines", group: "Getting started", icon: "img/icons/harvester_front.png",
-  blurb: "A machine that harvests and replants your crops.",
+  blurb: "Machines that harvest crops, recycle seeds, fill Soul Jars and smelt.",
   entries: [
     {
       slug: "harvester", name: "Harvester", icon: "img/icons/harvester_front.png",
@@ -461,6 +471,19 @@ const machines = {
         list([...Object.entries(HV.fuels).map(([id, ticks]) => ({ ...vanilla(id), sub: `${(ticks * HV.fuelPerBurnTick).toLocaleString("en-US")} fuel` })), { ...vanilla("minecraft:oak_log"), sub: `Logs and planks: ${(HV.woodBurnTicks * HV.fuelPerBurnTick).toLocaleString("en-US")} fuel` }]),
       ],
     },
+    processorPage("seed_reprocessor", "Seed Reprocessor", "Turns spare seeds into essence.", [
+      p(`Each seed becomes ${BAL.seedReprocessor.essencePerSeed} of its essence. Good for the extra seeds that essence farmland gives you.`),
+    ], "anima_ingot", vanilla("minecraft:iron_hoe"), BAL.seedReprocessor),
+    processorPage("soul_extractor", "Soul Extractor", "Fills Soul Jars from mob drops.", [
+      p("Put a Soul Jar in the output slot and mob drops in the input slot. A jar holds one mob type, so a drop for another mob waits until you swap the jar. A full jar moves to a chest at the back."),
+      h2("What each drop is worth"),
+      list(Object.entries(BAL.soulExtractor.items).map(([id, [soul, worth]]) => ({ name: title(id.split(":")[1]), icon: "img/icons/soul_jar.png", sub: `${worth} ${title(soul)} Soul${worth === 1 ? "" : "s"}` }))),
+    ], "anima_ingot", named("anima_dagger"), BAL.soulExtractor),
+    processorPage("essence_furnace", "Essence Furnace", "A furnace that takes Machine Upgrades.", [
+      p("One block, with no tiers to craft: its upgrade decides how fast it runs. It smelts common items only, and gives no experience. Use a normal furnace for anything else."),
+      h2("What it smelts"),
+      list(Object.entries(BAL.essenceFurnace.recipes).map(([id, out]) => ({ name: title(id.split(":")[1]), icon: "img/icons/essence_furnace_front.png", sub: title(out.split(":")[1]) })).concat({ name: "Any log", icon: "img/icons/essence_furnace_front.png", sub: "Charcoal" })),
+    ], "vita_ingot", vanilla("minecraft:furnace"), BAL.essenceFurnace),
     {
       slug: "machine-upgrades", name: "Machine Upgrades", icon: `img/icons/${cfg.tiers[0].id}_machine_upgrade.png`,
       summary: "Make a machine wider and faster, for much more fuel.",
@@ -495,7 +518,7 @@ const gallery = [
   { title: "Fertilizer", items: [fertilized, fertilizer] },
   { title: "Infusion and souls", items: ["infusion_altar", "infusion_pedestal", "wand", "vita_seed_base", "anima_seed_base", "soul_jar", "anima_dagger", "passive_anima_dagger", "hostile_anima_dagger", "soul_dust", "anima_dust", "soulstone", "soulstone_cobble", "soulstone_smooth", "soulstone_bricks", "soulstone_cracked_bricks", "soul_glass", "anima_ore"].map((id) => ({ name: title(id), icon: `img/icons/${id}.png` })) },
   { title: "Tools and guide", items: [sickleItem, hoeItem, guideItem] },
-  { title: "Machines", items: [{ name: "Harvester", icon: "img/icons/harvester_front.png" }, named("machine_frame"), named("upgrade_base"), ...cfg.tiers.map(upgradeItem)] },
+  { title: "Machines", items: [{ name: "Harvester", icon: "img/icons/harvester_front.png" }, ...["seed_reprocessor", "soul_extractor", "essence_furnace"].map((id) => ({ name: title(id), icon: `img/icons/${id}_front.png` })), named("machine_frame"), named("upgrade_base"), ...cfg.tiers.map(upgradeItem)] },
   { title: "Growth stages", items: stages(cfg.crops[0]).slice(0, 3) },
 ];
 

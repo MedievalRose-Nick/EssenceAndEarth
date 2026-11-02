@@ -1,7 +1,7 @@
 {
   "name": "Essence & Earth",
   "namespace": "ee",
-  "version": [0, 19, 1],
+  "version": [0, 20, 0],
   "balance": {
     "growChance": 0.43,
     "grassEssenceChance": 0.2,
@@ -51,7 +51,17 @@
         { "time": 0.125, "fuel": 16, "tank": 5, "range": 4 },
         { "time": 0.025, "fuel": 48, "tank": 6, "range": 5 }
       ]
-    }
+    },
+    "seedReprocessor": { "screenTitle": "§e§e§r", "operationTicks": 200, "fuelPerTick": 20, "essencePerSeed": 2 },
+    "soulExtractor": {
+      "screenTitle": "§e§e§s", "operationTicks": 100, "fuelPerTick": 40,
+      "items": {"minecraft:arrow":["skeleton",0.1],"minecraft:bone":["skeleton",0.5],"minecraft:skeleton_skull":["skeleton",3],"minecraft:rotten_flesh":["zombie",0.5],"minecraft:zombie_head":["zombie",3],"minecraft:gunpowder":["creeper",0.5],"minecraft:creeper_head":["creeper",3],"minecraft:string":["spider",0.25],"minecraft:spider_eye":["spider",1],"minecraft:beef":["cow",0.5],"minecraft:leather":["cow",0.25],"minecraft:porkchop":["pig",0.5],"minecraft:chicken":["chicken",0.5],"minecraft:feather":["chicken",0.25],"minecraft:egg":["chicken",0.25],"minecraft:mutton":["sheep",0.5],"minecraft:white_wool":["sheep",0.2],"minecraft:rabbit":["rabbit",0.5],"minecraft:rabbit_hide":["rabbit",0.25],"minecraft:rabbit_foot":["rabbit",0.25],"minecraft:ink_sac":["squid",0.25],"minecraft:glow_ink_sac":["squid",0.25],"minecraft:cod":["fish",0.5],"minecraft:salmon":["fish",0.5],"minecraft:tropical_fish":["fish",0.5],"minecraft:pufferfish":["fish",1],"minecraft:slime_ball":["slime",0.5],"minecraft:turtle_scute":["turtle",0.5],"minecraft:armadillo_scute":["armadillo",0.5],"minecraft:phantom_membrane":["phantom",0.5],"minecraft:breeze_rod":["breeze",0.5],"minecraft:blaze_rod":["blaze",0.5],"minecraft:ghast_tear":["ghast",0.5],"minecraft:ender_pearl":["enderman",0.5],"minecraft:coal":["wither_skeleton",0.1],"minecraft:wither_skeleton_skull":["wither_skeleton",3]}
+    },
+    "essenceFurnace": {
+      "screenTitle": "§e§e§f", "operationTicks": 200, "fuelPerTick": 20,
+      "recipes": {"minecraft:raw_iron":"minecraft:iron_ingot","minecraft:raw_gold":"minecraft:gold_ingot","minecraft:raw_copper":"minecraft:copper_ingot","minecraft:iron_ore":"minecraft:iron_ingot","minecraft:deepslate_iron_ore":"minecraft:iron_ingot","minecraft:gold_ore":"minecraft:gold_ingot","minecraft:deepslate_gold_ore":"minecraft:gold_ingot","minecraft:nether_gold_ore":"minecraft:gold_ingot","minecraft:copper_ore":"minecraft:copper_ingot","minecraft:deepslate_copper_ore":"minecraft:copper_ingot","minecraft:coal_ore":"minecraft:coal","minecraft:deepslate_coal_ore":"minecraft:coal","minecraft:diamond_ore":"minecraft:diamond","minecraft:deepslate_diamond_ore":"minecraft:diamond","minecraft:emerald_ore":"minecraft:emerald","minecraft:deepslate_emerald_ore":"minecraft:emerald","minecraft:lapis_ore":"minecraft:lapis_lazuli","minecraft:deepslate_lapis_ore":"minecraft:lapis_lazuli","minecraft:redstone_ore":"minecraft:redstone","minecraft:deepslate_redstone_ore":"minecraft:redstone","minecraft:quartz_ore":"minecraft:quartz","minecraft:ancient_debris":"minecraft:netherite_scrap","minecraft:sand":"minecraft:glass","minecraft:red_sand":"minecraft:glass","minecraft:cobblestone":"minecraft:stone","minecraft:stone":"minecraft:smooth_stone","minecraft:cobbled_deepslate":"minecraft:deepslate","minecraft:clay_ball":"minecraft:brick","minecraft:clay":"minecraft:hardened_clay","minecraft:netherrack":"minecraft:netherbrick","minecraft:cactus":"minecraft:green_dye","minecraft:sea_pickle":"minecraft:lime_dye","minecraft:kelp":"minecraft:dried_kelp","minecraft:wet_sponge":"minecraft:sponge","minecraft:chorus_fruit":"minecraft:popped_chorus_fruit","minecraft:beef":"minecraft:cooked_beef","minecraft:porkchop":"minecraft:cooked_porkchop","minecraft:chicken":"minecraft:cooked_chicken","minecraft:mutton":"minecraft:cooked_mutton","minecraft:rabbit":"minecraft:cooked_rabbit","minecraft:cod":"minecraft:cooked_cod","minecraft:salmon":"minecraft:cooked_salmon","minecraft:potato":"minecraft:baked_potato"}
+    },
+    "enchanting": {"aqua_affinity":"minecraft:waterlily","bane_of_arthropods":"minecraft:spider_eye","blast_protection":"minecraft:gunpowder","breach":"minecraft:copper_ingot","channeling":"minecraft:lightning_rod","density":"minecraft:iron_block","depth_strider":"minecraft:prismarine_shard","efficiency":"minecraft:redstone","feather_falling":"minecraft:feather","fire_aspect":"minecraft:blaze_rod","fire_protection":"minecraft:magma_cream","flame":"minecraft:blaze_powder","fortune":"minecraft:gold_ingot","frost_walker":"minecraft:ice","impaling":"minecraft:iron_ingot","infinity":"minecraft:arrow","knockback":"minecraft:piston","looting":"minecraft:emerald","loyalty":"minecraft:lead","luck_of_the_sea":"minecraft:lapis_lazuli","lure":"minecraft:cod","mending":"minecraft:wither_skeleton_skull","multishot":"minecraft:bow","piercing":"minecraft:amethyst_shard","power":"minecraft:flint","projectile_protection":"minecraft:bone","protection":"minecraft:leather","punch":"minecraft:string","quick_charge":"minecraft:sugar","respiration":"minecraft:glass_bottle","riptide":"minecraft:ender_pearl","sharpness":"minecraft:quartz","silk_touch":"minecraft:slime_ball","smite":"minecraft:rotten_flesh","soul_speed":"minecraft:soul_soil","swift_sneak":"minecraft:cocoa_beans","thorns":"minecraft:rose_bush","unbreaking":"minecraft:obsidian","wind_burst":"minecraft:wind_charge"}
   },
   "vita": { "color": "#e0569a" },
   "anima": { "color": "#6e4bb5" },
