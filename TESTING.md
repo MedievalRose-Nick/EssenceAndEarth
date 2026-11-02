@@ -4,9 +4,7 @@ Everything below is built but not yet checked in-game. Tick items off as they pa
 
 Before starting: upload the latest `addon/*.mcaddon` to the server, and use creative mode or `/give` for anything expensive.
 
-## Essence Hoe texture (v0.20.1)
-
-- [ ] The hoe shows its new straight blade, in the inventory and held in the hand.
+# Still to test
 
 ## Armor and tools (v0.21.0)
 
@@ -25,6 +23,10 @@ Quickest setup: `/give @s ee:terra_chestplate`, `/give @s ee:astra_pickaxe`, and
 - [ ] A spare item on an empty pedestal stops any altar craft and says "These items don't make anything". All old seed and dagger recipes still work.
 - [ ] Gemstones repair gear on an anvil. Normal enchanting tables and anvils accept the gear, and altar enchanting works on it.
 - [ ] Items keep working after a server restart, and the Guide and wiki match.
+
+## Essence Hoe texture (v0.20.1)
+
+- [ ] The hoe shows its new straight blade, in the inventory and held in the hand.
 
 ## New machines and altar enchanting (v0.20.0)
 
@@ -50,6 +52,19 @@ Quickest setup: `/give @s ee:seed_reprocessor`, `/give @s ee:soul_extractor`, `/
 ## Anima materials in the Guide (v0.19.1)
 
 - [ ] The Guide's Materials page says 2 Anima Dust makes Anima Ingots and Gemstones, and both recipes work as it says.
+
+## Harvester refit (v0.19.0)
+
+- [ ] **Check this first, with Deepcore installed:** open a Harvester and one of Deepcore's machines. Both should show their own custom screens, and a normal chest should stay normal. **If one add-on's screens turn into plain chests, the two UI edits are clashing.**
+- [ ] The Harvester has the Thresher front, vented sides, a hatch on top and an arrow on the back. They line up in all four facing directions.
+- [ ] The screen has a fuel slot top left, an upgrade slot bottom left, a bar between them and 21 harvest slots, with nothing overlapping. Note anything misplaced, as the layout was never seen in-game before release.
+- [ ] Empty fuel and upgrade slots show faint pictures, which disappear when an item goes in.
+- [ ] The bar and the percentage rise with coal and fall with harvests while the screen stays open. Note if the bar looks stretched or blurry, or if the text flickers.
+- [ ] The status line is correct for No upgrade, each upgrade, Running, Paused and Out of fuel.
+- [ ] Shift-clicking stacks in fills the visible slots and never loses anything. Shift-click many different stacks to test the limit.
+- [ ] A Harvester placed before v0.19.0 keeps its fuel and upgrade, and items from its old last slots move to the harvest slots or drop beside it.
+- [ ] Breaking it drops the block and items but none of the hidden readout items. They're also not in the creative menu or `/give`.
+- [ ] A chest at the back never receives the hidden items.
 
 ## Shorter farmland (v0.18.2)
 
@@ -77,44 +92,11 @@ Needs Deepcore v4.65.0 or newer.
 - [ ] Pictures still show after a server restart. The content log has no `[DQ] dq:add_icon` lines.
 - [ ] Block items such as ores and storage blocks still show a **?**. They have no item texture to use.
 
-## Harvester refit (v0.19.0)
-
-- [ ] **Check this first, with Deepcore installed:** open a Harvester and one of Deepcore's machines. Both should show their own custom screens, and a normal chest should stay normal. **If one add-on's screens turn into plain chests, the two UI edits are clashing.**
-- [ ] The Harvester has the Thresher front, vented sides, a hatch on top and an arrow on the back. They line up in all four facing directions.
-- [ ] The screen has a fuel slot top left, an upgrade slot bottom left, a bar between them and 21 harvest slots, with nothing overlapping. Note anything misplaced, as the layout was never seen in-game before release.
-- [ ] Empty fuel and upgrade slots show faint pictures, which disappear when an item goes in.
-- [ ] The bar and the percentage rise with coal and fall with harvests while the screen stays open. Note if the bar looks stretched or blurry, or if the text flickers.
-- [ ] The status line is correct for No upgrade, each upgrade, Running, Paused and Out of fuel.
-- [ ] Shift-clicking stacks in fills the visible slots and never loses anything. Shift-click many different stacks to test the limit.
-- [ ] A Harvester placed before v0.19.0 keeps its fuel and upgrade, and items from its old last slots move to the harvest slots or drop beside it.
-- [ ] Breaking it drops the block and items but none of the hidden readout items. They're also not in the creative menu or `/give`.
-- [ ] A chest at the back never receives the hidden items.
-
 ## Harvester (v0.17.0)
 
 Quickest setup: `/give @s ee:harvester`, `/give @s coal 8`, and a `/give @s ee:ignis_machine_upgrade`. Fertilizer ripens test crops fast.
 
-- [ ] **Check this first:** place one and tap it with an empty hand. A screen titled Harvester should open. **The hitbox switching is the biggest unknown.** Note if the screen won't open, or if the block can't be mined.
-- [ ] A pickaxe mines it from every side, and so does sneaking. Anything held in the hand stops the screen opening.
-- [ ] Its front faces where you stood when you placed it. Check all four directions, and that the back plate is opposite.
-- [ ] With coal in slot 1, looking at it shows its fuel going up. With no fuel it shows "Out of fuel" and does nothing.
-- [ ] With 2 crops ripe in the 3x3 starting one block in front of it, both get harvested and replanted at stage 0. Unripe crops are left alone, and crops at other heights too.
-- [ ] Drops land in the machine, minus one seed. Bonus essence and second seeds still happen on essence farmland. Slots 1 and 2 never fill with harvest.
-- [ ] Vanilla wheat, carrots, potatoes and beetroot work too.
-- [ ] Each upgrade in slot 2 shows the right area and speed. Removing it goes back to 3x3. An item that isn't an upgrade does nothing.
-- [ ] Coal, charcoal, a coal block, a lava bucket (gives the bucket back), a blaze rod, sticks, a log and planks all add fuel. **Logs and planks rely on item tags, so check them.** Other items in slot 1 are ignored.
-- [ ] A chest or barrel touching the back fills from the machine, and a hopper under it carries on from there. Blocks on other sides aren't used.
-- [ ] Once storage is full with no chest, drops stay on the ground and the crops keep replanting.
 - [ ] Redstone power pauses it, and it says so. Note if `getRedstonePower` isn't available.
-- [ ] Items and fuel survive leaving the world and a server restart. After a restart it can still be mined.
-- [ ] Breaking it, or blowing it up, drops the block and everything inside within about 2 seconds, and leaves no entity behind.
-- [ ] Two players can use one together. One holding a tool doesn't stop the other opening it.
-- [ ] Several machines with Astra upgrades don't cause noticeable lag. Note how far away they keep running, and whether Deepcore's chunk loader keeps them running.
-- [ ] The machines recipes all craft, and the Guide and wiki pages match what happens.
-## Anima Dust without ore (v0.17.1)
-
-- [ ] 4 Aqua Blocks in a plus around soul sand makes 4 Anima Dust, and the recipe unlocks once you hold an Aqua Block.
-- [ ] The Guide's Materials page mentions the recipe.
 
 ## Deepcore Geo Scanner (v0.16.0)
 
@@ -125,30 +107,6 @@ Needs Deepcore v4.61.0 or newer.
 - [ ] A scan in the Nether lists Anima.
 - [ ] The hologram shows each ore in its colour.
 - [ ] Ores still show after a server restart.
-
-## Deepcore Network Crafter (v0.16.0)
-
-Needs Deepcore v4.61.0 or newer.
-
-- [ ] **Check this first:** the add-on loads with no script errors, with and without Deepcore installed.
-- [ ] With an Assembler on the network, an Essence & Earth item shows in the Network Crafter and can be ordered.
-- [ ] An order that needs a higher tier essence makes it from lower tier essence in storage (4 into 1).
-- [ ] Recipes still show after a server restart.
-
-## Tool textures (v0.15.1)
-
-- [ ] The sickle and hoe show their new outlined look, in the inventory and held in the hand.
-
-## Vita Shards without ore (v0.15.0)
-
-- [ ] 4 Terra Blocks in a plus around a flint makes 4 Vita Shards, and the recipe unlocks once you hold a Terra Block.
-- [ ] The Guide's Materials page mentions the recipe.
-
-## Altar recipes in the Guide (v0.14.1)
-
-- [ ] The Guide has an Altar Recipes page for each tier and for daggers, and the longest ones scroll.
-- [ ] Item names read properly, and a recipe made from its page works at the altar.
-- [ ] The Infusion Altar page explains how to make both seed bases.
 
 ## Infusion Altar and souls (v0.14.0)
 
@@ -205,6 +163,73 @@ Needs Deepcore v4.61.0 or newer.
 - [ ] Fertilized Essence advances an unripe crop 1 or 2 stages, or 2–5 on vanilla crops, and uses one. Essence Fertilizer ripens a crop and uses one. Neither is used on a ripe crop, and creative mode uses none.
 - [ ] Essence Fertilizer crafts from 4 Terra + 4 bone meal + diamond (makes 4), and 4 Terra + 4 Fertilized Essence + diamond (makes 8).
 
+## Machines (Wildbloom)
+
+Read against Wildbloom v0.1.34's code on 2026-10-30. These still need a real run.
+
+- [ ] The Reaper breaks only ripe crops and replants them at stage 0, and the essence, seed and farmland bonus all drop. It keeps the seed too, so expect a surplus of seeds.
+- [ ] Quickbloom advances our crops one stage at a time and stops at ripe.
+- [ ] Harvestbloom resets ripe crops to stage 0 with no drops, in exchange for mana. Keep it away from farms you want to harvest.
+- [ ] The Tiller leaves our seeds and farmland alone ([Wildbloom issue #2](https://github.com/baseballr/Wildbloom/issues/2), fixed in v0.1.34).
+- [ ] **Spring ritual:** it looks like it will crash before growing anything, in `growAround` in Wildbloom's `machines.js`, because `c` is used before it's defined. This would affect every crop, including vanilla.
+
+## Wiki
+
+- [ ] The accelerators section, mob crop pages and roadmap all appear on the live site.
+- [ ] The download link gets the current version.
+
+# Tested
+
+## Anima Dust without ore (v0.17.1)
+
+- [x] 4 Aqua Blocks in a plus around soul sand makes 4 Anima Dust, and the recipe unlocks once you hold an Aqua Block.
+- [x] The Guide's Materials page mentions the recipe.
+
+## Harvester (v0.17.0)
+
+Quickest setup: `/give @s ee:harvester`, `/give @s coal 8`, and a `/give @s ee:ignis_machine_upgrade`. Fertilizer ripens test crops fast.
+
+- [x] **Check this first:** place one and tap it with an empty hand. A screen titled Harvester should open. **The hitbox switching is the biggest unknown.** Note if the screen won't open, or if the block can't be mined.
+- [x] A pickaxe mines it from every side, and so does sneaking. Anything held in the hand stops the screen opening.
+- [x] Its front faces where you stood when you placed it. Check all four directions, and that the back plate is opposite.
+- [x] With coal in slot 1, looking at it shows its fuel going up. With no fuel it shows "Out of fuel" and does nothing.
+- [x] With 2 crops ripe in the 3x3 starting one block in front of it, both get harvested and replanted at stage 0. Unripe crops are left alone, and crops at other heights too.
+- [x] Drops land in the machine, minus one seed. Bonus essence and second seeds still happen on essence farmland. Slots 1 and 2 never fill with harvest.
+- [x] Vanilla wheat, carrots, potatoes and beetroot work too.
+- [x] Each upgrade in slot 2 shows the right area and speed. Removing it goes back to 3x3. An item that isn't an upgrade does nothing.
+- [x] Coal, charcoal, a coal block, a lava bucket (gives the bucket back), a blaze rod, sticks, a log and planks all add fuel. **Logs and planks rely on item tags, so check them.** Other items in slot 1 are ignored.
+- [x] A chest or barrel touching the back fills from the machine, and a hopper under it carries on from there. Blocks on other sides aren't used.
+- [x] Once storage is full with no chest, drops stay on the ground and the crops keep replanting.
+- [x] Items and fuel survive leaving the world and a server restart. After a restart it can still be mined.
+- [x] Breaking it, or blowing it up, drops the block and everything inside within about 2 seconds, and leaves no entity behind.
+- [x] Two players can use one together. One holding a tool doesn't stop the other opening it.
+- [x] Several machines with Astra upgrades don't cause noticeable lag. Note how far away they keep running, and whether Deepcore's chunk loader keeps them running.
+- [x] The machines recipes all craft, and the Guide and wiki pages match what happens.
+
+## Deepcore Network Crafter (v0.16.0)
+
+Needs Deepcore v4.61.0 or newer.
+
+- [x] **Check this first:** the add-on loads with no script errors, with and without Deepcore installed.
+- [x] With an Assembler on the network, an Essence & Earth item shows in the Network Crafter and can be ordered.
+- [x] An order that needs a higher tier essence makes it from lower tier essence in storage (4 into 1).
+- [x] Recipes still show after a server restart.
+
+## Tool textures (v0.15.1)
+
+- [x] The sickle and hoe show their new outlined look, in the inventory and held in the hand.
+
+## Vita Shards without ore (v0.15.0)
+
+- [x] 4 Terra Blocks in a plus around a flint makes 4 Vita Shards, and the recipe unlocks once you hold a Terra Block.
+- [x] The Guide's Materials page mentions the recipe.
+
+## Altar recipes in the Guide (v0.14.1)
+
+- [x] The Guide has an Altar Recipes page for each tier and for daggers, and the longest ones scroll.
+- [x] Item names read properly, and a recipe made from its page works at the altar.
+- [x] The Infusion Altar page explains how to make both seed bases.
+
 ## Bedrock risk checks (v0.11.1)
 
 Nothing in the add-on uses these yet. They decide how the later gear and machine phases get built.
@@ -243,9 +268,6 @@ Still needs testing in-game:
 - [x] The sickle and hoe still work, and the hoe's seed removal still takes one seed when a second seed drops.
 - [x] A retired bone meal crop still grows, and its essence still crafts bone meal.
 - [x] The Guide's pages and the wiki match what happens in-game.
-
-## Terra crop (v0.10.0)
-
 
 ## Essence Guide (v0.9.0)
 
@@ -287,16 +309,6 @@ Still needs testing in-game:
 - [x] Crops no longer flicker or show hatching when you walk around them, at every growth stage.
 - [x] Crop planes show from both sides, with no invisible angles.
 
-## Farmland (v0.5.0)
-
-- [x] Seeds won't plant on dirt or grass.
-- [x] Breaking farmland pops the crop on top, and the farmland drops itself.
-
-## Growth accelerators (v0.6.0)
-
-- [x] Each shows the right name and tier colour, with white sparks around the roots.
-- [x] Each drops itself when mined.
-
 ## Mob crops (v0.7.0)
 
 - [x] Each crop grows, and shows its colour when ripe. Enderman is purple, wither is pale blue, and their essence stays dark.
@@ -304,17 +316,12 @@ Still needs testing in-game:
 - [x] Bone meal seeds can no longer be crafted.
 - [x] A crafted wither skeleton skull works for summoning a wither.
 
-## Machines (Wildbloom)
+## Growth accelerators (v0.6.0)
 
-Read against Wildbloom v0.1.34's code on 2026-10-30. These still need a real run.
+- [x] Each shows the right name and tier colour, with white sparks around the roots.
+- [x] Each drops itself when mined.
 
-- [ ] The Reaper breaks only ripe crops and replants them at stage 0, and the essence, seed and farmland bonus all drop. It keeps the seed too, so expect a surplus of seeds.
-- [ ] Quickbloom advances our crops one stage at a time and stops at ripe.
-- [ ] Harvestbloom resets ripe crops to stage 0 with no drops, in exchange for mana. Keep it away from farms you want to harvest.
-- [ ] The Tiller leaves our seeds and farmland alone ([Wildbloom issue #2](https://github.com/baseballr/Wildbloom/issues/2), fixed in v0.1.34).
-- [ ] **Spring ritual:** it looks like it will crash before growing anything, in `growAround` in Wildbloom's `machines.js`, because `c` is used before it's defined. This would affect every crop, including vanilla.
+## Farmland (v0.5.0)
 
-## Wiki
-
-- [ ] The accelerators section, mob crop pages and roadmap all appear on the live site.
-- [ ] The download link gets the current version.
+- [x] Seeds won't plant on dirt or grass.
+- [x] Breaking farmland pops the crop on top, and the farmland drops itself.
