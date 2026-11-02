@@ -301,7 +301,7 @@ const cropCategories = cfg.tiers
 // Vita and each tier share one layout: their ingots, gemstones, nuggets and storage blocks.
 const nine = (x) => [[x, x, x], [x, x, x], [x, x, x]];
 const plus = (a, b) => [[null, a, null], [a, b, a], [null, a, null]];
-const materialEntry = (id, name, makeIngot, makeGem, source, extra = []) => ({
+const materialEntry = (id, name, makeIngot, makeGem, source, extra = [], storage = []) => ({
   slug: slug(id), name: `${name} materials`, icon: `img/icons/${id}_ingot.png`,
   summary: `${name} ingots, gemstones and storage blocks.`,
   blocks: [
@@ -310,7 +310,7 @@ const materialEntry = (id, name, makeIngot, makeGem, source, extra = []) => ({
     h2(`${name} Ingot`), makeIngot,
     h2(`${name} Gemstone`), makeGem,
     h2("Storage"),
-    list([`${id}_nugget`, `${id}_ingot_block`, `${id}_gemstone_block`].map((m) => ({ ...matItem(m), sub: "9 of the smaller item, and back again" }))),
+    list([`${id}_nugget`, `${id}_ingot_block`, `${id}_gemstone_block`].map((m) => ({ ...matItem(m), sub: "9 of the smaller item, and back again" })).concat(storage)),
   ],
 });
 const shapelessGrid = (a, b) => [[a, b, b], [null, null, null], [null, null, null]];
@@ -337,12 +337,14 @@ const materials = {
       recipe(matItem("vita_ingot"), 1, plus(matItem("vita_shard"), vanilla("minecraft:iron_ingot"))),
       recipe(matItem("vita_gemstone"), 1, plus(matItem("vita_shard"), vanilla("minecraft:diamond"))),
       "Made from Vita Shards, which drop from Vita Ore or craft from Terra Blocks. Every tier's ingot and gemstone starts from these.",
-      [h2("Vita Shard"), recipe(matItem("vita_shard"), 4, plus(matItem("terra_block"), vanilla("minecraft:flint")))]),
+      [h2("Vita Shard"), recipe(matItem("vita_shard"), 4, plus(matItem("terra_block"), vanilla("minecraft:flint")))],
+      [{ ...matItem("vita_block"), sub: "9 Vita Shards, and back again" }]),
     materialEntry("anima", "Anima",
       recipe(matItem("anima_ingot"), 1, shapelessGrid(matItem("vita_ingot"), { name: "Anima Dust", icon: "img/icons/anima_dust.png" }), "Shapeless: any slots"),
       recipe(matItem("anima_gemstone"), 1, shapelessGrid(matItem("vita_gemstone"), { name: "Anima Dust", icon: "img/icons/anima_dust.png" }), "Shapeless: any slots"),
       "Vita materials plus two Anima Dust. Dust drops from Anima Ore in the Nether or crafts from Aqua Blocks.",
-      [h2("Anima Dust"), recipe({ name: "Anima Dust", icon: "img/icons/anima_dust.png" }, 4, plus(matItem("aqua_block"), vanilla("minecraft:soul_sand")))]),
+      [h2("Anima Dust"), recipe({ name: "Anima Dust", icon: "img/icons/anima_dust.png" }, 4, plus(matItem("aqua_block"), vanilla("minecraft:soul_sand")))],
+      [{ ...matItem("anima_block"), sub: "9 Anima Dust, and back again" }]),
     ...cfg.tiers.map((t) => materialEntry(t.id, title(t.id),
       recipe(matItem(`${t.id}_ingot`), 1, shapelessGrid(matItem("vita_ingot"), tierItem(t)), "Shapeless: any slots"),
       recipe(matItem(`${t.id}_gemstone`), 1, shapelessGrid(matItem("vita_gemstone"), tierItem(t)), "Shapeless: any slots"),
@@ -489,7 +491,7 @@ const gallery = [
   { title: "Essence farmland", items: cfg.tiers.map(farmlandItem) },
   { title: "Growth accelerators", items: cfg.tiers.map(acceleratorItem) },
   { title: "Ores", items: ["essence_ore", "deepslate_essence_ore", "vita_ore", "deepslate_vita_ore"].map((id) => ({ name: title(id), icon: `img/icons/${id}.png` })) },
-  { title: "Materials", items: ["vita", ...cfg.tiers.map((t) => t.id)].flatMap((id) => [`${id}_ingot`, `${id}_gemstone`, `${id}_nugget`, `${id}_ingot_block`, `${id}_gemstone_block`].map(matItem)) },
+  { title: "Materials", items: ["vita", "anima", ...cfg.tiers.map((t) => t.id)].flatMap((id) => [`${id}_ingot`, `${id}_gemstone`, `${id}_nugget`, `${id}_ingot_block`, `${id}_gemstone_block`].map(matItem)).concat(["vita_block", "anima_block"].map(matItem)) },
   { title: "Fertilizer", items: [fertilized, fertilizer] },
   { title: "Infusion and souls", items: ["infusion_altar", "infusion_pedestal", "wand", "vita_seed_base", "anima_seed_base", "soul_jar", "anima_dagger", "passive_anima_dagger", "hostile_anima_dagger", "soul_dust", "anima_dust", "soulstone", "soulstone_cobble", "soulstone_smooth", "soulstone_bricks", "soulstone_cracked_bricks", "soul_glass", "anima_ore"].map((id) => ({ name: title(id), icon: `img/icons/${id}.png` })) },
   { title: "Tools and guide", items: [sickleItem, hoeItem, guideItem] },

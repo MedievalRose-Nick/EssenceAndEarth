@@ -1177,6 +1177,12 @@
          "icon": "img/icons/vita_gemstone_block.png",
          "href": "wiki/materials/vita",
          "sub": "9 of the smaller item, and back again"
+        },
+        {
+         "name": "Vita Block",
+         "icon": "img/icons/vita_block.png",
+         "href": "wiki/materials/vita",
+         "sub": "9 Vita Shards, and back again"
         }
        ]
       }
@@ -1347,6 +1353,12 @@
          "icon": "img/icons/anima_gemstone_block.png",
          "href": "wiki/materials/anima",
          "sub": "9 of the smaller item, and back again"
+        },
+        {
+         "name": "Anima Block",
+         "icon": "img/icons/anima_block.png",
+         "href": "wiki/materials/anima",
+         "sub": "9 Anima Dust, and back again"
         }
        ]
       }
@@ -38077,6 +38089,31 @@
      "href": "wiki/materials/vita"
     },
     {
+     "name": "Anima Ingot",
+     "icon": "img/icons/anima_ingot.png",
+     "href": "wiki/materials/anima"
+    },
+    {
+     "name": "Anima Gemstone",
+     "icon": "img/icons/anima_gemstone.png",
+     "href": "wiki/materials/anima"
+    },
+    {
+     "name": "Anima Nugget",
+     "icon": "img/icons/anima_nugget.png",
+     "href": "wiki/materials/anima"
+    },
+    {
+     "name": "Anima Ingot Block",
+     "icon": "img/icons/anima_ingot_block.png",
+     "href": "wiki/materials/anima"
+    },
+    {
+     "name": "Anima Gemstone Block",
+     "icon": "img/icons/anima_gemstone_block.png",
+     "href": "wiki/materials/anima"
+    },
+    {
      "name": "Terra Ingot",
      "icon": "img/icons/terra_ingot.png",
      "href": "wiki/materials/terra"
@@ -38200,6 +38237,16 @@
      "name": "Astra Gemstone Block",
      "icon": "img/icons/astra_gemstone_block.png",
      "href": "wiki/materials/astra"
+    },
+    {
+     "name": "Vita Block",
+     "icon": "img/icons/vita_block.png",
+     "href": "wiki/materials/vita"
+    },
+    {
+     "name": "Anima Block",
+     "icon": "img/icons/anima_block.png",
+     "href": "wiki/materials/anima"
     }
    ]
   },
