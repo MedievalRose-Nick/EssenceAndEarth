@@ -239,5 +239,17 @@
   "minecraft:bone_block": "Bone Block",
   "minecraft:coal_block": "Block of Coal",
   "minecraft:iron_hoe": "Iron Hoe",
-  "minecraft:furnace": "Furnace"
+  "minecraft:furnace": "Furnace",
+  "minecraft:golden_apple": "Golden Apple",
+  "minecraft:golden_pickaxe": "Golden Pickaxe",
+  "minecraft:golden_carrot": "Golden Carrot",
+  "minecraft:torch": "Torch",
+  "minecraft:glowstone": "Glowstone",
+  "minecraft:pumpkin_pie": "Pumpkin Pie",
+  "minecraft:mushroom_stew": "Mushroom Stew",
+  "minecraft:quartz_block": "Block of Quartz",
+  "minecraft:iron_axe": "Iron Axe",
+  "minecraft:sugar": "Sugar",
+  "minecraft:iron_sword": "Iron Sword",
+  "minecraft:diamond_sword": "Diamond Sword"
 }

@@ -1,17 +1,17 @@
 {
  "name": "Essence & Earth",
  "release": {
-  "version": "0.23.2",
-  "file": "EssenceAndEarth_v0.23.2.mcaddon",
+  "version": "0.24.0",
+  "file": "EssenceAndEarth_v0.24.0.mcaddon",
   "minBedrock": "1.21.90",
-  "download": "https://github.com/MedievalRose-Nick/EssenceAndEarth/raw/main/addon/EssenceAndEarth_v0.23.2.mcaddon",
+  "download": "https://github.com/MedievalRose-Nick/EssenceAndEarth/raw/main/addon/EssenceAndEarth_v0.24.0.mcaddon",
   "repo": "https://github.com/MedievalRose-Nick/EssenceAndEarth"
  },
  "stats": {
   "crops": 54,
   "tiers": 5,
-  "recipes": 314,
-  "items": 281
+  "recipes": 352,
+  "items": 319
  },
  "categories": [
   {
@@ -4392,6 +4392,3239 @@
       }
      ],
      "href": "wiki/armor-and-tools/astra"
+    }
+   ]
+  },
+  {
+   "slug": "augments",
+   "title": "Augments",
+   "group": "Getting started",
+   "icon": "img/icons/speed_i_augment.png",
+   "blurb": "Effects for your armor and swords, fitted at the Tinkering Table.",
+   "entries": [
+    {
+     "slug": "tinkering-table",
+     "name": "Tinkering Table",
+     "icon": "img/icons/tinkering_table_top.png",
+     "summary": "Fits augments to armor and swords.",
+     "blocks": [
+      {
+       "t": "facts",
+       "facts": [
+        [
+         "Open",
+         "Tap it with an empty hand"
+        ],
+        [
+         "Fit",
+         "Gear in the left slot, augment in the right"
+        ],
+        [
+         "Remove",
+         "Take the augment back out"
+        ],
+        [
+         "Per piece",
+         "One augment"
+        ],
+        [
+         "Tiers",
+         "An augment needs gear of its tier or higher"
+        ]
+       ]
+      },
+      {
+       "t": "p",
+       "html": "An augment is fitted as soon as both are in. Taking the gear out takes its augment with it, and augments stay on through tier upgrades at the Infusion Altar. The line at the bottom of the screen says why an augment won't fit."
+      },
+      {
+       "t": "h2",
+       "text": "Tinkering Table"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Tinkering Table",
+        "icon": "img/icons/tinkering_table_top.png",
+        "href": "wiki/augments/tinkering-table",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Stone",
+          "icon": "img/vanilla/stone.png"
+         },
+         {
+          "name": "Stone",
+          "icon": "img/vanilla/stone.png"
+         },
+         {
+          "name": "Stone",
+          "icon": "img/vanilla/stone.png"
+         }
+        ],
+        [
+         {
+          "name": "Anima Dust",
+          "icon": "img/icons/anima_dust.png"
+         },
+         {
+          "name": "Stone",
+          "icon": "img/vanilla/stone.png"
+         },
+         {
+          "name": "Anima Dust",
+          "icon": "img/icons/anima_dust.png"
+         }
+        ],
+        [
+         {
+          "name": "Stone",
+          "icon": "img/vanilla/stone.png"
+         },
+         {
+          "name": "Stone",
+          "icon": "img/vanilla/stone.png"
+         },
+         {
+          "name": "Stone",
+          "icon": "img/vanilla/stone.png"
+         }
+        ]
+       ]
+      },
+      {
+       "t": "h2",
+       "text": "Blank Augment"
+      },
+      {
+       "t": "p",
+       "html": "Every augment starts as a Blank Augment at the Infusion Altar."
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Blank Augment",
+        "icon": "img/icons/blank_augment.png",
+        "href": "wiki/augments/tinkering-table",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Vita Shard",
+          "icon": "img/icons/vita_shard.png"
+         },
+         {
+          "name": "Iron Ingot",
+          "icon": "img/vanilla/iron_ingot.png"
+         },
+         {
+          "name": "Vita Shard",
+          "icon": "img/icons/vita_shard.png"
+         }
+        ],
+        [
+         {
+          "name": "Vita Shard",
+          "icon": "img/icons/vita_shard.png"
+         },
+         {
+          "name": "Iron Ingot",
+          "icon": "img/vanilla/iron_ingot.png"
+         },
+         {
+          "name": "Vita Shard",
+          "icon": "img/icons/vita_shard.png"
+         }
+        ],
+        [
+         {
+          "name": "Vita Shard",
+          "icon": "img/icons/vita_shard.png"
+         },
+         {
+          "name": "Iron Ingot",
+          "icon": "img/vanilla/iron_ingot.png"
+         },
+         {
+          "name": "Vita Shard",
+          "icon": "img/icons/vita_shard.png"
+         }
+        ]
+       ]
+      }
+     ],
+     "href": "wiki/augments/tinkering-table"
+    },
+    {
+     "slug": "absorption",
+     "name": "Absorption Augment",
+     "icon": "img/icons/absorption_i_augment.png",
+     "summary": "Any armor piece. Absorption I while worn.",
+     "blocks": [
+      {
+       "t": "facts",
+       "facts": [
+        [
+         "Goes on",
+         "Any armor piece"
+        ],
+        [
+         "Levels",
+         "I to V"
+        ],
+        [
+         "Needs",
+         "Terra gear for I, Aqua gear for II, Ignis gear for III, Aether gear for IV, Astra gear for V"
+        ]
+       ]
+      },
+      {
+       "t": "items",
+       "items": [
+        {
+         "name": "Absorption I Augment",
+         "icon": "img/icons/absorption_i_augment.png",
+         "sub": "Absorption I while worn"
+        },
+        {
+         "name": "Absorption II Augment",
+         "icon": "img/icons/absorption_ii_augment.png",
+         "sub": "Absorption II while worn"
+        },
+        {
+         "name": "Absorption III Augment",
+         "icon": "img/icons/absorption_iii_augment.png",
+         "sub": "Absorption III while worn"
+        },
+        {
+         "name": "Absorption IV Augment",
+         "icon": "img/icons/absorption_iv_augment.png",
+         "sub": "Absorption IV while worn"
+        },
+        {
+         "name": "Absorption V Augment",
+         "icon": "img/icons/absorption_v_augment.png",
+         "sub": "Absorption V while worn"
+        }
+       ]
+      },
+      {
+       "t": "h2",
+       "text": "Absorption I Augment"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Absorption I Augment",
+        "icon": "img/icons/absorption_i_augment.png",
+        "href": "wiki/augments/absorption",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Terra Essence",
+          "icon": "img/icons/terra_essence.png",
+          "href": "wiki/essence/terra-essence"
+         },
+         {
+          "name": "Golden Apple",
+          "icon": "img/vanilla/golden_apple.png"
+         },
+         {
+          "name": "Terra Essence",
+          "icon": "img/icons/terra_essence.png",
+          "href": "wiki/essence/terra-essence"
+         }
+        ],
+        [
+         {
+          "name": "Golden Apple",
+          "icon": "img/vanilla/golden_apple.png"
+         },
+         {
+          "name": "Blank Augment",
+          "icon": "img/icons/blank_augment.png",
+          "href": "wiki/augments/tinkering-table"
+         },
+         {
+          "name": "Golden Apple",
+          "icon": "img/vanilla/golden_apple.png"
+         }
+        ],
+        [
+         {
+          "name": "Terra Essence",
+          "icon": "img/icons/terra_essence.png",
+          "href": "wiki/essence/terra-essence"
+         },
+         {
+          "name": "Golden Apple",
+          "icon": "img/vanilla/golden_apple.png"
+         },
+         {
+          "name": "Terra Essence",
+          "icon": "img/icons/terra_essence.png",
+          "href": "wiki/essence/terra-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+      },
+      {
+       "t": "h2",
+       "text": "Absorption II Augment"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Absorption II Augment",
+        "icon": "img/icons/absorption_ii_augment.png",
+        "href": "wiki/augments/absorption",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Aqua Essence",
+          "icon": "img/icons/aqua_essence.png",
+          "href": "wiki/essence/aqua-essence"
+         },
+         {
+          "name": "Golden Apple",
+          "icon": "img/vanilla/golden_apple.png"
+         },
+         {
+          "name": "Aqua Essence",
+          "icon": "img/icons/aqua_essence.png",
+          "href": "wiki/essence/aqua-essence"
+         }
+        ],
+        [
+         {
+          "name": "Golden Apple",
+          "icon": "img/vanilla/golden_apple.png"
+         },
+         {
+          "name": "Absorption I Augment",
+          "icon": "img/icons/absorption_i_augment.png",
+          "href": "wiki/augments/absorption"
+         },
+         {
+          "name": "Golden Apple",
+          "icon": "img/vanilla/golden_apple.png"
+         }
+        ],
+        [
+         {
+          "name": "Aqua Essence",
+          "icon": "img/icons/aqua_essence.png",
+          "href": "wiki/essence/aqua-essence"
+         },
+         {
+          "name": "Golden Apple",
+          "icon": "img/vanilla/golden_apple.png"
+         },
+         {
+          "name": "Aqua Essence",
+          "icon": "img/icons/aqua_essence.png",
+          "href": "wiki/essence/aqua-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+      },
+      {
+       "t": "h2",
+       "text": "Absorption III Augment"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Absorption III Augment",
+        "icon": "img/icons/absorption_iii_augment.png",
+        "href": "wiki/augments/absorption",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         },
+         {
+          "name": "Golden Apple",
+          "icon": "img/vanilla/golden_apple.png"
+         },
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         }
+        ],
+        [
+         {
+          "name": "Golden Apple",
+          "icon": "img/vanilla/golden_apple.png"
+         },
+         {
+          "name": "Absorption II Augment",
+          "icon": "img/icons/absorption_ii_augment.png",
+          "href": "wiki/augments/absorption"
+         },
+         {
+          "name": "Golden Apple",
+          "icon": "img/vanilla/golden_apple.png"
+         }
+        ],
+        [
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         },
+         {
+          "name": "Golden Apple",
+          "icon": "img/vanilla/golden_apple.png"
+         },
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+      },
+      {
+       "t": "h2",
+       "text": "Absorption IV Augment"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Absorption IV Augment",
+        "icon": "img/icons/absorption_iv_augment.png",
+        "href": "wiki/augments/absorption",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         },
+         {
+          "name": "Golden Apple",
+          "icon": "img/vanilla/golden_apple.png"
+         },
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         }
+        ],
+        [
+         {
+          "name": "Golden Apple",
+          "icon": "img/vanilla/golden_apple.png"
+         },
+         {
+          "name": "Absorption III Augment",
+          "icon": "img/icons/absorption_iii_augment.png",
+          "href": "wiki/augments/absorption"
+         },
+         {
+          "name": "Golden Apple",
+          "icon": "img/vanilla/golden_apple.png"
+         }
+        ],
+        [
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         },
+         {
+          "name": "Golden Apple",
+          "icon": "img/vanilla/golden_apple.png"
+         },
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+      },
+      {
+       "t": "h2",
+       "text": "Absorption V Augment"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Absorption V Augment",
+        "icon": "img/icons/absorption_v_augment.png",
+        "href": "wiki/augments/absorption",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Astra Essence",
+          "icon": "img/icons/astra_essence.png",
+          "href": "wiki/essence/astra-essence"
+         },
+         {
+          "name": "Golden Apple",
+          "icon": "img/vanilla/golden_apple.png"
+         },
+         {
+          "name": "Astra Essence",
+          "icon": "img/icons/astra_essence.png",
+          "href": "wiki/essence/astra-essence"
+         }
+        ],
+        [
+         {
+          "name": "Golden Apple",
+          "icon": "img/vanilla/golden_apple.png"
+         },
+         {
+          "name": "Absorption IV Augment",
+          "icon": "img/icons/absorption_iv_augment.png",
+          "href": "wiki/augments/absorption"
+         },
+         {
+          "name": "Golden Apple",
+          "icon": "img/vanilla/golden_apple.png"
+         }
+        ],
+        [
+         {
+          "name": "Astra Essence",
+          "icon": "img/icons/astra_essence.png",
+          "href": "wiki/essence/astra-essence"
+         },
+         {
+          "name": "Golden Apple",
+          "icon": "img/vanilla/golden_apple.png"
+         },
+         {
+          "name": "Astra Essence",
+          "icon": "img/icons/astra_essence.png",
+          "href": "wiki/essence/astra-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+      }
+     ],
+     "href": "wiki/augments/absorption"
+    },
+    {
+     "slug": "health-boost",
+     "name": "Health Boost Augment",
+     "icon": "img/icons/health_boost_i_augment.png",
+     "summary": "Any armor piece. Health Boost I while worn.",
+     "blocks": [
+      {
+       "t": "facts",
+       "facts": [
+        [
+         "Goes on",
+         "Any armor piece"
+        ],
+        [
+         "Levels",
+         "I to V"
+        ],
+        [
+         "Needs",
+         "Terra gear for I, Aqua gear for II, Ignis gear for III, Aether gear for IV, Astra gear for V"
+        ]
+       ]
+      },
+      {
+       "t": "items",
+       "items": [
+        {
+         "name": "Health Boost I Augment",
+         "icon": "img/icons/health_boost_i_augment.png",
+         "sub": "Health Boost I while worn"
+        },
+        {
+         "name": "Health Boost II Augment",
+         "icon": "img/icons/health_boost_ii_augment.png",
+         "sub": "Health Boost II while worn"
+        },
+        {
+         "name": "Health Boost III Augment",
+         "icon": "img/icons/health_boost_iii_augment.png",
+         "sub": "Health Boost III while worn"
+        },
+        {
+         "name": "Health Boost IV Augment",
+         "icon": "img/icons/health_boost_iv_augment.png",
+         "sub": "Health Boost IV while worn"
+        },
+        {
+         "name": "Health Boost V Augment",
+         "icon": "img/icons/health_boost_v_augment.png",
+         "sub": "Health Boost V while worn"
+        }
+       ]
+      },
+      {
+       "t": "h2",
+       "text": "Health Boost I Augment"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Health Boost I Augment",
+        "icon": "img/icons/health_boost_i_augment.png",
+        "href": "wiki/augments/health-boost",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Terra Essence",
+          "icon": "img/icons/terra_essence.png",
+          "href": "wiki/essence/terra-essence"
+         },
+         {
+          "name": "Golden Apple",
+          "icon": "img/vanilla/golden_apple.png"
+         },
+         {
+          "name": "Terra Essence",
+          "icon": "img/icons/terra_essence.png",
+          "href": "wiki/essence/terra-essence"
+         }
+        ],
+        [
+         {
+          "name": "Wither Skeleton Skull",
+          "icon": "img/vanilla/wither_skeleton_skull.png"
+         },
+         {
+          "name": "Blank Augment",
+          "icon": "img/icons/blank_augment.png",
+          "href": "wiki/augments/tinkering-table"
+         },
+         {
+          "name": "Wither Skeleton Skull",
+          "icon": "img/vanilla/wither_skeleton_skull.png"
+         }
+        ],
+        [
+         {
+          "name": "Terra Essence",
+          "icon": "img/icons/terra_essence.png",
+          "href": "wiki/essence/terra-essence"
+         },
+         {
+          "name": "Golden Apple",
+          "icon": "img/vanilla/golden_apple.png"
+         },
+         {
+          "name": "Terra Essence",
+          "icon": "img/icons/terra_essence.png",
+          "href": "wiki/essence/terra-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+      },
+      {
+       "t": "h2",
+       "text": "Health Boost II Augment"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Health Boost II Augment",
+        "icon": "img/icons/health_boost_ii_augment.png",
+        "href": "wiki/augments/health-boost",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Aqua Essence",
+          "icon": "img/icons/aqua_essence.png",
+          "href": "wiki/essence/aqua-essence"
+         },
+         {
+          "name": "Golden Apple",
+          "icon": "img/vanilla/golden_apple.png"
+         },
+         {
+          "name": "Aqua Essence",
+          "icon": "img/icons/aqua_essence.png",
+          "href": "wiki/essence/aqua-essence"
+         }
+        ],
+        [
+         {
+          "name": "Wither Skeleton Skull",
+          "icon": "img/vanilla/wither_skeleton_skull.png"
+         },
+         {
+          "name": "Health Boost I Augment",
+          "icon": "img/icons/health_boost_i_augment.png",
+          "href": "wiki/augments/health-boost"
+         },
+         {
+          "name": "Wither Skeleton Skull",
+          "icon": "img/vanilla/wither_skeleton_skull.png"
+         }
+        ],
+        [
+         {
+          "name": "Aqua Essence",
+          "icon": "img/icons/aqua_essence.png",
+          "href": "wiki/essence/aqua-essence"
+         },
+         {
+          "name": "Golden Apple",
+          "icon": "img/vanilla/golden_apple.png"
+         },
+         {
+          "name": "Aqua Essence",
+          "icon": "img/icons/aqua_essence.png",
+          "href": "wiki/essence/aqua-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+      },
+      {
+       "t": "h2",
+       "text": "Health Boost III Augment"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Health Boost III Augment",
+        "icon": "img/icons/health_boost_iii_augment.png",
+        "href": "wiki/augments/health-boost",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         },
+         {
+          "name": "Golden Apple",
+          "icon": "img/vanilla/golden_apple.png"
+         },
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         }
+        ],
+        [
+         {
+          "name": "Wither Skeleton Skull",
+          "icon": "img/vanilla/wither_skeleton_skull.png"
+         },
+         {
+          "name": "Health Boost II Augment",
+          "icon": "img/icons/health_boost_ii_augment.png",
+          "href": "wiki/augments/health-boost"
+         },
+         {
+          "name": "Wither Skeleton Skull",
+          "icon": "img/vanilla/wither_skeleton_skull.png"
+         }
+        ],
+        [
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         },
+         {
+          "name": "Golden Apple",
+          "icon": "img/vanilla/golden_apple.png"
+         },
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+      },
+      {
+       "t": "h2",
+       "text": "Health Boost IV Augment"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Health Boost IV Augment",
+        "icon": "img/icons/health_boost_iv_augment.png",
+        "href": "wiki/augments/health-boost",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         },
+         {
+          "name": "Golden Apple",
+          "icon": "img/vanilla/golden_apple.png"
+         },
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         }
+        ],
+        [
+         {
+          "name": "Wither Skeleton Skull",
+          "icon": "img/vanilla/wither_skeleton_skull.png"
+         },
+         {
+          "name": "Health Boost III Augment",
+          "icon": "img/icons/health_boost_iii_augment.png",
+          "href": "wiki/augments/health-boost"
+         },
+         {
+          "name": "Wither Skeleton Skull",
+          "icon": "img/vanilla/wither_skeleton_skull.png"
+         }
+        ],
+        [
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         },
+         {
+          "name": "Golden Apple",
+          "icon": "img/vanilla/golden_apple.png"
+         },
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+      },
+      {
+       "t": "h2",
+       "text": "Health Boost V Augment"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Health Boost V Augment",
+        "icon": "img/icons/health_boost_v_augment.png",
+        "href": "wiki/augments/health-boost",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Astra Essence",
+          "icon": "img/icons/astra_essence.png",
+          "href": "wiki/essence/astra-essence"
+         },
+         {
+          "name": "Golden Apple",
+          "icon": "img/vanilla/golden_apple.png"
+         },
+         {
+          "name": "Astra Essence",
+          "icon": "img/icons/astra_essence.png",
+          "href": "wiki/essence/astra-essence"
+         }
+        ],
+        [
+         {
+          "name": "Wither Skeleton Skull",
+          "icon": "img/vanilla/wither_skeleton_skull.png"
+         },
+         {
+          "name": "Health Boost IV Augment",
+          "icon": "img/icons/health_boost_iv_augment.png",
+          "href": "wiki/augments/health-boost"
+         },
+         {
+          "name": "Wither Skeleton Skull",
+          "icon": "img/vanilla/wither_skeleton_skull.png"
+         }
+        ],
+        [
+         {
+          "name": "Astra Essence",
+          "icon": "img/icons/astra_essence.png",
+          "href": "wiki/essence/astra-essence"
+         },
+         {
+          "name": "Golden Apple",
+          "icon": "img/vanilla/golden_apple.png"
+         },
+         {
+          "name": "Astra Essence",
+          "icon": "img/icons/astra_essence.png",
+          "href": "wiki/essence/astra-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+      }
+     ],
+     "href": "wiki/augments/health-boost"
+    },
+    {
+     "slug": "fire-resistance",
+     "name": "Fire Resistance Augment",
+     "icon": "img/icons/fire_resistance_augment.png",
+     "summary": "Any armor piece. Fire Resistance while worn.",
+     "blocks": [
+      {
+       "t": "facts",
+       "facts": [
+        [
+         "Goes on",
+         "Any armor piece"
+        ],
+        [
+         "Levels",
+         "One"
+        ],
+        [
+         "Needs",
+         "Ignis gear"
+        ]
+       ]
+      },
+      {
+       "t": "items",
+       "items": [
+        {
+         "name": "Fire Resistance Augment",
+         "icon": "img/icons/fire_resistance_augment.png",
+         "sub": "Fire Resistance while worn"
+        }
+       ]
+      },
+      {
+       "t": "h2",
+       "text": "Fire Resistance Augment"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Fire Resistance Augment",
+        "icon": "img/icons/fire_resistance_augment.png",
+        "href": "wiki/augments/fire-resistance",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         },
+         {
+          "name": "Magma Cream",
+          "icon": "img/vanilla/magma_cream.png"
+         },
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         }
+        ],
+        [
+         {
+          "name": "Magma Cream",
+          "icon": "img/vanilla/magma_cream.png"
+         },
+         {
+          "name": "Blank Augment",
+          "icon": "img/icons/blank_augment.png",
+          "href": "wiki/augments/tinkering-table"
+         },
+         {
+          "name": "Magma Cream",
+          "icon": "img/vanilla/magma_cream.png"
+         }
+        ],
+        [
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         },
+         {
+          "name": "Magma Cream",
+          "icon": "img/vanilla/magma_cream.png"
+         },
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+      }
+     ],
+     "href": "wiki/augments/fire-resistance"
+    },
+    {
+     "slug": "poison-resistance",
+     "name": "Poison Resistance Augment",
+     "icon": "img/icons/poison_resistance_augment.png",
+     "summary": "Any armor piece. Clears Poison while worn.",
+     "blocks": [
+      {
+       "t": "facts",
+       "facts": [
+        [
+         "Goes on",
+         "Any armor piece"
+        ],
+        [
+         "Levels",
+         "One"
+        ],
+        [
+         "Needs",
+         "Aether gear"
+        ]
+       ]
+      },
+      {
+       "t": "items",
+       "items": [
+        {
+         "name": "Poison Resistance Augment",
+         "icon": "img/icons/poison_resistance_augment.png",
+         "sub": "Clears Poison while worn"
+        }
+       ]
+      },
+      {
+       "t": "h2",
+       "text": "Poison Resistance Augment"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Poison Resistance Augment",
+        "icon": "img/icons/poison_resistance_augment.png",
+        "href": "wiki/augments/poison-resistance",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         },
+         {
+          "name": "Milk Bucket",
+          "icon": "img/vanilla/milk_bucket.png"
+         },
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         }
+        ],
+        [
+         {
+          "name": "Milk Bucket",
+          "icon": "img/vanilla/milk_bucket.png"
+         },
+         {
+          "name": "Blank Augment",
+          "icon": "img/icons/blank_augment.png",
+          "href": "wiki/augments/tinkering-table"
+         },
+         {
+          "name": "Milk Bucket",
+          "icon": "img/vanilla/milk_bucket.png"
+         }
+        ],
+        [
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         },
+         {
+          "name": "Milk Bucket",
+          "icon": "img/vanilla/milk_bucket.png"
+         },
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+      }
+     ],
+     "href": "wiki/augments/poison-resistance"
+    },
+    {
+     "slug": "mining-fatigue-resistance",
+     "name": "Mining Fatigue Resistance Augment",
+     "icon": "img/icons/mining_fatigue_resistance_augment.png",
+     "summary": "Any armor piece. Clears Mining Fatigue while worn.",
+     "blocks": [
+      {
+       "t": "facts",
+       "facts": [
+        [
+         "Goes on",
+         "Any armor piece"
+        ],
+        [
+         "Levels",
+         "One"
+        ],
+        [
+         "Needs",
+         "Aether gear"
+        ]
+       ]
+      },
+      {
+       "t": "items",
+       "items": [
+        {
+         "name": "Mining Fatigue Resistance Augment",
+         "icon": "img/icons/mining_fatigue_resistance_augment.png",
+         "sub": "Clears Mining Fatigue while worn"
+        }
+       ]
+      },
+      {
+       "t": "h2",
+       "text": "Mining Fatigue Resistance Augment"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Mining Fatigue Resistance Augment",
+        "icon": "img/icons/mining_fatigue_resistance_augment.png",
+        "href": "wiki/augments/mining-fatigue-resistance",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         },
+         {
+          "name": "Gold Ingot",
+          "icon": "img/vanilla/gold_ingot.png"
+         },
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         }
+        ],
+        [
+         {
+          "name": "Golden Pickaxe",
+          "icon": "img/vanilla/golden_pickaxe.png"
+         },
+         {
+          "name": "Blank Augment",
+          "icon": "img/icons/blank_augment.png",
+          "href": "wiki/augments/tinkering-table"
+         },
+         {
+          "name": "Golden Pickaxe",
+          "icon": "img/vanilla/golden_pickaxe.png"
+         }
+        ],
+        [
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         },
+         {
+          "name": "Gold Ingot",
+          "icon": "img/vanilla/gold_ingot.png"
+         },
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+      }
+     ],
+     "href": "wiki/augments/mining-fatigue-resistance"
+    },
+    {
+     "slug": "wither-resistance",
+     "name": "Wither Resistance Augment",
+     "icon": "img/icons/wither_resistance_augment.png",
+     "summary": "Any armor piece. Clears Wither while worn.",
+     "blocks": [
+      {
+       "t": "facts",
+       "facts": [
+        [
+         "Goes on",
+         "Any armor piece"
+        ],
+        [
+         "Levels",
+         "One"
+        ],
+        [
+         "Needs",
+         "Astra gear"
+        ]
+       ]
+      },
+      {
+       "t": "items",
+       "items": [
+        {
+         "name": "Wither Resistance Augment",
+         "icon": "img/icons/wither_resistance_augment.png",
+         "sub": "Clears Wither while worn"
+        }
+       ]
+      },
+      {
+       "t": "h2",
+       "text": "Wither Resistance Augment"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Wither Resistance Augment",
+        "icon": "img/icons/wither_resistance_augment.png",
+        "href": "wiki/augments/wither-resistance",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Astra Essence",
+          "icon": "img/icons/astra_essence.png",
+          "href": "wiki/essence/astra-essence"
+         },
+         {
+          "name": "Wither Skeleton Skull",
+          "icon": "img/vanilla/wither_skeleton_skull.png"
+         },
+         {
+          "name": "Astra Essence",
+          "icon": "img/icons/astra_essence.png",
+          "href": "wiki/essence/astra-essence"
+         }
+        ],
+        [
+         {
+          "name": "Nether Star",
+          "icon": "img/vanilla/nether_star.png"
+         },
+         {
+          "name": "Blank Augment",
+          "icon": "img/icons/blank_augment.png",
+          "href": "wiki/augments/tinkering-table"
+         },
+         {
+          "name": "Nether Star",
+          "icon": "img/vanilla/nether_star.png"
+         }
+        ],
+        [
+         {
+          "name": "Astra Essence",
+          "icon": "img/icons/astra_essence.png",
+          "href": "wiki/essence/astra-essence"
+         },
+         {
+          "name": "Wither Skeleton Skull",
+          "icon": "img/vanilla/wither_skeleton_skull.png"
+         },
+         {
+          "name": "Astra Essence",
+          "icon": "img/icons/astra_essence.png",
+          "href": "wiki/essence/astra-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+      }
+     ],
+     "href": "wiki/augments/wither-resistance"
+    },
+    {
+     "slug": "nausea-resistance",
+     "name": "Nausea Resistance Augment",
+     "icon": "img/icons/nausea_resistance_augment.png",
+     "summary": "Helmet. Clears Nausea while worn.",
+     "blocks": [
+      {
+       "t": "facts",
+       "facts": [
+        [
+         "Goes on",
+         "Helmet"
+        ],
+        [
+         "Levels",
+         "One"
+        ],
+        [
+         "Needs",
+         "Terra gear"
+        ]
+       ]
+      },
+      {
+       "t": "items",
+       "items": [
+        {
+         "name": "Nausea Resistance Augment",
+         "icon": "img/icons/nausea_resistance_augment.png",
+         "sub": "Clears Nausea while worn"
+        }
+       ]
+      },
+      {
+       "t": "h2",
+       "text": "Nausea Resistance Augment"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Nausea Resistance Augment",
+        "icon": "img/icons/nausea_resistance_augment.png",
+        "href": "wiki/augments/nausea-resistance",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Terra Essence",
+          "icon": "img/icons/terra_essence.png",
+          "href": "wiki/essence/terra-essence"
+         },
+         {
+          "name": "Leather",
+          "icon": "img/vanilla/leather.png"
+         },
+         {
+          "name": "Terra Essence",
+          "icon": "img/icons/terra_essence.png",
+          "href": "wiki/essence/terra-essence"
+         }
+        ],
+        [
+         {
+          "name": "Milk Bucket",
+          "icon": "img/vanilla/milk_bucket.png"
+         },
+         {
+          "name": "Blank Augment",
+          "icon": "img/icons/blank_augment.png",
+          "href": "wiki/augments/tinkering-table"
+         },
+         {
+          "name": "Milk Bucket",
+          "icon": "img/vanilla/milk_bucket.png"
+         }
+        ],
+        [
+         {
+          "name": "Terra Essence",
+          "icon": "img/icons/terra_essence.png",
+          "href": "wiki/essence/terra-essence"
+         },
+         {
+          "name": "Leather",
+          "icon": "img/vanilla/leather.png"
+         },
+         {
+          "name": "Terra Essence",
+          "icon": "img/icons/terra_essence.png",
+          "href": "wiki/essence/terra-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+      }
+     ],
+     "href": "wiki/augments/nausea-resistance"
+    },
+    {
+     "slug": "night-vision",
+     "name": "Night Vision Augment",
+     "icon": "img/icons/night_vision_augment.png",
+     "summary": "Helmet. Night Vision while worn.",
+     "blocks": [
+      {
+       "t": "facts",
+       "facts": [
+        [
+         "Goes on",
+         "Helmet"
+        ],
+        [
+         "Levels",
+         "One"
+        ],
+        [
+         "Needs",
+         "Aqua gear"
+        ]
+       ]
+      },
+      {
+       "t": "items",
+       "items": [
+        {
+         "name": "Night Vision Augment",
+         "icon": "img/icons/night_vision_augment.png",
+         "sub": "Night Vision while worn"
+        }
+       ]
+      },
+      {
+       "t": "h2",
+       "text": "Night Vision Augment"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Night Vision Augment",
+        "icon": "img/icons/night_vision_augment.png",
+        "href": "wiki/augments/night-vision",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Aqua Essence",
+          "icon": "img/icons/aqua_essence.png",
+          "href": "wiki/essence/aqua-essence"
+         },
+         {
+          "name": "Golden Carrot",
+          "icon": "img/vanilla/golden_carrot.png"
+         },
+         {
+          "name": "Aqua Essence",
+          "icon": "img/icons/aqua_essence.png",
+          "href": "wiki/essence/aqua-essence"
+         }
+        ],
+        [
+         {
+          "name": "Golden Carrot",
+          "icon": "img/vanilla/golden_carrot.png"
+         },
+         {
+          "name": "Blank Augment",
+          "icon": "img/icons/blank_augment.png",
+          "href": "wiki/augments/tinkering-table"
+         },
+         {
+          "name": "Golden Carrot",
+          "icon": "img/vanilla/golden_carrot.png"
+         }
+        ],
+        [
+         {
+          "name": "Aqua Essence",
+          "icon": "img/icons/aqua_essence.png",
+          "href": "wiki/essence/aqua-essence"
+         },
+         {
+          "name": "Golden Carrot",
+          "icon": "img/vanilla/golden_carrot.png"
+         },
+         {
+          "name": "Aqua Essence",
+          "icon": "img/icons/aqua_essence.png",
+          "href": "wiki/essence/aqua-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+      }
+     ],
+     "href": "wiki/augments/night-vision"
+    },
+    {
+     "slug": "water-breathing",
+     "name": "Water Breathing Augment",
+     "icon": "img/icons/water_breathing_augment.png",
+     "summary": "Helmet. Water Breathing while worn.",
+     "blocks": [
+      {
+       "t": "facts",
+       "facts": [
+        [
+         "Goes on",
+         "Helmet"
+        ],
+        [
+         "Levels",
+         "One"
+        ],
+        [
+         "Needs",
+         "Aqua gear"
+        ]
+       ]
+      },
+      {
+       "t": "items",
+       "items": [
+        {
+         "name": "Water Breathing Augment",
+         "icon": "img/icons/water_breathing_augment.png",
+         "sub": "Water Breathing while worn"
+        }
+       ]
+      },
+      {
+       "t": "h2",
+       "text": "Water Breathing Augment"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Water Breathing Augment",
+        "icon": "img/icons/water_breathing_augment.png",
+        "href": "wiki/augments/water-breathing",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Aqua Essence",
+          "icon": "img/icons/aqua_essence.png",
+          "href": "wiki/essence/aqua-essence"
+         },
+         {
+          "name": "Pufferfish",
+          "icon": "img/vanilla/pufferfish.png"
+         },
+         {
+          "name": "Aqua Essence",
+          "icon": "img/icons/aqua_essence.png",
+          "href": "wiki/essence/aqua-essence"
+         }
+        ],
+        [
+         {
+          "name": "Pufferfish",
+          "icon": "img/vanilla/pufferfish.png"
+         },
+         {
+          "name": "Blank Augment",
+          "icon": "img/icons/blank_augment.png",
+          "href": "wiki/augments/tinkering-table"
+         },
+         {
+          "name": "Pufferfish",
+          "icon": "img/vanilla/pufferfish.png"
+         }
+        ],
+        [
+         {
+          "name": "Aqua Essence",
+          "icon": "img/icons/aqua_essence.png",
+          "href": "wiki/essence/aqua-essence"
+         },
+         {
+          "name": "Pufferfish",
+          "icon": "img/vanilla/pufferfish.png"
+         },
+         {
+          "name": "Aqua Essence",
+          "icon": "img/icons/aqua_essence.png",
+          "href": "wiki/essence/aqua-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+      }
+     ],
+     "href": "wiki/augments/water-breathing"
+    },
+    {
+     "slug": "blindness-resistance",
+     "name": "Blindness Resistance Augment",
+     "icon": "img/icons/blindness_resistance_augment.png",
+     "summary": "Helmet. Clears Blindness and Darkness while worn.",
+     "blocks": [
+      {
+       "t": "facts",
+       "facts": [
+        [
+         "Goes on",
+         "Helmet"
+        ],
+        [
+         "Levels",
+         "One"
+        ],
+        [
+         "Needs",
+         "Aqua gear"
+        ]
+       ]
+      },
+      {
+       "t": "items",
+       "items": [
+        {
+         "name": "Blindness Resistance Augment",
+         "icon": "img/icons/blindness_resistance_augment.png",
+         "sub": "Clears Blindness and Darkness while worn"
+        }
+       ]
+      },
+      {
+       "t": "h2",
+       "text": "Blindness Resistance Augment"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Blindness Resistance Augment",
+        "icon": "img/icons/blindness_resistance_augment.png",
+        "href": "wiki/augments/blindness-resistance",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Aqua Essence",
+          "icon": "img/icons/aqua_essence.png",
+          "href": "wiki/essence/aqua-essence"
+         },
+         {
+          "name": "Torch",
+          "icon": "img/vanilla/torch.png"
+         },
+         {
+          "name": "Aqua Essence",
+          "icon": "img/icons/aqua_essence.png",
+          "href": "wiki/essence/aqua-essence"
+         }
+        ],
+        [
+         {
+          "name": "Glowstone",
+          "icon": "img/vanilla/glowstone.png"
+         },
+         {
+          "name": "Blank Augment",
+          "icon": "img/icons/blank_augment.png",
+          "href": "wiki/augments/tinkering-table"
+         },
+         {
+          "name": "Glowstone",
+          "icon": "img/vanilla/glowstone.png"
+         }
+        ],
+        [
+         {
+          "name": "Aqua Essence",
+          "icon": "img/icons/aqua_essence.png",
+          "href": "wiki/essence/aqua-essence"
+         },
+         {
+          "name": "Torch",
+          "icon": "img/vanilla/torch.png"
+         },
+         {
+          "name": "Aqua Essence",
+          "icon": "img/icons/aqua_essence.png",
+          "href": "wiki/essence/aqua-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+      }
+     ],
+     "href": "wiki/augments/blindness-resistance"
+    },
+    {
+     "slug": "hunger-resistance",
+     "name": "Hunger Resistance Augment",
+     "icon": "img/icons/hunger_resistance_augment.png",
+     "summary": "Helmet. Clears Hunger while worn.",
+     "blocks": [
+      {
+       "t": "facts",
+       "facts": [
+        [
+         "Goes on",
+         "Helmet"
+        ],
+        [
+         "Levels",
+         "One"
+        ],
+        [
+         "Needs",
+         "Aether gear"
+        ]
+       ]
+      },
+      {
+       "t": "items",
+       "items": [
+        {
+         "name": "Hunger Resistance Augment",
+         "icon": "img/icons/hunger_resistance_augment.png",
+         "sub": "Clears Hunger while worn"
+        }
+       ]
+      },
+      {
+       "t": "h2",
+       "text": "Hunger Resistance Augment"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Hunger Resistance Augment",
+        "icon": "img/icons/hunger_resistance_augment.png",
+        "href": "wiki/augments/hunger-resistance",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         },
+         {
+          "name": "Pumpkin Pie",
+          "icon": "img/vanilla/pumpkin_pie.png"
+         },
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         }
+        ],
+        [
+         {
+          "name": "Mushroom Stew",
+          "icon": "img/vanilla/mushroom_stew.png"
+         },
+         {
+          "name": "Blank Augment",
+          "icon": "img/icons/blank_augment.png",
+          "href": "wiki/augments/tinkering-table"
+         },
+         {
+          "name": "Mushroom Stew",
+          "icon": "img/vanilla/mushroom_stew.png"
+         }
+        ],
+        [
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         },
+         {
+          "name": "Pumpkin Pie",
+          "icon": "img/vanilla/pumpkin_pie.png"
+         },
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+      }
+     ],
+     "href": "wiki/augments/hunger-resistance"
+    },
+    {
+     "slug": "haste",
+     "name": "Haste Augment",
+     "icon": "img/icons/haste_i_augment.png",
+     "summary": "Chestplate. Haste I while worn.",
+     "blocks": [
+      {
+       "t": "facts",
+       "facts": [
+        [
+         "Goes on",
+         "Chestplate"
+        ],
+        [
+         "Levels",
+         "I to III"
+        ],
+        [
+         "Needs",
+         "Ignis gear for I, Aether gear for II, Astra gear for III"
+        ]
+       ]
+      },
+      {
+       "t": "items",
+       "items": [
+        {
+         "name": "Haste I Augment",
+         "icon": "img/icons/haste_i_augment.png",
+         "sub": "Haste I while worn"
+        },
+        {
+         "name": "Haste II Augment",
+         "icon": "img/icons/haste_ii_augment.png",
+         "sub": "Haste II while worn"
+        },
+        {
+         "name": "Haste III Augment",
+         "icon": "img/icons/haste_iii_augment.png",
+         "sub": "Haste III while worn"
+        }
+       ]
+      },
+      {
+       "t": "h2",
+       "text": "Haste I Augment"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Haste I Augment",
+        "icon": "img/icons/haste_i_augment.png",
+        "href": "wiki/augments/haste",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         },
+         {
+          "name": "Redstone Dust",
+          "icon": "img/vanilla/redstone.png"
+         },
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         }
+        ],
+        [
+         {
+          "name": "Redstone Dust",
+          "icon": "img/vanilla/redstone.png"
+         },
+         {
+          "name": "Blank Augment",
+          "icon": "img/icons/blank_augment.png",
+          "href": "wiki/augments/tinkering-table"
+         },
+         {
+          "name": "Redstone Dust",
+          "icon": "img/vanilla/redstone.png"
+         }
+        ],
+        [
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         },
+         {
+          "name": "Redstone Dust",
+          "icon": "img/vanilla/redstone.png"
+         },
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+      },
+      {
+       "t": "h2",
+       "text": "Haste II Augment"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Haste II Augment",
+        "icon": "img/icons/haste_ii_augment.png",
+        "href": "wiki/augments/haste",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         },
+         {
+          "name": "Redstone Dust",
+          "icon": "img/vanilla/redstone.png"
+         },
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         }
+        ],
+        [
+         {
+          "name": "Redstone Dust",
+          "icon": "img/vanilla/redstone.png"
+         },
+         {
+          "name": "Haste I Augment",
+          "icon": "img/icons/haste_i_augment.png",
+          "href": "wiki/augments/haste"
+         },
+         {
+          "name": "Redstone Dust",
+          "icon": "img/vanilla/redstone.png"
+         }
+        ],
+        [
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         },
+         {
+          "name": "Redstone Dust",
+          "icon": "img/vanilla/redstone.png"
+         },
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+      },
+      {
+       "t": "h2",
+       "text": "Haste III Augment"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Haste III Augment",
+        "icon": "img/icons/haste_iii_augment.png",
+        "href": "wiki/augments/haste",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Astra Essence",
+          "icon": "img/icons/astra_essence.png",
+          "href": "wiki/essence/astra-essence"
+         },
+         {
+          "name": "Redstone Dust",
+          "icon": "img/vanilla/redstone.png"
+         },
+         {
+          "name": "Astra Essence",
+          "icon": "img/icons/astra_essence.png",
+          "href": "wiki/essence/astra-essence"
+         }
+        ],
+        [
+         {
+          "name": "Redstone Dust",
+          "icon": "img/vanilla/redstone.png"
+         },
+         {
+          "name": "Haste II Augment",
+          "icon": "img/icons/haste_ii_augment.png",
+          "href": "wiki/augments/haste"
+         },
+         {
+          "name": "Redstone Dust",
+          "icon": "img/vanilla/redstone.png"
+         }
+        ],
+        [
+         {
+          "name": "Astra Essence",
+          "icon": "img/icons/astra_essence.png",
+          "href": "wiki/essence/astra-essence"
+         },
+         {
+          "name": "Redstone Dust",
+          "icon": "img/vanilla/redstone.png"
+         },
+         {
+          "name": "Astra Essence",
+          "icon": "img/icons/astra_essence.png",
+          "href": "wiki/essence/astra-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+      }
+     ],
+     "href": "wiki/augments/haste"
+    },
+    {
+     "slug": "weakness-resistance",
+     "name": "Weakness Resistance Augment",
+     "icon": "img/icons/weakness_resistance_augment.png",
+     "summary": "Chestplate. Clears Weakness while worn.",
+     "blocks": [
+      {
+       "t": "facts",
+       "facts": [
+        [
+         "Goes on",
+         "Chestplate"
+        ],
+        [
+         "Levels",
+         "One"
+        ],
+        [
+         "Needs",
+         "Ignis gear"
+        ]
+       ]
+      },
+      {
+       "t": "items",
+       "items": [
+        {
+         "name": "Weakness Resistance Augment",
+         "icon": "img/icons/weakness_resistance_augment.png",
+         "sub": "Clears Weakness while worn"
+        }
+       ]
+      },
+      {
+       "t": "h2",
+       "text": "Weakness Resistance Augment"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Weakness Resistance Augment",
+        "icon": "img/icons/weakness_resistance_augment.png",
+        "href": "wiki/augments/weakness-resistance",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         },
+         {
+          "name": "Block of Quartz",
+          "icon": "img/vanilla/quartz_block.png"
+         },
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         }
+        ],
+        [
+         {
+          "name": "Iron Axe",
+          "icon": "img/vanilla/iron_axe.png"
+         },
+         {
+          "name": "Blank Augment",
+          "icon": "img/icons/blank_augment.png",
+          "href": "wiki/augments/tinkering-table"
+         },
+         {
+          "name": "Iron Axe",
+          "icon": "img/vanilla/iron_axe.png"
+         }
+        ],
+        [
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         },
+         {
+          "name": "Block of Quartz",
+          "icon": "img/vanilla/quartz_block.png"
+         },
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+      }
+     ],
+     "href": "wiki/augments/weakness-resistance"
+    },
+    {
+     "slug": "flight",
+     "name": "Flight Augment",
+     "icon": "img/icons/flight_augment.png",
+     "summary": "Chestplate. Hold jump to rise, let go to hover, sneak to sink.",
+     "blocks": [
+      {
+       "t": "facts",
+       "facts": [
+        [
+         "Goes on",
+         "Chestplate"
+        ],
+        [
+         "Levels",
+         "One"
+        ],
+        [
+         "Needs",
+         "Astra gear"
+        ]
+       ]
+      },
+      {
+       "t": "items",
+       "items": [
+        {
+         "name": "Flight Augment",
+         "icon": "img/icons/flight_augment.png",
+         "sub": "Hold jump to rise, let go to hover, sneak to sink"
+        }
+       ]
+      },
+      {
+       "t": "h2",
+       "text": "Flight Augment"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Flight Augment",
+        "icon": "img/icons/flight_augment.png",
+        "href": "wiki/augments/flight",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Astra Essence",
+          "icon": "img/icons/astra_essence.png",
+          "href": "wiki/essence/astra-essence"
+         },
+         {
+          "name": "Nether Star",
+          "icon": "img/vanilla/nether_star.png"
+         },
+         {
+          "name": "Astra Essence",
+          "icon": "img/icons/astra_essence.png",
+          "href": "wiki/essence/astra-essence"
+         }
+        ],
+        [
+         {
+          "name": "Nether Star",
+          "icon": "img/vanilla/nether_star.png"
+         },
+         {
+          "name": "Blank Augment",
+          "icon": "img/icons/blank_augment.png",
+          "href": "wiki/augments/tinkering-table"
+         },
+         {
+          "name": "Nether Star",
+          "icon": "img/vanilla/nether_star.png"
+         }
+        ],
+        [
+         {
+          "name": "Astra Essence",
+          "icon": "img/icons/astra_essence.png",
+          "href": "wiki/essence/astra-essence"
+         },
+         {
+          "name": "Nether Star",
+          "icon": "img/vanilla/nether_star.png"
+         },
+         {
+          "name": "Astra Essence",
+          "icon": "img/icons/astra_essence.png",
+          "href": "wiki/essence/astra-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+      }
+     ],
+     "href": "wiki/augments/flight"
+    },
+    {
+     "slug": "speed",
+     "name": "Speed Augment",
+     "icon": "img/icons/speed_i_augment.png",
+     "summary": "Leggings. Speed I while worn.",
+     "blocks": [
+      {
+       "t": "facts",
+       "facts": [
+        [
+         "Goes on",
+         "Leggings"
+        ],
+        [
+         "Levels",
+         "I to III"
+        ],
+        [
+         "Needs",
+         "Aqua gear for I, Ignis gear for II, Aether gear for III"
+        ]
+       ]
+      },
+      {
+       "t": "items",
+       "items": [
+        {
+         "name": "Speed I Augment",
+         "icon": "img/icons/speed_i_augment.png",
+         "sub": "Speed I while worn"
+        },
+        {
+         "name": "Speed II Augment",
+         "icon": "img/icons/speed_ii_augment.png",
+         "sub": "Speed II while worn"
+        },
+        {
+         "name": "Speed III Augment",
+         "icon": "img/icons/speed_iii_augment.png",
+         "sub": "Speed III while worn"
+        }
+       ]
+      },
+      {
+       "t": "h2",
+       "text": "Speed I Augment"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Speed I Augment",
+        "icon": "img/icons/speed_i_augment.png",
+        "href": "wiki/augments/speed",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Aqua Essence",
+          "icon": "img/icons/aqua_essence.png",
+          "href": "wiki/essence/aqua-essence"
+         },
+         {
+          "name": "Sugar",
+          "icon": "img/vanilla/sugar.png"
+         },
+         {
+          "name": "Aqua Essence",
+          "icon": "img/icons/aqua_essence.png",
+          "href": "wiki/essence/aqua-essence"
+         }
+        ],
+        [
+         {
+          "name": "Sugar",
+          "icon": "img/vanilla/sugar.png"
+         },
+         {
+          "name": "Blank Augment",
+          "icon": "img/icons/blank_augment.png",
+          "href": "wiki/augments/tinkering-table"
+         },
+         {
+          "name": "Sugar",
+          "icon": "img/vanilla/sugar.png"
+         }
+        ],
+        [
+         {
+          "name": "Aqua Essence",
+          "icon": "img/icons/aqua_essence.png",
+          "href": "wiki/essence/aqua-essence"
+         },
+         {
+          "name": "Sugar",
+          "icon": "img/vanilla/sugar.png"
+         },
+         {
+          "name": "Aqua Essence",
+          "icon": "img/icons/aqua_essence.png",
+          "href": "wiki/essence/aqua-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+      },
+      {
+       "t": "h2",
+       "text": "Speed II Augment"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Speed II Augment",
+        "icon": "img/icons/speed_ii_augment.png",
+        "href": "wiki/augments/speed",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         },
+         {
+          "name": "Sugar",
+          "icon": "img/vanilla/sugar.png"
+         },
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         }
+        ],
+        [
+         {
+          "name": "Sugar",
+          "icon": "img/vanilla/sugar.png"
+         },
+         {
+          "name": "Speed I Augment",
+          "icon": "img/icons/speed_i_augment.png",
+          "href": "wiki/augments/speed"
+         },
+         {
+          "name": "Sugar",
+          "icon": "img/vanilla/sugar.png"
+         }
+        ],
+        [
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         },
+         {
+          "name": "Sugar",
+          "icon": "img/vanilla/sugar.png"
+         },
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+      },
+      {
+       "t": "h2",
+       "text": "Speed III Augment"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Speed III Augment",
+        "icon": "img/icons/speed_iii_augment.png",
+        "href": "wiki/augments/speed",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         },
+         {
+          "name": "Sugar",
+          "icon": "img/vanilla/sugar.png"
+         },
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         }
+        ],
+        [
+         {
+          "name": "Sugar",
+          "icon": "img/vanilla/sugar.png"
+         },
+         {
+          "name": "Speed II Augment",
+          "icon": "img/icons/speed_ii_augment.png",
+          "href": "wiki/augments/speed"
+         },
+         {
+          "name": "Sugar",
+          "icon": "img/vanilla/sugar.png"
+         }
+        ],
+        [
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         },
+         {
+          "name": "Sugar",
+          "icon": "img/vanilla/sugar.png"
+         },
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+      }
+     ],
+     "href": "wiki/augments/speed"
+    },
+    {
+     "slug": "slowness-resistance",
+     "name": "Slowness Resistance Augment",
+     "icon": "img/icons/slowness_resistance_augment.png",
+     "summary": "Leggings. Clears Slowness while worn.",
+     "blocks": [
+      {
+       "t": "facts",
+       "facts": [
+        [
+         "Goes on",
+         "Leggings"
+        ],
+        [
+         "Levels",
+         "One"
+        ],
+        [
+         "Needs",
+         "Ignis gear"
+        ]
+       ]
+      },
+      {
+       "t": "items",
+       "items": [
+        {
+         "name": "Slowness Resistance Augment",
+         "icon": "img/icons/slowness_resistance_augment.png",
+         "sub": "Clears Slowness while worn"
+        }
+       ]
+      },
+      {
+       "t": "h2",
+       "text": "Slowness Resistance Augment"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Slowness Resistance Augment",
+        "icon": "img/icons/slowness_resistance_augment.png",
+        "href": "wiki/augments/slowness-resistance",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         },
+         {
+          "name": "Rabbit's Foot",
+          "icon": "img/vanilla/rabbit_foot.png"
+         },
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         }
+        ],
+        [
+         {
+          "name": "Sugar",
+          "icon": "img/vanilla/sugar.png"
+         },
+         {
+          "name": "Blank Augment",
+          "icon": "img/icons/blank_augment.png",
+          "href": "wiki/augments/tinkering-table"
+         },
+         {
+          "name": "Sugar",
+          "icon": "img/vanilla/sugar.png"
+         }
+        ],
+        [
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         },
+         {
+          "name": "Rabbit's Foot",
+          "icon": "img/vanilla/rabbit_foot.png"
+         },
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+      }
+     ],
+     "href": "wiki/augments/slowness-resistance"
+    },
+    {
+     "slug": "jump-boost",
+     "name": "Jump Boost Augment",
+     "icon": "img/icons/jump_boost_i_augment.png",
+     "summary": "Boots. Jump Boost I while worn.",
+     "blocks": [
+      {
+       "t": "facts",
+       "facts": [
+        [
+         "Goes on",
+         "Boots"
+        ],
+        [
+         "Levels",
+         "I to III"
+        ],
+        [
+         "Needs",
+         "Aqua gear for I, Ignis gear for II, Aether gear for III"
+        ]
+       ]
+      },
+      {
+       "t": "items",
+       "items": [
+        {
+         "name": "Jump Boost I Augment",
+         "icon": "img/icons/jump_boost_i_augment.png",
+         "sub": "Jump Boost I while worn"
+        },
+        {
+         "name": "Jump Boost II Augment",
+         "icon": "img/icons/jump_boost_ii_augment.png",
+         "sub": "Jump Boost II while worn"
+        },
+        {
+         "name": "Jump Boost III Augment",
+         "icon": "img/icons/jump_boost_iii_augment.png",
+         "sub": "Jump Boost III while worn"
+        }
+       ]
+      },
+      {
+       "t": "h2",
+       "text": "Jump Boost I Augment"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Jump Boost I Augment",
+        "icon": "img/icons/jump_boost_i_augment.png",
+        "href": "wiki/augments/jump-boost",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Aqua Essence",
+          "icon": "img/icons/aqua_essence.png",
+          "href": "wiki/essence/aqua-essence"
+         },
+         {
+          "name": "Rabbit's Foot",
+          "icon": "img/vanilla/rabbit_foot.png"
+         },
+         {
+          "name": "Aqua Essence",
+          "icon": "img/icons/aqua_essence.png",
+          "href": "wiki/essence/aqua-essence"
+         }
+        ],
+        [
+         {
+          "name": "Rabbit's Foot",
+          "icon": "img/vanilla/rabbit_foot.png"
+         },
+         {
+          "name": "Blank Augment",
+          "icon": "img/icons/blank_augment.png",
+          "href": "wiki/augments/tinkering-table"
+         },
+         {
+          "name": "Rabbit's Foot",
+          "icon": "img/vanilla/rabbit_foot.png"
+         }
+        ],
+        [
+         {
+          "name": "Aqua Essence",
+          "icon": "img/icons/aqua_essence.png",
+          "href": "wiki/essence/aqua-essence"
+         },
+         {
+          "name": "Rabbit's Foot",
+          "icon": "img/vanilla/rabbit_foot.png"
+         },
+         {
+          "name": "Aqua Essence",
+          "icon": "img/icons/aqua_essence.png",
+          "href": "wiki/essence/aqua-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+      },
+      {
+       "t": "h2",
+       "text": "Jump Boost II Augment"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Jump Boost II Augment",
+        "icon": "img/icons/jump_boost_ii_augment.png",
+        "href": "wiki/augments/jump-boost",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         },
+         {
+          "name": "Rabbit's Foot",
+          "icon": "img/vanilla/rabbit_foot.png"
+         },
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         }
+        ],
+        [
+         {
+          "name": "Rabbit's Foot",
+          "icon": "img/vanilla/rabbit_foot.png"
+         },
+         {
+          "name": "Jump Boost I Augment",
+          "icon": "img/icons/jump_boost_i_augment.png",
+          "href": "wiki/augments/jump-boost"
+         },
+         {
+          "name": "Rabbit's Foot",
+          "icon": "img/vanilla/rabbit_foot.png"
+         }
+        ],
+        [
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         },
+         {
+          "name": "Rabbit's Foot",
+          "icon": "img/vanilla/rabbit_foot.png"
+         },
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+      },
+      {
+       "t": "h2",
+       "text": "Jump Boost III Augment"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Jump Boost III Augment",
+        "icon": "img/icons/jump_boost_iii_augment.png",
+        "href": "wiki/augments/jump-boost",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         },
+         {
+          "name": "Rabbit's Foot",
+          "icon": "img/vanilla/rabbit_foot.png"
+         },
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         }
+        ],
+        [
+         {
+          "name": "Rabbit's Foot",
+          "icon": "img/vanilla/rabbit_foot.png"
+         },
+         {
+          "name": "Jump Boost II Augment",
+          "icon": "img/icons/jump_boost_ii_augment.png",
+          "href": "wiki/augments/jump-boost"
+         },
+         {
+          "name": "Rabbit's Foot",
+          "icon": "img/vanilla/rabbit_foot.png"
+         }
+        ],
+        [
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         },
+         {
+          "name": "Rabbit's Foot",
+          "icon": "img/vanilla/rabbit_foot.png"
+         },
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+      }
+     ],
+     "href": "wiki/augments/jump-boost"
+    },
+    {
+     "slug": "slow-falling",
+     "name": "Slow Falling Augment",
+     "icon": "img/icons/slow_falling_augment.png",
+     "summary": "Boots. Slow Falling while worn.",
+     "blocks": [
+      {
+       "t": "facts",
+       "facts": [
+        [
+         "Goes on",
+         "Boots"
+        ],
+        [
+         "Levels",
+         "One"
+        ],
+        [
+         "Needs",
+         "Ignis gear"
+        ]
+       ]
+      },
+      {
+       "t": "items",
+       "items": [
+        {
+         "name": "Slow Falling Augment",
+         "icon": "img/icons/slow_falling_augment.png",
+         "sub": "Slow Falling while worn"
+        }
+       ]
+      },
+      {
+       "t": "h2",
+       "text": "Slow Falling Augment"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Slow Falling Augment",
+        "icon": "img/icons/slow_falling_augment.png",
+        "href": "wiki/augments/slow-falling",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         },
+         {
+          "name": "Phantom Membrane",
+          "icon": "img/vanilla/phantom_membrane.png"
+         },
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         }
+        ],
+        [
+         {
+          "name": "Phantom Membrane",
+          "icon": "img/vanilla/phantom_membrane.png"
+         },
+         {
+          "name": "Blank Augment",
+          "icon": "img/icons/blank_augment.png",
+          "href": "wiki/augments/tinkering-table"
+         },
+         {
+          "name": "Phantom Membrane",
+          "icon": "img/vanilla/phantom_membrane.png"
+         }
+        ],
+        [
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         },
+         {
+          "name": "Phantom Membrane",
+          "icon": "img/vanilla/phantom_membrane.png"
+         },
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+      }
+     ],
+     "href": "wiki/augments/slow-falling"
+    },
+    {
+     "slug": "no-fall-damage",
+     "name": "No Fall Damage Augment",
+     "icon": "img/icons/no_fall_damage_augment.png",
+     "summary": "Boots. Slow Falling turns on once you're falling fast, so landings don't hurt.",
+     "blocks": [
+      {
+       "t": "facts",
+       "facts": [
+        [
+         "Goes on",
+         "Boots"
+        ],
+        [
+         "Levels",
+         "One"
+        ],
+        [
+         "Needs",
+         "Ignis gear"
+        ]
+       ]
+      },
+      {
+       "t": "items",
+       "items": [
+        {
+         "name": "No Fall Damage Augment",
+         "icon": "img/icons/no_fall_damage_augment.png",
+         "sub": "Slow Falling turns on once you're falling fast, so landings don't hurt"
+        }
+       ]
+      },
+      {
+       "t": "h2",
+       "text": "No Fall Damage Augment"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "No Fall Damage Augment",
+        "icon": "img/icons/no_fall_damage_augment.png",
+        "href": "wiki/augments/no-fall-damage",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         },
+         {
+          "name": "Diamond",
+          "icon": "img/vanilla/diamond.png"
+         },
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         }
+        ],
+        [
+         {
+          "name": "White Wool",
+          "icon": "img/vanilla/white_wool.png"
+         },
+         {
+          "name": "Blank Augment",
+          "icon": "img/icons/blank_augment.png",
+          "href": "wiki/augments/tinkering-table"
+         },
+         {
+          "name": "White Wool",
+          "icon": "img/vanilla/white_wool.png"
+         }
+        ],
+        [
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         },
+         {
+          "name": "Diamond",
+          "icon": "img/vanilla/diamond.png"
+         },
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+      }
+     ],
+     "href": "wiki/augments/no-fall-damage"
+    },
+    {
+     "slug": "strength",
+     "name": "Strength Augment",
+     "icon": "img/icons/strength_i_augment.png",
+     "summary": "Sword. 5 extra damage per hit on mobs.",
+     "blocks": [
+      {
+       "t": "facts",
+       "facts": [
+        [
+         "Goes on",
+         "Sword"
+        ],
+        [
+         "Levels",
+         "I to III"
+        ],
+        [
+         "Needs",
+         "Ignis gear for I, Aether gear for II, Astra gear for III"
+        ]
+       ]
+      },
+      {
+       "t": "items",
+       "items": [
+        {
+         "name": "Strength I Augment",
+         "icon": "img/icons/strength_i_augment.png",
+         "sub": "5 extra damage per hit on mobs"
+        },
+        {
+         "name": "Strength II Augment",
+         "icon": "img/icons/strength_ii_augment.png",
+         "sub": "10 extra damage per hit on mobs"
+        },
+        {
+         "name": "Strength III Augment",
+         "icon": "img/icons/strength_iii_augment.png",
+         "sub": "20 extra damage per hit on mobs"
+        }
+       ]
+      },
+      {
+       "t": "h2",
+       "text": "Strength I Augment"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Strength I Augment",
+        "icon": "img/icons/strength_i_augment.png",
+        "href": "wiki/augments/strength",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         },
+         {
+          "name": "Block of Quartz",
+          "icon": "img/vanilla/quartz_block.png"
+         },
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         }
+        ],
+        [
+         {
+          "name": "Iron Sword",
+          "icon": "img/vanilla/iron_sword.png"
+         },
+         {
+          "name": "Blank Augment",
+          "icon": "img/icons/blank_augment.png",
+          "href": "wiki/augments/tinkering-table"
+         },
+         {
+          "name": "Iron Sword",
+          "icon": "img/vanilla/iron_sword.png"
+         }
+        ],
+        [
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         },
+         {
+          "name": "Block of Quartz",
+          "icon": "img/vanilla/quartz_block.png"
+         },
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+      },
+      {
+       "t": "h2",
+       "text": "Strength II Augment"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Strength II Augment",
+        "icon": "img/icons/strength_ii_augment.png",
+        "href": "wiki/augments/strength",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         },
+         {
+          "name": "Block of Quartz",
+          "icon": "img/vanilla/quartz_block.png"
+         },
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         }
+        ],
+        [
+         {
+          "name": "Iron Sword",
+          "icon": "img/vanilla/iron_sword.png"
+         },
+         {
+          "name": "Strength I Augment",
+          "icon": "img/icons/strength_i_augment.png",
+          "href": "wiki/augments/strength"
+         },
+         {
+          "name": "Iron Sword",
+          "icon": "img/vanilla/iron_sword.png"
+         }
+        ],
+        [
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         },
+         {
+          "name": "Block of Quartz",
+          "icon": "img/vanilla/quartz_block.png"
+         },
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+      },
+      {
+       "t": "h2",
+       "text": "Strength III Augment"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Strength III Augment",
+        "icon": "img/icons/strength_iii_augment.png",
+        "href": "wiki/augments/strength",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Astra Essence",
+          "icon": "img/icons/astra_essence.png",
+          "href": "wiki/essence/astra-essence"
+         },
+         {
+          "name": "Block of Quartz",
+          "icon": "img/vanilla/quartz_block.png"
+         },
+         {
+          "name": "Astra Essence",
+          "icon": "img/icons/astra_essence.png",
+          "href": "wiki/essence/astra-essence"
+         }
+        ],
+        [
+         {
+          "name": "Diamond Sword",
+          "icon": "img/vanilla/diamond_sword.png"
+         },
+         {
+          "name": "Strength II Augment",
+          "icon": "img/icons/strength_ii_augment.png",
+          "href": "wiki/augments/strength"
+         },
+         {
+          "name": "Diamond Sword",
+          "icon": "img/vanilla/diamond_sword.png"
+         }
+        ],
+        [
+         {
+          "name": "Astra Essence",
+          "icon": "img/icons/astra_essence.png",
+          "href": "wiki/essence/astra-essence"
+         },
+         {
+          "name": "Block of Quartz",
+          "icon": "img/vanilla/quartz_block.png"
+         },
+         {
+          "name": "Astra Essence",
+          "icon": "img/icons/astra_essence.png",
+          "href": "wiki/essence/astra-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+      }
+     ],
+     "href": "wiki/augments/strength"
     }
    ]
   },
@@ -38395,6 +41628,2198 @@
      }
     ]
    ]
+  },
+  {
+   "result": {
+    "name": "Tinkering Table",
+    "icon": "img/icons/tinkering_table_top.png",
+    "href": "wiki/augments/tinkering-table",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Stone",
+      "icon": "img/vanilla/stone.png"
+     },
+     {
+      "name": "Stone",
+      "icon": "img/vanilla/stone.png"
+     },
+     {
+      "name": "Stone",
+      "icon": "img/vanilla/stone.png"
+     }
+    ],
+    [
+     {
+      "name": "Anima Dust",
+      "icon": "img/icons/anima_dust.png"
+     },
+     {
+      "name": "Stone",
+      "icon": "img/vanilla/stone.png"
+     },
+     {
+      "name": "Anima Dust",
+      "icon": "img/icons/anima_dust.png"
+     }
+    ],
+    [
+     {
+      "name": "Stone",
+      "icon": "img/vanilla/stone.png"
+     },
+     {
+      "name": "Stone",
+      "icon": "img/vanilla/stone.png"
+     },
+     {
+      "name": "Stone",
+      "icon": "img/vanilla/stone.png"
+     }
+    ]
+   ]
+  },
+  {
+   "result": {
+    "name": "Blank Augment",
+    "icon": "img/icons/blank_augment.png",
+    "href": "wiki/augments/tinkering-table",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Vita Shard",
+      "icon": "img/icons/vita_shard.png"
+     },
+     {
+      "name": "Iron Ingot",
+      "icon": "img/vanilla/iron_ingot.png"
+     },
+     {
+      "name": "Vita Shard",
+      "icon": "img/icons/vita_shard.png"
+     }
+    ],
+    [
+     {
+      "name": "Vita Shard",
+      "icon": "img/icons/vita_shard.png"
+     },
+     {
+      "name": "Iron Ingot",
+      "icon": "img/vanilla/iron_ingot.png"
+     },
+     {
+      "name": "Vita Shard",
+      "icon": "img/icons/vita_shard.png"
+     }
+    ],
+    [
+     {
+      "name": "Vita Shard",
+      "icon": "img/icons/vita_shard.png"
+     },
+     {
+      "name": "Iron Ingot",
+      "icon": "img/vanilla/iron_ingot.png"
+     },
+     {
+      "name": "Vita Shard",
+      "icon": "img/icons/vita_shard.png"
+     }
+    ]
+   ]
+  },
+  {
+   "result": {
+    "name": "Absorption I Augment",
+    "icon": "img/icons/absorption_i_augment.png",
+    "href": "wiki/augments/absorption",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Terra Essence",
+      "icon": "img/icons/terra_essence.png",
+      "href": "wiki/essence/terra-essence"
+     },
+     {
+      "name": "Golden Apple",
+      "icon": "img/vanilla/golden_apple.png"
+     },
+     {
+      "name": "Terra Essence",
+      "icon": "img/icons/terra_essence.png",
+      "href": "wiki/essence/terra-essence"
+     }
+    ],
+    [
+     {
+      "name": "Golden Apple",
+      "icon": "img/vanilla/golden_apple.png"
+     },
+     {
+      "name": "Blank Augment",
+      "icon": "img/icons/blank_augment.png",
+      "href": "wiki/augments/tinkering-table"
+     },
+     {
+      "name": "Golden Apple",
+      "icon": "img/vanilla/golden_apple.png"
+     }
+    ],
+    [
+     {
+      "name": "Terra Essence",
+      "icon": "img/icons/terra_essence.png",
+      "href": "wiki/essence/terra-essence"
+     },
+     {
+      "name": "Golden Apple",
+      "icon": "img/vanilla/golden_apple.png"
+     },
+     {
+      "name": "Terra Essence",
+      "icon": "img/icons/terra_essence.png",
+      "href": "wiki/essence/terra-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "Absorption II Augment",
+    "icon": "img/icons/absorption_ii_augment.png",
+    "href": "wiki/augments/absorption",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Aqua Essence",
+      "icon": "img/icons/aqua_essence.png",
+      "href": "wiki/essence/aqua-essence"
+     },
+     {
+      "name": "Golden Apple",
+      "icon": "img/vanilla/golden_apple.png"
+     },
+     {
+      "name": "Aqua Essence",
+      "icon": "img/icons/aqua_essence.png",
+      "href": "wiki/essence/aqua-essence"
+     }
+    ],
+    [
+     {
+      "name": "Golden Apple",
+      "icon": "img/vanilla/golden_apple.png"
+     },
+     {
+      "name": "Absorption I Augment",
+      "icon": "img/icons/absorption_i_augment.png",
+      "href": "wiki/augments/absorption"
+     },
+     {
+      "name": "Golden Apple",
+      "icon": "img/vanilla/golden_apple.png"
+     }
+    ],
+    [
+     {
+      "name": "Aqua Essence",
+      "icon": "img/icons/aqua_essence.png",
+      "href": "wiki/essence/aqua-essence"
+     },
+     {
+      "name": "Golden Apple",
+      "icon": "img/vanilla/golden_apple.png"
+     },
+     {
+      "name": "Aqua Essence",
+      "icon": "img/icons/aqua_essence.png",
+      "href": "wiki/essence/aqua-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "Absorption III Augment",
+    "icon": "img/icons/absorption_iii_augment.png",
+    "href": "wiki/augments/absorption",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     },
+     {
+      "name": "Golden Apple",
+      "icon": "img/vanilla/golden_apple.png"
+     },
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     }
+    ],
+    [
+     {
+      "name": "Golden Apple",
+      "icon": "img/vanilla/golden_apple.png"
+     },
+     {
+      "name": "Absorption II Augment",
+      "icon": "img/icons/absorption_ii_augment.png",
+      "href": "wiki/augments/absorption"
+     },
+     {
+      "name": "Golden Apple",
+      "icon": "img/vanilla/golden_apple.png"
+     }
+    ],
+    [
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     },
+     {
+      "name": "Golden Apple",
+      "icon": "img/vanilla/golden_apple.png"
+     },
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "Absorption IV Augment",
+    "icon": "img/icons/absorption_iv_augment.png",
+    "href": "wiki/augments/absorption",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     },
+     {
+      "name": "Golden Apple",
+      "icon": "img/vanilla/golden_apple.png"
+     },
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     }
+    ],
+    [
+     {
+      "name": "Golden Apple",
+      "icon": "img/vanilla/golden_apple.png"
+     },
+     {
+      "name": "Absorption III Augment",
+      "icon": "img/icons/absorption_iii_augment.png",
+      "href": "wiki/augments/absorption"
+     },
+     {
+      "name": "Golden Apple",
+      "icon": "img/vanilla/golden_apple.png"
+     }
+    ],
+    [
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     },
+     {
+      "name": "Golden Apple",
+      "icon": "img/vanilla/golden_apple.png"
+     },
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "Absorption V Augment",
+    "icon": "img/icons/absorption_v_augment.png",
+    "href": "wiki/augments/absorption",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Astra Essence",
+      "icon": "img/icons/astra_essence.png",
+      "href": "wiki/essence/astra-essence"
+     },
+     {
+      "name": "Golden Apple",
+      "icon": "img/vanilla/golden_apple.png"
+     },
+     {
+      "name": "Astra Essence",
+      "icon": "img/icons/astra_essence.png",
+      "href": "wiki/essence/astra-essence"
+     }
+    ],
+    [
+     {
+      "name": "Golden Apple",
+      "icon": "img/vanilla/golden_apple.png"
+     },
+     {
+      "name": "Absorption IV Augment",
+      "icon": "img/icons/absorption_iv_augment.png",
+      "href": "wiki/augments/absorption"
+     },
+     {
+      "name": "Golden Apple",
+      "icon": "img/vanilla/golden_apple.png"
+     }
+    ],
+    [
+     {
+      "name": "Astra Essence",
+      "icon": "img/icons/astra_essence.png",
+      "href": "wiki/essence/astra-essence"
+     },
+     {
+      "name": "Golden Apple",
+      "icon": "img/vanilla/golden_apple.png"
+     },
+     {
+      "name": "Astra Essence",
+      "icon": "img/icons/astra_essence.png",
+      "href": "wiki/essence/astra-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "Health Boost I Augment",
+    "icon": "img/icons/health_boost_i_augment.png",
+    "href": "wiki/augments/health-boost",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Terra Essence",
+      "icon": "img/icons/terra_essence.png",
+      "href": "wiki/essence/terra-essence"
+     },
+     {
+      "name": "Golden Apple",
+      "icon": "img/vanilla/golden_apple.png"
+     },
+     {
+      "name": "Terra Essence",
+      "icon": "img/icons/terra_essence.png",
+      "href": "wiki/essence/terra-essence"
+     }
+    ],
+    [
+     {
+      "name": "Wither Skeleton Skull",
+      "icon": "img/vanilla/wither_skeleton_skull.png"
+     },
+     {
+      "name": "Blank Augment",
+      "icon": "img/icons/blank_augment.png",
+      "href": "wiki/augments/tinkering-table"
+     },
+     {
+      "name": "Wither Skeleton Skull",
+      "icon": "img/vanilla/wither_skeleton_skull.png"
+     }
+    ],
+    [
+     {
+      "name": "Terra Essence",
+      "icon": "img/icons/terra_essence.png",
+      "href": "wiki/essence/terra-essence"
+     },
+     {
+      "name": "Golden Apple",
+      "icon": "img/vanilla/golden_apple.png"
+     },
+     {
+      "name": "Terra Essence",
+      "icon": "img/icons/terra_essence.png",
+      "href": "wiki/essence/terra-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "Health Boost II Augment",
+    "icon": "img/icons/health_boost_ii_augment.png",
+    "href": "wiki/augments/health-boost",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Aqua Essence",
+      "icon": "img/icons/aqua_essence.png",
+      "href": "wiki/essence/aqua-essence"
+     },
+     {
+      "name": "Golden Apple",
+      "icon": "img/vanilla/golden_apple.png"
+     },
+     {
+      "name": "Aqua Essence",
+      "icon": "img/icons/aqua_essence.png",
+      "href": "wiki/essence/aqua-essence"
+     }
+    ],
+    [
+     {
+      "name": "Wither Skeleton Skull",
+      "icon": "img/vanilla/wither_skeleton_skull.png"
+     },
+     {
+      "name": "Health Boost I Augment",
+      "icon": "img/icons/health_boost_i_augment.png",
+      "href": "wiki/augments/health-boost"
+     },
+     {
+      "name": "Wither Skeleton Skull",
+      "icon": "img/vanilla/wither_skeleton_skull.png"
+     }
+    ],
+    [
+     {
+      "name": "Aqua Essence",
+      "icon": "img/icons/aqua_essence.png",
+      "href": "wiki/essence/aqua-essence"
+     },
+     {
+      "name": "Golden Apple",
+      "icon": "img/vanilla/golden_apple.png"
+     },
+     {
+      "name": "Aqua Essence",
+      "icon": "img/icons/aqua_essence.png",
+      "href": "wiki/essence/aqua-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "Health Boost III Augment",
+    "icon": "img/icons/health_boost_iii_augment.png",
+    "href": "wiki/augments/health-boost",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     },
+     {
+      "name": "Golden Apple",
+      "icon": "img/vanilla/golden_apple.png"
+     },
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     }
+    ],
+    [
+     {
+      "name": "Wither Skeleton Skull",
+      "icon": "img/vanilla/wither_skeleton_skull.png"
+     },
+     {
+      "name": "Health Boost II Augment",
+      "icon": "img/icons/health_boost_ii_augment.png",
+      "href": "wiki/augments/health-boost"
+     },
+     {
+      "name": "Wither Skeleton Skull",
+      "icon": "img/vanilla/wither_skeleton_skull.png"
+     }
+    ],
+    [
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     },
+     {
+      "name": "Golden Apple",
+      "icon": "img/vanilla/golden_apple.png"
+     },
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "Health Boost IV Augment",
+    "icon": "img/icons/health_boost_iv_augment.png",
+    "href": "wiki/augments/health-boost",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     },
+     {
+      "name": "Golden Apple",
+      "icon": "img/vanilla/golden_apple.png"
+     },
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     }
+    ],
+    [
+     {
+      "name": "Wither Skeleton Skull",
+      "icon": "img/vanilla/wither_skeleton_skull.png"
+     },
+     {
+      "name": "Health Boost III Augment",
+      "icon": "img/icons/health_boost_iii_augment.png",
+      "href": "wiki/augments/health-boost"
+     },
+     {
+      "name": "Wither Skeleton Skull",
+      "icon": "img/vanilla/wither_skeleton_skull.png"
+     }
+    ],
+    [
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     },
+     {
+      "name": "Golden Apple",
+      "icon": "img/vanilla/golden_apple.png"
+     },
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "Health Boost V Augment",
+    "icon": "img/icons/health_boost_v_augment.png",
+    "href": "wiki/augments/health-boost",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Astra Essence",
+      "icon": "img/icons/astra_essence.png",
+      "href": "wiki/essence/astra-essence"
+     },
+     {
+      "name": "Golden Apple",
+      "icon": "img/vanilla/golden_apple.png"
+     },
+     {
+      "name": "Astra Essence",
+      "icon": "img/icons/astra_essence.png",
+      "href": "wiki/essence/astra-essence"
+     }
+    ],
+    [
+     {
+      "name": "Wither Skeleton Skull",
+      "icon": "img/vanilla/wither_skeleton_skull.png"
+     },
+     {
+      "name": "Health Boost IV Augment",
+      "icon": "img/icons/health_boost_iv_augment.png",
+      "href": "wiki/augments/health-boost"
+     },
+     {
+      "name": "Wither Skeleton Skull",
+      "icon": "img/vanilla/wither_skeleton_skull.png"
+     }
+    ],
+    [
+     {
+      "name": "Astra Essence",
+      "icon": "img/icons/astra_essence.png",
+      "href": "wiki/essence/astra-essence"
+     },
+     {
+      "name": "Golden Apple",
+      "icon": "img/vanilla/golden_apple.png"
+     },
+     {
+      "name": "Astra Essence",
+      "icon": "img/icons/astra_essence.png",
+      "href": "wiki/essence/astra-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "Fire Resistance Augment",
+    "icon": "img/icons/fire_resistance_augment.png",
+    "href": "wiki/augments/fire-resistance",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     },
+     {
+      "name": "Magma Cream",
+      "icon": "img/vanilla/magma_cream.png"
+     },
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     }
+    ],
+    [
+     {
+      "name": "Magma Cream",
+      "icon": "img/vanilla/magma_cream.png"
+     },
+     {
+      "name": "Blank Augment",
+      "icon": "img/icons/blank_augment.png",
+      "href": "wiki/augments/tinkering-table"
+     },
+     {
+      "name": "Magma Cream",
+      "icon": "img/vanilla/magma_cream.png"
+     }
+    ],
+    [
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     },
+     {
+      "name": "Magma Cream",
+      "icon": "img/vanilla/magma_cream.png"
+     },
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "Poison Resistance Augment",
+    "icon": "img/icons/poison_resistance_augment.png",
+    "href": "wiki/augments/poison-resistance",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     },
+     {
+      "name": "Milk Bucket",
+      "icon": "img/vanilla/milk_bucket.png"
+     },
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     }
+    ],
+    [
+     {
+      "name": "Milk Bucket",
+      "icon": "img/vanilla/milk_bucket.png"
+     },
+     {
+      "name": "Blank Augment",
+      "icon": "img/icons/blank_augment.png",
+      "href": "wiki/augments/tinkering-table"
+     },
+     {
+      "name": "Milk Bucket",
+      "icon": "img/vanilla/milk_bucket.png"
+     }
+    ],
+    [
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     },
+     {
+      "name": "Milk Bucket",
+      "icon": "img/vanilla/milk_bucket.png"
+     },
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "Mining Fatigue Resistance Augment",
+    "icon": "img/icons/mining_fatigue_resistance_augment.png",
+    "href": "wiki/augments/mining-fatigue-resistance",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     },
+     {
+      "name": "Gold Ingot",
+      "icon": "img/vanilla/gold_ingot.png"
+     },
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     }
+    ],
+    [
+     {
+      "name": "Golden Pickaxe",
+      "icon": "img/vanilla/golden_pickaxe.png"
+     },
+     {
+      "name": "Blank Augment",
+      "icon": "img/icons/blank_augment.png",
+      "href": "wiki/augments/tinkering-table"
+     },
+     {
+      "name": "Golden Pickaxe",
+      "icon": "img/vanilla/golden_pickaxe.png"
+     }
+    ],
+    [
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     },
+     {
+      "name": "Gold Ingot",
+      "icon": "img/vanilla/gold_ingot.png"
+     },
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "Wither Resistance Augment",
+    "icon": "img/icons/wither_resistance_augment.png",
+    "href": "wiki/augments/wither-resistance",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Astra Essence",
+      "icon": "img/icons/astra_essence.png",
+      "href": "wiki/essence/astra-essence"
+     },
+     {
+      "name": "Wither Skeleton Skull",
+      "icon": "img/vanilla/wither_skeleton_skull.png"
+     },
+     {
+      "name": "Astra Essence",
+      "icon": "img/icons/astra_essence.png",
+      "href": "wiki/essence/astra-essence"
+     }
+    ],
+    [
+     {
+      "name": "Nether Star",
+      "icon": "img/vanilla/nether_star.png"
+     },
+     {
+      "name": "Blank Augment",
+      "icon": "img/icons/blank_augment.png",
+      "href": "wiki/augments/tinkering-table"
+     },
+     {
+      "name": "Nether Star",
+      "icon": "img/vanilla/nether_star.png"
+     }
+    ],
+    [
+     {
+      "name": "Astra Essence",
+      "icon": "img/icons/astra_essence.png",
+      "href": "wiki/essence/astra-essence"
+     },
+     {
+      "name": "Wither Skeleton Skull",
+      "icon": "img/vanilla/wither_skeleton_skull.png"
+     },
+     {
+      "name": "Astra Essence",
+      "icon": "img/icons/astra_essence.png",
+      "href": "wiki/essence/astra-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "Nausea Resistance Augment",
+    "icon": "img/icons/nausea_resistance_augment.png",
+    "href": "wiki/augments/nausea-resistance",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Terra Essence",
+      "icon": "img/icons/terra_essence.png",
+      "href": "wiki/essence/terra-essence"
+     },
+     {
+      "name": "Leather",
+      "icon": "img/vanilla/leather.png"
+     },
+     {
+      "name": "Terra Essence",
+      "icon": "img/icons/terra_essence.png",
+      "href": "wiki/essence/terra-essence"
+     }
+    ],
+    [
+     {
+      "name": "Milk Bucket",
+      "icon": "img/vanilla/milk_bucket.png"
+     },
+     {
+      "name": "Blank Augment",
+      "icon": "img/icons/blank_augment.png",
+      "href": "wiki/augments/tinkering-table"
+     },
+     {
+      "name": "Milk Bucket",
+      "icon": "img/vanilla/milk_bucket.png"
+     }
+    ],
+    [
+     {
+      "name": "Terra Essence",
+      "icon": "img/icons/terra_essence.png",
+      "href": "wiki/essence/terra-essence"
+     },
+     {
+      "name": "Leather",
+      "icon": "img/vanilla/leather.png"
+     },
+     {
+      "name": "Terra Essence",
+      "icon": "img/icons/terra_essence.png",
+      "href": "wiki/essence/terra-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "Night Vision Augment",
+    "icon": "img/icons/night_vision_augment.png",
+    "href": "wiki/augments/night-vision",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Aqua Essence",
+      "icon": "img/icons/aqua_essence.png",
+      "href": "wiki/essence/aqua-essence"
+     },
+     {
+      "name": "Golden Carrot",
+      "icon": "img/vanilla/golden_carrot.png"
+     },
+     {
+      "name": "Aqua Essence",
+      "icon": "img/icons/aqua_essence.png",
+      "href": "wiki/essence/aqua-essence"
+     }
+    ],
+    [
+     {
+      "name": "Golden Carrot",
+      "icon": "img/vanilla/golden_carrot.png"
+     },
+     {
+      "name": "Blank Augment",
+      "icon": "img/icons/blank_augment.png",
+      "href": "wiki/augments/tinkering-table"
+     },
+     {
+      "name": "Golden Carrot",
+      "icon": "img/vanilla/golden_carrot.png"
+     }
+    ],
+    [
+     {
+      "name": "Aqua Essence",
+      "icon": "img/icons/aqua_essence.png",
+      "href": "wiki/essence/aqua-essence"
+     },
+     {
+      "name": "Golden Carrot",
+      "icon": "img/vanilla/golden_carrot.png"
+     },
+     {
+      "name": "Aqua Essence",
+      "icon": "img/icons/aqua_essence.png",
+      "href": "wiki/essence/aqua-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "Water Breathing Augment",
+    "icon": "img/icons/water_breathing_augment.png",
+    "href": "wiki/augments/water-breathing",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Aqua Essence",
+      "icon": "img/icons/aqua_essence.png",
+      "href": "wiki/essence/aqua-essence"
+     },
+     {
+      "name": "Pufferfish",
+      "icon": "img/vanilla/pufferfish.png"
+     },
+     {
+      "name": "Aqua Essence",
+      "icon": "img/icons/aqua_essence.png",
+      "href": "wiki/essence/aqua-essence"
+     }
+    ],
+    [
+     {
+      "name": "Pufferfish",
+      "icon": "img/vanilla/pufferfish.png"
+     },
+     {
+      "name": "Blank Augment",
+      "icon": "img/icons/blank_augment.png",
+      "href": "wiki/augments/tinkering-table"
+     },
+     {
+      "name": "Pufferfish",
+      "icon": "img/vanilla/pufferfish.png"
+     }
+    ],
+    [
+     {
+      "name": "Aqua Essence",
+      "icon": "img/icons/aqua_essence.png",
+      "href": "wiki/essence/aqua-essence"
+     },
+     {
+      "name": "Pufferfish",
+      "icon": "img/vanilla/pufferfish.png"
+     },
+     {
+      "name": "Aqua Essence",
+      "icon": "img/icons/aqua_essence.png",
+      "href": "wiki/essence/aqua-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "Blindness Resistance Augment",
+    "icon": "img/icons/blindness_resistance_augment.png",
+    "href": "wiki/augments/blindness-resistance",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Aqua Essence",
+      "icon": "img/icons/aqua_essence.png",
+      "href": "wiki/essence/aqua-essence"
+     },
+     {
+      "name": "Torch",
+      "icon": "img/vanilla/torch.png"
+     },
+     {
+      "name": "Aqua Essence",
+      "icon": "img/icons/aqua_essence.png",
+      "href": "wiki/essence/aqua-essence"
+     }
+    ],
+    [
+     {
+      "name": "Glowstone",
+      "icon": "img/vanilla/glowstone.png"
+     },
+     {
+      "name": "Blank Augment",
+      "icon": "img/icons/blank_augment.png",
+      "href": "wiki/augments/tinkering-table"
+     },
+     {
+      "name": "Glowstone",
+      "icon": "img/vanilla/glowstone.png"
+     }
+    ],
+    [
+     {
+      "name": "Aqua Essence",
+      "icon": "img/icons/aqua_essence.png",
+      "href": "wiki/essence/aqua-essence"
+     },
+     {
+      "name": "Torch",
+      "icon": "img/vanilla/torch.png"
+     },
+     {
+      "name": "Aqua Essence",
+      "icon": "img/icons/aqua_essence.png",
+      "href": "wiki/essence/aqua-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "Hunger Resistance Augment",
+    "icon": "img/icons/hunger_resistance_augment.png",
+    "href": "wiki/augments/hunger-resistance",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     },
+     {
+      "name": "Pumpkin Pie",
+      "icon": "img/vanilla/pumpkin_pie.png"
+     },
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     }
+    ],
+    [
+     {
+      "name": "Mushroom Stew",
+      "icon": "img/vanilla/mushroom_stew.png"
+     },
+     {
+      "name": "Blank Augment",
+      "icon": "img/icons/blank_augment.png",
+      "href": "wiki/augments/tinkering-table"
+     },
+     {
+      "name": "Mushroom Stew",
+      "icon": "img/vanilla/mushroom_stew.png"
+     }
+    ],
+    [
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     },
+     {
+      "name": "Pumpkin Pie",
+      "icon": "img/vanilla/pumpkin_pie.png"
+     },
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "Haste I Augment",
+    "icon": "img/icons/haste_i_augment.png",
+    "href": "wiki/augments/haste",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     },
+     {
+      "name": "Redstone Dust",
+      "icon": "img/vanilla/redstone.png"
+     },
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     }
+    ],
+    [
+     {
+      "name": "Redstone Dust",
+      "icon": "img/vanilla/redstone.png"
+     },
+     {
+      "name": "Blank Augment",
+      "icon": "img/icons/blank_augment.png",
+      "href": "wiki/augments/tinkering-table"
+     },
+     {
+      "name": "Redstone Dust",
+      "icon": "img/vanilla/redstone.png"
+     }
+    ],
+    [
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     },
+     {
+      "name": "Redstone Dust",
+      "icon": "img/vanilla/redstone.png"
+     },
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "Haste II Augment",
+    "icon": "img/icons/haste_ii_augment.png",
+    "href": "wiki/augments/haste",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     },
+     {
+      "name": "Redstone Dust",
+      "icon": "img/vanilla/redstone.png"
+     },
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     }
+    ],
+    [
+     {
+      "name": "Redstone Dust",
+      "icon": "img/vanilla/redstone.png"
+     },
+     {
+      "name": "Haste I Augment",
+      "icon": "img/icons/haste_i_augment.png",
+      "href": "wiki/augments/haste"
+     },
+     {
+      "name": "Redstone Dust",
+      "icon": "img/vanilla/redstone.png"
+     }
+    ],
+    [
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     },
+     {
+      "name": "Redstone Dust",
+      "icon": "img/vanilla/redstone.png"
+     },
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "Haste III Augment",
+    "icon": "img/icons/haste_iii_augment.png",
+    "href": "wiki/augments/haste",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Astra Essence",
+      "icon": "img/icons/astra_essence.png",
+      "href": "wiki/essence/astra-essence"
+     },
+     {
+      "name": "Redstone Dust",
+      "icon": "img/vanilla/redstone.png"
+     },
+     {
+      "name": "Astra Essence",
+      "icon": "img/icons/astra_essence.png",
+      "href": "wiki/essence/astra-essence"
+     }
+    ],
+    [
+     {
+      "name": "Redstone Dust",
+      "icon": "img/vanilla/redstone.png"
+     },
+     {
+      "name": "Haste II Augment",
+      "icon": "img/icons/haste_ii_augment.png",
+      "href": "wiki/augments/haste"
+     },
+     {
+      "name": "Redstone Dust",
+      "icon": "img/vanilla/redstone.png"
+     }
+    ],
+    [
+     {
+      "name": "Astra Essence",
+      "icon": "img/icons/astra_essence.png",
+      "href": "wiki/essence/astra-essence"
+     },
+     {
+      "name": "Redstone Dust",
+      "icon": "img/vanilla/redstone.png"
+     },
+     {
+      "name": "Astra Essence",
+      "icon": "img/icons/astra_essence.png",
+      "href": "wiki/essence/astra-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "Weakness Resistance Augment",
+    "icon": "img/icons/weakness_resistance_augment.png",
+    "href": "wiki/augments/weakness-resistance",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     },
+     {
+      "name": "Block of Quartz",
+      "icon": "img/vanilla/quartz_block.png"
+     },
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     }
+    ],
+    [
+     {
+      "name": "Iron Axe",
+      "icon": "img/vanilla/iron_axe.png"
+     },
+     {
+      "name": "Blank Augment",
+      "icon": "img/icons/blank_augment.png",
+      "href": "wiki/augments/tinkering-table"
+     },
+     {
+      "name": "Iron Axe",
+      "icon": "img/vanilla/iron_axe.png"
+     }
+    ],
+    [
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     },
+     {
+      "name": "Block of Quartz",
+      "icon": "img/vanilla/quartz_block.png"
+     },
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "Flight Augment",
+    "icon": "img/icons/flight_augment.png",
+    "href": "wiki/augments/flight",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Astra Essence",
+      "icon": "img/icons/astra_essence.png",
+      "href": "wiki/essence/astra-essence"
+     },
+     {
+      "name": "Nether Star",
+      "icon": "img/vanilla/nether_star.png"
+     },
+     {
+      "name": "Astra Essence",
+      "icon": "img/icons/astra_essence.png",
+      "href": "wiki/essence/astra-essence"
+     }
+    ],
+    [
+     {
+      "name": "Nether Star",
+      "icon": "img/vanilla/nether_star.png"
+     },
+     {
+      "name": "Blank Augment",
+      "icon": "img/icons/blank_augment.png",
+      "href": "wiki/augments/tinkering-table"
+     },
+     {
+      "name": "Nether Star",
+      "icon": "img/vanilla/nether_star.png"
+     }
+    ],
+    [
+     {
+      "name": "Astra Essence",
+      "icon": "img/icons/astra_essence.png",
+      "href": "wiki/essence/astra-essence"
+     },
+     {
+      "name": "Nether Star",
+      "icon": "img/vanilla/nether_star.png"
+     },
+     {
+      "name": "Astra Essence",
+      "icon": "img/icons/astra_essence.png",
+      "href": "wiki/essence/astra-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "Speed I Augment",
+    "icon": "img/icons/speed_i_augment.png",
+    "href": "wiki/augments/speed",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Aqua Essence",
+      "icon": "img/icons/aqua_essence.png",
+      "href": "wiki/essence/aqua-essence"
+     },
+     {
+      "name": "Sugar",
+      "icon": "img/vanilla/sugar.png"
+     },
+     {
+      "name": "Aqua Essence",
+      "icon": "img/icons/aqua_essence.png",
+      "href": "wiki/essence/aqua-essence"
+     }
+    ],
+    [
+     {
+      "name": "Sugar",
+      "icon": "img/vanilla/sugar.png"
+     },
+     {
+      "name": "Blank Augment",
+      "icon": "img/icons/blank_augment.png",
+      "href": "wiki/augments/tinkering-table"
+     },
+     {
+      "name": "Sugar",
+      "icon": "img/vanilla/sugar.png"
+     }
+    ],
+    [
+     {
+      "name": "Aqua Essence",
+      "icon": "img/icons/aqua_essence.png",
+      "href": "wiki/essence/aqua-essence"
+     },
+     {
+      "name": "Sugar",
+      "icon": "img/vanilla/sugar.png"
+     },
+     {
+      "name": "Aqua Essence",
+      "icon": "img/icons/aqua_essence.png",
+      "href": "wiki/essence/aqua-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "Speed II Augment",
+    "icon": "img/icons/speed_ii_augment.png",
+    "href": "wiki/augments/speed",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     },
+     {
+      "name": "Sugar",
+      "icon": "img/vanilla/sugar.png"
+     },
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     }
+    ],
+    [
+     {
+      "name": "Sugar",
+      "icon": "img/vanilla/sugar.png"
+     },
+     {
+      "name": "Speed I Augment",
+      "icon": "img/icons/speed_i_augment.png",
+      "href": "wiki/augments/speed"
+     },
+     {
+      "name": "Sugar",
+      "icon": "img/vanilla/sugar.png"
+     }
+    ],
+    [
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     },
+     {
+      "name": "Sugar",
+      "icon": "img/vanilla/sugar.png"
+     },
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "Speed III Augment",
+    "icon": "img/icons/speed_iii_augment.png",
+    "href": "wiki/augments/speed",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     },
+     {
+      "name": "Sugar",
+      "icon": "img/vanilla/sugar.png"
+     },
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     }
+    ],
+    [
+     {
+      "name": "Sugar",
+      "icon": "img/vanilla/sugar.png"
+     },
+     {
+      "name": "Speed II Augment",
+      "icon": "img/icons/speed_ii_augment.png",
+      "href": "wiki/augments/speed"
+     },
+     {
+      "name": "Sugar",
+      "icon": "img/vanilla/sugar.png"
+     }
+    ],
+    [
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     },
+     {
+      "name": "Sugar",
+      "icon": "img/vanilla/sugar.png"
+     },
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "Slowness Resistance Augment",
+    "icon": "img/icons/slowness_resistance_augment.png",
+    "href": "wiki/augments/slowness-resistance",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     },
+     {
+      "name": "Rabbit's Foot",
+      "icon": "img/vanilla/rabbit_foot.png"
+     },
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     }
+    ],
+    [
+     {
+      "name": "Sugar",
+      "icon": "img/vanilla/sugar.png"
+     },
+     {
+      "name": "Blank Augment",
+      "icon": "img/icons/blank_augment.png",
+      "href": "wiki/augments/tinkering-table"
+     },
+     {
+      "name": "Sugar",
+      "icon": "img/vanilla/sugar.png"
+     }
+    ],
+    [
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     },
+     {
+      "name": "Rabbit's Foot",
+      "icon": "img/vanilla/rabbit_foot.png"
+     },
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "Jump Boost I Augment",
+    "icon": "img/icons/jump_boost_i_augment.png",
+    "href": "wiki/augments/jump-boost",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Aqua Essence",
+      "icon": "img/icons/aqua_essence.png",
+      "href": "wiki/essence/aqua-essence"
+     },
+     {
+      "name": "Rabbit's Foot",
+      "icon": "img/vanilla/rabbit_foot.png"
+     },
+     {
+      "name": "Aqua Essence",
+      "icon": "img/icons/aqua_essence.png",
+      "href": "wiki/essence/aqua-essence"
+     }
+    ],
+    [
+     {
+      "name": "Rabbit's Foot",
+      "icon": "img/vanilla/rabbit_foot.png"
+     },
+     {
+      "name": "Blank Augment",
+      "icon": "img/icons/blank_augment.png",
+      "href": "wiki/augments/tinkering-table"
+     },
+     {
+      "name": "Rabbit's Foot",
+      "icon": "img/vanilla/rabbit_foot.png"
+     }
+    ],
+    [
+     {
+      "name": "Aqua Essence",
+      "icon": "img/icons/aqua_essence.png",
+      "href": "wiki/essence/aqua-essence"
+     },
+     {
+      "name": "Rabbit's Foot",
+      "icon": "img/vanilla/rabbit_foot.png"
+     },
+     {
+      "name": "Aqua Essence",
+      "icon": "img/icons/aqua_essence.png",
+      "href": "wiki/essence/aqua-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "Jump Boost II Augment",
+    "icon": "img/icons/jump_boost_ii_augment.png",
+    "href": "wiki/augments/jump-boost",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     },
+     {
+      "name": "Rabbit's Foot",
+      "icon": "img/vanilla/rabbit_foot.png"
+     },
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     }
+    ],
+    [
+     {
+      "name": "Rabbit's Foot",
+      "icon": "img/vanilla/rabbit_foot.png"
+     },
+     {
+      "name": "Jump Boost I Augment",
+      "icon": "img/icons/jump_boost_i_augment.png",
+      "href": "wiki/augments/jump-boost"
+     },
+     {
+      "name": "Rabbit's Foot",
+      "icon": "img/vanilla/rabbit_foot.png"
+     }
+    ],
+    [
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     },
+     {
+      "name": "Rabbit's Foot",
+      "icon": "img/vanilla/rabbit_foot.png"
+     },
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "Jump Boost III Augment",
+    "icon": "img/icons/jump_boost_iii_augment.png",
+    "href": "wiki/augments/jump-boost",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     },
+     {
+      "name": "Rabbit's Foot",
+      "icon": "img/vanilla/rabbit_foot.png"
+     },
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     }
+    ],
+    [
+     {
+      "name": "Rabbit's Foot",
+      "icon": "img/vanilla/rabbit_foot.png"
+     },
+     {
+      "name": "Jump Boost II Augment",
+      "icon": "img/icons/jump_boost_ii_augment.png",
+      "href": "wiki/augments/jump-boost"
+     },
+     {
+      "name": "Rabbit's Foot",
+      "icon": "img/vanilla/rabbit_foot.png"
+     }
+    ],
+    [
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     },
+     {
+      "name": "Rabbit's Foot",
+      "icon": "img/vanilla/rabbit_foot.png"
+     },
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "Slow Falling Augment",
+    "icon": "img/icons/slow_falling_augment.png",
+    "href": "wiki/augments/slow-falling",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     },
+     {
+      "name": "Phantom Membrane",
+      "icon": "img/vanilla/phantom_membrane.png"
+     },
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     }
+    ],
+    [
+     {
+      "name": "Phantom Membrane",
+      "icon": "img/vanilla/phantom_membrane.png"
+     },
+     {
+      "name": "Blank Augment",
+      "icon": "img/icons/blank_augment.png",
+      "href": "wiki/augments/tinkering-table"
+     },
+     {
+      "name": "Phantom Membrane",
+      "icon": "img/vanilla/phantom_membrane.png"
+     }
+    ],
+    [
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     },
+     {
+      "name": "Phantom Membrane",
+      "icon": "img/vanilla/phantom_membrane.png"
+     },
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "No Fall Damage Augment",
+    "icon": "img/icons/no_fall_damage_augment.png",
+    "href": "wiki/augments/no-fall-damage",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     },
+     {
+      "name": "Diamond",
+      "icon": "img/vanilla/diamond.png"
+     },
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     }
+    ],
+    [
+     {
+      "name": "White Wool",
+      "icon": "img/vanilla/white_wool.png"
+     },
+     {
+      "name": "Blank Augment",
+      "icon": "img/icons/blank_augment.png",
+      "href": "wiki/augments/tinkering-table"
+     },
+     {
+      "name": "White Wool",
+      "icon": "img/vanilla/white_wool.png"
+     }
+    ],
+    [
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     },
+     {
+      "name": "Diamond",
+      "icon": "img/vanilla/diamond.png"
+     },
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "Strength I Augment",
+    "icon": "img/icons/strength_i_augment.png",
+    "href": "wiki/augments/strength",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     },
+     {
+      "name": "Block of Quartz",
+      "icon": "img/vanilla/quartz_block.png"
+     },
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     }
+    ],
+    [
+     {
+      "name": "Iron Sword",
+      "icon": "img/vanilla/iron_sword.png"
+     },
+     {
+      "name": "Blank Augment",
+      "icon": "img/icons/blank_augment.png",
+      "href": "wiki/augments/tinkering-table"
+     },
+     {
+      "name": "Iron Sword",
+      "icon": "img/vanilla/iron_sword.png"
+     }
+    ],
+    [
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     },
+     {
+      "name": "Block of Quartz",
+      "icon": "img/vanilla/quartz_block.png"
+     },
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "Strength II Augment",
+    "icon": "img/icons/strength_ii_augment.png",
+    "href": "wiki/augments/strength",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     },
+     {
+      "name": "Block of Quartz",
+      "icon": "img/vanilla/quartz_block.png"
+     },
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     }
+    ],
+    [
+     {
+      "name": "Iron Sword",
+      "icon": "img/vanilla/iron_sword.png"
+     },
+     {
+      "name": "Strength I Augment",
+      "icon": "img/icons/strength_i_augment.png",
+      "href": "wiki/augments/strength"
+     },
+     {
+      "name": "Iron Sword",
+      "icon": "img/vanilla/iron_sword.png"
+     }
+    ],
+    [
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     },
+     {
+      "name": "Block of Quartz",
+      "icon": "img/vanilla/quartz_block.png"
+     },
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "Strength III Augment",
+    "icon": "img/icons/strength_iii_augment.png",
+    "href": "wiki/augments/strength",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Astra Essence",
+      "icon": "img/icons/astra_essence.png",
+      "href": "wiki/essence/astra-essence"
+     },
+     {
+      "name": "Block of Quartz",
+      "icon": "img/vanilla/quartz_block.png"
+     },
+     {
+      "name": "Astra Essence",
+      "icon": "img/icons/astra_essence.png",
+      "href": "wiki/essence/astra-essence"
+     }
+    ],
+    [
+     {
+      "name": "Diamond Sword",
+      "icon": "img/vanilla/diamond_sword.png"
+     },
+     {
+      "name": "Strength II Augment",
+      "icon": "img/icons/strength_ii_augment.png",
+      "href": "wiki/augments/strength"
+     },
+     {
+      "name": "Diamond Sword",
+      "icon": "img/vanilla/diamond_sword.png"
+     }
+    ],
+    [
+     {
+      "name": "Astra Essence",
+      "icon": "img/icons/astra_essence.png",
+      "href": "wiki/essence/astra-essence"
+     },
+     {
+      "name": "Block of Quartz",
+      "icon": "img/vanilla/quartz_block.png"
+     },
+     {
+      "name": "Astra Essence",
+      "icon": "img/icons/astra_essence.png",
+      "href": "wiki/essence/astra-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
   }
  ],
  "gallery": [
@@ -39854,6 +45279,201 @@
     {
      "name": "Astra Shovel",
      "icon": "img/icons/astra_shovel.png"
+    }
+   ]
+  },
+  {
+   "title": "Augments",
+   "items": [
+    {
+     "name": "Tinkering Table",
+     "icon": "img/icons/tinkering_table_top.png",
+     "href": "wiki/augments/tinkering-table"
+    },
+    {
+     "name": "Blank Augment",
+     "icon": "img/icons/blank_augment.png",
+     "href": "wiki/augments/tinkering-table"
+    },
+    {
+     "name": "Absorption I Augment",
+     "icon": "img/icons/absorption_i_augment.png",
+     "href": "wiki/augments/absorption"
+    },
+    {
+     "name": "Absorption II Augment",
+     "icon": "img/icons/absorption_ii_augment.png",
+     "href": "wiki/augments/absorption"
+    },
+    {
+     "name": "Absorption III Augment",
+     "icon": "img/icons/absorption_iii_augment.png",
+     "href": "wiki/augments/absorption"
+    },
+    {
+     "name": "Absorption IV Augment",
+     "icon": "img/icons/absorption_iv_augment.png",
+     "href": "wiki/augments/absorption"
+    },
+    {
+     "name": "Absorption V Augment",
+     "icon": "img/icons/absorption_v_augment.png",
+     "href": "wiki/augments/absorption"
+    },
+    {
+     "name": "Health Boost I Augment",
+     "icon": "img/icons/health_boost_i_augment.png",
+     "href": "wiki/augments/health-boost"
+    },
+    {
+     "name": "Health Boost II Augment",
+     "icon": "img/icons/health_boost_ii_augment.png",
+     "href": "wiki/augments/health-boost"
+    },
+    {
+     "name": "Health Boost III Augment",
+     "icon": "img/icons/health_boost_iii_augment.png",
+     "href": "wiki/augments/health-boost"
+    },
+    {
+     "name": "Health Boost IV Augment",
+     "icon": "img/icons/health_boost_iv_augment.png",
+     "href": "wiki/augments/health-boost"
+    },
+    {
+     "name": "Health Boost V Augment",
+     "icon": "img/icons/health_boost_v_augment.png",
+     "href": "wiki/augments/health-boost"
+    },
+    {
+     "name": "Fire Resistance Augment",
+     "icon": "img/icons/fire_resistance_augment.png",
+     "href": "wiki/augments/fire-resistance"
+    },
+    {
+     "name": "Poison Resistance Augment",
+     "icon": "img/icons/poison_resistance_augment.png",
+     "href": "wiki/augments/poison-resistance"
+    },
+    {
+     "name": "Mining Fatigue Resistance Augment",
+     "icon": "img/icons/mining_fatigue_resistance_augment.png",
+     "href": "wiki/augments/mining-fatigue-resistance"
+    },
+    {
+     "name": "Wither Resistance Augment",
+     "icon": "img/icons/wither_resistance_augment.png",
+     "href": "wiki/augments/wither-resistance"
+    },
+    {
+     "name": "Nausea Resistance Augment",
+     "icon": "img/icons/nausea_resistance_augment.png",
+     "href": "wiki/augments/nausea-resistance"
+    },
+    {
+     "name": "Night Vision Augment",
+     "icon": "img/icons/night_vision_augment.png",
+     "href": "wiki/augments/night-vision"
+    },
+    {
+     "name": "Water Breathing Augment",
+     "icon": "img/icons/water_breathing_augment.png",
+     "href": "wiki/augments/water-breathing"
+    },
+    {
+     "name": "Blindness Resistance Augment",
+     "icon": "img/icons/blindness_resistance_augment.png",
+     "href": "wiki/augments/blindness-resistance"
+    },
+    {
+     "name": "Hunger Resistance Augment",
+     "icon": "img/icons/hunger_resistance_augment.png",
+     "href": "wiki/augments/hunger-resistance"
+    },
+    {
+     "name": "Haste I Augment",
+     "icon": "img/icons/haste_i_augment.png",
+     "href": "wiki/augments/haste"
+    },
+    {
+     "name": "Haste II Augment",
+     "icon": "img/icons/haste_ii_augment.png",
+     "href": "wiki/augments/haste"
+    },
+    {
+     "name": "Haste III Augment",
+     "icon": "img/icons/haste_iii_augment.png",
+     "href": "wiki/augments/haste"
+    },
+    {
+     "name": "Weakness Resistance Augment",
+     "icon": "img/icons/weakness_resistance_augment.png",
+     "href": "wiki/augments/weakness-resistance"
+    },
+    {
+     "name": "Flight Augment",
+     "icon": "img/icons/flight_augment.png",
+     "href": "wiki/augments/flight"
+    },
+    {
+     "name": "Speed I Augment",
+     "icon": "img/icons/speed_i_augment.png",
+     "href": "wiki/augments/speed"
+    },
+    {
+     "name": "Speed II Augment",
+     "icon": "img/icons/speed_ii_augment.png",
+     "href": "wiki/augments/speed"
+    },
+    {
+     "name": "Speed III Augment",
+     "icon": "img/icons/speed_iii_augment.png",
+     "href": "wiki/augments/speed"
+    },
+    {
+     "name": "Slowness Resistance Augment",
+     "icon": "img/icons/slowness_resistance_augment.png",
+     "href": "wiki/augments/slowness-resistance"
+    },
+    {
+     "name": "Jump Boost I Augment",
+     "icon": "img/icons/jump_boost_i_augment.png",
+     "href": "wiki/augments/jump-boost"
+    },
+    {
+     "name": "Jump Boost II Augment",
+     "icon": "img/icons/jump_boost_ii_augment.png",
+     "href": "wiki/augments/jump-boost"
+    },
+    {
+     "name": "Jump Boost III Augment",
+     "icon": "img/icons/jump_boost_iii_augment.png",
+     "href": "wiki/augments/jump-boost"
+    },
+    {
+     "name": "Slow Falling Augment",
+     "icon": "img/icons/slow_falling_augment.png",
+     "href": "wiki/augments/slow-falling"
+    },
+    {
+     "name": "No Fall Damage Augment",
+     "icon": "img/icons/no_fall_damage_augment.png",
+     "href": "wiki/augments/no-fall-damage"
+    },
+    {
+     "name": "Strength I Augment",
+     "icon": "img/icons/strength_i_augment.png",
+     "href": "wiki/augments/strength"
+    },
+    {
+     "name": "Strength II Augment",
+     "icon": "img/icons/strength_ii_augment.png",
+     "href": "wiki/augments/strength"
+    },
+    {
+     "name": "Strength III Augment",
+     "icon": "img/icons/strength_iii_augment.png",
+     "href": "wiki/augments/strength"
     }
    ]
   },

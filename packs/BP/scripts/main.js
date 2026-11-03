@@ -20,6 +20,7 @@ const {
   seedReprocessor: REPROCESSOR_BALANCE,
   soulExtractor: EXTRACTOR_BALANCE,
   essenceFurnace: FURNACE_BALANCE,
+  tinkeringTable: TABLE_BALANCE,
 } = __BALANCE__;
 
 // Accelerator id -> how many blocks above itself it reaches.
@@ -112,7 +113,7 @@ function wearGearTool(player) {
 world.afterEvents.playerBreakBlock.subscribe(({ player }) => wearGearTool(player));
 world.afterEvents.entityHurt.subscribe(({ damageSource }) => {
   const player = damageSource.damagingEntity;
-  if (player?.typeId === "minecraft:player" && !damageSource.damagingProjectile) wearGearTool(player);
+  if (player?.typeId === "minecraft:player" && damageSource.cause === "entityAttack") wearGearTool(player);
 });
 
 function useOne(player) {
@@ -357,6 +358,15 @@ system.beforeEvents.startup.subscribe(({ blockComponentRegistry }) => {
       }
     },
   });
+  blockComponentRegistry.registerCustomComponent("__NS__:tinkering_table", {
+    onTick({ block }) {
+      try {
+        tableTick(block);
+      } catch {
+        // unloaded chunk
+      }
+    },
+  });
   blockComponentRegistry.registerCustomComponent("__NS__:accelerator", {
     // Speeds up the first crop above it, within its range.
     onTick({ block }) {
@@ -472,6 +482,8 @@ function upgraded(input, id) {
   for (const enchantment of input.getComponent("minecraft:enchantable")?.getEnchantments() ?? []) {
     if (enchantable?.canAddEnchantment(enchantment)) enchantable.addEnchantment(enchantment);
   }
+  for (const key of [AUGMENT, TOKEN]) output.setDynamicProperty(key, input.getDynamicProperty(key));
+  output.setLore(input.getLore());
   return output;
 }
 
@@ -889,7 +901,8 @@ const PROCESSORS = {
     craft: (input, output) => added(output, SMELTING[input.typeId] ?? "minecraft:charcoal", 1),
   },
 };
-const MACHINE_BLOCKS = new Set([HARVESTER, ...Object.keys(PROCESSORS)]);
+const TABLE = "__NS__:tinkering_table";
+const MACHINE_BLOCKS = new Set([HARVESTER, TABLE, ...Object.keys(PROCESSORS)]);
 
 function processorSettings(machine, container) {
   const upgrade = MACHINE_UPGRADES[container.getItem(UPGRADE_SLOT)?.typeId];
@@ -1003,6 +1016,7 @@ function processorTick(block) {
 }
 
 function machineStatus(block, screen) {
+  if (block.typeId === TABLE) return `Tinkering Table · ${tableState(screen.getComponent("minecraft:inventory").container)}`;
   const machine = PROCESSORS[block.typeId];
   if (!machine) return harvesterStatus(block, screen);
   const container = screen.getComponent("minecraft:inventory").container;
@@ -1051,7 +1065,7 @@ system.runInterval(() => {
         const container = screen.getComponent("minecraft:inventory").container;
         for (let i = 0; i < container.size; i++) {
           const item = container.getItem(i);
-          if (item && !item.typeId.startsWith(SCREEN_ITEM)) dimension.spawnItem(item, screen.location);
+          if (item && !item.typeId.startsWith(SCREEN_ITEM) && !isShownCopy(container, i)) dimension.spawnItem(item, screen.location);
         }
         progress.delete(screen.id);
         screen.remove();
@@ -1061,6 +1075,225 @@ system.runInterval(() => {
     }
   }
 }, 40);
+
+// ---------- Tinkering Table ----------
+// Gear goes in the left slot and an augment in the right one. A fitted augment is saved on the gear, and a copy of it shows in
+// the right slot while the gear is in: taking the copy out takes the augment off, and taking the gear out takes it along.
+// The gear and the copy share a token, so a copy taken out in the same tick as its gear can be found and removed (see below).
+const AUGMENTS = __AUGMENTS__; // augment item -> { name, tier, needs, on, onText, effect?, amplifier?, keep?, clears?, damage?, flight?, noFall? }
+const GEAR_PIECES = __GEAR_PIECES__; // our armor and tools -> { tier, piece }
+const AUGMENT = "__NS__:augment"; // on gear: the fitted augment's item id
+const TOKEN = "__NS__:augment_token"; // on gear, and on the copy of its augment shown in the table
+const GEAR_SLOT = 0;
+const AUGMENT_SLOT = 1;
+const shownTokens = new Map(); // screen entity id -> token of the copy it showed last tick
+
+const isShownCopy = (container, slot) => {
+  const token = slot === AUGMENT_SLOT && container.getItem(slot)?.getDynamicProperty(TOKEN);
+  return !!token && container.getItem(GEAR_SLOT)?.getDynamicProperty(TOKEN) === token;
+};
+
+// Fits an augment to gear, or takes it off with no id, and returns the new token.
+function fitAugment(gear, id) {
+  const token = id && `${Date.now().toString(36)}${Math.random().toString(36).slice(2)}`;
+  gear.setDynamicProperty(AUGMENT, id);
+  gear.setDynamicProperty(TOKEN, token);
+  gear.setLore(id ? [`§r§7Augment: ${AUGMENTS[id].name}`] : []);
+  return token;
+}
+
+// Why an augment won't go on the gear, or nothing if it will.
+function fitProblem(gear, augment) {
+  const piece = GEAR_PIECES[gear.typeId];
+  const a = AUGMENTS[augment.typeId];
+  if (!piece) return "This gear can't take augments";
+  if (!a) return "That isn't an augment";
+  if (!a.on.includes(piece.piece)) return `${a.name} only fits ${a.onText}`;
+  if (piece.tier < a.tier) return `${a.name} needs ${a.needs} gear or higher`;
+  return undefined;
+}
+
+function tableState(container) {
+  const gear = container.getItem(GEAR_SLOT);
+  const augment = container.getItem(AUGMENT_SLOT);
+  const fitted = gear?.getDynamicProperty(AUGMENT);
+  if (!gear) return "Put armor or a sword on the left";
+  if (fitted) return `§2Fitted: ${AUGMENTS[fitted]?.name ?? fitted}`;
+  if (!augment) return GEAR_PIECES[gear.typeId] ? "Put an augment on the right" : "§4This gear can't take augments";
+  return `§4${fitProblem(gear, augment)}`;
+}
+
+function tableTick(block) {
+  const screen = machineScreen(block, TABLE_BALANCE.screenTitle);
+  const container = screen.getComponent("minecraft:inventory").container;
+  // A shift-click fills the first open slot, so an augment can land on the left.
+  const left = container.getItem(GEAR_SLOT);
+  const right = container.getItem(AUGMENT_SLOT);
+  if (AUGMENTS[left?.typeId] && (!right || right.typeId in GEAR_PIECES)) {
+    container.setItem(GEAR_SLOT, right);
+    container.setItem(AUGMENT_SLOT, left);
+  }
+  const gear = container.getItem(GEAR_SLOT);
+  let augment = container.getItem(AUGMENT_SLOT);
+  const last = shownTokens.get(screen.id);
+  const token = gear?.getDynamicProperty(TOKEN);
+  shownTokens.delete(screen.id);
+  if (last && augment?.getDynamicProperty(TOKEN) === last && token !== last) {
+    container.setItem(AUGMENT_SLOT); // its gear was taken out, and the augment went with it
+    augment = undefined;
+  }
+  if (token) {
+    if (augment?.getDynamicProperty(TOKEN) === token) {
+      shownTokens.set(screen.id, token);
+    } else if (last === token) {
+      fitAugment(gear); // the copy was taken out, or swapped for another augment
+      container.setItem(GEAR_SLOT, gear);
+    } else if (!augment) {
+      const copy = new ItemStack(gear.getDynamicProperty(AUGMENT));
+      copy.setDynamicProperty(TOKEN, token);
+      container.setItem(AUGMENT_SLOT, copy);
+      shownTokens.set(screen.id, token);
+    }
+  }
+  if (gear && !gear.getDynamicProperty(TOKEN) && augment && !fitProblem(gear, augment)) {
+    const fitted = fitAugment(gear, augment.typeId);
+    container.setItem(GEAR_SLOT, gear);
+    augment.setDynamicProperty(TOKEN, fitted);
+    container.setItem(AUGMENT_SLOT, augment);
+    shownTokens.set(screen.id, fitted);
+  }
+  for (let i = AUGMENT_SLOT + 1; i < container.size; i++) if (i !== STATUS_SLOT) setReadout(screen, container, i, `${SCREEN_ITEM}blank`, "§r", FIRST_OUTPUT_SLOT);
+  setReadout(screen, container, STATUS_SLOT, `${SCREEN_ITEM}blank`, `§8${tableState(container)}`, FIRST_OUTPUT_SLOT);
+}
+
+// ---------- Augments ----------
+const WORN = [EquipmentSlot.Head, EquipmentSlot.Chest, EquipmentSlot.Legs, EquipmentSlot.Feet];
+const EFFECT_TICKS = 60; // renewed every second, so an effect ends soon after its gear comes off
+const NIGHT_VISION_TICKS = 400; // Night Vision flickers in its last 10 seconds
+const ABSORPTION_TICKS = 9600; // MA's, and like MA it's only renewed once it runs out
+const HEALTH_BOOST = "__NS__:health_boost"; // on a player: the Health Boost level this script gave them, so it can be taken away
+const LIFT = 4; // Flight climbs with Levitation V
+const moving = new Map(); // player id -> { clears, flight, noFall }, for the checks that run every tick
+
+// A copy that left the table with its gear (both taken out within one tick) is removed once its player holds both.
+function removeLooseCopies(player) {
+  const container = player.getComponent("minecraft:inventory")?.container;
+  if (!container) return;
+  const equip = player.getComponent("minecraft:equippable");
+  const tokens = new Set(WORN.map((slot) => equip?.getEquipment(slot)?.getDynamicProperty(TOKEN)));
+  const copies = [];
+  for (let i = 0; i < container.size; i++) {
+    const item = container.getItem(i);
+    const token = item?.getDynamicProperty(TOKEN);
+    if (!token) continue;
+    if (item.typeId in AUGMENTS) copies.push([i, token]);
+    else tokens.add(token);
+  }
+  for (const [i, token] of copies) if (tokens.has(token)) container.setItem(i);
+}
+
+function applyAugments(player) {
+  const equip = player.getComponent("minecraft:equippable");
+  const effects = {};
+  const move = { clears: new Set() };
+  for (const slot of WORN) {
+    const a = AUGMENTS[equip?.getEquipment(slot)?.getDynamicProperty(AUGMENT)];
+    if (!a) continue;
+    if (a.effect) effects[a.effect] = Math.max(effects[a.effect] ?? 0, a.amplifier);
+    for (const effect of a.clears ?? []) move.clears.add(effect);
+    move.flight ||= a.flight;
+    move.noFall ||= a.noFall;
+  }
+  if (move.clears.size || move.flight || move.noFall) moving.set(player.id, move);
+  else moving.delete(player.id);
+
+  // Health Boost lasts while it's worn and goes when it isn't, and is never topped up, as that can knock health down.
+  const boost = effects.health_boost;
+  delete effects.health_boost;
+  const given = player.getDynamicProperty(HEALTH_BOOST);
+  if (given !== undefined && given !== boost) {
+    player.removeEffect("health_boost");
+    player.setDynamicProperty(HEALTH_BOOST);
+  }
+  if (boost !== undefined && !player.getEffect("health_boost")) {
+    player.addEffect("health_boost", 20000000, { amplifier: boost, showParticles: false });
+    player.setDynamicProperty(HEALTH_BOOST, boost);
+  }
+  for (const [effect, amplifier] of Object.entries(effects)) {
+    if (effect === "absorption") {
+      if (!player.getEffect(effect)) player.addEffect(effect, ABSORPTION_TICKS, { amplifier, showParticles: false });
+      continue;
+    }
+    player.addEffect(effect, effect === "night_vision" ? NIGHT_VISION_TICKS : EFFECT_TICKS, { amplifier, showParticles: false });
+  }
+}
+
+system.runInterval(() => {
+  for (const player of world.getPlayers()) {
+    try {
+      applyAugments(player);
+      removeLooseCopies(player);
+    } catch {
+      // left the game
+    }
+  }
+}, 20);
+
+function jumpHeld(player) {
+  try {
+    return player.inputInfo.getButtonState("Jump") === "Pressed";
+  } catch {
+    return !!player.isJumping;
+  }
+}
+
+// Bedrock has no way for an add-on to let a player fly, so Flight is made of Levitation and Slow Falling, as Deepcore's jetpack is.
+// Holding jump climbs. Letting go hovers, by catching each start of a fall with a moment of Levitation. Sneaking sinks slowly.
+function fly(player) {
+  const mode = player.getGameMode();
+  if (mode === GameMode.Creative || mode === GameMode.Spectator) return;
+  const quiet = { showParticles: false };
+  if (jumpHeld(player) && !player.isSneaking) {
+    player.addEffect("levitation", 3, { amplifier: LIFT, ...quiet });
+    return;
+  }
+  if (player.getEffect("levitation")?.amplifier === LIFT) player.removeEffect("levitation");
+  if (player.isOnGround) return;
+  if (!player.isSneaking && player.getVelocity().y < -0.02) player.addEffect("levitation", 2, { amplifier: 0, ...quiet });
+  else player.addEffect("slow_falling", 6, { amplifier: 0, ...quiet });
+}
+
+// No Fall Damage: Slow Falling, but only once a fall gets going, so jumps don't float.
+function breakFall(player) {
+  if (!player.isOnGround && player.getVelocity().y < -0.4) player.addEffect("slow_falling", 10, { amplifier: 0, showParticles: false });
+}
+
+system.runInterval(() => {
+  for (const player of world.getPlayers()) {
+    const move = moving.get(player.id);
+    if (!move) continue;
+    try {
+      for (const effect of move.clears) if (player.getEffect(effect)) player.removeEffect(effect);
+      if (move.flight) fly(player);
+      if (move.noFall) breakFall(player);
+    } catch {
+      // left the game
+    }
+  }
+}, 1);
+
+// Strength adds MA's flat damage to a sword's hits on mobs. It comes straight off the mob's health, because a second hit this soon
+// would be cut down by its hurt cooldown. Only a killing blow is dealt as damage, so the kill still counts as the player's.
+// ponytail: mobs only, as taking health directly would skip a player's armor; add a PvP path if players ask for it.
+world.afterEvents.entityHurt.subscribe(({ hurtEntity, damageSource }) => {
+  const player = damageSource.damagingEntity;
+  if (player?.typeId !== "minecraft:player" || damageSource.cause !== "entityAttack" || hurtEntity.typeId === "minecraft:player") return;
+  const bonus = AUGMENTS[player.getComponent("minecraft:equippable")?.getEquipment(EquipmentSlot.Mainhand)?.getDynamicProperty(AUGMENT)]?.damage;
+  const health = bonus && hurtEntity.isValid && hurtEntity.getComponent("minecraft:health");
+  if (!health || health.currentValue <= 0) return;
+  if (health.currentValue > bonus) health.setCurrentValue(health.currentValue - bonus);
+  else hurtEntity.applyDamage(1000, { cause: "magic", damagingEntity: player });
+});
 
 // Deepcore's Geo Scanner only counts ores it's told about (github.com/baseballr/Deepcore/issues/8).
 // It keeps them in memory, so they go again on every load. Nothing happens if Deepcore isn't installed or isn't listening.

@@ -1,7 +1,7 @@
 {
   "name": "Essence & Earth",
   "namespace": "ee",
-  "version": [0, 23, 2],
+  "version": [0, 24, 0],
   "balance": {
     "growChance": 0.43,
     "grassEssenceChance": 0.2,
@@ -67,6 +67,7 @@
       "armorBaseDurability": { "helmet": 11, "chestplate": 16, "leggings": 15, "boots": 13 },
       "enchantability": [12, 14, 16, 18, 20]
     },
+    "tinkeringTable": { "screenTitle": "§e§e§t" },
     "seedReprocessor": { "screenTitle": "§e§e§r", "operationTicks": 200, "fuelPerTick": 20, "essencePerSeed": 2 },
     "soulExtractor": {
       "screenTitle": "§e§e§s", "operationTicks": 100, "fuelPerTick": 40,
@@ -78,6 +79,28 @@
     },
     "enchanting": {"aqua_affinity":"minecraft:waterlily","bane_of_arthropods":"minecraft:spider_eye","blast_protection":"minecraft:gunpowder","breach":"minecraft:copper_ingot","channeling":"minecraft:lightning_rod","density":"minecraft:iron_block","depth_strider":"minecraft:prismarine_shard","efficiency":"minecraft:redstone","feather_falling":"minecraft:feather","fire_aspect":"minecraft:blaze_rod","fire_protection":"minecraft:magma_cream","flame":"minecraft:blaze_powder","fortune":"minecraft:gold_ingot","frost_walker":"minecraft:ice","impaling":"minecraft:iron_ingot","infinity":"minecraft:arrow","knockback":"minecraft:piston","looting":"minecraft:emerald","loyalty":"minecraft:lead","luck_of_the_sea":"minecraft:lapis_lazuli","lure":"minecraft:cod","mending":"minecraft:wither_skeleton_skull","multishot":"minecraft:bow","piercing":"minecraft:amethyst_shard","power":"minecraft:flint","projectile_protection":"minecraft:bone","protection":"minecraft:leather","punch":"minecraft:string","quick_charge":"minecraft:sugar","respiration":"minecraft:glass_bottle","riptide":"minecraft:ender_pearl","sharpness":"minecraft:quartz","silk_touch":"minecraft:slime_ball","smite":"minecraft:rotten_flesh","soul_speed":"minecraft:soul_soil","swift_sneak":"minecraft:cocoa_beans","thorns":"minecraft:rose_bush","unbreaking":"minecraft:obsidian","wind_burst":"minecraft:wind_charge"}
   },
+  "augments": [
+    { "id": "absorption", "on": "armor", "tiers": [1, 2, 3, 4, 5], "materials": ["minecraft:golden_apple"], "color": "#f2c230", "effect": "absorption", "keep": true },
+    { "id": "health_boost", "on": "armor", "tiers": [1, 2, 3, 4, 5], "materials": ["minecraft:golden_apple", "minecraft:wither_skeleton_skull"], "color": "#e04848", "effect": "health_boost", "keep": true },
+    { "id": "fire_resistance", "on": "armor", "tiers": [3], "materials": ["minecraft:magma_cream"], "color": "#f08a24", "effect": "fire_resistance" },
+    { "id": "poison_resistance", "on": "armor", "tiers": [4], "materials": ["minecraft:milk_bucket"], "color": "#5ca83a", "clears": ["poison"] },
+    { "id": "mining_fatigue_resistance", "on": "armor", "tiers": [4], "materials": ["minecraft:gold_ingot", "minecraft:golden_pickaxe"], "color": "#8f9a5c", "clears": ["mining_fatigue"] },
+    { "id": "wither_resistance", "on": "armor", "tiers": [5], "materials": ["minecraft:wither_skeleton_skull", "minecraft:nether_star"], "color": "#4a4152", "clears": ["wither"] },
+    { "id": "nausea_resistance", "on": "helmet", "tiers": [1], "materials": ["minecraft:leather", "minecraft:milk_bucket"], "color": "#9a5fb5", "clears": ["nausea"] },
+    { "id": "night_vision", "on": "helmet", "tiers": [2], "materials": ["minecraft:golden_carrot"], "color": "#3b5bd6", "effect": "night_vision" },
+    { "id": "water_breathing", "on": "helmet", "tiers": [2], "materials": ["minecraft:pufferfish"], "color": "#3aa6c9", "effect": "water_breathing" },
+    { "id": "blindness_resistance", "on": "helmet", "tiers": [2], "materials": ["minecraft:torch", "minecraft:glowstone"], "color": "#c9c9d6", "clears": ["blindness", "darkness"] },
+    { "id": "hunger_resistance", "on": "helmet", "tiers": [4], "materials": ["minecraft:pumpkin_pie", "minecraft:mushroom_stew"], "color": "#9a7440", "clears": ["hunger"] },
+    { "id": "haste", "on": "chestplate", "tiers": [3, 4, 5], "materials": ["minecraft:redstone"], "color": "#e8d23a", "effect": "haste" },
+    { "id": "weakness_resistance", "on": "chestplate", "tiers": [3], "materials": ["minecraft:quartz_block", "minecraft:iron_axe"], "color": "#8c8c8c", "clears": ["weakness"] },
+    { "id": "flight", "on": "chestplate", "tiers": [5], "materials": ["minecraft:nether_star"], "color": "#bfe6ff", "flight": true },
+    { "id": "speed", "on": "leggings", "tiers": [2, 3, 4], "materials": ["minecraft:sugar"], "color": "#7ec8f0", "effect": "speed" },
+    { "id": "slowness_resistance", "on": "leggings", "tiers": [3], "materials": ["minecraft:rabbit_foot", "minecraft:sugar"], "color": "#5a6a8a", "clears": ["slowness"] },
+    { "id": "jump_boost", "on": "boots", "tiers": [2, 3, 4], "materials": ["minecraft:rabbit_foot"], "color": "#7ad65a", "effect": "jump_boost" },
+    { "id": "slow_falling", "on": "boots", "tiers": [3], "materials": ["minecraft:phantom_membrane"], "color": "#f0ecd8", "effect": "slow_falling" },
+    { "id": "no_fall_damage", "on": "boots", "tiers": [3], "materials": ["minecraft:diamond", "minecraft:white_wool"], "color": "#b8a27a", "noFall": true },
+    { "id": "strength", "on": "sword", "tiers": [3, 4, 5], "materials": [["minecraft:quartz_block", "minecraft:iron_sword"], ["minecraft:quartz_block", "minecraft:iron_sword"], ["minecraft:quartz_block", "minecraft:diamond_sword"]], "color": "#c4302b", "damage": [5, 10, 20] }
+  ],
   "vita": { "color": "#e0569a" },
   "anima": { "color": "#6e4bb5" },
   "souls": {

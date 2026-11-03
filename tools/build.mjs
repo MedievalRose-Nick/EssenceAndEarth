@@ -685,6 +685,26 @@ const GEAR_RECIPES = cfg.tiers.flatMap((t, i) => GEAR_PIECES.map((piece) => ({
   output: `${NS}:${t.id}_${piece}`,
 })));
 
+// Augments, MA's list minus Luck and Step Assist. Each level is made at the altar from a Blank Augment, or from the level below,
+// with 4 tier essence and 4 of the material (two materials go 2 and 2). The Tinkering Table fits them, and scripts/main.js applies them.
+const ROMAN = ["I", "II", "III", "IV", "V"];
+const AUGMENT_PIECES = { armor: Object.keys(GEAR_ARMOR) };
+const AUGMENT_LEVELS = cfg.augments.flatMap((a) => a.tiers.map((tier, k) => {
+  const multi = a.tiers.length > 1;
+  const materials = Array.isArray(a.materials[0]) ? a.materials[k] : a.materials;
+  if (4 % materials.length) throw new Error(`augment ${a.id} needs 1, 2 or 4 materials`);
+  return {
+    augment: a, level: k + 1, tier,
+    id: `${a.id}${multi ? `_${ROMAN[k].toLowerCase()}` : ""}_augment`,
+    name: `${title(a.id)}${multi ? ` ${ROMAN[k]}` : ""}`,
+    pieces: AUGMENT_PIECES[a.on] ?? [a.on],
+    ingredients: [...materials.flatMap((m) => Array(4 / materials.length).fill(m)), ...Array(4).fill(`${NS}:${cfg.tiers[tier - 1].id}_essence`)],
+  };
+}));
+for (const l of AUGMENT_LEVELS) if (!l.pieces.every((p) => p in GEAR_ARMOR || p in GEAR_TOOLS)) throw new Error(`augment ${l.id} goes on an unknown piece`);
+const AUGMENT_RECIPES = AUGMENT_LEVELS.map((l, i) => ({ input: `${NS}:${l.level > 1 ? AUGMENT_LEVELS[i - 1].id : "blank_augment"}`, ingredients: l.ingredients, output: `${NS}:${l.id}` }));
+const piecesText = (pieces) => (pieces.length === 4 ? "any armor piece" : pieces.join(" or "));
+
 const toHsl = (r, g, b) => {
   [r, g, b] = [r / 255, g / 255, b / 255];
   const max = Math.max(r, g, b), min = Math.min(r, g, b), l = (max + min) / 2, d = max - min;
@@ -726,6 +746,7 @@ const ALTAR_RECIPES = [
     output: `${NS}:${c.id}_seeds`,
   })),
   ...GEAR_RECIPES,
+  ...AUGMENT_RECIPES,
   ...ATTUNED_DAGGERS.map(([kind, mobs]) => ({
     input: `${NS}:anima_dagger`,
     ingredients: [`${NS}:anima_ingot`, `${NS}:anima_ingot`, `${NS}:anima_gemstone`, `${NS}:anima_gemstone`, ...mobs.map(FULL_JAR)],
@@ -760,6 +781,15 @@ GUIDE_PAGES.splice(GUIDE_PAGES.findIndex((g) => g.title === "Crops by Tier"), 0,
   { title: "Essence Furnace", body: `A furnace that takes Machine Upgrades. One block, with no tiers to craft: each upgrade makes it faster but burn more fuel.\n\nPut fuel and an upgrade on the left, what you're smelting in the middle, and take the result on the right. A chest on top feeds it items and fuel, and a chest at its back takes the result. Logs in that chest get smelted, not burned.\n\nIt only knows common recipes: ores and raw metals, sand, stone, clay, food, logs and a few others. Use a normal furnace for anything else. It gives no experience.` },
   { title: "Armor and Tools", body: `Each tier has a helmet, chestplate, leggings, boots, sword, pickaxe, axe and shovel. Make them at the Infusion Altar: put the piece on the altar, and 2 Gemstones and 2 Ingots of the new tier on the pedestals, leaving the other pedestals empty. Use the wand.\n\n${tierTitle(cfg.tiers[0])} gear starts from diamond gear, and each later tier upgrades the one below it. Enchantments, damage and names carry over.\n\nRepair gear with its tier's Gemstones on an anvil. ${tierTitle(cfg.tiers[4])} tools never break.` },
   { title: "Enchanting", body: `Enchant at the Infusion Altar. Put a book or the item to enchant on the altar. On the pedestals, put 4 Experience Essence and 4 of the enchantment's ingredient. Use the wand.\n\nEach craft adds one level, so craft again with the same items to go higher. A book becomes an Enchanted Book for the anvil. Enchantments that clash can't be combined.\n\nIngredients:\n${ENCHANT_RECIPES.map((r) => `${title(r.enchant)}: ${title(r.ingredient.split(":")[1])}`).join("\n")}` },
+  { title: "Tinkering Table", body: `Fits augments to ${tierTitle(cfg.tiers[0])} to ${tierTitle(cfg.tiers[4])} armor and swords. Craft it from 7 stone with 2 Anima Dust in the middle row.\n\nTap it with an empty hand to open it. Put the gear in the left slot and an augment in the right slot, and it's fitted straight away.\n\nEach piece holds one augment. An augment only fits the pieces it's made for, and only gear of its tier or higher. The bottom line says why one won't fit.\n\nTake the augment back out to remove it. Taking the gear out takes its augment with it. Augments stay on through upgrades at the altar.` },
+  { title: "Augments", body: `Make augments at the Infusion Altar. Put a Blank Augment on the altar, with 4 tier essence and 4 of the material on the pedestals. Where there are two materials, use 2 of each. For a higher level, put the level below on the altar instead.\n\nBlank Augment: 6 Vita Shards and 3 iron ingots, in two columns of shards with iron down the middle.\n\nFlight: hold jump to rise, let go to hover, and sneak to sink.\n\n${cfg.augments.map((a) => {
+    const levels = AUGMENT_LEVELS.filter((l) => l.augment === a);
+    const tiers = [...new Set(a.tiers)].map((n) => tierTitle(cfg.tiers[n - 1]));
+    const named = (l) => [...new Set(l.ingredients.filter((id) => !id.endsWith("_essence")))].map((id) => title(id.split(":")[1]).toLowerCase());
+    const first = named(levels[0]), last = named(levels.at(-1));
+    const changed = last.filter((m) => !first.includes(m));
+    return `${levels.length > 1 ? `${levels[0].name}-${ROMAN[levels.length - 1]}` : levels[0].name}: ${piecesText(levels[0].pieces)}. ${tiers.length > 1 ? `${tiers[0]} to ${tiers.at(-1)}` : tiers[0]} essence, ${first.join(" and ")}${changed.length ? `, with ${changed.join(" and ")} at ${ROMAN[levels.length - 1]}` : ""}.`;
+  }).join("\n")}` },
 );
 GUIDE_PAGES.push({
   title: "Altar Recipes: Daggers",
@@ -784,6 +814,15 @@ for (const file of fs.readdirSync(path.join(BP, "scripts"), { recursive: true })
       .replaceAll("__GUIDE_PAGES__", JSON.stringify(GUIDE_PAGES))
       .replaceAll("__ALTAR_RECIPES__", JSON.stringify(ALTAR_RECIPES))
       .replaceAll("__GEAR_TOOLS__", JSON.stringify(cfg.tiers.flatMap((t) => Object.keys(GEAR_TOOLS).map((tool) => `${NS}:${t.id}_${tool}`))))
+      .replaceAll("__GEAR_PIECES__", JSON.stringify(Object.fromEntries(cfg.tiers.flatMap((t, i) => GEAR_PIECES.map((piece) => [`${NS}:${t.id}_${piece}`, { tier: i + 1, piece }])))))
+      .replaceAll("__AUGMENTS__", JSON.stringify(Object.fromEntries(AUGMENT_LEVELS.map(({ augment: a, level, tier, id, name, pieces }) => [`${NS}:${id}`, {
+        name, tier, needs: tierTitle(cfg.tiers[tier - 1]), on: pieces, onText: piecesText(pieces),
+        ...(a.effect && { effect: a.effect, amplifier: level - 1, keep: !!a.keep }),
+        ...(a.clears && { clears: a.clears }),
+        ...(a.damage && { damage: a.damage[level - 1] }),
+        ...(a.flight && { flight: true }),
+        ...(a.noFall && { noFall: true }),
+      }]))))
       .replaceAll("__ENCHANT_RECIPES__", JSON.stringify(ENCHANT_RECIPES.map(({ enchant, ingredients }) => ({ enchant, ingredients }))))
       .replaceAll("__REPROCESS__", JSON.stringify(Object.fromEntries(cfg.crops.filter((c) => !c.retired).map((c) => [`${NS}:${c.id}_seeds`, `${NS}:${c.id}_essence`]))))
       .replaceAll("__MACHINE_UPGRADES__", JSON.stringify(Object.fromEntries(cfg.tiers.map((t, i) => [`${NS}:${t.id}_machine_upgrade`, { name: tierTitle(t), ...BAL.harvester.upgrades[i] }]))))
@@ -1605,6 +1644,45 @@ cfg.tiers.forEach((t, i) => recipe(`${t.id}_machine_upgrade`, "shaped", {
   result: nsItem(`${t.id}_machine_upgrade`),
 }, `${NS}:${t.id}_ingot`));
 
+// Augments: a crystal shard bound with gold, in the augment's colour, with a dot per level underneath (lit up to its own).
+const AUGMENT = ["................", ".......##.......", "......#*##......", "......#*##......", ".....#*####.....", ".....#*###~.....", "....oAAAAAAo....", "....oaaaaaao....", ".....####~~.....", ".....###~~~.....", "......##~~......", "......###~......", ".......#~.......", "................", "................", "................"];
+const AUGMENT_PALETTE = { o: "#5e400f", a: "#c8952e", A: "#f1cf6a", p: "#ffffff", q: "#2e2a24" };
+const augmentMask = (level, levels) => AUGMENT.map((row, y) => {
+  if (y !== 14 || levels < 2) return row;
+  const dots = [...row];
+  for (let i = 0; i < levels; i++) dots[8 - levels + i * 2] = i < level ? "p" : "q";
+  return dots.join("");
+});
+item("blank_augment", AUGMENT, "#9aa3ad", {}, AUGMENT_PALETTE);
+recipe("blank_augment", "shaped", { pattern: ["SIS", "SIS", "SIS"], key: { S: nsItem("vita_shard"), I: v_("iron_ingot") }, result: nsItem("blank_augment") }, `${NS}:vita_shard`);
+for (const { augment: a, level, id, name, pieces, tier } of AUGMENT_LEVELS)
+  item(id, augmentMask(level, a.tiers.length), a.color, {
+    "minecraft:max_stack_size": 1,
+    "minecraft:display_name": { value: `${name} Augment\n§7${title(piecesText(pieces).replace(/^any /, ""))}, ${tierTitle(cfg.tiers[tier - 1])} or higher\n${TAG}` },
+  }, AUGMENT_PALETTE);
+
+// Tinkering Table: stone with an anima inlay, and a gold socket on top. It fits augments on the machines' screen entity (see scripts/main.js).
+const TABLE_PALETTE = { D: "#4b4e55", M: "#8a8d94", P: cfg.anima.color, p: "#a98be6", ...AUGMENT_PALETTE };
+blockTexture("tinkering_table_side", grid((x, y) => (y === 0 || y === 15 ? "D" : y === 1 ? "M" : y === 9 || y === 10 ? ((x + y) % 5 ? "P" : "p") : "s")), null, TABLE_PALETTE);
+blockTexture("tinkering_table_top", grid((x, y) => {
+  if (x === 0 || y === 0 || x === 15 || y === 15) return "D";
+  const r = Math.max(Math.abs(x - 7.5), Math.abs(y - 7.5));
+  if (r === 4.5) return "o";
+  if (r === 3.5) return x < 8 && y < 8 ? "A" : "a";
+  if (r <= 2.5) return (x + y) % 4 ? "P" : "p";
+  return "s";
+}), null, TABLE_PALETTE);
+block("tinkering_table", "stone", { menu_category: { category: "items" } }, {
+  "minecraft:display_name": "Tinkering Table",
+  "minecraft:geometry": "minecraft:geometry.full_block",
+  "minecraft:destructible_by_mining": { seconds_to_destroy: 2.5 },
+  "minecraft:material_instances": { "*": { texture: `${NS}_tinkering_table_side` }, up: { texture: `${NS}_tinkering_table_top` } },
+  "minecraft:loot": loot("tinkering_table", [drop(`${NS}:tinkering_table`)]),
+  "minecraft:tick": { interval_range: [1, 1], looping: true }, // every tick, so a fitted augment can't be taken out with its gear
+  [`${NS}:tinkering_table`]: {},
+});
+recipe("tinkering_table", "shaped", { pattern: ["SSS", "DSD", "SSS"], key: { S: v_("stone"), D: nsItem("anima_dust") }, result: nsItem("tinkering_table") }, `${NS}:anima_dust`);
+
 // The Harvester's screen: an invisible entity inside the block, opened like a chest. It's only hittable while the "open" group is on (see scripts/main.js).
 lang.push(`entity.${NS}:harvester_screen.name=Harvester`);
 write(path.join(BP, "entities", "harvester_screen.json"), {
@@ -1671,6 +1749,8 @@ const ghost = (id, mask) => {
 };
 ghost("ghost_fuel", ["................", ".......##.......", "......###.......", "......####......", ".....#####......", ".....######.#...", "...#.######.##..", "...##.#####.##..", "..###.######.#..", "..####.##.####..", "..#####.#.####..", "..#####...####..", "...####...###...", "...#####.####...", ".....#######....", "................"]);
 ghost("ghost_upgrade", UPGRADE.map((row) => row.replace(/[^.]/g, "#")));
+ghost("ghost_gear", ["................", "..###......###..", ".#####....#####.", ".##############.", ".##############.", "..############..", "...##########...", "...##########...", "...##########...", "...##########...", "...##########...", "...##########...", "...##########...", "....########....", "................", "................"]);
+ghost("ghost_augment", AUGMENT.map((row) => row.replace(/[^.]/g, "#")));
 
 const SCREENS_NS = `${NS}_screens`;
 const topLeft = { anchor_from: "top_left", anchor_to: "top_left" };
@@ -1722,6 +1802,18 @@ const machinePanel = (top) => ({
     ] } },
   ],
 });
+// The Tinkering Table: gear on the left, its augment on the right, and why an augment won't fit underneath.
+const tinkeringTop = {
+  type: "collection_panel", collection_name: "container_items", size: ["100%", "50%"], offset: [0, 12], ...topLeft,
+  controls: [
+    { title: { type: "label", layer: 2, offset: [7, -1], size: ["100%", "default"], text: "Tinkering Table", color: "$title_text_color", ...topLeft } },
+    { [`gear@${SCREENS_NS}.slot`]: at(0, [66, 27]) },
+    { gear_ghost: ghostSlot(0, "ghost_gear", [67, 28]) },
+    { [`augment@${SCREENS_NS}.slot`]: at(1, [93, 27]) },
+    { augment_ghost: ghostSlot(1, "ghost_augment", [94, 28]) },
+    { status: readout(24, [7, 58], [162, 8], "center") },
+  ],
+};
 const PROCESSOR_SCREENS = [["seed_reprocessor", BAL.seedReprocessor], ["soul_extractor", BAL.soulExtractor], ["essence_furnace", BAL.essenceFurnace]];
 const outputSlots = Array.from({ length: 21 }, (_, i) => ({
   [`output_${i}@${SCREENS_NS}.slot`]: at(i + 2, [43 + (i % 7) * 18, 9 + Math.floor(i / 7) * 18]),
@@ -1746,6 +1838,8 @@ write(path.join(RP, "ui", `${SCREENS_NS}.json`), {
     ],
   },
   harvester_panel: machinePanel("harvester_top"),
+  tinkering_table_top: tinkeringTop,
+  tinkering_table_panel: machinePanel("tinkering_table_top"),
   ...Object.fromEntries(PROCESSOR_SCREENS.flatMap(([id]) => [[`${id}_top`, processorTop(title(id))], [`${id}_panel`, machinePanel(`${id}_top`)]])),
 });
 write(path.join(RP, "ui", "chest_screen.json"), {
@@ -1754,7 +1848,7 @@ write(path.join(RP, "ui", "chest_screen.json"), {
     [`$${NS}_container_title|default`]: "$container_title",
     modifications: [{
       array_name: "variables", operation: "insert_back",
-      value: [["harvester", BAL.harvester], ...PROCESSOR_SCREENS].map(([id, { screenTitle }]) => ({ requires: `($${NS}_container_title = '${screenTitle}')`, $screen_content: `${SCREENS_NS}.${id}_panel`, $screen_bg_content: "common.screen_background" })),
+      value: [["harvester", BAL.harvester], ["tinkering_table", BAL.tinkeringTable], ...PROCESSOR_SCREENS].map(([id, { screenTitle }]) => ({ requires: `($${NS}_container_title = '${screenTitle}')`, $screen_content: `${SCREENS_NS}.${id}_panel`, $screen_bg_content: "common.screen_background" })),
     }],
   },
 });
