@@ -102,7 +102,7 @@ Every tuning number lives in the `balance` block of `crops.json`. Change one, re
 | `animaDust` | `[min, max]` dust from Anima Ore |
 | `daggerDurability`, `attunedDaggerDurability`, `attunedSoulMultiplier` | Dagger uses, and souls per kill from an attuned dagger's preferred mobs |
 | `toolDurability` | Uses the Essence Sickle and Essence Hoe last. An anvil repair with Aqua Essence restores a quarter |
-| `awakening` | Divus: how much essence an Essence Vessel holds, the Divus accelerator's reach, Cognizant Dust per boss, and `[min, max]` tier essence per boss |
+| `awakening` | Divus: how much essence an Essence Vessel holds, the Divus accelerator's reach, Cognizant Dust per boss, and `[min, max]` tier essence per boss. Hollowdeep's rift bosses are listed by id, and its elites are found by `eliteTag` and drop `eliteEssence` |
 
 ## For other add-ons
 

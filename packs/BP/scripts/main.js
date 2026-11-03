@@ -21,7 +21,7 @@ const {
   soulExtractor: EXTRACTOR_BALANCE,
   essenceFurnace: FURNACE_BALANCE,
   tinkeringTable: TABLE_BALANCE,
-  awakening: { vesselCapacity: VESSEL_CAPACITY, cognizantDust: COGNIZANT_DUST, bossEssence: BOSS_ESSENCE },
+  awakening: { vesselCapacity: VESSEL_CAPACITY, cognizantDust: COGNIZANT_DUST, bossEssence: BOSS_ESSENCE, eliteTag: ELITE_TAG, eliteEssence: ELITE_ESSENCE },
 } = __BALANCE__;
 
 // Accelerator id -> how many blocks above itself it reaches.
@@ -255,17 +255,18 @@ world.afterEvents.entityDie.subscribe(({ deadEntity }) => {
 });
 
 // Bosses killed with one of our tiered tools drop that tier's essence, and with an Astra sword, Cognizant Dust as well.
+// Hollowdeep's bosses count too, and its elites (tagged with their affix) drop a little essence. Without Hollowdeep, none of them exist.
 const GEAR_ESSENCE = __GEAR_ESSENCE__; // tiered tool -> its tier's essence
 const COGNIZANT_SWORD = "__NS__:astra_sword";
 world.afterEvents.entityDie.subscribe(({ deadEntity, damageSource }) => {
-  const [min, max] = BOSS_ESSENCE[deadEntity.typeId] ?? [];
-  if (min === undefined) return;
   const held = damageSource.damagingEntity?.getComponent("minecraft:equippable")?.getEquipment(EquipmentSlot.Mainhand)?.typeId;
   if (!held || !(held in GEAR_ESSENCE)) return;
   try {
+    const [min, max] = BOSS_ESSENCE[deadEntity.typeId] ?? (deadEntity.getTags().some((t) => t.startsWith(ELITE_TAG)) ? ELITE_ESSENCE : []);
+    if (min === undefined) return;
     const { dimension, location } = deadEntity;
     drop(dimension, GEAR_ESSENCE[held], location, min + Math.floor(Math.random() * (max - min + 1)));
-    if (held === COGNIZANT_SWORD) drop(dimension, "__NS__:cognizant_dust", location, COGNIZANT_DUST[deadEntity.typeId]);
+    if (held === COGNIZANT_SWORD && COGNIZANT_DUST[deadEntity.typeId]) drop(dimension, "__NS__:cognizant_dust", location, COGNIZANT_DUST[deadEntity.typeId]);
   } catch {
     // already gone, or an unloaded chunk
   }

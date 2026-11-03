@@ -6,6 +6,14 @@ Before starting: upload the latest `addon/*.mcaddon` to the server, and use crea
 
 # Still to test
 
+## Hollowdeep bosses and elites (v0.27.1)
+
+Needs Hollowdeep on the same world. Without it, nothing here happens.
+
+- [ ] Killing a Hollowdeep rift boss (Tomb Regent, Forge Tyrant, Winter Matriarch or Briar Colossus) with a Terra-to-Astra sword or tool drops 1 to 3 of that tool's tier essence. With an Astra sword it also drops 3 Cognizant Dust.
+- [ ] Killing an elite (a mob with an affix in its name) with a tiered sword drops 1 tier essence. A plain rift mob drops nothing extra, apart from the usual Terra Essence chance.
+- [ ] A kill with a vanilla weapon drops none of this.
+
 ## Divus and the Awakening Altar (v0.27.0)
 
 Quickest setup, on a test world: stand somewhere flat and run `/function ee/test_awakening`. It clears your inventory, builds the altar with its pedestals and vessels, and gives you everything below. `/function ee/test_awakening_off` puts the game rules back.
