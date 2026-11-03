@@ -10,6 +10,13 @@ Before starting: upload the latest `addon/*.mcaddon` to the server, and use crea
 
 Quickest setup, on a test world: stand somewhere flat and run `/function ee/test_divus_gear`. It clears your inventory, builds the Awakening Altar with a Tinkering Table on your right, and gives you everything below. `/function ee/test_awakening_off` puts the game rules back.
 
+```
+/function ee/test_divus_gear
+/summon wither                                      Cognizant Dust check, with the awakened Divus Sword
+/give @s ee:essence_guide                           Guide pages
+/function ee/test_awakening_off
+```
+
 - [ ] **Check this first:** the add-on loads with no script or content log errors. The Tinkering Table screen shows the gear slot and two augment slots side by side.
 - [ ] **Colour:** Divus is now deep purple with gold sparkles on the essence. It should be easy to tell apart from Astra (light violet) and Anima (dusty purple), in the inventory and on worn armor.
 - [ ] **Awakening:** put Mining I on the Astra Pickaxe at the table. Fill each vessel with 40 of one element. The pickaxe on the altar, with 2 Divus Ingots and 2 Divus Gemstones on the pedestals, makes a Divus Pickaxe after 5 seconds, and each vessel is left empty. The pickaxe keeps Mining I, its enchantments and its name.
@@ -25,7 +32,17 @@ Quickest setup, on a test world: stand somewhere flat and run `/function ee/test
 
 ## Hollowdeep bosses and elites (v0.27.1)
 
-Needs Hollowdeep on the same world. Without it, nothing here happens.
+Needs Hollowdeep on the same world. Without it, nothing here happens. An elite is any mob with an `hd_aff_` tag, so the `tag` line turns a zombie into one.
+
+```
+/give @s ee:terra_sword
+/give @s ee:astra_sword
+/give @s diamond_sword
+/summon hollowdeep:tomb_regent                      also forge_tyrant, winter_matriarch, briar_colossus
+/summon zombie
+/tag @e[type=zombie,c=1] add hd_aff_test            makes the nearest zombie an elite
+/scriptevent hollowdeep:drops                       vault check
+```
 
 - [ ] Killing a Hollowdeep rift boss (Tomb Regent, Forge Tyrant, Winter Matriarch or Briar Colossus) with a Terra-to-Astra sword or tool drops 1 to 3 of that tool's tier essence. With an Astra sword it also drops 3 Cognizant Dust.
 - [ ] Killing an elite (a mob with an affix in its name) with a tiered sword drops 1 tier essence. A plain rift mob drops nothing extra, apart from the usual Terra Essence chance.
@@ -35,6 +52,19 @@ Needs Hollowdeep on the same world. Without it, nothing here happens.
 ## Divus and the Awakening Altar (v0.27.0)
 
 Quickest setup, on a test world: stand somewhere flat and run `/function ee/test_awakening`. It clears your inventory, builds the altar with its pedestals and vessels, and gives you everything below. `/function ee/test_awakening_off` puts the game rules back.
+
+```
+/function ee/test_awakening
+/give @s ee:harvester                               Divus Machine Upgrade check
+/give @s coal 16
+/give @s ee:infusion_altar                          check it still works
+/give @s tnt 4                                      Witherproof check
+/give @s flint_and_steel
+/summon wither                                      or build it from the soul sand and skulls you're given
+/summon ender_dragon                                dragon check, best done in the End
+/give @s ee:essence_guide
+/function ee/test_awakening_off
+```
 
 - [ ] **Check this first:** the add-on loads with no script or content log errors. The Awakening Altar, pedestal and vessel show soulstone with orange or glass tops, and the Infusion Altar still works.
 - [ ] **Vessels:** using 64 Air Essence on a vessel puts in 40 and leaves 24 in your hand. The action bar says "Air Essence 40/40", and looking at the vessel shows the same. Using more says it's full, and using Earth Essence says it holds Air. An empty hand takes all 40 back. Breaking a vessel drops its essence.
@@ -50,7 +80,23 @@ Quickest setup, on a test world: stand somewhere flat and run `/function ee/test
 
 ## Area augments (v0.26.0)
 
-Quickest setup, on a test world: stand somewhere flat and run `/function ee/test_tools`. It also covers the v0.25.0 sickle and hoe checks below. `/function ee/test_tools_off` puts the game rules back.
+Quickest setup, on a test world: stand somewhere flat and run `/function ee/test_tools`. It also covers the v0.25.0 sickle and hoe checks below. `/function ee/test_tools_off` puts the game rules back. Run each `/enchant` while holding the tool it's for.
+
+```
+/function ee/test_tools
+/give @s ee:terra_pickaxe                           wrong-piece and Fortune checks
+/give @s ee:terra_axe
+/give @s ee:essence_hoe                             Tilling shouldn't fit it
+/enchant @s fortune 3
+/enchant @s silk_touch
+/give @s chest                                      area mining should skip it
+/give @s ee:aether_pickaxe                          durability check, with Mining I
+/give @s ee:mining_i_augment
+/give @s ee:soul_jar
+/summon wolf                                        tame it with bones for the Attack check
+/give @s bone 10
+/function ee/test_tools_off
+```
 
 - [ ] **Fitting:** Mining fits a pickaxe, axe or shovel, Attack a sword, Tilling a tiered hoe (not the Essence Hoe), and Pathing a shovel. Each says so when put on the wrong piece.
 - [ ] **Mining IV** on an Astra pickaxe breaks 9×9 on a wall facing you, and 9×9 flat when you mine straight down. **Note if the square ever lies the wrong way**, such as when looking slightly up or down at a wall. Sneaking mines one block.
@@ -61,6 +107,21 @@ Quickest setup, on a test world: stand somewhere flat and run `/function ee/test
 - [ ] Each extra block or hit costs 1 durability on a Terra-to-Aether tool. **Note any stutter** at 9×9.
 
 ## Tiered sickles and hoes (v0.25.0)
+
+Use the `/function ee/test_tools` world from above. The altar checks need the altar from `/function ee/test_augments`, or place one with the commands below. Altar enchanting takes 4 of the enchantment's item (obsidian for Unbreaking) and 4 Experience Essence.
+
+```
+/give @s ee:terra_gemstone 2                        Essence Sickle to Terra Sickle
+/give @s ee:terra_ingot 2
+/give @s ee:terra_hoe
+/give @s ee:infusion_altar
+/give @s ee:infusion_pedestal 8
+/give @s ee:wand
+/enchant @s unbreaking 3                            hold the Terra Sickle
+/give @s obsidian 4                                 altar Unbreaking
+/give @s ee:experience_essence 4
+/give @s ee:essence_guide
+```
 
 - [ ] The Essence Sickle and Hoe now look plain steel, and the Terra to Astra sickles and hoes each show their tier's crystal colour, in the inventory and in the hand.
 - [ ] **Upgrading:** an Essence Sickle on the altar, with 2 Terra Gemstones and 2 Terra Ingots, makes a Terra Sickle. The same works for the hoe, and for each tier after. Damage, enchantments and names carry over.
@@ -73,6 +134,22 @@ Quickest setup, on a test world: stand somewhere flat and run `/function ee/test
 ## Tinkering Table and augments (v0.24.0)
 
 Quickest setup, on a test world: stand somewhere open and run `/function ee/test_augments`. It clears your inventory, then builds a floor with a Tinkering Table and an Infusion Altar, and gives you the gear, augments and altar ingredients. `/function ee/test_augments_off` puts the game rules back.
+
+```
+/function ee/test_augments
+/give @s ee:harvester                               other machine screens still open
+/tp @s ~ ~30 ~                                      Flight and No Fall Damage
+/give @s splash_potion 1 25                         Poison
+/give @s splash_potion 1 34                         Weakness
+/give @s splash_potion 1 17                         Slowness
+/give @s pufferfish                                 Nausea and Hunger
+/summon wither_skeleton                             Wither
+/give @s ee:ignis_leggings                          augment kept through an altar upgrade
+/give @s ee:aether_gemstone 2
+/give @s ee:aether_ingot 2
+/give @s ee:speed_i_augment
+/function ee/test_augments_off
+```
 
 - [ ] **Check this first:** the add-on loads with no script or content log errors, and the other machines still open their own screens.
 - [ ] The table opens with an empty hand and shows its title, a gear slot with a faint chestplate, an augment slot with a faint shard, and a status line. Note anything misplaced, as the layout hasn't been seen in-game.
@@ -92,12 +169,26 @@ Quickest setup, on a test world: stand somewhere open and run `/function ee/test
 
 ## Shift-click into machines (v0.23.1)
 
+```
+/give @s ee:seed_reprocessor
+/give @s lava_bucket
+/give @s ee:iron_seeds 16
+/give @s ee:terra_machine_upgrade
+```
+
 - [ ] With lava in the fuel slot, Y on controller (or shift-click) puts seeds in the Seed Reprocessor's seed slot, not the upgrade slot.
 - [ ] An upgrade shift-clicked in still lands in the upgrade slot.
 
 ## Armor and tools (v0.21.0)
 
-Quickest setup: `/give @s ee:terra_chestplate`, `/give @s ee:astra_pickaxe`, and a diamond sword with `/give @s diamond_sword` for the altar.
+Quickest setup, on a test world: run `/function ee/test_wear`. It puts Terra armor on you, gives you the Astra and diamond sets and three pickaxes, and places 10 stone and a zombie. Health and durability show above the hotbar.
+
+```
+/function ee/test_wear
+/damage @s 10 entity_attack                         the same hit in each armor set
+/effect @s instant_health 1 10                      heal between hits
+/function ee/test_wear_off
+```
 
 - [ ] **Armor points:** the armor bar fills as expected. **Does a higher tier actually protect more?** Compare damage from the same mob in Terra and Astra. If they match, Bedrock caps armor as suspected, and this goes in the balance pass.
 - [ ] **Tool wear:** a Terra pickaxe loses 1 durability per block and on a hit. **Note if it loses 2**, which means Bedrock wears it natively too and the script should stop. Astra tools never lose any.
