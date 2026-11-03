@@ -34,7 +34,7 @@ Before starting: upload the latest `addon/*.mcaddon` to the server, and use crea
 Quickest setup: `/give @s ee:terra_chestplate`, `/give @s ee:astra_pickaxe`, and a diamond sword with `/give @s diamond_sword` for the altar.
 
 - [ ] **Check this first:** the add-on loads with no content log errors about items, attachables or `minecraft:damage`. All 40 items appear in the creative menu with their own pictures.
-- [ ] **Each armor piece shows on the player** in all five colours, in third person, and the vanilla piece doesn't show underneath. Note if parts are misplaced or stretched. The helmet is open under its visor, so note if that shows as a solid block or a hole. The chest should show 1 gem for Terra and 5 for Astra.
+- [ ] **Each armor piece shows on the player** in all five colours, in third person, and the vanilla piece doesn't show underneath. Note if parts are misplaced or stretched. Since v0.23.0 the armor uses diamond's shapes in crystal colours, so it should sit exactly as diamond armor does, with the face showing through the helmet and no boots or leggings stretched. The Essence Hoe and Sickle use the new colours too.
 - [ ] An enchanted armor piece has the glint.
 - [ ] **Armor points:** the armor bar fills as expected. **Does a higher tier actually protect more?** Compare damage from the same mob in Terra and Astra. If they match, Bedrock caps armor as suspected, and this goes in the balance pass.
 - [ ] Armor loses durability when hit, and breaks when it runs out.

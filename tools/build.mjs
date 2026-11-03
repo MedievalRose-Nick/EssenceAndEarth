@@ -502,6 +502,39 @@ function scale(px, k) {
   return out;
 }
 
+// Reads the non-interlaced 8-bit RGBA and palette PNGs in tools/vanilla/gear.
+function readPng(file) {
+  const b = fs.readFileSync(file), idat = [];
+  let p = 8, w, h, depth, type, plte, trns;
+  while (p < b.length) {
+    const len = b.readUInt32BE(p), name = b.toString("latin1", p + 4, p + 8), d = b.subarray(p + 8, p + 8 + len);
+    if (name === "IHDR") { w = d.readUInt32BE(0); h = d.readUInt32BE(4); depth = d[8]; type = d[9]; }
+    if (name === "PLTE") plte = d;
+    if (name === "tRNS") trns = d;
+    if (name === "IDAT") idat.push(d);
+    p += len + 12;
+  }
+  const raw = zlib.inflateSync(Buffer.concat(idat)), channels = type === 6 ? 4 : 1;
+  const bpp = Math.max(1, (channels * depth) >> 3), stride = Math.ceil((w * channels * depth) / 8), px = Buffer.alloc(w * h * 4);
+  let prev = Buffer.alloc(stride);
+  for (let y = 0; y < h; y++) {
+    const filter = raw[y * (stride + 1)], line = Buffer.from(raw.subarray(y * (stride + 1) + 1, (y + 1) * (stride + 1)));
+    for (let i = 0; i < stride; i++) {
+      const a = i >= bpp ? line[i - bpp] : 0, u = prev[i], c = i >= bpp ? prev[i - bpp] : 0;
+      const pa = Math.abs(u - c), pb = Math.abs(a - c), pc = Math.abs(a + u - 2 * c);
+      line[i] += [0, a, u, (a + u) >> 1, pa <= pb && pa <= pc ? a : pb <= pc ? u : c][filter];
+    }
+    prev = line;
+    for (let x = 0; x < w; x++) {
+      const o = (y * w + x) * 4;
+      if (type === 6) { line.copy(px, o, x * 4, x * 4 + 4); continue; }
+      const bit = x * depth, n = (line[bit >> 3] >> (8 - depth - (bit & 7))) & ((1 << depth) - 1);
+      px[o] = plte[n * 3]; px[o + 1] = plte[n * 3 + 1]; px[o + 2] = plte[n * 3 + 2]; px[o + 3] = trns?.[n] ?? 255;
+    }
+  }
+  return { w, h, px };
+}
+
 function png(w, px, h = w) {
   const chunk = (type, data) => {
     const body = Buffer.concat([Buffer.from(type), data]);
@@ -633,16 +666,16 @@ const GUIDE_PAGES = [
 
 // Tiered gear. Each piece upgrades at the altar from the one below it, starting from diamond.
 const GEAR_TOOLS = {
-  sword: { tag: "sword", mask: ["................", ".............oo.", "............obbo", "...........obgbo", "..........obgbo.", ".........obgbo..", "........obgbo...", ".......obgbo....", "..oo..obgbo.....", "..obooobgbo.....", "...obbbbbo......", "...oobbbo.......", "...ohoboo.......", "..ohHo.oo.......", "..oHo...........", "...o............"] },
-  pickaxe: { tag: "pickaxe", destroys: "minecraft:is_pickaxe_item_destructible", mask: ["................", "...ooooooo......", "..obbbbbbboo....", "...oogbbbbbbo...", ".....oohobgbo...", "......ohHobbo...", ".....ohHo.obbo..", "....ohHo..obbo..", "...ohHo...obgo..", "..ohHo.....obo..", ".ohHo......obo..", ".oHo........o...", "..o.............", "................", "................", "................"] },
-  axe: { tag: "axe", destroys: "minecraft:is_axe_item_destructible", mask: ["................", ".....oooo.......", "....obbbboo.....", "...obgbbbbbo....", "...obbgbhHbo....", "...obbbhHobo....", "....obhHoobo....", ".....ohHo.oo....", "....ohHo........", "...ohHo.........", "..ohHo..........", ".ohHo...........", ".oHo............", "..o.............", "................", "................"] },
-  shovel: { tag: "shovel", destroys: "minecraft:is_shovel_item_destructible", mask: ["................", "..........ooo...", ".........obbbo..", "........obgbbo..", "........obbgbo..", ".........obbbo..", "........ohoo....", ".......ohHo.....", "......ohHo......", ".....ohHo.......", "....ohHo........", "...ohHo.........", "..ohHo..........", "..oHo...........", "...o............", "................"] },
+  sword: { tag: "sword" },
+  pickaxe: { tag: "pickaxe", destroys: "minecraft:is_pickaxe_item_destructible" },
+  axe: { tag: "axe", destroys: "minecraft:is_axe_item_destructible" },
+  shovel: { tag: "shovel", destroys: "minecraft:is_shovel_item_destructible" },
 };
 const GEAR_ARMOR = {
-  helmet: { slot: "slot.armor.head", enchantSlot: "armor_head", mask: ["................", "................", "................", "....oooooooo....", "...obbbbbbbbo...", "..obbbggbbbbbo..", "..obbbbbbbbbbo..", "..obbbbbbbbbbo..", "..obooooooo.bo..", "..obo.....o.bo..", "..oo.......oo...", "................", "................", "................", "................", "................"] },
-  chestplate: { slot: "slot.armor.chest", enchantSlot: "armor_torso", mask: ["................", "..ooo......ooo..", ".obbbo....obbbo.", ".obbbboooobbbbo.", ".obbbbbbbbbbbbo.", ".ooobbbggbbbooo.", "...obbbggbbbo...", "...obbbbbbbbo...", "...obbbbbbbbo...", "...obbbbbbbbo...", "...obbbbbbbbo...", "...obbbbbbbbo...", "...oooooooooo...", "................", "................", "................"] },
-  leggings: { slot: "slot.armor.legs", enchantSlot: "armor_legs", mask: ["................", "................", "...oooooooooo...", "...obbggggbbo...", "...obbbbbbbbo...", "...obbbbbbbbo...", "...obbboobbbo...", "...obbo..obbo...", "...obbo..obbo...", "...obbo..obbo...", "...obbo..obbo...", "...obbo..obbo...", "...obbo..obbo...", "...oooo..oooo...", "................", "................"] },
-  boots: { slot: "slot.armor.feet", enchantSlot: "armor_feet", mask: ["................", "................", "................", "................", "...oooo..oooo...", "...obbo..obbo...", "...obgo..ogbo...", "...obbo..obbo...", "...obbo..obbo...", "..obbbo..obbbo..", ".obbbbo..obbbbo.", ".obbbbo..obbbbo.", ".oooooo..oooooo.", "................", "................", "................"] },
+  helmet: { slot: "slot.armor.head", enchantSlot: "armor_head" },
+  chestplate: { slot: "slot.armor.chest", enchantSlot: "armor_torso" },
+  leggings: { slot: "slot.armor.legs", enchantSlot: "armor_legs" },
+  boots: { slot: "slot.armor.feet", enchantSlot: "armor_feet" },
 };
 const GEAR_PIECES = [...Object.keys(GEAR_TOOLS), ...Object.keys(GEAR_ARMOR)];
 const GEAR_RECIPES = cfg.tiers.flatMap((t, i) => GEAR_PIECES.map((piece) => ({
@@ -652,30 +685,36 @@ const GEAR_RECIPES = cfg.tiers.flatMap((t, i) => GEAR_PIECES.map((piece) => ({
   output: `${NS}:${t.id}_${piece}`,
 })));
 
-// One armor texture per tier. Every tier shares the design, and each adds a gem to the chest: Terra has 1, Astra 5.
-function armorTexture(t, tierIndex) {
-  const base = hex(t.color);
-  const px = Buffer.alloc(64 * 64 * 4);
-  const set = (x, y, rgb, a = 255) => { const i = (y * 64 + x) * 4; px[i] = rgb[0]; px[i + 1] = rgb[1]; px[i + 2] = rgb[2]; px[i + 3] = a; };
-  const fill = (x0, y0, w, h) => {
-    for (let y = y0; y < y0 + h; y++)
-      for (let x = x0; x < x0 + w; x++) {
-        const border = x === x0 || y === y0 || x === x0 + w - 1 || y === y0 + h - 1;
-        set(x, y, border ? shade(base, -0.55) : shade(base, (noise(x, y, 31) - 0.5) * 0.3 - 0.05));
-      }
-  };
-  fill(0, 0, 32, 16); fill(16, 16, 24, 16); fill(40, 16, 16, 16); fill(0, 16, 16, 14); fill(0, 32, 16, 16); fill(16, 32, 24, 6);
-  // The helmet is open under its visor and at its base, so the face shows.
-  for (let y = 12; y < 16; y++) for (let x = 10; x < 14; x++) set(x, y, [0, 0, 0], 0);
-  for (let x = 8; x < 16; x++) set(x, 11, shade(base, -0.7));
-  for (let y = 0; y < 8; y++) for (let x = 16; x < 24; x++) set(x, y, [0, 0, 0], 0);
-  // The chest's gems run down the middle of its front.
-  for (let n = 0; n <= tierIndex; n++) for (const [dx, dy] of [[0, 0], [1, 0], [0, 1], [1, 1]]) set(23 + dx, 21 + n * 2 + dy, n % 2 ? shade(base, 0.75) : [244, 251, 255]);
-  // A trim on the boots' and arms' cuffs.
-  for (let x = 0; x < 16; x++) set(x, 28, shade(base, 0.45));
-  for (let x = 40; x < 56; x++) set(x, 29, shade(base, 0.45));
-  return px;
+const toHsl = (r, g, b) => {
+  [r, g, b] = [r / 255, g / 255, b / 255];
+  const max = Math.max(r, g, b), min = Math.min(r, g, b), l = (max + min) / 2, d = max - min;
+  if (!d) return [0, 0, l];
+  return [(max === r ? ((g - b) / d + 6) % 6 : max === g ? (b - r) / d + 2 : (r - g) / d + 4) * 60, d / (1 - Math.abs(2 * l - 1)), l];
+};
+const toRgb = (h, s, l) => {
+  h = ((h % 360) + 360) % 360; l = Math.min(1, Math.max(0, l));
+  const f = (n) => { const k = (n + h / 30) % 12; return Math.round((l - s * Math.min(l, 1 - l) * Math.max(-1, Math.min(k - 3, 9 - k, 1))) * 255); };
+  return [f(0), f(8), f(4)];
+};
+// Turns a texture's gem pixels into a tier's crystal, with diagonal facets and a slight colour shift. Wood and pure white glints stay.
+function crystal(px, w, color) {
+  const [th, ts, tl] = toHsl(...hex(color)), out = Buffer.from(px);
+  // Worn armor shows far more texels than an icon, so its facets are wider and softer.
+  const worn = w > 16, span = worn ? 14 : 7, drift = worn ? 18 : 9;
+  for (let i = 0; i < px.length; i += 4) {
+    const r = px[i], g = px[i + 1], b = px[i + 2];
+    if (!px[i + 3] || r > b || (r === 255 && g === 255)) continue;
+    const x = (i / 4) % w, y = ((i / 4 / w) | 0), [, , sl] = toHsl(r, g, b);
+    if (sl < 0.25) { out.set(toRgb(th, 0.55, sl), i); continue; } // the outline
+    const band = (x + y) % span;
+    const facet = worn ? (band < 3 ? 0.05 : band > 10 ? -0.035 : 0) : band < 2 ? 0.11 : band > 4 ? -0.07 : 0;
+    const hue = th + (((x - y + 90) % drift) / (drift - 1) - 0.5) * (worn ? 12 : 26);
+    out.set(toRgb(hue, Math.max(ts, 0.7), sl + (tl - 0.55) * 0.55 + facet), i);
+  }
+  return out;
 }
+// Mojang's diamond textures, from github.com/Mojang/bedrock-samples, are the base for every piece.
+const diamond = (name) => readPng(path.join(ROOT, "tools", "vanilla", "gear", `diamond${name}.png`)).px;
 
 // Infusion recipes for the script: a seed base on the altar, 4 of the ingredient and 4 tier essence on the pedestals.
 const FULL_JAR = (soul) => ({ soul });
@@ -760,7 +799,8 @@ const terrain = {}, itemTextures = {}, sounds = {}, lang = [], crateIconItems = 
 const TAG = "§9@ESSENCE&EARTH"; // second tooltip line on everything in the inventory, like Deepcore's @DEEPCORE
 
 function item(id, mask, color, components = {}, palette) {
-  texture(`textures/items/${id}`, mask, color, palette);
+  if (Buffer.isBuffer(mask)) texturePx(`textures/items/${id}`, mask);
+  else texture(`textures/items/${id}`, mask, color, palette);
   itemTextures[`${NS}_${id}`] = { textures: `textures/items/${id}` };
   if (components["minecraft:max_stack_size"] !== 1) crateIconItems.push(id); // Deepcore's crates only hold stackable items
   write(path.join(BP, "items", `${id}.json`), {
@@ -896,27 +936,26 @@ cfg.tiers.forEach((t, i) => {
 // Essence tools: their behaviour and durability loss are in scripts/main.js.
 const TOOL_TIER = cfg.tiers[1];
 const toolEssence = tierEssence(2);
-for (const [id, mask, pattern] of [
-  ["essence_sickle", SICKLE, ["EE ", " SE", "S  "]],
-  ["essence_hoe", HOE, ["EE", " S", " S"]],
+for (const [id, px, pattern] of [
+  ["essence_sickle", render(SICKLE, TOOL_TIER.color, { b: TOOL_TIER.color, o: "#12263c", h: "#6b4a2f", H: "#93704a" }), ["EE ", " SE", "S  "]],
+  ["essence_hoe", diamond("_hoe"), ["EE", " S", " S"]],
 ]) {
-  item(id, mask, TOOL_TIER.color, {
+  item(id, crystal(px, 16, TOOL_TIER.color), TOOL_TIER.color, {
     "minecraft:max_stack_size": 1,
     "minecraft:hand_equipped": true,
     "minecraft:durability": { max_durability: BAL.toolDurability },
     "minecraft:repairable": { repair_items: [{ items: [toolEssence], repair_amount: Math.ceil(BAL.toolDurability / 4) }] },
-  }, { b: TOOL_TIER.color, o: "#12263c", h: "#6b4a2f", H: "#93704a" });
+  });
   recipe(id, "shaped", { pattern, key: { E: { item: toolEssence }, S: { item: "minecraft:stick" } }, result: { item: `${NS}:${id}` } }, toolEssence);
 }
 
 // Tiered armor and tools, using MA's numbers. Tools wear through scripts/main.js, and Astra tools have no durability, so they never break.
-const gearItemColors = (t) => ({ b: t.color, o: "#12263c", h: "#6b4a2f", H: "#93704a", g: "#f4fbff" });
 cfg.tiers.forEach((t, i) => {
   const G = BAL.gear;
   const repair = (durability) => ({ "minecraft:repairable": { repair_items: [{ items: [`${NS}:${t.id}_gemstone`], repair_amount: Math.ceil(durability / 4) }] } });
-  for (const [tool, { mask, tag, destroys }] of Object.entries(GEAR_TOOLS)) {
+  for (const [tool, { tag, destroys }] of Object.entries(GEAR_TOOLS)) {
     const durability = G.toolDurability[i];
-    item(`${t.id}_${tool}`, mask, t.color, {
+    item(`${t.id}_${tool}`, crystal(diamond(`_${tool}`), 16, t.color), t.color, {
       "minecraft:max_stack_size": 1,
       "minecraft:hand_equipped": true,
       "minecraft:damage": { value: G.attack[i] + G.toolAttackBonus[tool] },
@@ -924,35 +963,35 @@ cfg.tiers.forEach((t, i) => {
       "minecraft:tags": { tags: [`minecraft:is_${tag}`, "minecraft:is_tool", "minecraft:diamond_tier"] },
       ...(destroys && { "minecraft:digger": { use_efficiency: true, destroy_speeds: [{ block: { tags: `q.any_tag('${destroys}')` }, speed: G.miningSpeed[i] }] } }),
       ...(durability && { "minecraft:durability": { max_durability: durability }, ...repair(durability) }),
-    }, gearItemColors(t));
+    });
   }
-  for (const [piece, { mask, slot, enchantSlot }] of Object.entries(GEAR_ARMOR)) {
+  for (const [piece, { slot, enchantSlot }] of Object.entries(GEAR_ARMOR)) {
     const durability = G.armorBaseDurability[piece] * G.armorDurabilityMultiplier[i];
-    item(`${t.id}_${piece}`, mask, t.color, {
+    item(`${t.id}_${piece}`, crystal(diamond(`_${piece}`), 16, t.color), t.color, {
       "minecraft:max_stack_size": 1,
       "minecraft:wearable": { slot, protection: G.armorPoints[piece][i] },
       "minecraft:enchantable": { slot: enchantSlot, value: G.enchantability[i] },
       "minecraft:tags": { tags: ["minecraft:is_armor"] },
       "minecraft:durability": { max_durability: durability },
       ...repair(durability),
-    }, gearItemColors(t));
+    });
     write(path.join(RP, "attachables", `${t.id}_${piece}.json`), {
       format_version: "1.10.0",
       "minecraft:attachable": { description: {
         identifier: `${NS}:${t.id}_${piece}`,
         materials: { default: "armor", enchanted: "armor_enchanted" },
-        textures: { default: `textures/models/armor/${t.id}`, enchanted: "textures/misc/enchanted_actor_glint" },
+        textures: { default: `textures/models/armor/${t.id}_${piece === "leggings" ? 2 : 1}`, enchanted: "textures/misc/enchanted_actor_glint" },
         geometry: { default: `geometry.${NS}_armor_${piece}` },
         scripts: { parent_setup: `variable.${{ helmet: "helmet", chestplate: "chest", leggings: "leg", boots: "boot" }[piece]}_layer_visible = 0.0;` },
         render_controllers: ["controller.render.armor"],
       } },
     });
   }
-  write(path.join(RP, "textures", "models", "armor", `${t.id}.png`), png(64, armorTexture(t, i)));
+  for (const layer of [1, 2]) write(path.join(RP, "textures", "models", "armor", `${t.id}_${layer}.png`), png(64, crystal(diamond(`_${layer}`), 64, t.color), 32));
 });
 
-// Every piece's model, sharing one 64x64 texture per tier: head 0,0; body 16,16; arms 40,16; boots 0,16; legs 0,32; belt 16,32.
-const armorGeometry = (piece, bones) => ({ description: { identifier: `geometry.${NS}_armor_${piece}`, texture_width: 64, texture_height: 64, visible_bounds_width: 3, visible_bounds_height: 3.5, visible_bounds_offset: [0, 1.5, 0] }, bones });
+// Every piece's model, using vanilla's two 64x32 armor layers. Layer 1: head 0,0; body 16,16; arms 40,16; boots 0,16. Layer 2, for leggings: body 16,16; legs 0,16.
+const armorGeometry = (piece, bones) => ({ description: { identifier: `geometry.${NS}_armor_${piece}`, texture_width: 64, texture_height: 32, visible_bounds_width: 3, visible_bounds_height: 3.5, visible_bounds_offset: [0, 1.5, 0] }, bones });
 const cube = (origin, size, uv, inflate, mirror) => ({ origin, size, uv, inflate, ...(mirror && { mirror }) });
 write(path.join(RP, "models", "entity", `${NS}_armor.geo.json`), {
   format_version: "1.16.0",
@@ -964,13 +1003,13 @@ write(path.join(RP, "models", "entity", `${NS}_armor.geo.json`), {
       { name: "leftArm", pivot: [5, 22, 0], cubes: [cube([4, 12, -2], [4, 12, 4], [40, 16], 1, true)] },
     ]),
     armorGeometry("leggings", [
-      { name: "body", pivot: [0, 24, 0], cubes: [cube([-4, 11.5, -2], [8, 2, 4], [16, 32], 0.6)] },
-      { name: "rightLeg", pivot: [-1.9, 12, 0], cubes: [cube([-3.9, 0, -2], [4, 12, 4], [0, 32], 0.5)] },
-      { name: "leftLeg", pivot: [1.9, 12, 0], cubes: [cube([-0.1, 0, -2], [4, 12, 4], [0, 32], 0.5, true)] },
+      { name: "body", pivot: [0, 24, 0], cubes: [cube([-4, 12, -2], [8, 12, 4], [16, 16], 0.5)] },
+      { name: "rightLeg", pivot: [-1.9, 12, 0], cubes: [cube([-3.9, 0, -2], [4, 12, 4], [0, 16], 0.5)] },
+      { name: "leftLeg", pivot: [1.9, 12, 0], cubes: [cube([-0.1, 0, -2], [4, 12, 4], [0, 16], 0.5, true)] },
     ]),
     armorGeometry("boots", [
-      { name: "rightLeg", pivot: [-1.9, 12, 0], cubes: [cube([-3.9, 0, -2], [4, 6, 4], [0, 16], 1)] },
-      { name: "leftLeg", pivot: [1.9, 12, 0], cubes: [cube([-0.1, 0, -2], [4, 6, 4], [0, 16], 1, true)] },
+      { name: "rightLeg", pivot: [-1.9, 12, 0], cubes: [cube([-3.9, 0, -2], [4, 12, 4], [0, 16], 1)] },
+      { name: "leftLeg", pivot: [1.9, 12, 0], cubes: [cube([-0.1, 0, -2], [4, 12, 4], [0, 16], 1, true)] },
     ]),
   ],
 });
