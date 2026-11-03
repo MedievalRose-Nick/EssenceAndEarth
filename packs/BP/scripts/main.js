@@ -21,7 +21,7 @@ const {
   soulExtractor: EXTRACTOR_BALANCE,
   essenceFurnace: FURNACE_BALANCE,
   tinkeringTable: TABLE_BALANCE,
-  awakening: { vesselCapacity: VESSEL_CAPACITY, cognizantDust: COGNIZANT_DUST, bossEssence: BOSS_ESSENCE, eliteTag: ELITE_TAG, eliteEssence: ELITE_ESSENCE },
+  awakening: { vesselCapacity: VESSEL_CAPACITY, cognizantDust: COGNIZANT_DUST, bossEssence: BOSS_ESSENCE, eliteTag: ELITE_TAG, eliteEssence: ELITE_ESSENCE, hollowdeepVault: HOLLOWDEEP_VAULT },
 } = __BALANCE__;
 
 // Accelerator id -> how many blocks above itself it reaches.
@@ -269,6 +269,17 @@ world.afterEvents.entityDie.subscribe(({ deadEntity, damageSource }) => {
     if (held === COGNIZANT_SWORD && COGNIZANT_DUST[deadEntity.typeId]) drop(dimension, "__NS__:cognizant_dust", location, COGNIZANT_DUST[deadEntity.typeId]);
   } catch {
     // already gone, or an unloaded chunk
+  }
+});
+
+// Hollowdeep rolls registered drops into each goods chest of a rift's vault, so Cognizant Dust signs up on every load.
+// Re-registering just replaces the old entry, and without Hollowdeep nobody hears the event.
+world.afterEvents.worldLoad.subscribe(() => {
+  const { chance, min, max, minTier } = HOLLOWDEEP_VAULT;
+  try {
+    world.getDimension("overworld").runCommand(`scriptevent hollowdeep:register_drop __NS__:cognizant_dust ${chance} ${min} ${max} ${minTier}`);
+  } catch {
+    // scriptevent refused
   }
 });
 

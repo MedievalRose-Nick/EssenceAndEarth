@@ -13,6 +13,7 @@ Needs Hollowdeep on the same world. Without it, nothing here happens.
 - [ ] Killing a Hollowdeep rift boss (Tomb Regent, Forge Tyrant, Winter Matriarch or Briar Colossus) with a Terra-to-Astra sword or tool drops 1 to 3 of that tool's tier essence. With an Astra sword it also drops 3 Cognizant Dust.
 - [ ] Killing an elite (a mob with an affix in its name) with a tiered sword drops 1 tier essence. A plain rift mob drops nothing extra, apart from the usual Terra Essence chance.
 - [ ] A kill with a vanilla weapon drops none of this.
+- [ ] **Vault (v0.27.2):** `/scriptevent hollowdeep:drops` lists `ee:cognizant_dust: 100% x2-3, tier 1+`. After clearing a rift, each vault chest apart from the relic chest has 2 or 3 Cognizant Dust: one chest at tier I, two at II and III, three at IV and V.
 
 ## Divus and the Awakening Altar (v0.27.0)
 

@@ -1,7 +1,7 @@
 {
   "name": "Essence & Earth",
   "namespace": "ee",
-  "version": [0, 27, 1],
+  "version": [0, 27, 2],
   "balance": {
     "growChance": 0.43,
     "grassEssenceChance": 0.2,
@@ -75,7 +75,8 @@
       "cognizantDust": { "minecraft:wither": 6, "minecraft:ender_dragon": 10, "hollowdeep:tomb_regent": 3, "hollowdeep:forge_tyrant": 3, "hollowdeep:winter_matriarch": 3, "hollowdeep:briar_colossus": 3 },
       "bossEssence": { "minecraft:wither": [1, 3], "minecraft:ender_dragon": [2, 4], "hollowdeep:tomb_regent": [1, 3], "hollowdeep:forge_tyrant": [1, 3], "hollowdeep:winter_matriarch": [1, 3], "hollowdeep:briar_colossus": [1, 3] },
       "eliteTag": "hd_aff_",
-      "eliteEssence": [1, 1]
+      "eliteEssence": [1, 1],
+      "hollowdeepVault": { "chance": 100, "min": 2, "max": 3, "minTier": 1 }
     },
     "tinkeringTable": { "screenTitle": "§e§e§t" },
     "seedReprocessor": { "screenTitle": "§e§e§r", "operationTicks": 200, "fuelPerTick": 20, "essencePerSeed": 2 },
