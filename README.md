@@ -125,3 +125,7 @@ Machines that harvest, grow or replant crops can support Essence & Earth like th
 - Daggers wear by one per kill rather than per hit.
 - Slabs, stairs, walls and chiseled soulstone aren't included.
 - The Experience Capsule isn't included, so experience seeds use bottles o' enchanting.
+
+## License
+
+All rights reserved. It's free to use on any world or server, but please don't reupload it; link to the wiki instead. See [LICENSE](LICENSE).
