@@ -244,7 +244,7 @@ const sickleItem = { name: "Essence Sickle", icon: "img/icons/essence_sickle.png
 const hoeItem = { name: "Essence Hoe", icon: "img/icons/essence_hoe.png", href: "wiki/tools/essence-hoe" };
 const tools = {
   slug: "tools", title: "Tools", group: "Getting started", icon: sickleItem.icon,
-  blurb: "A sickle that harvests 3×3 and a hoe that replants as it harvests.",
+  blurb: "A sickle that harvests 3×3 and a hoe that replants as it harvests, with five stronger tiers of each.",
   entries: [
     {
       slug: "essence-sickle", name: sickleItem.name, icon: sickleItem.icon,
@@ -252,6 +252,8 @@ const tools = {
       blocks: [
         facts([["Use", "Break a ripe crop"], ["Area", "3×3, centred on that crop"], ["Wear", "1 durability per crop harvested"], ...toolFacts]),
         p("Breaking a ripe crop also harvests every ripe crop around it. Unripe crops are left alone, and the sickle won't break one even if you hit it directly. Farmland bonus essence and second seeds work as normal."),
+        p("Upgrade it at the Infusion Altar for a wider sweep, the same way as armor:"),
+        list(cfg.tiers.map((t, i) => { const side = BAL.gear.sickleRadius[i] * 2 + 1; return { name: `${title(t.id)} Sickle`, icon: `img/icons/${t.id}_sickle.png`, sub: `${side}×${side}, ${BAL.gear.toolDurability[i] ? `${BAL.gear.toolDurability[i].toLocaleString("en-US")} durability` : "never breaks"}` }; })),
         h2("Recipe"),
         (() => {
           const e = tierItem(toolTier), s = vanilla("minecraft:stick");
@@ -263,8 +265,10 @@ const tools = {
       slug: "essence-hoe", name: hoeItem.name, icon: hoeItem.icon,
       summary: "Right-click a ripe crop to harvest and replant it.",
       blocks: [
-        facts([["Use", "Right-click a ripe crop"], ["Wear", "1 durability per crop"], ...toolFacts]),
-        p("The crop drops as normal and restarts at its first stage. The replant takes one seed from the drops, so it costs the same as replanting by hand. The hoe doesn't till dirt."),
+        facts([["Use", "Right-click a ripe crop, or dirt and grass to till it"], ["Wear", "1 durability per crop or block tilled"], ...toolFacts]),
+        p("The crop drops as normal and restarts at its first stage. The replant takes one seed from the drops, so it costs the same as replanting by hand."),
+        p("Upgrade it at the Infusion Altar for more durability, the same way as armor:"),
+        list(cfg.tiers.map((t, i) => ({ name: `${title(t.id)} Hoe`, icon: `img/icons/${t.id}_hoe.png`, sub: BAL.gear.toolDurability[i] ? `${BAL.gear.toolDurability[i].toLocaleString("en-US")} durability` : "Never breaks" }))),
         h2("Recipe"),
         (() => {
           const e = tierItem(toolTier), s = vanilla("minecraft:stick");
@@ -516,6 +520,11 @@ const gear = {
       facts([["Mining speed", `${G.miningSpeed[i]}`], ["Repair", `${title(t.id)} Gemstones on an anvil`], ...(G.toolDurability[i] ? [["Tool durability", G.toolDurability[i].toLocaleString("en-US")]] : [["Tool durability", "Never breaks"]])]),
       h2("Tools"),
       list(GEAR_TOOL_NAMES.map((tool) => ({ name: `${title(t.id)} ${title(tool)}`, icon: `img/icons/${t.id}_${tool}.png`, sub: `${G.attack[i] + G.toolAttackBonus[tool]} attack damage` }))),
+      p(`The sickle and hoe upgrade from the ${i ? `${title(cfg.tiers[i - 1].id)} ones` : "Essence Sickle and Hoe"} instead.`),
+      list([
+        { name: `${title(t.id)} Sickle`, icon: `img/icons/${t.id}_sickle.png`, sub: `Harvests ${G.sickleRadius[i] * 2 + 1}×${G.sickleRadius[i] * 2 + 1}` },
+        { name: `${title(t.id)} Hoe`, icon: `img/icons/${t.id}_hoe.png`, sub: "Replants and tills" },
+      ]),
       h2("Armor"),
       list(GEAR_ARMOR_NAMES.map((a) => ({ name: `${title(t.id)} ${title(a)}`, icon: `img/icons/${t.id}_${a}.png`, sub: `${G.armorPoints[a][i]} armor, ${(G.armorBaseDurability[a] * G.armorDurabilityMultiplier[i]).toLocaleString("en-US")} durability` }))),
     ],
@@ -593,7 +602,7 @@ const gallery = [
   { title: "Fertilizer", items: [fertilized, fertilizer] },
   { title: "Infusion and souls", items: ["infusion_altar", "infusion_pedestal", "wand", "vita_seed_base", "anima_seed_base", "soul_jar", "anima_dagger", "passive_anima_dagger", "hostile_anima_dagger", "soul_dust", "anima_dust", "soulstone", "soulstone_cobble", "soulstone_smooth", "soulstone_bricks", "soulstone_cracked_bricks", "soul_glass", "anima_ore"].map((id) => ({ name: title(id), icon: `img/icons/${id}.png` })) },
   { title: "Tools and guide", items: [sickleItem, hoeItem, guideItem] },
-  { title: "Armor and tools", items: cfg.tiers.flatMap((t) => [...GEAR_ARMOR_NAMES, ...GEAR_TOOL_NAMES].map((piece) => ({ name: `${title(t.id)} ${title(piece)}`, icon: `img/icons/${t.id}_${piece}.png` }))) },
+  { title: "Armor and tools", items: cfg.tiers.flatMap((t) => [...GEAR_ARMOR_NAMES, ...GEAR_TOOL_NAMES, "sickle", "hoe"].map((piece) => ({ name: `${title(t.id)} ${title(piece)}`, icon: `img/icons/${t.id}_${piece}.png` }))) },
   { title: "Augments", items: [tableItem, blankAugment, ...cfg.augments.flatMap((a) => augmentLevels(a).map((l) => l.item))] },
   { title: "Machines", items: [{ name: "Harvester", icon: "img/icons/harvester_front.png" }, ...["seed_reprocessor", "soul_extractor", "essence_furnace"].map((id) => ({ name: title(id), icon: `img/icons/${id}_front.png` })), named("machine_frame"), named("upgrade_base"), ...cfg.tiers.map(upgradeItem)] },
   { title: "Growth stages", items: stages(cfg.crops[0]).slice(0, 3) },

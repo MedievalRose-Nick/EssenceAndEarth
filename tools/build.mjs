@@ -659,7 +659,7 @@ const GUIDE_PAGES = [
   { title: "Growth Accelerators", body: `Place below a crop to give it an extra growth chance about every ${BAL.acceleratorSeconds} seconds. Each one works on its own, so more means faster.\n\nThey work through other blocks, on the first crop above them. The block directly above an accelerator is skipped, because that's where the farmland goes.\n\nReach by tier:\n${cfg.tiers.map((t, i) => `${tierTitle(t)}: ${BAL.acceleratorRange[i]} blocks`).join("\n")}\n\n4 tier essence, 4 stone and 1 tier gemstone make ${BAL.acceleratorYield}.` },
   { title: "Materials", body: `Vita Ore, between y -60 and 24, drops ${range(BAL.vitaShards)} Vita Shards. Or craft 4 ${tierTitle(cfg.tiers[0])} Blocks around a flint for 4 shards.\n\nAnima Ore, in the Nether, drops ${range(BAL.animaDust)} Anima Dust. Or craft 4 ${tierTitle(cfg.tiers[1])} Blocks around soul sand for 4 dust.\n\n4 shards around an iron ingot make a Vita Ingot, and around a diamond a Vita Gemstone. Add 2 tier essence to either for that tier's version, or 2 Anima Dust for Anima Ingots and Gemstones.\n\nNine of anything stores in a block, and ingots break down into 9 nuggets.` },
   { title: "Fertilizer", body: `Ripe crops have a ${pct(BAL.fertilizedEssenceChance)} chance of dropping Fertilized Essence, which advances a crop a stage or two.\n\nEssence Fertilizer ripens a crop at once. 4 Terra Essence, 4 bone meal and a diamond make 4, or use Fertilized Essence instead of bone meal to make 8.` },
-  { title: "Tools", body: `Essence Sickle: break a ripe crop to harvest every ripe crop in the 3x3 around it. It won't break unripe crops.\n\nEssence Hoe: right-click a ripe crop to harvest and replant it. The replant takes one seed from the drops.\n\nBoth last ${BAL.toolDurability} uses and repair with ${tierTitle(cfg.tiers[1])} Essence in an anvil.` },
+  { title: "Tools", body: `Essence Sickle: break a ripe crop to harvest every ripe crop in the 3x3 around it. It won't break unripe crops.\n\nEssence Hoe: right-click a ripe crop to harvest and replant it. The replant takes one seed from the drops. Right-click dirt or grass to till it.\n\nBoth last ${BAL.toolDurability} uses and repair with ${tierTitle(cfg.tiers[1])} Essence in an anvil.\n\nUpgrade them at the Infusion Altar, like armor. Sickles reach further at each tier:\n${cfg.tiers.map((t, i) => { const side = BAL.gear.sickleRadius[i] * 2 + 1; return `${tierTitle(t)}: ${side}x${side}`; }).join("\n")}` },
   { title: "Harvester", body: `Harvests and replants ripe crops for you. Place it at the height of your crops, with its front facing them. It works on the square in front of it, one block at a time.\n\nTap it with an empty hand to open it. The top left slot takes fuel, the bottom left takes a Machine Upgrade, and the block on the right holds the harvest. To mine it, hold a tool or sneak.\n\nFuel: coal, charcoal, coal blocks, lava buckets, blaze rods, logs, planks or sticks. Each one fills an internal tank, shown by the bar on its screen, and each crop harvested uses some.\n\nA chest, barrel or hopper on top supplies fuel. A chest or barrel touching its back gets the harvest automatically, and hoppers can take it from there. Redstone power pauses it.\n\nUpgrades make it wider and faster, but it burns much more fuel:\n${["No upgrade", ...cfg.tiers.map(tierTitle)].map((name, i) => { const side = (BAL.harvester.range + (BAL.harvester.upgrades[i - 1]?.range ?? 0)) * 2 + 1; return `${name}: ${side}x${side}`; }).join("\n")}` },
   { title: "Crops by Tier", body:`${cfg.tiers.map((t, i) => [t, cfg.crops.filter((c) => c.tier === i + 1 && !c.retired)]).filter(([, crops]) => crops.length).map(([t, crops]) => `${tierTitle(t)}: ${crops.map((c) => title(c.id)).join(", ")}`).join("\n\n")}\n\nFull recipes: medievalrose-nick.github.io/EssenceAndEarth` },
 ];
@@ -677,10 +677,12 @@ const GEAR_ARMOR = {
   leggings: { slot: "slot.armor.legs", enchantSlot: "armor_legs" },
   boots: { slot: "slot.armor.feet", enchantSlot: "armor_feet" },
 };
-const GEAR_PIECES = [...Object.keys(GEAR_TOOLS), ...Object.keys(GEAR_ARMOR)];
+// Sickles and hoes start from the Essence Sickle and Hoe instead of diamond.
+const GEAR_FARM = ["sickle", "hoe"];
+const GEAR_PIECES = [...Object.keys(GEAR_TOOLS), ...GEAR_FARM, ...Object.keys(GEAR_ARMOR)];
 const GEAR_RECIPES = cfg.tiers.flatMap((t, i) => GEAR_PIECES.map((piece) => ({
   upgrade: true,
-  input: i ? `${NS}:${cfg.tiers[i - 1].id}_${piece}` : `minecraft:diamond_${piece}`,
+  input: i ? `${NS}:${cfg.tiers[i - 1].id}_${piece}` : GEAR_FARM.includes(piece) ? `${NS}:essence_${piece}` : `minecraft:diamond_${piece}`,
   ingredients: [`${NS}:${t.id}_gemstone`, `${NS}:${t.id}_gemstone`, `${NS}:${t.id}_ingot`, `${NS}:${t.id}_ingot`],
   output: `${NS}:${t.id}_${piece}`,
 })));
@@ -779,7 +781,7 @@ GUIDE_PAGES.splice(GUIDE_PAGES.findIndex((g) => g.title === "Crops by Tier"), 0,
   { title: "Seed Reprocessor", body: `Turns a seed into ${BAL.seedReprocessor.essencePerSeed} of its essence, using fuel. Use it on spare seeds from essence farmland.\n\nTap it with an empty hand to open it. Fuel and upgrades go on the left. Seeds go in the middle slot, and essence comes out on the right.\n\nA chest on top feeds it seeds and fuel, and a chest at its back takes the essence. Redstone power pauses it. Upgrades make it faster but burn more fuel, and don't change the essence per seed.` },
   { title: "Soul Extractor", body: `Fills a Soul Jar from mob drops instead of kills. Put a jar in the right slot and drops in the middle slot, and fuel and upgrades on the left. A jar holds one mob type, so mixed drops wait until you swap the jar.\n\nA chest on top feeds in drops and fuel, and a full jar moves to a chest at its back.\n\nWhat each drop is worth:\n${Object.entries(BAL.soulExtractor.items).map(([id, [soul, worth]]) => `${title(id.split(":")[1])}: ${worth} ${title(soul)}`).join("\n")}` },
   { title: "Essence Furnace", body: `A furnace that takes Machine Upgrades. One block, with no tiers to craft: each upgrade makes it faster but burn more fuel.\n\nPut fuel and an upgrade on the left, what you're smelting in the middle, and take the result on the right. A chest on top feeds it items and fuel, and a chest at its back takes the result. Logs in that chest get smelted, not burned.\n\nIt only knows common recipes: ores and raw metals, sand, stone, clay, food, logs and a few others. Use a normal furnace for anything else. It gives no experience.` },
-  { title: "Armor and Tools", body: `Each tier has a helmet, chestplate, leggings, boots, sword, pickaxe, axe and shovel. Make them at the Infusion Altar: put the piece on the altar, and 2 Gemstones and 2 Ingots of the new tier on the pedestals, leaving the other pedestals empty. Use the wand.\n\n${tierTitle(cfg.tiers[0])} gear starts from diamond gear, and each later tier upgrades the one below it. Enchantments, damage and names carry over.\n\nRepair gear with its tier's Gemstones on an anvil. ${tierTitle(cfg.tiers[4])} tools never break.` },
+  { title: "Armor and Tools", body: `Each tier has a helmet, chestplate, leggings, boots, sword, pickaxe, axe, shovel, sickle and hoe. Make them at the Infusion Altar: put the piece on the altar, and 2 Gemstones and 2 Ingots of the new tier on the pedestals, leaving the other pedestals empty. Use the wand.\n\n${tierTitle(cfg.tiers[0])} gear starts from diamond gear, or the Essence Sickle and Hoe, and each later tier upgrades the one below it. Enchantments, damage and names carry over.\n\nRepair gear with its tier's Gemstones on an anvil. ${tierTitle(cfg.tiers[4])} tools never break.` },
   { title: "Enchanting", body: `Enchant at the Infusion Altar. Put a book or the item to enchant on the altar. On the pedestals, put 4 Experience Essence and 4 of the enchantment's ingredient. Use the wand.\n\nEach craft adds one level, so craft again with the same items to go higher. A book becomes an Enchanted Book for the anvil. Enchantments that clash can't be combined.\n\nIngredients:\n${ENCHANT_RECIPES.map((r) => `${title(r.enchant)}: ${title(r.ingredient.split(":")[1])}`).join("\n")}` },
   { title: "Tinkering Table", body: `Fits augments to ${tierTitle(cfg.tiers[0])} to ${tierTitle(cfg.tiers[4])} armor and swords. Craft it from 7 stone with 2 Anima Dust in the middle row.\n\nTap it with an empty hand to open it. Put the gear in the left slot and an augment in the right slot, and it's fitted straight away.\n\nEach piece holds one augment. An augment only fits the pieces it's made for, and only gear of its tier or higher. The bottom line says why one won't fit.\n\nTake the augment back out to remove it. Taking the gear out takes its augment with it. Augments stay on through upgrades at the altar.` },
   { title: "Augments", body: `Make augments at the Infusion Altar. Put a Blank Augment on the altar, with 4 tier essence and 4 of the material on the pedestals. Where there are two materials, use 2 of each. For a higher level, put the level below on the altar instead.\n\nBlank Augment: 6 Vita Shards and 3 iron ingots, in two columns of shards with iron down the middle.\n\nFlight: hold jump to rise, let go to hover, and sneak to sink.\n\n${cfg.augments.map((a) => {
@@ -814,6 +816,8 @@ for (const file of fs.readdirSync(path.join(BP, "scripts"), { recursive: true })
       .replaceAll("__GUIDE_PAGES__", JSON.stringify(GUIDE_PAGES))
       .replaceAll("__ALTAR_RECIPES__", JSON.stringify(ALTAR_RECIPES))
       .replaceAll("__GEAR_TOOLS__", JSON.stringify(cfg.tiers.flatMap((t) => Object.keys(GEAR_TOOLS).map((tool) => `${NS}:${t.id}_${tool}`))))
+      .replaceAll("__SICKLES__", JSON.stringify({ [`${NS}:essence_sickle`]: 1, ...Object.fromEntries(cfg.tiers.map((t, i) => [`${NS}:${t.id}_sickle`, BAL.gear.sickleRadius[i]])) }))
+      .replaceAll("__HOES__", JSON.stringify([`${NS}:essence_hoe`, ...cfg.tiers.map((t) => `${NS}:${t.id}_hoe`)]))
       .replaceAll("__GEAR_PIECES__", JSON.stringify(Object.fromEntries(cfg.tiers.flatMap((t, i) => GEAR_PIECES.map((piece) => [`${NS}:${t.id}_${piece}`, { tier: i + 1, piece }])))))
       .replaceAll("__AUGMENTS__", JSON.stringify(Object.fromEntries(AUGMENT_LEVELS.map(({ augment: a, level, tier, id, name, pieces }) => [`${NS}:${id}`, {
         name, tier, needs: tierTitle(cfg.tiers[tier - 1]), on: pieces, onText: piecesText(pieces),
@@ -973,13 +977,25 @@ cfg.tiers.forEach((t, i) => {
 });
 
 // Essence tools: their behaviour and durability loss are in scripts/main.js.
+// The starters are plain steel, so they don't look like the Aqua sickle and hoe.
 const TOOL_TIER = cfg.tiers[1];
 const toolEssence = tierEssence(2);
+const STEEL = "#b9c2cb";
+// Greys the gem pixels that crystal() would recolour.
+function steel(px) {
+  const out = Buffer.from(px);
+  for (let i = 0; i < px.length; i += 4) {
+    const r = px[i], g = px[i + 1], b = px[i + 2];
+    if (!px[i + 3] || r > b || (r === 255 && g === 255)) continue;
+    out.fill(Math.round(0.3 * r + 0.59 * g + 0.11 * b), i, i + 3);
+  }
+  return out;
+}
 for (const [id, px, pattern] of [
-  ["essence_sickle", render(SICKLE, TOOL_TIER.color, { b: TOOL_TIER.color, o: "#12263c", h: "#6b4a2f", H: "#93704a" }), ["EE ", " SE", "S  "]],
-  ["essence_hoe", diamond("_hoe"), ["EE", " S", " S"]],
+  ["essence_sickle", render(SICKLE, STEEL, { b: STEEL, o: "#1f2329", h: "#6b4a2f", H: "#93704a" }), ["EE ", " SE", "S  "]],
+  ["essence_hoe", steel(diamond("_hoe")), ["EE", " S", " S"]],
 ]) {
-  item(id, crystal(px, 16, TOOL_TIER.color), TOOL_TIER.color, {
+  item(id, px, STEEL, {
     "minecraft:max_stack_size": 1,
     "minecraft:hand_equipped": true,
     "minecraft:durability": { max_durability: BAL.toolDurability },
@@ -1001,6 +1017,16 @@ cfg.tiers.forEach((t, i) => {
       "minecraft:enchantable": { slot: tool, value: G.enchantability[i] },
       "minecraft:tags": { tags: [`minecraft:is_${tag}`, "minecraft:is_tool", "minecraft:diamond_tier"] },
       ...(destroys && { "minecraft:digger": { use_efficiency: true, destroy_speeds: [{ block: { tags: `q.any_tag('${destroys}')` }, speed: G.miningSpeed[i] }] } }),
+      ...(durability && { "minecraft:durability": { max_durability: durability }, ...repair(durability) }),
+    });
+  }
+  // Sickles and hoes wear through scripts/main.js, like the starters.
+  for (const [piece, px] of [["sickle", render(SICKLE, t.color, { b: t.color, o: "#12263c", h: "#6b4a2f", H: "#93704a" })], ["hoe", diamond("_hoe")]]) {
+    const durability = G.toolDurability[i];
+    item(`${t.id}_${piece}`, crystal(px, 16, t.color), t.color, {
+      "minecraft:max_stack_size": 1,
+      "minecraft:hand_equipped": true,
+      "minecraft:enchantable": { slot: "hoe", value: G.enchantability[i] },
       ...(durability && { "minecraft:durability": { max_durability: durability }, ...repair(durability) }),
     });
   }

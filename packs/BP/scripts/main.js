@@ -39,8 +39,9 @@ const GRASS = new Set(["minecraft:short_grass", "minecraft:tall_grass", "minecra
 const RIPE_DROP = { "minecraft:wheat": 1, "minecraft:beetroot": 1, "minecraft:carrot": 2, "minecraft:potato": 2 };
 const FARMLAND = new Set(["minecraft:farmland", ...Object.keys(FARMLAND_TIER)]);
 
-const SICKLE = "__NS__:essence_sickle";
-const HOE = "__NS__:essence_hoe";
+// Sickle id -> how many blocks out from the broken crop it sweeps, and every hoe, starter and tiered.
+const SICKLES = __SICKLES__;
+const HOES = new Set(__HOES__);
 // Vanilla crop block -> the item that replants it. Vanilla crops are ripe at growth 7.
 const VANILLA_SEEDS = { "minecraft:wheat": "minecraft:wheat_seeds", "minecraft:carrots": "minecraft:carrot", "minecraft:potatoes": "minecraft:potato", "minecraft:beetroot": "minecraft:beetroot_seeds" };
 const isOurCrop = (id) => id.startsWith("__NS__:") && id.endsWith("_crop");
@@ -71,22 +72,32 @@ function wear(player, amount) {
   equip.setEquipment(EquipmentSlot.Mainhand, tool);
 }
 
-function sweep(player, dimension, { x, y, z }) {
+// Unbreaking gives each point of wear the same chance to be skipped as vanilla.
+function wearHeld(player, amount) {
+  const tool = player.getComponent("minecraft:equippable")?.getEquipment(EquipmentSlot.Mainhand);
+  const unbreaking = tool?.getComponent("minecraft:enchantable")?.getEnchantment("unbreaking")?.level ?? 0;
+  let worn = 0;
+  for (let i = 0; i < amount; i++) if (Math.random() < 1 / (unbreaking + 1)) worn++;
+  if (worn) wear(player, worn);
+}
+
+// ponytail: an Astra sickle can run 224 setblocks in one tick; spread them over a few ticks if that stutters.
+function sweep(player, dimension, { x, y, z }, reach) {
   let harvested = 1; // the crop the player broke
-  for (let dx = -1; dx <= 1; dx++)
-    for (let dz = -1; dz <= 1; dz++) {
+  for (let dx = -reach; dx <= reach; dx++)
+    for (let dz = -reach; dz <= reach; dz++) {
       const location = { x: x + dx, y, z: z + dz };
       if (!isRipe(dimension.getBlock(location)?.permutation)) continue;
       harvest(dimension, location);
       harvested++;
     }
-  wear(player, harvested);
+  wearHeld(player, harvested);
 }
 
-// The sickle never breaks an unripe crop.
+// Sickles never break an unripe crop.
 world.beforeEvents.playerBreakBlock.subscribe((event) => {
   const { block, itemStack } = event;
-  if (itemStack?.typeId === SICKLE && isCrop(block.typeId) && !isRipe(block.permutation)) event.cancel = true;
+  if (itemStack?.typeId in SICKLES && isCrop(block.typeId) && !isRipe(block.permutation)) event.cancel = true;
 });
 
 // Takes one seed back out of a harvest's drops, so the hoe's replant costs what replanting by hand does.
@@ -106,9 +117,7 @@ function takeSeed(dimension, location, seed) {
 const GEAR_TOOLS = new Set(__GEAR_TOOLS__);
 function wearGearTool(player) {
   const tool = player.getComponent("minecraft:equippable")?.getEquipment(EquipmentSlot.Mainhand);
-  if (!GEAR_TOOLS.has(tool?.typeId)) return;
-  const unbreaking = tool.getComponent("minecraft:enchantable")?.getEnchantment("unbreaking")?.level ?? 0;
-  if (Math.random() < 1 / (unbreaking + 1)) wear(player, 1);
+  if (GEAR_TOOLS.has(tool?.typeId)) wearHeld(player, 1);
 }
 world.afterEvents.playerBreakBlock.subscribe(({ player }) => wearGearTool(player));
 world.afterEvents.entityHurt.subscribe(({ damageSource }) => {
@@ -167,15 +176,26 @@ world.beforeEvents.playerInteractWithBlock.subscribe((event) => {
   });
 });
 
+// Hoes harvest and replant a ripe crop, or till dirt and grass with air above it, as vanilla hoes do.
+const TILLABLE = new Set(["minecraft:grass_block", "minecraft:dirt", "minecraft:dirt_path"]);
+const canTill = (block) => TILLABLE.has(block?.typeId) && !!block.above()?.isAir;
 world.beforeEvents.playerInteractWithBlock.subscribe((event) => {
   const { block, itemStack, player, isFirstEvent } = event;
-  if (itemStack?.typeId !== HOE || !isRipe(block.permutation)) return;
+  if (!HOES.has(itemStack?.typeId)) return;
+  const ripe = isRipe(block.permutation);
+  if (!ripe && !canTill(block)) return;
   event.cancel = true;
   if (!isFirstEvent) return; // holding the button repeats the event
-  const { dimension, location, permutation: ripe } = block;
+  const { dimension, location, permutation } = block;
   system.run(() => {
-    harvestAndReplant(dimension, location, ripe);
-    if (player.isValid) wear(player, 1);
+    if (ripe) harvestAndReplant(dimension, location, permutation);
+    else {
+      const soil = dimension.getBlock(location);
+      if (!canTill(soil)) return;
+      soil.setType("minecraft:farmland");
+      dimension.playSound("dig.gravel", location);
+    }
+    if (player.isValid) wearHeld(player, 1);
   });
 });
 
@@ -214,7 +234,7 @@ world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
 
 // Grass: only players cut it, and it often drops nothing, so this one stays a player event.
 world.afterEvents.playerBreakBlock.subscribe(({ block, brokenBlockPermutation: broken, itemStackBeforeBreak: tool, player, dimension }) => {
-  if (tool?.typeId === SICKLE && isRipe(broken)) sweep(player, dimension, block.location);
+  if (tool?.typeId in SICKLES && isRipe(broken)) sweep(player, dimension, block.location, SICKLES[tool.typeId]);
   if (player.getGameMode() === GameMode.Creative) return;
   if (GRASS.has(broken.type.id) && Math.random() < GRASS_CHANCE) drop(dimension, "__ESSENCE__", block.center());
 });

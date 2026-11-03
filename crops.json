@@ -1,7 +1,7 @@
 {
   "name": "Essence & Earth",
   "namespace": "ee",
-  "version": [0, 24, 0],
+  "version": [0, 25, 0],
   "balance": {
     "growChance": 0.43,
     "grassEssenceChance": 0.2,
@@ -54,6 +54,7 @@
     },
     "gear": {
       "toolDurability": [2000, 2800, 4000, 6000, 0],
+      "sickleRadius": [3, 4, 5, 6, 7],
       "miningSpeed": [9, 11, 14, 19, 25],
       "attack": [4, 6, 9, 13, 20],
       "toolAttackBonus": { "sword": 4, "pickaxe": 2, "axe": 6, "shovel": 2 },

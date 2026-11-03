@@ -6,6 +6,16 @@ Before starting: upload the latest `addon/*.mcaddon` to the server, and use crea
 
 # Still to test
 
+## Tiered sickles and hoes (v0.25.0)
+
+- [ ] The Essence Sickle and Hoe now look plain steel, and the Terra to Astra sickles and hoes each show their tier's crystal colour, in the inventory and in the hand.
+- [ ] **Upgrading:** an Essence Sickle on the altar, with 2 Terra Gemstones and 2 Terra Ingots, makes a Terra Sickle. The same works for the hoe, and for each tier after. Damage, enchantments and names carry over.
+- [ ] **Reach:** a Terra Sickle harvests every ripe crop in a 7×7 around the crop you break, and an Astra Sickle 15×15. Unripe crops are left alone. **Note any stutter** with the Astra Sickle on a full field.
+- [ ] **Wear:** a Terra Sickle loses 1 durability per crop harvested. An Astra Sickle and Hoe never lose any. Unbreaking III on a Terra Sickle makes it lose about a quarter as much.
+- [ ] **Hoes:** every hoe, including the Essence Hoe, still harvests and replants a ripe crop. Right-clicking grass, dirt or a path with air above turns it into farmland and costs 1 durability. Dirt under a block doesn't till.
+- [ ] The altar enchants a tiered sickle or hoe with Unbreaking, Efficiency or Mending.
+- [ ] The Guide's Tools and Armor and Tools pages, and the wiki's Tools pages, list the new tiers.
+
 ## Tinkering Table and augments (v0.24.0)
 
 Quickest setup, on a test world: stand somewhere open and run `/function ee/test_augments`. It clears your inventory, then builds a floor with a Tinkering Table and an Infusion Altar, and gives you the gear, augments and altar ingredients. `/function ee/test_augments_off` puts the game rules back.

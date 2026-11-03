@@ -1,17 +1,17 @@
 {
  "name": "Essence & Earth",
  "release": {
-  "version": "0.24.0",
-  "file": "EssenceAndEarth_v0.24.0.mcaddon",
+  "version": "0.25.0",
+  "file": "EssenceAndEarth_v0.25.0.mcaddon",
   "minBedrock": "1.21.90",
-  "download": "https://github.com/MedievalRose-Nick/EssenceAndEarth/raw/main/addon/EssenceAndEarth_v0.24.0.mcaddon",
+  "download": "https://github.com/MedievalRose-Nick/EssenceAndEarth/raw/main/addon/EssenceAndEarth_v0.25.0.mcaddon",
   "repo": "https://github.com/MedievalRose-Nick/EssenceAndEarth"
  },
  "stats": {
   "crops": 54,
   "tiers": 5,
   "recipes": 352,
-  "items": 319
+  "items": 329
  },
  "categories": [
   {
@@ -3770,7 +3770,7 @@
    "title": "Tools",
    "group": "Getting started",
    "icon": "img/icons/essence_sickle.png",
-   "blurb": "A sickle that harvests 3×3 and a hoe that replants as it harvests.",
+   "blurb": "A sickle that harvests 3×3 and a hoe that replants as it harvests, with five stronger tiers of each.",
    "entries": [
     {
      "slug": "essence-sickle",
@@ -3810,6 +3810,40 @@
       {
        "t": "p",
        "html": "Breaking a ripe crop also harvests every ripe crop around it. Unripe crops are left alone, and the sickle won't break one even if you hit it directly. Farmland bonus essence and second seeds work as normal."
+      },
+      {
+       "t": "p",
+       "html": "Upgrade it at the Infusion Altar for a wider sweep, the same way as armor:"
+      },
+      {
+       "t": "items",
+       "items": [
+        {
+         "name": "Terra Sickle",
+         "icon": "img/icons/terra_sickle.png",
+         "sub": "7×7, 2,000 durability"
+        },
+        {
+         "name": "Aqua Sickle",
+         "icon": "img/icons/aqua_sickle.png",
+         "sub": "9×9, 2,800 durability"
+        },
+        {
+         "name": "Ignis Sickle",
+         "icon": "img/icons/ignis_sickle.png",
+         "sub": "11×11, 4,000 durability"
+        },
+        {
+         "name": "Aether Sickle",
+         "icon": "img/icons/aether_sickle.png",
+         "sub": "13×13, 6,000 durability"
+        },
+        {
+         "name": "Astra Sickle",
+         "icon": "img/icons/astra_sickle.png",
+         "sub": "15×15, never breaks"
+        }
+       ]
       },
       {
        "t": "h2",
@@ -3873,11 +3907,11 @@
        "facts": [
         [
          "Use",
-         "Right-click a ripe crop"
+         "Right-click a ripe crop, or dirt and grass to till it"
         ],
         [
          "Wear",
-         "1 durability per crop"
+         "1 durability per crop or block tilled"
         ],
         [
          "Durability",
@@ -3895,7 +3929,41 @@
       },
       {
        "t": "p",
-       "html": "The crop drops as normal and restarts at its first stage. The replant takes one seed from the drops, so it costs the same as replanting by hand. The hoe doesn't till dirt."
+       "html": "The crop drops as normal and restarts at its first stage. The replant takes one seed from the drops, so it costs the same as replanting by hand."
+      },
+      {
+       "t": "p",
+       "html": "Upgrade it at the Infusion Altar for more durability, the same way as armor:"
+      },
+      {
+       "t": "items",
+       "items": [
+        {
+         "name": "Terra Hoe",
+         "icon": "img/icons/terra_hoe.png",
+         "sub": "2,000 durability"
+        },
+        {
+         "name": "Aqua Hoe",
+         "icon": "img/icons/aqua_hoe.png",
+         "sub": "2,800 durability"
+        },
+        {
+         "name": "Ignis Hoe",
+         "icon": "img/icons/ignis_hoe.png",
+         "sub": "4,000 durability"
+        },
+        {
+         "name": "Aether Hoe",
+         "icon": "img/icons/aether_hoe.png",
+         "sub": "6,000 durability"
+        },
+        {
+         "name": "Astra Hoe",
+         "icon": "img/icons/astra_hoe.png",
+         "sub": "Never breaks"
+        }
+       ]
       },
       {
        "t": "h2",
@@ -4010,6 +4078,25 @@
        ]
       },
       {
+       "t": "p",
+       "html": "The sickle and hoe upgrade from the Essence Sickle and Hoe instead."
+      },
+      {
+       "t": "items",
+       "items": [
+        {
+         "name": "Terra Sickle",
+         "icon": "img/icons/terra_sickle.png",
+         "sub": "Harvests 7×7"
+        },
+        {
+         "name": "Terra Hoe",
+         "icon": "img/icons/terra_hoe.png",
+         "sub": "Replants and tills"
+        }
+       ]
+      },
+      {
        "t": "h2",
        "text": "Armor"
       },
@@ -4094,6 +4181,25 @@
          "name": "Aqua Shovel",
          "icon": "img/icons/aqua_shovel.png",
          "sub": "8 attack damage"
+        }
+       ]
+      },
+      {
+       "t": "p",
+       "html": "The sickle and hoe upgrade from the Terra ones instead."
+      },
+      {
+       "t": "items",
+       "items": [
+        {
+         "name": "Aqua Sickle",
+         "icon": "img/icons/aqua_sickle.png",
+         "sub": "Harvests 9×9"
+        },
+        {
+         "name": "Aqua Hoe",
+         "icon": "img/icons/aqua_hoe.png",
+         "sub": "Replants and tills"
         }
        ]
       },
@@ -4186,6 +4292,25 @@
        ]
       },
       {
+       "t": "p",
+       "html": "The sickle and hoe upgrade from the Aqua ones instead."
+      },
+      {
+       "t": "items",
+       "items": [
+        {
+         "name": "Ignis Sickle",
+         "icon": "img/icons/ignis_sickle.png",
+         "sub": "Harvests 11×11"
+        },
+        {
+         "name": "Ignis Hoe",
+         "icon": "img/icons/ignis_hoe.png",
+         "sub": "Replants and tills"
+        }
+       ]
+      },
+      {
        "t": "h2",
        "text": "Armor"
       },
@@ -4274,6 +4399,25 @@
        ]
       },
       {
+       "t": "p",
+       "html": "The sickle and hoe upgrade from the Ignis ones instead."
+      },
+      {
+       "t": "items",
+       "items": [
+        {
+         "name": "Aether Sickle",
+         "icon": "img/icons/aether_sickle.png",
+         "sub": "Harvests 13×13"
+        },
+        {
+         "name": "Aether Hoe",
+         "icon": "img/icons/aether_hoe.png",
+         "sub": "Replants and tills"
+        }
+       ]
+      },
+      {
        "t": "h2",
        "text": "Armor"
       },
@@ -4358,6 +4502,25 @@
          "name": "Astra Shovel",
          "icon": "img/icons/astra_shovel.png",
          "sub": "22 attack damage"
+        }
+       ]
+      },
+      {
+       "t": "p",
+       "html": "The sickle and hoe upgrade from the Aether ones instead."
+      },
+      {
+       "t": "items",
+       "items": [
+        {
+         "name": "Astra Sickle",
+         "icon": "img/icons/astra_sickle.png",
+         "sub": "Harvests 15×15"
+        },
+        {
+         "name": "Astra Hoe",
+         "icon": "img/icons/astra_hoe.png",
+         "sub": "Replants and tills"
         }
        ]
       },
@@ -45153,6 +45316,14 @@
      "icon": "img/icons/terra_shovel.png"
     },
     {
+     "name": "Terra Sickle",
+     "icon": "img/icons/terra_sickle.png"
+    },
+    {
+     "name": "Terra Hoe",
+     "icon": "img/icons/terra_hoe.png"
+    },
+    {
      "name": "Aqua Helmet",
      "icon": "img/icons/aqua_helmet.png"
     },
@@ -45183,6 +45354,14 @@
     {
      "name": "Aqua Shovel",
      "icon": "img/icons/aqua_shovel.png"
+    },
+    {
+     "name": "Aqua Sickle",
+     "icon": "img/icons/aqua_sickle.png"
+    },
+    {
+     "name": "Aqua Hoe",
+     "icon": "img/icons/aqua_hoe.png"
     },
     {
      "name": "Ignis Helmet",
@@ -45217,6 +45396,14 @@
      "icon": "img/icons/ignis_shovel.png"
     },
     {
+     "name": "Ignis Sickle",
+     "icon": "img/icons/ignis_sickle.png"
+    },
+    {
+     "name": "Ignis Hoe",
+     "icon": "img/icons/ignis_hoe.png"
+    },
+    {
      "name": "Aether Helmet",
      "icon": "img/icons/aether_helmet.png"
     },
@@ -45249,6 +45436,14 @@
      "icon": "img/icons/aether_shovel.png"
     },
     {
+     "name": "Aether Sickle",
+     "icon": "img/icons/aether_sickle.png"
+    },
+    {
+     "name": "Aether Hoe",
+     "icon": "img/icons/aether_hoe.png"
+    },
+    {
      "name": "Astra Helmet",
      "icon": "img/icons/astra_helmet.png"
     },
@@ -45279,6 +45474,14 @@
     {
      "name": "Astra Shovel",
      "icon": "img/icons/astra_shovel.png"
+    },
+    {
+     "name": "Astra Sickle",
+     "icon": "img/icons/astra_sickle.png"
+    },
+    {
+     "name": "Astra Hoe",
+     "icon": "img/icons/astra_hoe.png"
     }
    ]
   },
