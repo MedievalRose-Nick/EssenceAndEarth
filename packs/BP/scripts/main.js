@@ -909,10 +909,12 @@ function sortSlots(machine, container) {
     container.setItem(to, container.getItem(from));
     container.setItem(from);
   };
-  for (const slot of [FUEL_SLOT, INPUT_SLOT]) {
+  for (const slot of [FUEL_SLOT, UPGRADE_SLOT, INPUT_SLOT]) {
     const stack = container.getItem(slot);
     if (!stack) continue;
-    if (stack.typeId in MACHINE_UPGRADES) move(slot, UPGRADE_SLOT);
+    if (slot === UPGRADE_SLOT) {
+      if (!(stack.typeId in MACHINE_UPGRADES)) move(slot, !machine.accepts(stack) && burnTicks(stack) ? FUEL_SLOT : INPUT_SLOT);
+    } else if (stack.typeId in MACHINE_UPGRADES) move(slot, UPGRADE_SLOT);
     else if (machine.holdsJars && stack.typeId === JAR) move(slot, OUTPUT_SLOT);
     else if (slot === FUEL_SLOT && !burnTicks(stack)) move(slot, INPUT_SLOT);
     else if (slot === INPUT_SLOT && !machine.accepts(stack) && burnTicks(stack)) move(slot, FUEL_SLOT);
@@ -1083,3 +1085,18 @@ system.runTimeout(() => {
   const overworld = world.getDimension("overworld");
   for (const r of DEEPCORE_RECIPES) overworld.runCommand(`scriptevent dq:add_recipe ${JSON.stringify(r)}`);
 }, 20);
+
+// Readout for /function ee/test_wear: health and the held tool's durability, plus each hit's damage after armor.
+system.runInterval(() => {
+  for (const player of world.getPlayers({ tags: ["ee_test"] })) {
+    const health = player.getComponent("minecraft:health")?.currentValue ?? 0;
+    const tool = player.getComponent("minecraft:equippable")?.getEquipment(EquipmentSlot.Mainhand);
+    const d = tool?.getComponent("minecraft:durability");
+    const wear = d ? ` | ${tool.typeId.replace(/^\w+:/, "")} ${d.maxDurability - d.damage}/${d.maxDurability}` : "";
+    player.onScreenDisplay.setActionBar(`Health ${health.toFixed(1)}${wear}`);
+  }
+}, 5);
+world.afterEvents.entityHurt.subscribe(({ hurtEntity, damage, damageSource }) => {
+  if (hurtEntity.typeId === "minecraft:player" && hurtEntity.hasTag("ee_test"))
+    hurtEntity.sendMessage(`Took ${damage.toFixed(2)} damage from ${damageSource.cause}`);
+});
