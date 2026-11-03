@@ -177,7 +177,8 @@ world.beforeEvents.playerInteractWithBlock.subscribe((event) => {
 });
 
 // Hoes harvest and replant a ripe crop, or till dirt and grass with air above it, as vanilla hoes do.
-const TILLABLE = new Set(["minecraft:grass_block", "minecraft:dirt", "minecraft:dirt_path"]);
+// A Tilling augment tills the square around it too while sneaking.
+const TILLABLE = new Set(["minecraft:grass_block", "minecraft:dirt", "minecraft:grass_path"]);
 const canTill = (block) => TILLABLE.has(block?.typeId) && !!block.above()?.isAir;
 world.beforeEvents.playerInteractWithBlock.subscribe((event) => {
   const { block, itemStack, player, isFirstEvent } = event;
@@ -188,14 +189,16 @@ world.beforeEvents.playerInteractWithBlock.subscribe((event) => {
   if (!isFirstEvent) return; // holding the button repeats the event
   const { dimension, location, permutation } = block;
   system.run(() => {
-    if (ripe) harvestAndReplant(dimension, location, permutation);
-    else {
-      const soil = dimension.getBlock(location);
-      if (!canTill(soil)) return;
-      soil.setType("minecraft:farmland");
-      dimension.playSound("dig.gravel", location);
+    if (!player.isValid) return;
+    if (ripe) {
+      harvestAndReplant(dimension, location, permutation);
+      wearHeld(player, 1);
+      return;
     }
-    if (player.isValid) wearHeld(player, 1);
+    const tilled = reshape(dimension, location, canTill, "minecraft:farmland", player.isSneaking ? heldArea(player, "till") : 0);
+    if (!tilled) return;
+    dimension.playSound("dig.gravel", location);
+    wearHeld(player, tilled);
   });
 });
 
@@ -1313,6 +1316,97 @@ world.afterEvents.entityHurt.subscribe(({ hurtEntity, damageSource }) => {
   if (!health || health.currentValue <= 0) return;
   if (health.currentValue > bonus) health.setCurrentValue(health.currentValue - bonus);
   else hurtEntity.applyDamage(1000, { cause: "magic", damagingEntity: player });
+});
+
+// Area augments, from MA. Mining breaks a square on the face hit, unless sneaking. Attack hits the mobs around the target.
+// Tilling (with the hoes above) and Pathing work on a square while sneaking. Every extra block or hit wears the tool by 1.
+function heldArea(player, kind) {
+  const a = AUGMENTS[player.getComponent("minecraft:equippable")?.getEquipment(EquipmentSlot.Mainhand)?.getDynamicProperty(AUGMENT)];
+  return a?.area === kind ? a.reach : 0;
+}
+
+// The square around a block, flat across the axis given, without the block itself.
+function* square({ x, y, z }, axis, reach) {
+  for (let i = -reach; i <= reach; i++)
+    for (let j = -reach; j <= reach; j++) {
+      if (!i && !j) continue;
+      yield axis === "y" ? { x: x + i, y, z: z + j } : axis === "x" ? { x, y: y + i, z: z + j } : { x: x + i, y: y + j, z };
+    }
+}
+
+// Turns a block, and the flat square around it, into another block where `can` allows. Returns how many changed.
+function reshape(dimension, center, can, into, reach) {
+  let changed = 0;
+  for (const location of [center, ...square(center, "y", reach)]) {
+    const block = dimension.getBlock(location);
+    if (!can(block)) continue;
+    block.setType(into);
+    changed++;
+  }
+  return changed;
+}
+
+// Mining only takes blocks the tool is made for, and leaves containers, machines and unbreakable blocks alone.
+// `loot ... mainhand` uses the held tool, so Fortune and Silk Touch apply.
+// ponytail: no experience from area-mined ores, and no hardness check (MA skips blocks much harder than the one hit); add if missed.
+const DIGS = { pickaxe: "minecraft:is_pickaxe_item_destructible", axe: "minecraft:is_axe_item_destructible", shovel: "minecraft:is_shovel_item_destructible" };
+const NO_AREA_MINING = new Set([
+  "minecraft:bedrock", "minecraft:barrier", "minecraft:end_portal_frame", "minecraft:reinforced_deepslate",
+  HARVESTER, ALTAR, PEDESTAL, "__NS__:tinkering_table", "__NS__:seed_reprocessor", "__NS__:soul_extractor", "__NS__:essence_furnace",
+]);
+world.afterEvents.playerBreakBlock.subscribe(({ block, brokenBlockPermutation: broken, itemStackBeforeBreak: tool, player, dimension }) => {
+  const a = AUGMENTS[tool?.getDynamicProperty(AUGMENT)];
+  const tag = DIGS[GEAR_PIECES[tool?.typeId]?.piece];
+  if (a?.area !== "mine" || !tag || player.isSneaking || !broken.hasTag(tag)) return;
+  // The face hit is taken from where the player looks: mostly down or up mines flat, otherwise a wall.
+  const view = player.getViewDirection();
+  const [ax, ay, az] = [Math.abs(view.x), Math.abs(view.y), Math.abs(view.z)];
+  const axis = ay >= ax && ay >= az ? "y" : ax >= az ? "x" : "z";
+  const creative = player.getGameMode() === GameMode.Creative;
+  let mined = 0;
+  for (const location of square(block.location, axis, a.reach)) {
+    const target = dimension.getBlock(location);
+    if (!target || NO_AREA_MINING.has(target.typeId) || !target.hasTag(tag) || target.getComponent("minecraft:inventory")) continue;
+    const { x, y, z } = location;
+    if (!creative) player.runCommand(`loot spawn ${x} ${y} ${z} mine ${x} ${y} ${z} mainhand`);
+    target.setType("minecraft:air");
+    mined++;
+  }
+  wearHeld(player, mined);
+});
+
+// Attack's extra hits are magic damage from the player, so they still count as player kills but don't set off this or Strength again.
+world.afterEvents.entityHurt.subscribe(({ hurtEntity, damageSource }) => {
+  const player = damageSource.damagingEntity;
+  if (player?.typeId !== "minecraft:player" || damageSource.cause !== "entityAttack" || !hurtEntity.isValid) return;
+  const reach = heldArea(player, "attack");
+  if (!reach) return;
+  let hit = 0;
+  const near = hurtEntity.dimension.getEntities({ location: hurtEntity.location, maxDistance: reach * 1.5 + 0.5, excludeFamilies: ["player", "inanimate"], excludeTypes: ["minecraft:item", "minecraft:xp_orb"] });
+  for (const mob of near) {
+    if (mob.id === hurtEntity.id || !mob.getComponent("minecraft:health") || mob.getComponent("minecraft:is_tamed")) continue;
+    if (mob.applyDamage(5 + 5 * reach, { cause: "magic", damagingEntity: player })) hit++;
+  }
+  if (!hit) return;
+  player.dimension.playSound("game.player.attack.strong", player.location);
+  wearHeld(player, hit);
+});
+
+const PATHABLE = new Set(["minecraft:grass_block", "minecraft:dirt", "minecraft:coarse_dirt", "minecraft:podzol", "minecraft:mycelium", "minecraft:dirt_with_roots"]);
+const canPath = (block) => PATHABLE.has(block?.typeId) && !!block.above()?.isAir;
+world.beforeEvents.playerInteractWithBlock.subscribe((event) => {
+  const { block, player, isFirstEvent } = event;
+  if (!player.isSneaking || !heldArea(player, "path") || !canPath(block)) return;
+  event.cancel = true;
+  if (!isFirstEvent) return; // holding the button repeats the event
+  const { dimension, location } = block;
+  system.run(() => {
+    if (!player.isValid) return;
+    const made = reshape(dimension, location, canPath, "minecraft:grass_path", heldArea(player, "path"));
+    if (!made) return;
+    dimension.playSound("use.grass", location);
+    wearHeld(player, made);
+  });
 });
 
 // Deepcore's Geo Scanner only counts ores it's told about (github.com/baseballr/Deepcore/issues/8).

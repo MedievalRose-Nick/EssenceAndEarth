@@ -690,7 +690,7 @@ const GEAR_RECIPES = cfg.tiers.flatMap((t, i) => GEAR_PIECES.map((piece) => ({
 // Augments, MA's list minus Luck and Step Assist. Each level is made at the altar from a Blank Augment, or from the level below,
 // with 4 tier essence and 4 of the material (two materials go 2 and 2). The Tinkering Table fits them, and scripts/main.js applies them.
 const ROMAN = ["I", "II", "III", "IV", "V"];
-const AUGMENT_PIECES = { armor: Object.keys(GEAR_ARMOR) };
+const AUGMENT_PIECES = { armor: Object.keys(GEAR_ARMOR), digger: ["pickaxe", "axe", "shovel"] };
 const AUGMENT_LEVELS = cfg.augments.flatMap((a) => a.tiers.map((tier, k) => {
   const multi = a.tiers.length > 1;
   const materials = Array.isArray(a.materials[0]) ? a.materials[k] : a.materials;
@@ -703,9 +703,9 @@ const AUGMENT_LEVELS = cfg.augments.flatMap((a) => a.tiers.map((tier, k) => {
     ingredients: [...materials.flatMap((m) => Array(4 / materials.length).fill(m)), ...Array(4).fill(`${NS}:${cfg.tiers[tier - 1].id}_essence`)],
   };
 }));
-for (const l of AUGMENT_LEVELS) if (!l.pieces.every((p) => p in GEAR_ARMOR || p in GEAR_TOOLS)) throw new Error(`augment ${l.id} goes on an unknown piece`);
+for (const l of AUGMENT_LEVELS) if (!l.pieces.every((p) => GEAR_PIECES.includes(p))) throw new Error(`augment ${l.id} goes on an unknown piece`);
 const AUGMENT_RECIPES = AUGMENT_LEVELS.map((l, i) => ({ input: `${NS}:${l.level > 1 ? AUGMENT_LEVELS[i - 1].id : "blank_augment"}`, ingredients: l.ingredients, output: `${NS}:${l.id}` }));
-const piecesText = (pieces) => (pieces.length === 4 ? "any armor piece" : pieces.join(" or "));
+const piecesText = (pieces) => (pieces.length === 4 ? "any armor piece" : pieces.length > 1 ? `${pieces.slice(0, -1).join(", ")} or ${pieces.at(-1)}` : pieces[0]);
 
 const toHsl = (r, g, b) => {
   [r, g, b] = [r / 255, g / 255, b / 255];
@@ -783,8 +783,8 @@ GUIDE_PAGES.splice(GUIDE_PAGES.findIndex((g) => g.title === "Crops by Tier"), 0,
   { title: "Essence Furnace", body: `A furnace that takes Machine Upgrades. One block, with no tiers to craft: each upgrade makes it faster but burn more fuel.\n\nPut fuel and an upgrade on the left, what you're smelting in the middle, and take the result on the right. A chest on top feeds it items and fuel, and a chest at its back takes the result. Logs in that chest get smelted, not burned.\n\nIt only knows common recipes: ores and raw metals, sand, stone, clay, food, logs and a few others. Use a normal furnace for anything else. It gives no experience.` },
   { title: "Armor and Tools", body: `Each tier has a helmet, chestplate, leggings, boots, sword, pickaxe, axe, shovel, sickle and hoe. Make them at the Infusion Altar: put the piece on the altar, and 2 Gemstones and 2 Ingots of the new tier on the pedestals, leaving the other pedestals empty. Use the wand.\n\n${tierTitle(cfg.tiers[0])} gear starts from diamond gear, or the Essence Sickle and Hoe, and each later tier upgrades the one below it. Enchantments, damage and names carry over.\n\nRepair gear with its tier's Gemstones on an anvil. ${tierTitle(cfg.tiers[4])} tools never break.` },
   { title: "Enchanting", body: `Enchant at the Infusion Altar. Put a book or the item to enchant on the altar. On the pedestals, put 4 Experience Essence and 4 of the enchantment's ingredient. Use the wand.\n\nEach craft adds one level, so craft again with the same items to go higher. A book becomes an Enchanted Book for the anvil. Enchantments that clash can't be combined.\n\nIngredients:\n${ENCHANT_RECIPES.map((r) => `${title(r.enchant)}: ${title(r.ingredient.split(":")[1])}`).join("\n")}` },
-  { title: "Tinkering Table", body: `Fits augments to ${tierTitle(cfg.tiers[0])} to ${tierTitle(cfg.tiers[4])} armor and swords. Craft it from 7 stone with 2 Anima Dust in the middle row.\n\nTap it with an empty hand to open it. Put the gear in the left slot and an augment in the right slot, and it's fitted straight away.\n\nEach piece holds one augment. An augment only fits the pieces it's made for, and only gear of its tier or higher. The bottom line says why one won't fit.\n\nTake the augment back out to remove it. Taking the gear out takes its augment with it. Augments stay on through upgrades at the altar.` },
-  { title: "Augments", body: `Make augments at the Infusion Altar. Put a Blank Augment on the altar, with 4 tier essence and 4 of the material on the pedestals. Where there are two materials, use 2 of each. For a higher level, put the level below on the altar instead.\n\nBlank Augment: 6 Vita Shards and 3 iron ingots, in two columns of shards with iron down the middle.\n\nFlight: hold jump to rise, let go to hover, and sneak to sink.\n\n${cfg.augments.map((a) => {
+  { title: "Tinkering Table", body: `Fits augments to ${tierTitle(cfg.tiers[0])} to ${tierTitle(cfg.tiers[4])} armor, swords and tools. Craft it from 7 stone with 2 Anima Dust in the middle row.\n\nTap it with an empty hand to open it. Put the gear in the left slot and an augment in the right slot, and it's fitted straight away.\n\nEach piece holds one augment. An augment only fits the pieces it's made for, and only gear of its tier or higher. The bottom line says why one won't fit.\n\nTake the augment back out to remove it. Taking the gear out takes its augment with it. Augments stay on through upgrades at the altar.` },
+  { title: "Augments", body: `Make augments at the Infusion Altar. Put a Blank Augment on the altar, with 4 tier essence and 4 of the material on the pedestals. Where there are two materials, use 2 of each. For a higher level, put the level below on the altar instead.\n\nBlank Augment: 6 Vita Shards and 3 iron ingots, in two columns of shards with iron down the middle.\n\nFlight: hold jump to rise, let go to hover, and sneak to sink.\n\nMining breaks a square of blocks on the face you hit, from 3x3 at I to 9x9 at IV. Sneak to mine just one. Attack hits the mobs around your target too. Tilling and Pathing work on a square while you sneak. Each extra block or hit costs 1 durability.\n\n${cfg.augments.map((a) => {
     const levels = AUGMENT_LEVELS.filter((l) => l.augment === a);
     const tiers = [...new Set(a.tiers)].map((n) => tierTitle(cfg.tiers[n - 1]));
     const named = (l) => [...new Set(l.ingredients.filter((id) => !id.endsWith("_essence")))].map((id) => title(id.split(":")[1]).toLowerCase());
@@ -826,6 +826,7 @@ for (const file of fs.readdirSync(path.join(BP, "scripts"), { recursive: true })
         ...(a.damage && { damage: a.damage[level - 1] }),
         ...(a.flight && { flight: true }),
         ...(a.noFall && { noFall: true }),
+        ...(a.area && { area: a.area, reach: a.reach[level - 1] }),
       }]))))
       .replaceAll("__ENCHANT_RECIPES__", JSON.stringify(ENCHANT_RECIPES.map(({ enchant, ingredients }) => ({ enchant, ingredients }))))
       .replaceAll("__REPROCESS__", JSON.stringify(Object.fromEntries(cfg.crops.filter((c) => !c.retired).map((c) => [`${NS}:${c.id}_seeds`, `${NS}:${c.id}_essence`]))))

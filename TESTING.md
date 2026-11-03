@@ -6,6 +6,18 @@ Before starting: upload the latest `addon/*.mcaddon` to the server, and use crea
 
 # Still to test
 
+## Area augments (v0.26.0)
+
+Quickest setup, on a test world: stand somewhere flat and run `/function ee/test_tools`. It also covers the v0.25.0 sickle and hoe checks below. `/function ee/test_tools_off` puts the game rules back.
+
+- [ ] **Fitting:** Mining fits a pickaxe, axe or shovel, Attack a sword, Tilling a tiered hoe (not the Essence Hoe), and Pathing a shovel. Each says so when put on the wrong piece.
+- [ ] **Mining IV** on an Astra pickaxe breaks 9×9 on a wall facing you, and 9×9 flat when you mine straight down. **Note if the square ever lies the wrong way**, such as when looking slightly up or down at a wall. Sneaking mines one block.
+- [ ] Mining drops what the pickaxe would: Fortune gives extra raw iron, and Silk Touch gives the ore. It skips chests, machines and bedrock, and an axe with Mining only takes wood. Area-mined ores give no experience.
+- [ ] **Attack III** on a sword: hitting one zombie in a group hurts the others too, and kills still fill a Soul Jar. Tamed wolves and other players aren't hit.
+- [ ] **Tilling IV:** sneaking and using the hoe on dirt tills 9×9. Without sneaking it tills one block.
+- [ ] **Pathing IV:** sneaking and using the shovel on grass or dirt makes 9×9 of path. **Also check that a tiered shovel makes a single path without sneaking**, as it isn't a vanilla shovel.
+- [ ] Each extra block or hit costs 1 durability on a Terra-to-Aether tool. **Note any stutter** at 9×9.
+
 ## Tiered sickles and hoes (v0.25.0)
 
 - [ ] The Essence Sickle and Hoe now look plain steel, and the Terra to Astra sickles and hoes each show their tier's crystal colour, in the inventory and in the hand.

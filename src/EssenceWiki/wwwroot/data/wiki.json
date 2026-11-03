@@ -1,17 +1,17 @@
 {
  "name": "Essence & Earth",
  "release": {
-  "version": "0.25.0",
-  "file": "EssenceAndEarth_v0.25.0.mcaddon",
+  "version": "0.26.0",
+  "file": "EssenceAndEarth_v0.26.0.mcaddon",
   "minBedrock": "1.21.90",
-  "download": "https://github.com/MedievalRose-Nick/EssenceAndEarth/raw/main/addon/EssenceAndEarth_v0.25.0.mcaddon",
+  "download": "https://github.com/MedievalRose-Nick/EssenceAndEarth/raw/main/addon/EssenceAndEarth_v0.26.0.mcaddon",
   "repo": "https://github.com/MedievalRose-Nick/EssenceAndEarth"
  },
  "stats": {
   "crops": 54,
   "tiers": 5,
-  "recipes": 352,
-  "items": 329
+  "recipes": 367,
+  "items": 344
  },
  "categories": [
   {
@@ -4563,13 +4563,13 @@
    "title": "Augments",
    "group": "Getting started",
    "icon": "img/icons/speed_i_augment.png",
-   "blurb": "Effects for your armor and swords, fitted at the Tinkering Table.",
+   "blurb": "Effects for your armor, swords and tools, fitted at the Tinkering Table.",
    "entries": [
     {
      "slug": "tinkering-table",
      "name": "Tinkering Table",
      "icon": "img/icons/tinkering_table_top.png",
-     "summary": "Fits augments to armor and swords.",
+     "summary": "Fits augments to armor, swords and tools.",
      "blocks": [
       {
        "t": "facts",
@@ -7788,6 +7788,1150 @@
       }
      ],
      "href": "wiki/augments/strength"
+    },
+    {
+     "slug": "mining",
+     "name": "Mining Augment",
+     "icon": "img/icons/mining_i_augment.png",
+     "summary": "Pickaxe, axe or shovel. Mines 3×3 on the face you hit. Sneak to mine one block.",
+     "blocks": [
+      {
+       "t": "facts",
+       "facts": [
+        [
+         "Goes on",
+         "Pickaxe, axe or shovel"
+        ],
+        [
+         "Levels",
+         "I to IV"
+        ],
+        [
+         "Needs",
+         "Aqua gear for I, Ignis gear for II, Aether gear for III, Astra gear for IV"
+        ]
+       ]
+      },
+      {
+       "t": "items",
+       "items": [
+        {
+         "name": "Mining I Augment",
+         "icon": "img/icons/mining_i_augment.png",
+         "sub": "Mines 3×3 on the face you hit. Sneak to mine one block"
+        },
+        {
+         "name": "Mining II Augment",
+         "icon": "img/icons/mining_ii_augment.png",
+         "sub": "Mines 5×5 on the face you hit. Sneak to mine one block"
+        },
+        {
+         "name": "Mining III Augment",
+         "icon": "img/icons/mining_iii_augment.png",
+         "sub": "Mines 7×7 on the face you hit. Sneak to mine one block"
+        },
+        {
+         "name": "Mining IV Augment",
+         "icon": "img/icons/mining_iv_augment.png",
+         "sub": "Mines 9×9 on the face you hit. Sneak to mine one block"
+        }
+       ]
+      },
+      {
+       "t": "h2",
+       "text": "Mining I Augment"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Mining I Augment",
+        "icon": "img/icons/mining_i_augment.png",
+        "href": "wiki/augments/mining",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Aqua Essence",
+          "icon": "img/icons/aqua_essence.png",
+          "href": "wiki/essence/aqua-essence"
+         },
+         {
+          "name": "Iron Pickaxe",
+          "icon": "img/vanilla/iron_pickaxe.png"
+         },
+         {
+          "name": "Aqua Essence",
+          "icon": "img/icons/aqua_essence.png",
+          "href": "wiki/essence/aqua-essence"
+         }
+        ],
+        [
+         {
+          "name": "Iron Pickaxe",
+          "icon": "img/vanilla/iron_pickaxe.png"
+         },
+         {
+          "name": "Blank Augment",
+          "icon": "img/icons/blank_augment.png",
+          "href": "wiki/augments/tinkering-table"
+         },
+         {
+          "name": "Iron Pickaxe",
+          "icon": "img/vanilla/iron_pickaxe.png"
+         }
+        ],
+        [
+         {
+          "name": "Aqua Essence",
+          "icon": "img/icons/aqua_essence.png",
+          "href": "wiki/essence/aqua-essence"
+         },
+         {
+          "name": "Iron Pickaxe",
+          "icon": "img/vanilla/iron_pickaxe.png"
+         },
+         {
+          "name": "Aqua Essence",
+          "icon": "img/icons/aqua_essence.png",
+          "href": "wiki/essence/aqua-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+      },
+      {
+       "t": "h2",
+       "text": "Mining II Augment"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Mining II Augment",
+        "icon": "img/icons/mining_ii_augment.png",
+        "href": "wiki/augments/mining",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         },
+         {
+          "name": "Iron Pickaxe",
+          "icon": "img/vanilla/iron_pickaxe.png"
+         },
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         }
+        ],
+        [
+         {
+          "name": "Iron Pickaxe",
+          "icon": "img/vanilla/iron_pickaxe.png"
+         },
+         {
+          "name": "Mining I Augment",
+          "icon": "img/icons/mining_i_augment.png",
+          "href": "wiki/augments/mining"
+         },
+         {
+          "name": "Iron Pickaxe",
+          "icon": "img/vanilla/iron_pickaxe.png"
+         }
+        ],
+        [
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         },
+         {
+          "name": "Iron Pickaxe",
+          "icon": "img/vanilla/iron_pickaxe.png"
+         },
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+      },
+      {
+       "t": "h2",
+       "text": "Mining III Augment"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Mining III Augment",
+        "icon": "img/icons/mining_iii_augment.png",
+        "href": "wiki/augments/mining",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         },
+         {
+          "name": "Diamond Pickaxe",
+          "icon": "img/vanilla/diamond_pickaxe.png"
+         },
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         }
+        ],
+        [
+         {
+          "name": "Diamond Pickaxe",
+          "icon": "img/vanilla/diamond_pickaxe.png"
+         },
+         {
+          "name": "Mining II Augment",
+          "icon": "img/icons/mining_ii_augment.png",
+          "href": "wiki/augments/mining"
+         },
+         {
+          "name": "Diamond Pickaxe",
+          "icon": "img/vanilla/diamond_pickaxe.png"
+         }
+        ],
+        [
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         },
+         {
+          "name": "Diamond Pickaxe",
+          "icon": "img/vanilla/diamond_pickaxe.png"
+         },
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+      },
+      {
+       "t": "h2",
+       "text": "Mining IV Augment"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Mining IV Augment",
+        "icon": "img/icons/mining_iv_augment.png",
+        "href": "wiki/augments/mining",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Astra Essence",
+          "icon": "img/icons/astra_essence.png",
+          "href": "wiki/essence/astra-essence"
+         },
+         {
+          "name": "Diamond Pickaxe",
+          "icon": "img/vanilla/diamond_pickaxe.png"
+         },
+         {
+          "name": "Astra Essence",
+          "icon": "img/icons/astra_essence.png",
+          "href": "wiki/essence/astra-essence"
+         }
+        ],
+        [
+         {
+          "name": "Diamond Pickaxe",
+          "icon": "img/vanilla/diamond_pickaxe.png"
+         },
+         {
+          "name": "Mining III Augment",
+          "icon": "img/icons/mining_iii_augment.png",
+          "href": "wiki/augments/mining"
+         },
+         {
+          "name": "Diamond Pickaxe",
+          "icon": "img/vanilla/diamond_pickaxe.png"
+         }
+        ],
+        [
+         {
+          "name": "Astra Essence",
+          "icon": "img/icons/astra_essence.png",
+          "href": "wiki/essence/astra-essence"
+         },
+         {
+          "name": "Diamond Pickaxe",
+          "icon": "img/vanilla/diamond_pickaxe.png"
+         },
+         {
+          "name": "Astra Essence",
+          "icon": "img/icons/astra_essence.png",
+          "href": "wiki/essence/astra-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+      }
+     ],
+     "href": "wiki/augments/mining"
+    },
+    {
+     "slug": "attack",
+     "name": "Attack Augment",
+     "icon": "img/icons/attack_i_augment.png",
+     "summary": "Sword. Hits mobs within 1.5 blocks of the target for 10 damage.",
+     "blocks": [
+      {
+       "t": "facts",
+       "facts": [
+        [
+         "Goes on",
+         "Sword"
+        ],
+        [
+         "Levels",
+         "I to III"
+        ],
+        [
+         "Needs",
+         "Ignis gear for I, Aether gear for II, Astra gear for III"
+        ]
+       ]
+      },
+      {
+       "t": "items",
+       "items": [
+        {
+         "name": "Attack I Augment",
+         "icon": "img/icons/attack_i_augment.png",
+         "sub": "Hits mobs within 1.5 blocks of the target for 10 damage"
+        },
+        {
+         "name": "Attack II Augment",
+         "icon": "img/icons/attack_ii_augment.png",
+         "sub": "Hits mobs within 3 blocks of the target for 15 damage"
+        },
+        {
+         "name": "Attack III Augment",
+         "icon": "img/icons/attack_iii_augment.png",
+         "sub": "Hits mobs within 4.5 blocks of the target for 20 damage"
+        }
+       ]
+      },
+      {
+       "t": "h2",
+       "text": "Attack I Augment"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Attack I Augment",
+        "icon": "img/icons/attack_i_augment.png",
+        "href": "wiki/augments/attack",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         },
+         {
+          "name": "Iron Sword",
+          "icon": "img/vanilla/iron_sword.png"
+         },
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         }
+        ],
+        [
+         {
+          "name": "Iron Sword",
+          "icon": "img/vanilla/iron_sword.png"
+         },
+         {
+          "name": "Blank Augment",
+          "icon": "img/icons/blank_augment.png",
+          "href": "wiki/augments/tinkering-table"
+         },
+         {
+          "name": "Iron Sword",
+          "icon": "img/vanilla/iron_sword.png"
+         }
+        ],
+        [
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         },
+         {
+          "name": "Iron Sword",
+          "icon": "img/vanilla/iron_sword.png"
+         },
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+      },
+      {
+       "t": "h2",
+       "text": "Attack II Augment"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Attack II Augment",
+        "icon": "img/icons/attack_ii_augment.png",
+        "href": "wiki/augments/attack",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         },
+         {
+          "name": "Iron Sword",
+          "icon": "img/vanilla/iron_sword.png"
+         },
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         }
+        ],
+        [
+         {
+          "name": "Iron Sword",
+          "icon": "img/vanilla/iron_sword.png"
+         },
+         {
+          "name": "Attack I Augment",
+          "icon": "img/icons/attack_i_augment.png",
+          "href": "wiki/augments/attack"
+         },
+         {
+          "name": "Iron Sword",
+          "icon": "img/vanilla/iron_sword.png"
+         }
+        ],
+        [
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         },
+         {
+          "name": "Iron Sword",
+          "icon": "img/vanilla/iron_sword.png"
+         },
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+      },
+      {
+       "t": "h2",
+       "text": "Attack III Augment"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Attack III Augment",
+        "icon": "img/icons/attack_iii_augment.png",
+        "href": "wiki/augments/attack",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Astra Essence",
+          "icon": "img/icons/astra_essence.png",
+          "href": "wiki/essence/astra-essence"
+         },
+         {
+          "name": "Diamond Sword",
+          "icon": "img/vanilla/diamond_sword.png"
+         },
+         {
+          "name": "Astra Essence",
+          "icon": "img/icons/astra_essence.png",
+          "href": "wiki/essence/astra-essence"
+         }
+        ],
+        [
+         {
+          "name": "Diamond Sword",
+          "icon": "img/vanilla/diamond_sword.png"
+         },
+         {
+          "name": "Attack II Augment",
+          "icon": "img/icons/attack_ii_augment.png",
+          "href": "wiki/augments/attack"
+         },
+         {
+          "name": "Diamond Sword",
+          "icon": "img/vanilla/diamond_sword.png"
+         }
+        ],
+        [
+         {
+          "name": "Astra Essence",
+          "icon": "img/icons/astra_essence.png",
+          "href": "wiki/essence/astra-essence"
+         },
+         {
+          "name": "Diamond Sword",
+          "icon": "img/vanilla/diamond_sword.png"
+         },
+         {
+          "name": "Astra Essence",
+          "icon": "img/icons/astra_essence.png",
+          "href": "wiki/essence/astra-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+      }
+     ],
+     "href": "wiki/augments/attack"
+    },
+    {
+     "slug": "tilling",
+     "name": "Tilling Augment",
+     "icon": "img/icons/tilling_i_augment.png",
+     "summary": "Hoe. Tills 3×3 while you sneak.",
+     "blocks": [
+      {
+       "t": "facts",
+       "facts": [
+        [
+         "Goes on",
+         "Hoe"
+        ],
+        [
+         "Levels",
+         "I to IV"
+        ],
+        [
+         "Needs",
+         "Aqua gear for I, Ignis gear for II, Aether gear for III, Astra gear for IV"
+        ]
+       ]
+      },
+      {
+       "t": "items",
+       "items": [
+        {
+         "name": "Tilling I Augment",
+         "icon": "img/icons/tilling_i_augment.png",
+         "sub": "Tills 3×3 while you sneak"
+        },
+        {
+         "name": "Tilling II Augment",
+         "icon": "img/icons/tilling_ii_augment.png",
+         "sub": "Tills 5×5 while you sneak"
+        },
+        {
+         "name": "Tilling III Augment",
+         "icon": "img/icons/tilling_iii_augment.png",
+         "sub": "Tills 7×7 while you sneak"
+        },
+        {
+         "name": "Tilling IV Augment",
+         "icon": "img/icons/tilling_iv_augment.png",
+         "sub": "Tills 9×9 while you sneak"
+        }
+       ]
+      },
+      {
+       "t": "h2",
+       "text": "Tilling I Augment"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Tilling I Augment",
+        "icon": "img/icons/tilling_i_augment.png",
+        "href": "wiki/augments/tilling",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Aqua Essence",
+          "icon": "img/icons/aqua_essence.png",
+          "href": "wiki/essence/aqua-essence"
+         },
+         {
+          "name": "Iron Hoe",
+          "icon": "img/vanilla/iron_hoe.png"
+         },
+         {
+          "name": "Aqua Essence",
+          "icon": "img/icons/aqua_essence.png",
+          "href": "wiki/essence/aqua-essence"
+         }
+        ],
+        [
+         {
+          "name": "Iron Hoe",
+          "icon": "img/vanilla/iron_hoe.png"
+         },
+         {
+          "name": "Blank Augment",
+          "icon": "img/icons/blank_augment.png",
+          "href": "wiki/augments/tinkering-table"
+         },
+         {
+          "name": "Iron Hoe",
+          "icon": "img/vanilla/iron_hoe.png"
+         }
+        ],
+        [
+         {
+          "name": "Aqua Essence",
+          "icon": "img/icons/aqua_essence.png",
+          "href": "wiki/essence/aqua-essence"
+         },
+         {
+          "name": "Iron Hoe",
+          "icon": "img/vanilla/iron_hoe.png"
+         },
+         {
+          "name": "Aqua Essence",
+          "icon": "img/icons/aqua_essence.png",
+          "href": "wiki/essence/aqua-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+      },
+      {
+       "t": "h2",
+       "text": "Tilling II Augment"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Tilling II Augment",
+        "icon": "img/icons/tilling_ii_augment.png",
+        "href": "wiki/augments/tilling",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         },
+         {
+          "name": "Iron Hoe",
+          "icon": "img/vanilla/iron_hoe.png"
+         },
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         }
+        ],
+        [
+         {
+          "name": "Iron Hoe",
+          "icon": "img/vanilla/iron_hoe.png"
+         },
+         {
+          "name": "Tilling I Augment",
+          "icon": "img/icons/tilling_i_augment.png",
+          "href": "wiki/augments/tilling"
+         },
+         {
+          "name": "Iron Hoe",
+          "icon": "img/vanilla/iron_hoe.png"
+         }
+        ],
+        [
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         },
+         {
+          "name": "Iron Hoe",
+          "icon": "img/vanilla/iron_hoe.png"
+         },
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+      },
+      {
+       "t": "h2",
+       "text": "Tilling III Augment"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Tilling III Augment",
+        "icon": "img/icons/tilling_iii_augment.png",
+        "href": "wiki/augments/tilling",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         },
+         {
+          "name": "Diamond Hoe",
+          "icon": "img/vanilla/diamond_hoe.png"
+         },
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         }
+        ],
+        [
+         {
+          "name": "Diamond Hoe",
+          "icon": "img/vanilla/diamond_hoe.png"
+         },
+         {
+          "name": "Tilling II Augment",
+          "icon": "img/icons/tilling_ii_augment.png",
+          "href": "wiki/augments/tilling"
+         },
+         {
+          "name": "Diamond Hoe",
+          "icon": "img/vanilla/diamond_hoe.png"
+         }
+        ],
+        [
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         },
+         {
+          "name": "Diamond Hoe",
+          "icon": "img/vanilla/diamond_hoe.png"
+         },
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+      },
+      {
+       "t": "h2",
+       "text": "Tilling IV Augment"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Tilling IV Augment",
+        "icon": "img/icons/tilling_iv_augment.png",
+        "href": "wiki/augments/tilling",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Astra Essence",
+          "icon": "img/icons/astra_essence.png",
+          "href": "wiki/essence/astra-essence"
+         },
+         {
+          "name": "Diamond Hoe",
+          "icon": "img/vanilla/diamond_hoe.png"
+         },
+         {
+          "name": "Astra Essence",
+          "icon": "img/icons/astra_essence.png",
+          "href": "wiki/essence/astra-essence"
+         }
+        ],
+        [
+         {
+          "name": "Diamond Hoe",
+          "icon": "img/vanilla/diamond_hoe.png"
+         },
+         {
+          "name": "Tilling III Augment",
+          "icon": "img/icons/tilling_iii_augment.png",
+          "href": "wiki/augments/tilling"
+         },
+         {
+          "name": "Diamond Hoe",
+          "icon": "img/vanilla/diamond_hoe.png"
+         }
+        ],
+        [
+         {
+          "name": "Astra Essence",
+          "icon": "img/icons/astra_essence.png",
+          "href": "wiki/essence/astra-essence"
+         },
+         {
+          "name": "Diamond Hoe",
+          "icon": "img/vanilla/diamond_hoe.png"
+         },
+         {
+          "name": "Astra Essence",
+          "icon": "img/icons/astra_essence.png",
+          "href": "wiki/essence/astra-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+      }
+     ],
+     "href": "wiki/augments/tilling"
+    },
+    {
+     "slug": "pathing",
+     "name": "Pathing Augment",
+     "icon": "img/icons/pathing_i_augment.png",
+     "summary": "Shovel. Makes paths 3×3 while you sneak.",
+     "blocks": [
+      {
+       "t": "facts",
+       "facts": [
+        [
+         "Goes on",
+         "Shovel"
+        ],
+        [
+         "Levels",
+         "I to IV"
+        ],
+        [
+         "Needs",
+         "Terra gear for I, Aqua gear for II, Ignis gear for III, Aether gear for IV"
+        ]
+       ]
+      },
+      {
+       "t": "items",
+       "items": [
+        {
+         "name": "Pathing I Augment",
+         "icon": "img/icons/pathing_i_augment.png",
+         "sub": "Makes paths 3×3 while you sneak"
+        },
+        {
+         "name": "Pathing II Augment",
+         "icon": "img/icons/pathing_ii_augment.png",
+         "sub": "Makes paths 5×5 while you sneak"
+        },
+        {
+         "name": "Pathing III Augment",
+         "icon": "img/icons/pathing_iii_augment.png",
+         "sub": "Makes paths 7×7 while you sneak"
+        },
+        {
+         "name": "Pathing IV Augment",
+         "icon": "img/icons/pathing_iv_augment.png",
+         "sub": "Makes paths 9×9 while you sneak"
+        }
+       ]
+      },
+      {
+       "t": "h2",
+       "text": "Pathing I Augment"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Pathing I Augment",
+        "icon": "img/icons/pathing_i_augment.png",
+        "href": "wiki/augments/pathing",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Terra Essence",
+          "icon": "img/icons/terra_essence.png",
+          "href": "wiki/essence/terra-essence"
+         },
+         {
+          "name": "Iron Shovel",
+          "icon": "img/vanilla/iron_shovel.png"
+         },
+         {
+          "name": "Terra Essence",
+          "icon": "img/icons/terra_essence.png",
+          "href": "wiki/essence/terra-essence"
+         }
+        ],
+        [
+         {
+          "name": "Iron Shovel",
+          "icon": "img/vanilla/iron_shovel.png"
+         },
+         {
+          "name": "Blank Augment",
+          "icon": "img/icons/blank_augment.png",
+          "href": "wiki/augments/tinkering-table"
+         },
+         {
+          "name": "Iron Shovel",
+          "icon": "img/vanilla/iron_shovel.png"
+         }
+        ],
+        [
+         {
+          "name": "Terra Essence",
+          "icon": "img/icons/terra_essence.png",
+          "href": "wiki/essence/terra-essence"
+         },
+         {
+          "name": "Iron Shovel",
+          "icon": "img/vanilla/iron_shovel.png"
+         },
+         {
+          "name": "Terra Essence",
+          "icon": "img/icons/terra_essence.png",
+          "href": "wiki/essence/terra-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+      },
+      {
+       "t": "h2",
+       "text": "Pathing II Augment"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Pathing II Augment",
+        "icon": "img/icons/pathing_ii_augment.png",
+        "href": "wiki/augments/pathing",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Aqua Essence",
+          "icon": "img/icons/aqua_essence.png",
+          "href": "wiki/essence/aqua-essence"
+         },
+         {
+          "name": "Iron Shovel",
+          "icon": "img/vanilla/iron_shovel.png"
+         },
+         {
+          "name": "Aqua Essence",
+          "icon": "img/icons/aqua_essence.png",
+          "href": "wiki/essence/aqua-essence"
+         }
+        ],
+        [
+         {
+          "name": "Iron Shovel",
+          "icon": "img/vanilla/iron_shovel.png"
+         },
+         {
+          "name": "Pathing I Augment",
+          "icon": "img/icons/pathing_i_augment.png",
+          "href": "wiki/augments/pathing"
+         },
+         {
+          "name": "Iron Shovel",
+          "icon": "img/vanilla/iron_shovel.png"
+         }
+        ],
+        [
+         {
+          "name": "Aqua Essence",
+          "icon": "img/icons/aqua_essence.png",
+          "href": "wiki/essence/aqua-essence"
+         },
+         {
+          "name": "Iron Shovel",
+          "icon": "img/vanilla/iron_shovel.png"
+         },
+         {
+          "name": "Aqua Essence",
+          "icon": "img/icons/aqua_essence.png",
+          "href": "wiki/essence/aqua-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+      },
+      {
+       "t": "h2",
+       "text": "Pathing III Augment"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Pathing III Augment",
+        "icon": "img/icons/pathing_iii_augment.png",
+        "href": "wiki/augments/pathing",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         },
+         {
+          "name": "Diamond Shovel",
+          "icon": "img/vanilla/diamond_shovel.png"
+         },
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         }
+        ],
+        [
+         {
+          "name": "Diamond Shovel",
+          "icon": "img/vanilla/diamond_shovel.png"
+         },
+         {
+          "name": "Pathing II Augment",
+          "icon": "img/icons/pathing_ii_augment.png",
+          "href": "wiki/augments/pathing"
+         },
+         {
+          "name": "Diamond Shovel",
+          "icon": "img/vanilla/diamond_shovel.png"
+         }
+        ],
+        [
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         },
+         {
+          "name": "Diamond Shovel",
+          "icon": "img/vanilla/diamond_shovel.png"
+         },
+         {
+          "name": "Ignis Essence",
+          "icon": "img/icons/ignis_essence.png",
+          "href": "wiki/essence/ignis-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+      },
+      {
+       "t": "h2",
+       "text": "Pathing IV Augment"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Pathing IV Augment",
+        "icon": "img/icons/pathing_iv_augment.png",
+        "href": "wiki/augments/pathing",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         },
+         {
+          "name": "Diamond Shovel",
+          "icon": "img/vanilla/diamond_shovel.png"
+         },
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         }
+        ],
+        [
+         {
+          "name": "Diamond Shovel",
+          "icon": "img/vanilla/diamond_shovel.png"
+         },
+         {
+          "name": "Pathing III Augment",
+          "icon": "img/icons/pathing_iii_augment.png",
+          "href": "wiki/augments/pathing"
+         },
+         {
+          "name": "Diamond Shovel",
+          "icon": "img/vanilla/diamond_shovel.png"
+         }
+        ],
+        [
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         },
+         {
+          "name": "Diamond Shovel",
+          "icon": "img/vanilla/diamond_shovel.png"
+         },
+         {
+          "name": "Aether Essence",
+          "icon": "img/icons/aether_essence.png",
+          "href": "wiki/essence/aether-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+      }
+     ],
+     "href": "wiki/augments/pathing"
     }
    ]
   },
@@ -43983,6 +45127,876 @@
     ]
    ],
    "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "Mining I Augment",
+    "icon": "img/icons/mining_i_augment.png",
+    "href": "wiki/augments/mining",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Aqua Essence",
+      "icon": "img/icons/aqua_essence.png",
+      "href": "wiki/essence/aqua-essence"
+     },
+     {
+      "name": "Iron Pickaxe",
+      "icon": "img/vanilla/iron_pickaxe.png"
+     },
+     {
+      "name": "Aqua Essence",
+      "icon": "img/icons/aqua_essence.png",
+      "href": "wiki/essence/aqua-essence"
+     }
+    ],
+    [
+     {
+      "name": "Iron Pickaxe",
+      "icon": "img/vanilla/iron_pickaxe.png"
+     },
+     {
+      "name": "Blank Augment",
+      "icon": "img/icons/blank_augment.png",
+      "href": "wiki/augments/tinkering-table"
+     },
+     {
+      "name": "Iron Pickaxe",
+      "icon": "img/vanilla/iron_pickaxe.png"
+     }
+    ],
+    [
+     {
+      "name": "Aqua Essence",
+      "icon": "img/icons/aqua_essence.png",
+      "href": "wiki/essence/aqua-essence"
+     },
+     {
+      "name": "Iron Pickaxe",
+      "icon": "img/vanilla/iron_pickaxe.png"
+     },
+     {
+      "name": "Aqua Essence",
+      "icon": "img/icons/aqua_essence.png",
+      "href": "wiki/essence/aqua-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "Mining II Augment",
+    "icon": "img/icons/mining_ii_augment.png",
+    "href": "wiki/augments/mining",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     },
+     {
+      "name": "Iron Pickaxe",
+      "icon": "img/vanilla/iron_pickaxe.png"
+     },
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     }
+    ],
+    [
+     {
+      "name": "Iron Pickaxe",
+      "icon": "img/vanilla/iron_pickaxe.png"
+     },
+     {
+      "name": "Mining I Augment",
+      "icon": "img/icons/mining_i_augment.png",
+      "href": "wiki/augments/mining"
+     },
+     {
+      "name": "Iron Pickaxe",
+      "icon": "img/vanilla/iron_pickaxe.png"
+     }
+    ],
+    [
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     },
+     {
+      "name": "Iron Pickaxe",
+      "icon": "img/vanilla/iron_pickaxe.png"
+     },
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "Mining III Augment",
+    "icon": "img/icons/mining_iii_augment.png",
+    "href": "wiki/augments/mining",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     },
+     {
+      "name": "Diamond Pickaxe",
+      "icon": "img/vanilla/diamond_pickaxe.png"
+     },
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     }
+    ],
+    [
+     {
+      "name": "Diamond Pickaxe",
+      "icon": "img/vanilla/diamond_pickaxe.png"
+     },
+     {
+      "name": "Mining II Augment",
+      "icon": "img/icons/mining_ii_augment.png",
+      "href": "wiki/augments/mining"
+     },
+     {
+      "name": "Diamond Pickaxe",
+      "icon": "img/vanilla/diamond_pickaxe.png"
+     }
+    ],
+    [
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     },
+     {
+      "name": "Diamond Pickaxe",
+      "icon": "img/vanilla/diamond_pickaxe.png"
+     },
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "Mining IV Augment",
+    "icon": "img/icons/mining_iv_augment.png",
+    "href": "wiki/augments/mining",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Astra Essence",
+      "icon": "img/icons/astra_essence.png",
+      "href": "wiki/essence/astra-essence"
+     },
+     {
+      "name": "Diamond Pickaxe",
+      "icon": "img/vanilla/diamond_pickaxe.png"
+     },
+     {
+      "name": "Astra Essence",
+      "icon": "img/icons/astra_essence.png",
+      "href": "wiki/essence/astra-essence"
+     }
+    ],
+    [
+     {
+      "name": "Diamond Pickaxe",
+      "icon": "img/vanilla/diamond_pickaxe.png"
+     },
+     {
+      "name": "Mining III Augment",
+      "icon": "img/icons/mining_iii_augment.png",
+      "href": "wiki/augments/mining"
+     },
+     {
+      "name": "Diamond Pickaxe",
+      "icon": "img/vanilla/diamond_pickaxe.png"
+     }
+    ],
+    [
+     {
+      "name": "Astra Essence",
+      "icon": "img/icons/astra_essence.png",
+      "href": "wiki/essence/astra-essence"
+     },
+     {
+      "name": "Diamond Pickaxe",
+      "icon": "img/vanilla/diamond_pickaxe.png"
+     },
+     {
+      "name": "Astra Essence",
+      "icon": "img/icons/astra_essence.png",
+      "href": "wiki/essence/astra-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "Attack I Augment",
+    "icon": "img/icons/attack_i_augment.png",
+    "href": "wiki/augments/attack",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     },
+     {
+      "name": "Iron Sword",
+      "icon": "img/vanilla/iron_sword.png"
+     },
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     }
+    ],
+    [
+     {
+      "name": "Iron Sword",
+      "icon": "img/vanilla/iron_sword.png"
+     },
+     {
+      "name": "Blank Augment",
+      "icon": "img/icons/blank_augment.png",
+      "href": "wiki/augments/tinkering-table"
+     },
+     {
+      "name": "Iron Sword",
+      "icon": "img/vanilla/iron_sword.png"
+     }
+    ],
+    [
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     },
+     {
+      "name": "Iron Sword",
+      "icon": "img/vanilla/iron_sword.png"
+     },
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "Attack II Augment",
+    "icon": "img/icons/attack_ii_augment.png",
+    "href": "wiki/augments/attack",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     },
+     {
+      "name": "Iron Sword",
+      "icon": "img/vanilla/iron_sword.png"
+     },
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     }
+    ],
+    [
+     {
+      "name": "Iron Sword",
+      "icon": "img/vanilla/iron_sword.png"
+     },
+     {
+      "name": "Attack I Augment",
+      "icon": "img/icons/attack_i_augment.png",
+      "href": "wiki/augments/attack"
+     },
+     {
+      "name": "Iron Sword",
+      "icon": "img/vanilla/iron_sword.png"
+     }
+    ],
+    [
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     },
+     {
+      "name": "Iron Sword",
+      "icon": "img/vanilla/iron_sword.png"
+     },
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "Attack III Augment",
+    "icon": "img/icons/attack_iii_augment.png",
+    "href": "wiki/augments/attack",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Astra Essence",
+      "icon": "img/icons/astra_essence.png",
+      "href": "wiki/essence/astra-essence"
+     },
+     {
+      "name": "Diamond Sword",
+      "icon": "img/vanilla/diamond_sword.png"
+     },
+     {
+      "name": "Astra Essence",
+      "icon": "img/icons/astra_essence.png",
+      "href": "wiki/essence/astra-essence"
+     }
+    ],
+    [
+     {
+      "name": "Diamond Sword",
+      "icon": "img/vanilla/diamond_sword.png"
+     },
+     {
+      "name": "Attack II Augment",
+      "icon": "img/icons/attack_ii_augment.png",
+      "href": "wiki/augments/attack"
+     },
+     {
+      "name": "Diamond Sword",
+      "icon": "img/vanilla/diamond_sword.png"
+     }
+    ],
+    [
+     {
+      "name": "Astra Essence",
+      "icon": "img/icons/astra_essence.png",
+      "href": "wiki/essence/astra-essence"
+     },
+     {
+      "name": "Diamond Sword",
+      "icon": "img/vanilla/diamond_sword.png"
+     },
+     {
+      "name": "Astra Essence",
+      "icon": "img/icons/astra_essence.png",
+      "href": "wiki/essence/astra-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "Tilling I Augment",
+    "icon": "img/icons/tilling_i_augment.png",
+    "href": "wiki/augments/tilling",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Aqua Essence",
+      "icon": "img/icons/aqua_essence.png",
+      "href": "wiki/essence/aqua-essence"
+     },
+     {
+      "name": "Iron Hoe",
+      "icon": "img/vanilla/iron_hoe.png"
+     },
+     {
+      "name": "Aqua Essence",
+      "icon": "img/icons/aqua_essence.png",
+      "href": "wiki/essence/aqua-essence"
+     }
+    ],
+    [
+     {
+      "name": "Iron Hoe",
+      "icon": "img/vanilla/iron_hoe.png"
+     },
+     {
+      "name": "Blank Augment",
+      "icon": "img/icons/blank_augment.png",
+      "href": "wiki/augments/tinkering-table"
+     },
+     {
+      "name": "Iron Hoe",
+      "icon": "img/vanilla/iron_hoe.png"
+     }
+    ],
+    [
+     {
+      "name": "Aqua Essence",
+      "icon": "img/icons/aqua_essence.png",
+      "href": "wiki/essence/aqua-essence"
+     },
+     {
+      "name": "Iron Hoe",
+      "icon": "img/vanilla/iron_hoe.png"
+     },
+     {
+      "name": "Aqua Essence",
+      "icon": "img/icons/aqua_essence.png",
+      "href": "wiki/essence/aqua-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "Tilling II Augment",
+    "icon": "img/icons/tilling_ii_augment.png",
+    "href": "wiki/augments/tilling",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     },
+     {
+      "name": "Iron Hoe",
+      "icon": "img/vanilla/iron_hoe.png"
+     },
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     }
+    ],
+    [
+     {
+      "name": "Iron Hoe",
+      "icon": "img/vanilla/iron_hoe.png"
+     },
+     {
+      "name": "Tilling I Augment",
+      "icon": "img/icons/tilling_i_augment.png",
+      "href": "wiki/augments/tilling"
+     },
+     {
+      "name": "Iron Hoe",
+      "icon": "img/vanilla/iron_hoe.png"
+     }
+    ],
+    [
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     },
+     {
+      "name": "Iron Hoe",
+      "icon": "img/vanilla/iron_hoe.png"
+     },
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "Tilling III Augment",
+    "icon": "img/icons/tilling_iii_augment.png",
+    "href": "wiki/augments/tilling",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     },
+     {
+      "name": "Diamond Hoe",
+      "icon": "img/vanilla/diamond_hoe.png"
+     },
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     }
+    ],
+    [
+     {
+      "name": "Diamond Hoe",
+      "icon": "img/vanilla/diamond_hoe.png"
+     },
+     {
+      "name": "Tilling II Augment",
+      "icon": "img/icons/tilling_ii_augment.png",
+      "href": "wiki/augments/tilling"
+     },
+     {
+      "name": "Diamond Hoe",
+      "icon": "img/vanilla/diamond_hoe.png"
+     }
+    ],
+    [
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     },
+     {
+      "name": "Diamond Hoe",
+      "icon": "img/vanilla/diamond_hoe.png"
+     },
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "Tilling IV Augment",
+    "icon": "img/icons/tilling_iv_augment.png",
+    "href": "wiki/augments/tilling",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Astra Essence",
+      "icon": "img/icons/astra_essence.png",
+      "href": "wiki/essence/astra-essence"
+     },
+     {
+      "name": "Diamond Hoe",
+      "icon": "img/vanilla/diamond_hoe.png"
+     },
+     {
+      "name": "Astra Essence",
+      "icon": "img/icons/astra_essence.png",
+      "href": "wiki/essence/astra-essence"
+     }
+    ],
+    [
+     {
+      "name": "Diamond Hoe",
+      "icon": "img/vanilla/diamond_hoe.png"
+     },
+     {
+      "name": "Tilling III Augment",
+      "icon": "img/icons/tilling_iii_augment.png",
+      "href": "wiki/augments/tilling"
+     },
+     {
+      "name": "Diamond Hoe",
+      "icon": "img/vanilla/diamond_hoe.png"
+     }
+    ],
+    [
+     {
+      "name": "Astra Essence",
+      "icon": "img/icons/astra_essence.png",
+      "href": "wiki/essence/astra-essence"
+     },
+     {
+      "name": "Diamond Hoe",
+      "icon": "img/vanilla/diamond_hoe.png"
+     },
+     {
+      "name": "Astra Essence",
+      "icon": "img/icons/astra_essence.png",
+      "href": "wiki/essence/astra-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "Pathing I Augment",
+    "icon": "img/icons/pathing_i_augment.png",
+    "href": "wiki/augments/pathing",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Terra Essence",
+      "icon": "img/icons/terra_essence.png",
+      "href": "wiki/essence/terra-essence"
+     },
+     {
+      "name": "Iron Shovel",
+      "icon": "img/vanilla/iron_shovel.png"
+     },
+     {
+      "name": "Terra Essence",
+      "icon": "img/icons/terra_essence.png",
+      "href": "wiki/essence/terra-essence"
+     }
+    ],
+    [
+     {
+      "name": "Iron Shovel",
+      "icon": "img/vanilla/iron_shovel.png"
+     },
+     {
+      "name": "Blank Augment",
+      "icon": "img/icons/blank_augment.png",
+      "href": "wiki/augments/tinkering-table"
+     },
+     {
+      "name": "Iron Shovel",
+      "icon": "img/vanilla/iron_shovel.png"
+     }
+    ],
+    [
+     {
+      "name": "Terra Essence",
+      "icon": "img/icons/terra_essence.png",
+      "href": "wiki/essence/terra-essence"
+     },
+     {
+      "name": "Iron Shovel",
+      "icon": "img/vanilla/iron_shovel.png"
+     },
+     {
+      "name": "Terra Essence",
+      "icon": "img/icons/terra_essence.png",
+      "href": "wiki/essence/terra-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "Pathing II Augment",
+    "icon": "img/icons/pathing_ii_augment.png",
+    "href": "wiki/augments/pathing",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Aqua Essence",
+      "icon": "img/icons/aqua_essence.png",
+      "href": "wiki/essence/aqua-essence"
+     },
+     {
+      "name": "Iron Shovel",
+      "icon": "img/vanilla/iron_shovel.png"
+     },
+     {
+      "name": "Aqua Essence",
+      "icon": "img/icons/aqua_essence.png",
+      "href": "wiki/essence/aqua-essence"
+     }
+    ],
+    [
+     {
+      "name": "Iron Shovel",
+      "icon": "img/vanilla/iron_shovel.png"
+     },
+     {
+      "name": "Pathing I Augment",
+      "icon": "img/icons/pathing_i_augment.png",
+      "href": "wiki/augments/pathing"
+     },
+     {
+      "name": "Iron Shovel",
+      "icon": "img/vanilla/iron_shovel.png"
+     }
+    ],
+    [
+     {
+      "name": "Aqua Essence",
+      "icon": "img/icons/aqua_essence.png",
+      "href": "wiki/essence/aqua-essence"
+     },
+     {
+      "name": "Iron Shovel",
+      "icon": "img/vanilla/iron_shovel.png"
+     },
+     {
+      "name": "Aqua Essence",
+      "icon": "img/icons/aqua_essence.png",
+      "href": "wiki/essence/aqua-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "Pathing III Augment",
+    "icon": "img/icons/pathing_iii_augment.png",
+    "href": "wiki/augments/pathing",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     },
+     {
+      "name": "Diamond Shovel",
+      "icon": "img/vanilla/diamond_shovel.png"
+     },
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     }
+    ],
+    [
+     {
+      "name": "Diamond Shovel",
+      "icon": "img/vanilla/diamond_shovel.png"
+     },
+     {
+      "name": "Pathing II Augment",
+      "icon": "img/icons/pathing_ii_augment.png",
+      "href": "wiki/augments/pathing"
+     },
+     {
+      "name": "Diamond Shovel",
+      "icon": "img/vanilla/diamond_shovel.png"
+     }
+    ],
+    [
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     },
+     {
+      "name": "Diamond Shovel",
+      "icon": "img/vanilla/diamond_shovel.png"
+     },
+     {
+      "name": "Ignis Essence",
+      "icon": "img/icons/ignis_essence.png",
+      "href": "wiki/essence/ignis-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "Pathing IV Augment",
+    "icon": "img/icons/pathing_iv_augment.png",
+    "href": "wiki/augments/pathing",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     },
+     {
+      "name": "Diamond Shovel",
+      "icon": "img/vanilla/diamond_shovel.png"
+     },
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     }
+    ],
+    [
+     {
+      "name": "Diamond Shovel",
+      "icon": "img/vanilla/diamond_shovel.png"
+     },
+     {
+      "name": "Pathing III Augment",
+      "icon": "img/icons/pathing_iii_augment.png",
+      "href": "wiki/augments/pathing"
+     },
+     {
+      "name": "Diamond Shovel",
+      "icon": "img/vanilla/diamond_shovel.png"
+     }
+    ],
+    [
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     },
+     {
+      "name": "Diamond Shovel",
+      "icon": "img/vanilla/diamond_shovel.png"
+     },
+     {
+      "name": "Aether Essence",
+      "icon": "img/icons/aether_essence.png",
+      "href": "wiki/essence/aether-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
   }
  ],
  "gallery": [
@@ -45677,6 +47691,81 @@
      "name": "Strength III Augment",
      "icon": "img/icons/strength_iii_augment.png",
      "href": "wiki/augments/strength"
+    },
+    {
+     "name": "Mining I Augment",
+     "icon": "img/icons/mining_i_augment.png",
+     "href": "wiki/augments/mining"
+    },
+    {
+     "name": "Mining II Augment",
+     "icon": "img/icons/mining_ii_augment.png",
+     "href": "wiki/augments/mining"
+    },
+    {
+     "name": "Mining III Augment",
+     "icon": "img/icons/mining_iii_augment.png",
+     "href": "wiki/augments/mining"
+    },
+    {
+     "name": "Mining IV Augment",
+     "icon": "img/icons/mining_iv_augment.png",
+     "href": "wiki/augments/mining"
+    },
+    {
+     "name": "Attack I Augment",
+     "icon": "img/icons/attack_i_augment.png",
+     "href": "wiki/augments/attack"
+    },
+    {
+     "name": "Attack II Augment",
+     "icon": "img/icons/attack_ii_augment.png",
+     "href": "wiki/augments/attack"
+    },
+    {
+     "name": "Attack III Augment",
+     "icon": "img/icons/attack_iii_augment.png",
+     "href": "wiki/augments/attack"
+    },
+    {
+     "name": "Tilling I Augment",
+     "icon": "img/icons/tilling_i_augment.png",
+     "href": "wiki/augments/tilling"
+    },
+    {
+     "name": "Tilling II Augment",
+     "icon": "img/icons/tilling_ii_augment.png",
+     "href": "wiki/augments/tilling"
+    },
+    {
+     "name": "Tilling III Augment",
+     "icon": "img/icons/tilling_iii_augment.png",
+     "href": "wiki/augments/tilling"
+    },
+    {
+     "name": "Tilling IV Augment",
+     "icon": "img/icons/tilling_iv_augment.png",
+     "href": "wiki/augments/tilling"
+    },
+    {
+     "name": "Pathing I Augment",
+     "icon": "img/icons/pathing_i_augment.png",
+     "href": "wiki/augments/pathing"
+    },
+    {
+     "name": "Pathing II Augment",
+     "icon": "img/icons/pathing_ii_augment.png",
+     "href": "wiki/augments/pathing"
+    },
+    {
+     "name": "Pathing III Augment",
+     "icon": "img/icons/pathing_iii_augment.png",
+     "href": "wiki/augments/pathing"
+    },
+    {
+     "name": "Pathing IV Augment",
+     "icon": "img/icons/pathing_iv_augment.png",
+     "href": "wiki/augments/pathing"
     }
    ]
   },

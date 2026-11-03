@@ -541,8 +541,13 @@ const augmentLevels = (a) => a.tiers.map((tier, k) => {
   const materials = Array.isArray(a.materials[0]) ? a.materials[k] : a.materials;
   return { id, tier, level: k + 1, materials, item: { name: `${title(a.id)}${multi ? ` ${ROMAN[k]}` : ""} Augment`, icon: `img/icons/${id}.png`, href: `wiki/augments/${slug(a.id)}` } };
 });
-const augmentPieces = (a) => (a.on === "armor" ? "Any armor piece" : title(a.on));
+const augmentPieces = (a) => ({ armor: "Any armor piece", digger: "Pickaxe, axe or shovel" })[a.on] ?? title(a.on);
 const augmentEffect = (a, level) => {
+  const side = a.reach && a.reach[level - 1] * 2 + 1;
+  if (a.area === "mine") return `Mines ${side}×${side} on the face you hit. Sneak to mine one block`;
+  if (a.area === "attack") return `Hits mobs within ${a.reach[level - 1] * 1.5} blocks of the target for ${5 + 5 * a.reach[level - 1]} damage`;
+  if (a.area === "till") return `Tills ${side}×${side} while you sneak`;
+  if (a.area === "path") return `Makes paths ${side}×${side} while you sneak`;
   if (a.effect) return `${title(a.effect)}${a.tiers.length > 1 ? ` ${ROMAN[level - 1]}` : ""} while worn`;
   if (a.clears) return `Clears ${a.clears.map((e) => title(e)).join(" and ")} while worn`;
   if (a.damage) return `${a.damage[level - 1]} extra damage per hit on mobs`;
@@ -551,11 +556,11 @@ const augmentEffect = (a, level) => {
 };
 const augments = {
   slug: "augments", title: "Augments", group: "Getting started", icon: "img/icons/speed_i_augment.png",
-  blurb: "Effects for your armor and swords, fitted at the Tinkering Table.",
+  blurb: "Effects for your armor, swords and tools, fitted at the Tinkering Table.",
   entries: [
     {
       slug: "tinkering-table", name: tableItem.name, icon: tableItem.icon,
-      summary: "Fits augments to armor and swords.",
+      summary: "Fits augments to armor, swords and tools.",
       blocks: [
         facts([["Open", "Tap it with an empty hand"], ["Fit", "Gear in the left slot, augment in the right"], ["Remove", "Take the augment back out"], ["Per piece", "One augment"], ["Tiers", "An augment needs gear of its tier or higher"]]),
         p("An augment is fitted as soon as both are in. Taking the gear out takes its augment with it, and augments stay on through tier upgrades at the Infusion Altar. The line at the bottom of the screen says why an augment won't fit."),

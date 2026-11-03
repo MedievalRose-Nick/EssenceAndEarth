@@ -251,5 +251,10 @@
   "minecraft:iron_axe": "Iron Axe",
   "minecraft:sugar": "Sugar",
   "minecraft:iron_sword": "Iron Sword",
-  "minecraft:diamond_sword": "Diamond Sword"
+  "minecraft:diamond_sword": "Diamond Sword",
+  "minecraft:iron_pickaxe": "Iron Pickaxe",
+  "minecraft:diamond_pickaxe": "Diamond Pickaxe",
+  "minecraft:diamond_hoe": "Diamond Hoe",
+  "minecraft:iron_shovel": "Iron Shovel",
+  "minecraft:diamond_shovel": "Diamond Shovel"
 }

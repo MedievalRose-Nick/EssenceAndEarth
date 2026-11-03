@@ -1,7 +1,7 @@
 {
   "name": "Essence & Earth",
   "namespace": "ee",
-  "version": [0, 25, 0],
+  "version": [0, 26, 0],
   "balance": {
     "growChance": 0.43,
     "grassEssenceChance": 0.2,
@@ -100,7 +100,11 @@
     { "id": "jump_boost", "on": "boots", "tiers": [2, 3, 4], "materials": ["minecraft:rabbit_foot"], "color": "#7ad65a", "effect": "jump_boost" },
     { "id": "slow_falling", "on": "boots", "tiers": [3], "materials": ["minecraft:phantom_membrane"], "color": "#f0ecd8", "effect": "slow_falling" },
     { "id": "no_fall_damage", "on": "boots", "tiers": [3], "materials": ["minecraft:diamond", "minecraft:white_wool"], "color": "#b8a27a", "noFall": true },
-    { "id": "strength", "on": "sword", "tiers": [3, 4, 5], "materials": [["minecraft:quartz_block", "minecraft:iron_sword"], ["minecraft:quartz_block", "minecraft:iron_sword"], ["minecraft:quartz_block", "minecraft:diamond_sword"]], "color": "#c4302b", "damage": [5, 10, 20] }
+    { "id": "strength", "on": "sword", "tiers": [3, 4, 5], "materials": [["minecraft:quartz_block", "minecraft:iron_sword"], ["minecraft:quartz_block", "minecraft:iron_sword"], ["minecraft:quartz_block", "minecraft:diamond_sword"]], "color": "#c4302b", "damage": [5, 10, 20] },
+    { "id": "mining", "on": "digger", "tiers": [2, 3, 4, 5], "materials": [["minecraft:iron_pickaxe"], ["minecraft:iron_pickaxe"], ["minecraft:diamond_pickaxe"], ["minecraft:diamond_pickaxe"]], "color": "#0ebabd", "area": "mine", "reach": [1, 2, 3, 4] },
+    { "id": "attack", "on": "sword", "tiers": [3, 4, 5], "materials": [["minecraft:iron_sword"], ["minecraft:iron_sword"], ["minecraft:diamond_sword"]], "color": "#ff4a6a", "area": "attack", "reach": [1, 2, 3] },
+    { "id": "tilling", "on": "hoe", "tiers": [2, 3, 4, 5], "materials": [["minecraft:iron_hoe"], ["minecraft:iron_hoe"], ["minecraft:diamond_hoe"], ["minecraft:diamond_hoe"]], "color": "#b9855c", "area": "till", "reach": [1, 2, 3, 4] },
+    { "id": "pathing", "on": "shovel", "tiers": [1, 2, 3, 4], "materials": [["minecraft:iron_shovel"], ["minecraft:iron_shovel"], ["minecraft:diamond_shovel"], ["minecraft:diamond_shovel"]], "color": "#aa8d4a", "area": "path", "reach": [1, 2, 3, 4] }
   ],
   "vita": { "color": "#e0569a" },
   "anima": { "color": "#6e4bb5" },
