@@ -21,6 +21,7 @@ const {
   soulExtractor: EXTRACTOR_BALANCE,
   essenceFurnace: FURNACE_BALANCE,
   tinkeringTable: TABLE_BALANCE,
+  awakening: { vesselCapacity: VESSEL_CAPACITY, cognizantDust: COGNIZANT_DUST, bossEssence: BOSS_ESSENCE },
 } = __BALANCE__;
 
 // Accelerator id -> how many blocks above itself it reaches.
@@ -125,13 +126,13 @@ world.afterEvents.entityHurt.subscribe(({ damageSource }) => {
   if (player?.typeId === "minecraft:player" && damageSource.cause === "entityAttack") wearGearTool(player);
 });
 
-function useOne(player) {
+function useOne(player, count = 1) {
   if (player.getGameMode() === GameMode.Creative) return;
   const equip = player.getComponent("minecraft:equippable");
   const item = equip?.getEquipment(EquipmentSlot.Mainhand);
   if (!item) return;
-  if (item.amount > 1) {
-    item.amount -= 1;
+  if (item.amount > count) {
+    item.amount -= count;
     equip.setEquipment(EquipmentSlot.Mainhand, item);
   } else {
     equip.setEquipment(EquipmentSlot.Mainhand);
@@ -253,6 +254,23 @@ world.afterEvents.entityDie.subscribe(({ deadEntity }) => {
   }
 });
 
+// Bosses killed with one of our tiered tools drop that tier's essence, and with an Astra sword, Cognizant Dust as well.
+const GEAR_ESSENCE = __GEAR_ESSENCE__; // tiered tool -> its tier's essence
+const COGNIZANT_SWORD = "__NS__:astra_sword";
+world.afterEvents.entityDie.subscribe(({ deadEntity, damageSource }) => {
+  const [min, max] = BOSS_ESSENCE[deadEntity.typeId] ?? [];
+  if (min === undefined) return;
+  const held = damageSource.damagingEntity?.getComponent("minecraft:equippable")?.getEquipment(EquipmentSlot.Mainhand)?.typeId;
+  if (!held || !(held in GEAR_ESSENCE)) return;
+  try {
+    const { dimension, location } = deadEntity;
+    drop(dimension, GEAR_ESSENCE[held], location, min + Math.floor(Math.random() * (max - min + 1)));
+    if (held === COGNIZANT_SWORD) drop(dimension, "__NS__:cognizant_dust", location, COGNIZANT_DUST[deadEntity.typeId]);
+  } catch {
+    // already gone, or an unloaded chunk
+  }
+});
+
 // Crops are judged by what they drop rather than who broke them, so harvesting machines
 // (anything that breaks blocks with drops, like `setblock ... destroy`) roll the same chances as players.
 // A harvest drop appears inside the crop's block, right above the farmland; items a player throws appear
@@ -347,9 +365,10 @@ system.beforeEvents.startup.subscribe(({ blockComponentRegistry }) => {
       const equip = player.getComponent("minecraft:equippable");
       const hand = equip?.getEquipment(EquipmentSlot.Mainhand);
       if (hand?.typeId === WAND) {
-        if (block.typeId === ALTAR) startInfusion(block, player);
+        if (block.typeId === ALTAR || block.typeId === AWAKENING_ALTAR) startInfusion(block, player);
         return;
       }
+      if (block.typeId === VESSEL) return useVessel(block, player, hand);
       const held = standItem(block);
       if (held) {
         const left = player.getComponent("minecraft:inventory")?.container.addItem(held);
@@ -410,6 +429,10 @@ system.beforeEvents.startup.subscribe(({ blockComponentRegistry }) => {
 // A stand's item lives in a hidden entity's inventory, so it survives restarts, and the entity draws it above the block.
 const ALTAR = "__NS__:infusion_altar";
 const PEDESTAL = "__NS__:infusion_pedestal";
+const AWAKENING_ALTAR = "__NS__:awakening_altar";
+const AWAKENING_PEDESTAL = "__NS__:awakening_pedestal";
+const VESSEL = "__NS__:essence_vessel";
+const STANDS = new Set([ALTAR, PEDESTAL, AWAKENING_ALTAR, AWAKENING_PEDESTAL, VESSEL]);
 const WAND = "__NS__:wand";
 const DISPLAY = "__NS__:item_display";
 const PEDESTAL_OFFSETS = [[3, 0], [0, 3], [-3, 0], [0, -3], [2, 2], [2, -2], [-2, 2], [-2, -2]];
@@ -436,6 +459,7 @@ function setStandItem(block, stack) {
   display ??= block.dimension.spawnEntity(DISPLAY, displayLocation(block.location));
   display.getComponent("minecraft:inventory").container.setItem(0, stack);
   display.nameTag = (stack.nameTag ?? stack.typeId.split(":")[1].replaceAll("_", " ")) + (stack.getLore()[0] ? `\n${stack.getLore()[0]}` : "");
+  if (block.typeId === VESSEL) display.nameTag += ` ${stack.amount}/${VESSEL_CAPACITY}`;
   display.runCommand(`replaceitem entity @s slot.weapon.mainhand 0 ${stack.typeId}`);
 }
 
@@ -447,7 +471,7 @@ system.runInterval(() => {
       try {
         const { x, y, z } = display.location;
         const id = dimension.getBlock({ x: Math.floor(x), y: Math.floor(y) - 1, z: Math.floor(z) })?.typeId;
-        if (id === undefined || id === ALTAR || id === PEDESTAL) continue;
+        if (id === undefined || STANDS.has(id)) continue;
         const item = display.getComponent("minecraft:inventory")?.container.getItem(0);
         if (item) dimension.spawnItem(item, display.location);
         display.remove();
@@ -510,9 +534,51 @@ function upgraded(input, id) {
   return output;
 }
 
+// ---------- Awakening Altar ----------
+// Pedestals on the sides and vessels on the diagonals. Each vessel holds one element, and a craft takes `essences` from each of the four.
+const ELEMENTS = ["air", "earth", "water", "fire"].map((e) => `__NS__:${e}_essence`);
+const AWAKENING_RECIPES = __AWAKENING_RECIPES__; // [{ input, ingredients, essences, output }]
+const itemName = (id) => id.split(":")[1].replace(/(^|_)(\w)/g, (_, sep, c) => (sep ? " " : "") + c.toUpperCase());
+
+function findAwakening(altar, input) {
+  const around = pedestalsOf(altar);
+  const pedestals = around.slice(0, 4), vessels = around.slice(4);
+  const missing = pedestals.filter((b) => b?.typeId !== AWAKENING_PEDESTAL).length + vessels.filter((b) => b?.typeId !== VESSEL).length;
+  if (missing) return { problem: `${missing} of the 4 pedestals and 4 vessels are missing or in the wrong place. Pedestals go on the sides, vessels on the diagonals.` };
+  const recipe = AWAKENING_RECIPES.find((r) => r.input === input.typeId && matchRecipe(r, pedestals.map(standItem)));
+  if (!recipe) return { problem: "These items don't make anything." };
+  const amounts = vessels.map(standItem);
+  const short = ELEMENTS.filter((e) => !amounts.some((s) => s?.typeId === e && s.amount >= recipe.essences));
+  if (short.length) return { problem: `The vessels need ${recipe.essences} each of ${short.map(itemName).join(", ")}.` };
+  return { recipe, pedestals, vessels };
+}
+
+// A vessel takes as much of one element as fits, and gives it all back to an empty hand.
+function useVessel(vessel, player, hand) {
+  const held = standItem(vessel);
+  const say = (text) => player.onScreenDisplay.setActionBar(text);
+  if (!hand) {
+    if (!held) return;
+    const left = player.getComponent("minecraft:inventory")?.container.addItem(held);
+    if (left) vessel.dimension.spawnItem(left, vessel.center());
+    setStandItem(vessel);
+    return;
+  }
+  if (!ELEMENTS.includes(hand.typeId)) return say("Only Air, Earth, Water or Fire Essence go in a vessel.");
+  if (held && held.typeId !== hand.typeId) return say(`This vessel holds ${itemName(held.typeId)}. Take it out with an empty hand first.`);
+  const moved = Math.min(VESSEL_CAPACITY - (held?.amount ?? 0), hand.amount);
+  if (moved <= 0) return say(`This vessel is full: ${VESSEL_CAPACITY} ${itemName(hand.typeId)}.`);
+  const stack = hand.clone();
+  stack.amount = (held?.amount ?? 0) + moved;
+  setStandItem(vessel, stack);
+  useOne(player, moved);
+  say(`${itemName(stack.typeId)} ${stack.amount}/${VESSEL_CAPACITY}`);
+}
+
 function findRecipe(altar) {
   const input = standItem(altar);
   if (!input) return { problem: "Put something on the altar first." };
+  if (altar.typeId === AWAKENING_ALTAR) return findAwakening(altar, input);
   const pedestals = pedestalsOf(altar);
   const missing = pedestals.filter((b) => b?.typeId !== PEDESTAL).length;
   if (missing) return { problem: `${missing} of the 8 pedestals are missing or in the wrong place.` };
@@ -532,11 +598,11 @@ function startInfusion(altar, player) {
     player.onScreenDisplay.setActionBar(problem);
     return;
   }
-  infusing.set(key, { dimension: altar.dimension, location: altar.location, ticks: 0, recipe });
+  infusing.set(key, { dimension: altar.dimension, location: altar.location, type: altar.typeId, ticks: 0, recipe });
   altar.dimension.playSound("block.enchanting_table.use", altar.center());
 }
 
-function finishInfusion(altar, recipe, pedestals) {
+function finishInfusion(altar, recipe, { pedestals, vessels = [] }) {
   const input = standItem(altar);
   const output = recipe.enchant ? enchanted(input, recipe.enchant) : recipe.upgrade ? upgraded(input, recipe.output) : new ItemStack(recipe.output);
   if (!output) return;
@@ -546,6 +612,14 @@ function finishInfusion(altar, recipe, pedestals) {
     if (item?.typeId === JAR) setStandItem(pedestal, new ItemStack(JAR));
     else setStandItem(pedestal);
     pedestal.dimension.spawnParticle("minecraft:basic_smoke_particle", pedestal.center());
+  }
+  for (const vessel of vessels) {
+    const stack = standItem(vessel);
+    if (stack.amount > recipe.essences) {
+      stack.amount -= recipe.essences;
+      setStandItem(vessel, stack);
+    } else setStandItem(vessel);
+    vessel.dimension.spawnParticle("minecraft:basic_smoke_particle", vessel.center());
   }
   setStandItem(altar, output);
   altar.dimension.spawnParticle("minecraft:crop_growth_emitter", altar.center());
@@ -557,16 +631,16 @@ system.runInterval(() => {
   for (const [key, job] of infusing) {
     try {
       const altar = job.dimension.getBlock(job.location);
-      const found = altar?.typeId === ALTAR ? findRecipe(altar) : {};
+      const found = altar?.typeId === job.type ? findRecipe(altar) : {};
       if (found.recipe !== job.recipe) {
         infusing.delete(key); // something was taken away, so the craft stops
         continue;
       }
       job.ticks += INFUSION_STEP;
-      for (const pedestal of found.pedestals) job.dimension.spawnParticle("minecraft:villager_happy", { ...pedestal.center(), y: pedestal.location.y + 1.2 });
+      for (const pedestal of [...found.pedestals, ...(found.vessels ?? [])]) job.dimension.spawnParticle("minecraft:villager_happy", { ...pedestal.center(), y: pedestal.location.y + 1.2 });
       if (job.ticks >= ALTAR_TICKS) {
         infusing.delete(key);
-        finishInfusion(altar, job.recipe, found.pedestals);
+        finishInfusion(altar, job.recipe, found);
       }
     } catch {
       infusing.delete(key); // the chunk unloaded

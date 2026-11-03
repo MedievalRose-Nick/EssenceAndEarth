@@ -1,7 +1,7 @@
 {
   "name": "Essence & Earth",
   "namespace": "ee",
-  "version": [0, 26, 0],
+  "version": [0, 27, 0],
   "balance": {
     "growChance": 0.43,
     "grassEssenceChance": 0.2,
@@ -49,7 +49,8 @@
         { "time": 0.625, "fuel": 4, "tank": 3, "range": 2 },
         { "time": 0.4, "fuel": 6, "tank": 4, "range": 3 },
         { "time": 0.125, "fuel": 16, "tank": 5, "range": 4 },
-        { "time": 0.025, "fuel": 48, "tank": 6, "range": 5 }
+        { "time": 0.025, "fuel": 48, "tank": 6, "range": 5 },
+        { "time": 0.005, "fuel": 96, "tank": 7, "range": 6 }
       ]
     },
     "gear": {
@@ -67,6 +68,12 @@
       "armorDurabilityMultiplier": [40, 60, 80, 140, 280],
       "armorBaseDurability": { "helmet": 11, "chestplate": 16, "leggings": 15, "boots": 13 },
       "enchantability": [12, 14, 16, 18, 20]
+    },
+    "awakening": {
+      "vesselCapacity": 40,
+      "acceleratorRange": 54,
+      "cognizantDust": { "minecraft:wither": 6, "minecraft:ender_dragon": 10 },
+      "bossEssence": { "minecraft:wither": [1, 3], "minecraft:ender_dragon": [2, 4] }
     },
     "tinkeringTable": { "screenTitle": "§e§e§t" },
     "seedReprocessor": { "screenTitle": "§e§e§r", "operationTicks": 200, "fuelPerTick": 20, "essencePerSeed": 2 },
@@ -108,6 +115,7 @@
   ],
   "vita": { "color": "#e0569a" },
   "anima": { "color": "#6e4bb5" },
+  "divus": { "color": "#e48cf2" },
   "souls": {
     "pig": { "need": 8, "mobs": ["minecraft:pig"], "passive": true },
     "chicken": { "need": 8, "mobs": ["minecraft:chicken"], "passive": true },

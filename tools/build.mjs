@@ -656,11 +656,11 @@ const GUIDE_PAGES = [
   { title: "Souls", body: `Mob seeds use Soul Jars instead of the resource. Kill mobs with an Anima Dagger in your hand and a Soul Jar in your inventory to fill it. Each jar holds one mob type, and shows its count on the jar.\n\nThe jar empties when it's used in a recipe, so you keep it.\n\nAttuned daggers, made at the altar, fill jars ${BAL.attunedSoulMultiplier} times as fast from passive or hostile mobs.` },
   { title: "Seeds and Harvest", body: `Seeds come from the Infusion Altar. The ${tierTitle(cfg.tiers[0])} seeds are the exception: craft 8 ${tierTitle(cfg.tiers[0])} Essence around wheat seeds.\n\nSeeds grow on any farmland, but give extras only on essence farmland.\n\nA ripe crop drops ${range(BAL.harvestEssence)} essence and its seed. The ${tierTitle(cfg.tiers[0])} crop drops ${tierTitle(cfg.tiers[0])} Essence directly, and more on higher tiers of farmland.\n\nEach crop's essence crafts its resource. Common resources use a ring of 8 or a row of 3 and make a lot. Rare ones take a full grid of 9 and make 1. The wiki lists every recipe.\n\nBone meal doesn't work on these crops.` },
   { title: "Essence Farmland", body: `Use tier essence on farmland to turn it into that tier, or craft 1 dirt + 1 tier essence. It never dries out and needs no water.\n\nOn any essence farmland, a ripe crop has a ${pct(BAL.secondaryChance)} chance of a second essence and of a second seed. Farmland matching the crop's tier raises each to ${pct(BAL.secondaryChance + BAL.matchingFarmlandChance)}.\n\nUsing a different tier's essence swaps the farmland, with a ${pct(BAL.farmlandRefundChance)} chance of getting one of the old essence back.` },
-  { title: "Growth Accelerators", body: `Place below a crop to give it an extra growth chance about every ${BAL.acceleratorSeconds} seconds. Each one works on its own, so more means faster.\n\nThey work through other blocks, on the first crop above them. The block directly above an accelerator is skipped, because that's where the farmland goes.\n\nReach by tier:\n${cfg.tiers.map((t, i) => `${tierTitle(t)}: ${BAL.acceleratorRange[i]} blocks`).join("\n")}\n\n4 tier essence, 4 stone and 1 tier gemstone make ${BAL.acceleratorYield}.` },
+  { title: "Growth Accelerators", body: `Place below a crop to give it an extra growth chance about every ${BAL.acceleratorSeconds} seconds. Each one works on its own, so more means faster.\n\nThey work through other blocks, on the first crop above them. The block directly above an accelerator is skipped, because that's where the farmland goes.\n\nReach by tier:\n${cfg.tiers.map((t, i) => `${tierTitle(t)}: ${BAL.acceleratorRange[i]} blocks`).join("\n")}\nDivus: ${BAL.awakening.acceleratorRange} blocks\n\n4 tier essence, 4 stone and 1 tier gemstone make ${BAL.acceleratorYield}.` },
   { title: "Materials", body: `Vita Ore, between y -60 and 24, drops ${range(BAL.vitaShards)} Vita Shards. Or craft 4 ${tierTitle(cfg.tiers[0])} Blocks around a flint for 4 shards.\n\nAnima Ore, in the Nether, drops ${range(BAL.animaDust)} Anima Dust. Or craft 4 ${tierTitle(cfg.tiers[1])} Blocks around soul sand for 4 dust.\n\n4 shards around an iron ingot make a Vita Ingot, and around a diamond a Vita Gemstone. Add 2 tier essence to either for that tier's version, or 2 Anima Dust for Anima Ingots and Gemstones.\n\nNine of anything stores in a block, and ingots break down into 9 nuggets.` },
   { title: "Fertilizer", body: `Ripe crops have a ${pct(BAL.fertilizedEssenceChance)} chance of dropping Fertilized Essence, which advances a crop a stage or two.\n\nEssence Fertilizer ripens a crop at once. 4 Terra Essence, 4 bone meal and a diamond make 4, or use Fertilized Essence instead of bone meal to make 8.` },
   { title: "Tools", body: `Essence Sickle: break a ripe crop to harvest every ripe crop in the 3x3 around it. It won't break unripe crops.\n\nEssence Hoe: right-click a ripe crop to harvest and replant it. The replant takes one seed from the drops. Right-click dirt or grass to till it.\n\nBoth last ${BAL.toolDurability} uses and repair with ${tierTitle(cfg.tiers[1])} Essence in an anvil.\n\nUpgrade them at the Infusion Altar, like armor. Sickles reach further at each tier:\n${cfg.tiers.map((t, i) => { const side = BAL.gear.sickleRadius[i] * 2 + 1; return `${tierTitle(t)}: ${side}x${side}`; }).join("\n")}` },
-  { title: "Harvester", body: `Harvests and replants ripe crops for you. Place it at the height of your crops, with its front facing them. It works on the square in front of it, one block at a time.\n\nTap it with an empty hand to open it. The top left slot takes fuel, the bottom left takes a Machine Upgrade, and the block on the right holds the harvest. To mine it, hold a tool or sneak.\n\nFuel: coal, charcoal, coal blocks, lava buckets, blaze rods, logs, planks or sticks. Each one fills an internal tank, shown by the bar on its screen, and each crop harvested uses some.\n\nA chest, barrel or hopper on top supplies fuel. A chest or barrel touching its back gets the harvest automatically, and hoppers can take it from there. Redstone power pauses it.\n\nUpgrades make it wider and faster, but it burns much more fuel:\n${["No upgrade", ...cfg.tiers.map(tierTitle)].map((name, i) => { const side = (BAL.harvester.range + (BAL.harvester.upgrades[i - 1]?.range ?? 0)) * 2 + 1; return `${name}: ${side}x${side}`; }).join("\n")}` },
+  { title: "Harvester", body: `Harvests and replants ripe crops for you. Place it at the height of your crops, with its front facing them. It works on the square in front of it, one block at a time.\n\nTap it with an empty hand to open it. The top left slot takes fuel, the bottom left takes a Machine Upgrade, and the block on the right holds the harvest. To mine it, hold a tool or sneak.\n\nFuel: coal, charcoal, coal blocks, lava buckets, blaze rods, logs, planks or sticks. Each one fills an internal tank, shown by the bar on its screen, and each crop harvested uses some.\n\nA chest, barrel or hopper on top supplies fuel. A chest or barrel touching its back gets the harvest automatically, and hoppers can take it from there. Redstone power pauses it.\n\nUpgrades make it wider and faster, but it burns much more fuel:\n${["No upgrade", ...cfg.tiers.map(tierTitle), "Divus"].map((name, i) => { const side = (BAL.harvester.range + (BAL.harvester.upgrades[i - 1]?.range ?? 0)) * 2 + 1; return `${name}: ${side}x${side}`; }).join("\n")}` },
   { title: "Crops by Tier", body:`${cfg.tiers.map((t, i) => [t, cfg.crops.filter((c) => c.tier === i + 1 && !c.retired)]).filter(([, crops]) => crops.length).map(([t, crops]) => `${tierTitle(t)}: ${crops.map((c) => title(c.id)).join(", ")}`).join("\n\n")}\n\nFull recipes: medievalrose-nick.github.io/EssenceAndEarth` },
 ];
 
@@ -764,6 +764,14 @@ const ENCHANT_RECIPES = Object.entries(BAL.enchanting).map(([enchant, ingredient
 }));
 for (const [item, [soul]] of Object.entries(BAL.soulExtractor.items)) if (!cfg.souls[soul]) throw new Error(`${item} gives unknown soul ${soul}`);
 
+// Divus, our take on MA's awakening: the tier above Astra. It isn't in cfg.tiers, so it has no crops, farmland or augments.
+// The Awakening Altar makes it: an item on the altar, 4 on the pedestals, and `essences` of each element from the 4 vessels.
+const DIVUS = { id: "divus", color: cfg.divus.color };
+const AWAKENING_RECIPES = [
+  { input: `${NS}:${cfg.tiers[4].id}_block`, ingredients: Array(4).fill(`${NS}:cognizant_dust`), essences: 10, output: `${NS}:divus_block` },
+  { input: `${NS}:${cfg.tiers[4].id}_machine_upgrade`, ingredients: Array(4).fill(`${NS}:divus_ingot`), essences: 20, output: `${NS}:divus_machine_upgrade` },
+];
+
 // Guide pages listing every altar recipe, one per tier. There's no recipe viewer on Bedrock, and these don't show in the recipe book.
 cfg.tiers.forEach((t, i) => {
   const crops = cfg.crops.filter((c) => !c.retired && !c.essenceCrop && c.tier === i + 1);
@@ -797,6 +805,12 @@ GUIDE_PAGES.push({
   title: "Altar Recipes: Daggers",
   body: `Put an Anima Dagger on the altar. On the pedestals, put 2 Anima Ingots, 2 Anima Gemstones and 4 full Soul Jars.\n\n${ATTUNED_DAGGERS.map(([kind, mobs]) => `${title(kind)} dagger: ${mobs.map(title).join(", ")} jars`).join("\n")}`,
 });
+const AW = BAL.awakening;
+GUIDE_PAGES.push(
+  { title: "Divus and Awakening", body: `Divus is the tier above ${tierTitle(cfg.tiers[4])}, made at the Awakening Altar. It's this add-on's version of awakening.\n\nThe altar needs 4 Awakening Pedestals 3 blocks away on each side, and 4 Essence Vessels 2 away on each diagonal, all at the altar's height. Craft them like the Infusion Altar and pedestals, with soulstone instead of stone, orange wool instead of red, and glass for the vessels.\n\nEach vessel holds up to ${AW.vesselCapacity} of one element: Air, Earth, Water or Fire Essence. Use essence on a vessel to pour in as much as fits, and an empty hand to take it all back. Look at a vessel to see how full it is.\n\nPut the item on the altar and 4 items on the pedestals, then use a Wand on the altar. The craft takes the essence it needs from each vessel and leaves the rest.` },
+  { title: "Cognizant Dust", body: `Kill the Wither or the Ender Dragon with a ${tierTitle(cfg.tiers[4])} sword in your hand. The Wither drops ${AW.cognizantDust["minecraft:wither"]} Cognizant Dust and the dragon drops ${AW.cognizantDust["minecraft:ender_dragon"]}.\n\nKilling either one with any of our swords or tools also drops that tier's essence: ${range(AW.bossEssence["minecraft:wither"])} from the Wither, ${range(AW.bossEssence["minecraft:ender_dragon"])} from the dragon.\n\nWitherproof Blocks shrug off explosions, and are meant to stop the Wither too. Craft 4 Wither Skeleton Essence around soulstone.` },
+  { title: "Altar Recipes: Divus", body: `${AWAKENING_RECIPES.map((r) => `${title(r.output.split(":")[1])}: ${title(r.input.split(":")[1])} on the altar, 4 ${title(r.ingredients[0].split(":")[1])} on the pedestals, ${r.essences} of each element in the vessels.`).join("\n\n")}\n\nA Divus Block breaks down into 9 Divus Essence. A Vita Ingot or Gemstone with 2 Divus Essence makes a Divus Ingot or Gemstone, and 4 Divus Essence, 4 stone and a Divus Gemstone make ${BAL.acceleratorYield} Divus Growth Accelerators.` },
+);
 
 // Our ores for Deepcore's Geo Scanner (see scripts/main.js). Its hologram wants colours as 0-1.
 const rgb = (hex) => [1, 3, 5].map((i) => +(parseInt(hex.slice(i, i + 2), 16) / 255).toFixed(2));
@@ -811,7 +825,7 @@ for (const file of fs.readdirSync(path.join(BP, "scripts"), { recursive: true })
   if (f.endsWith(".js"))
     write(f, fs.readFileSync(f, "utf8")
       .replaceAll("__BALANCE__", JSON.stringify(BAL))
-      .replaceAll("__ACCELERATOR_RANGE__", JSON.stringify(Object.fromEntries(cfg.tiers.map((t, i) => [`${NS}:${t.id}_accelerator`, BAL.acceleratorRange[i]]))))
+      .replaceAll("__ACCELERATOR_RANGE__", JSON.stringify({ ...Object.fromEntries(cfg.tiers.map((t, i) => [`${NS}:${t.id}_accelerator`, BAL.acceleratorRange[i]])), [`${NS}:divus_accelerator`]: BAL.awakening.acceleratorRange }))
       .replaceAll("__ESSENCE_FARMLAND__", JSON.stringify(Object.fromEntries(cfg.tiers.map((t) => [`${NS}:${t.id}_essence`, `${NS}:${t.id}_farmland`]))))
       .replaceAll("__GUIDE_PAGES__", JSON.stringify(GUIDE_PAGES))
       .replaceAll("__ALTAR_RECIPES__", JSON.stringify(ALTAR_RECIPES))
@@ -830,7 +844,9 @@ for (const file of fs.readdirSync(path.join(BP, "scripts"), { recursive: true })
       }]))))
       .replaceAll("__ENCHANT_RECIPES__", JSON.stringify(ENCHANT_RECIPES.map(({ enchant, ingredients }) => ({ enchant, ingredients }))))
       .replaceAll("__REPROCESS__", JSON.stringify(Object.fromEntries(cfg.crops.filter((c) => !c.retired).map((c) => [`${NS}:${c.id}_seeds`, `${NS}:${c.id}_essence`]))))
-      .replaceAll("__MACHINE_UPGRADES__", JSON.stringify(Object.fromEntries(cfg.tiers.map((t, i) => [`${NS}:${t.id}_machine_upgrade`, { name: tierTitle(t), ...BAL.harvester.upgrades[i] }]))))
+      .replaceAll("__MACHINE_UPGRADES__", JSON.stringify(Object.fromEntries([...cfg.tiers, DIVUS].map((t, i) => [`${NS}:${t.id}_machine_upgrade`, { name: tierTitle(t), ...BAL.harvester.upgrades[i] }]))))
+      .replaceAll("__AWAKENING_RECIPES__", JSON.stringify(AWAKENING_RECIPES))
+      .replaceAll("__GEAR_ESSENCE__", JSON.stringify(Object.fromEntries(cfg.tiers.flatMap((t) => [...Object.keys(GEAR_TOOLS), ...GEAR_FARM].map((tool) => [`${NS}:${t.id}_${tool}`, `${NS}:${t.id}_essence`])))))
       .replaceAll("__SOULS__", JSON.stringify(cfg.souls))
       .replaceAll("__DEEPCORE_ORES__", JSON.stringify(DEEPCORE_ORES))
       .replaceAll("__FARMLAND_TIER__", JSON.stringify(Object.fromEntries(cfg.tiers.map((t, i) => [`${NS}:${t.id}_farmland`, i + 1]))))
@@ -957,8 +973,8 @@ cfg.tiers.forEach((t, i) => {
 });
 
 // Growth accelerators: each gives the first crop above it an extra growth roll on a timer (see scripts/main.js).
-// 4 essence, 4 stone and 1 gemstone of a tier make 3.
-cfg.tiers.forEach((t, i) => {
+// 4 essence, 4 stone and 1 gemstone of a tier make 3. Divus has one too, though it isn't a crop tier.
+[...cfg.tiers, DIVUS].forEach((t) => {
   const id = `${t.id}_accelerator`;
   blockTexture(id, ACCELERATOR, t.color);
   block(id, "stone", { menu_category: { category: "items" } }, {
@@ -972,9 +988,9 @@ cfg.tiers.forEach((t, i) => {
   });
   recipe(id, "shaped", {
     pattern: ["ESE", "SGS", "ESE"],
-    key: { E: { item: tierEssence(i + 1) }, S: { item: "minecraft:stone" }, G: { item: `${NS}:${t.id}_gemstone` } },
+    key: { E: { item: `${NS}:${t.id}_essence` }, S: { item: "minecraft:stone" }, G: { item: `${NS}:${t.id}_gemstone` } },
     result: { item: `${NS}:${id}`, count: BAL.acceleratorYield },
-  }, tierEssence(i + 1));
+  }, `${NS}:${t.id}_essence`);
 });
 
 // Essence tools: their behaviour and durability loss are in scripts/main.js.
@@ -1165,6 +1181,13 @@ cfg.tiers.forEach((t, i) => {
   for (const kind of ["ingot", "gemstone"])
     recipe(`${t.id}_${kind}`, "shapeless", { ingredients: [{ item: `${NS}:vita_${kind}` }, { item: tierEssence(i + 1), count: 2 }], result: { item: `${NS}:${t.id}_${kind}` } }, tierEssence(i + 1));
 });
+// Divus materials, the same as a tier's, except the block comes from the Awakening Altar (and 9 essence).
+item("divus_essence", withSparkles(GEM, 4), DIVUS.color, {}, { "+": "#ffd75e" }); // gold sparkles set it apart from Astra
+materials("divus", DIVUS.color);
+storageBlock("divus_block", "Divus Block", ESSENCE_BLOCK, DIVUS.color, "stone");
+packs("divus_essence", "divus_block");
+for (const kind of ["ingot", "gemstone"])
+  recipe(`divus_${kind}`, "shapeless", { ingredients: [{ item: `${NS}:vita_${kind}` }, { item: `${NS}:divus_essence`, count: 2 }], result: { item: `${NS}:divus_${kind}` } }, `${NS}:divus_essence`);
 
 // Fertilizers: Fertilized Essence advances a crop a stage or two, and Essence Fertilizer ripens it (see scripts/main.js).
 item("fertilized_essence", POD, "#7cc44e");
@@ -1387,6 +1410,9 @@ furnace("soul_dust_smelted", "soulstone_smooth", "soul_dust");
 furnace("soulstone_cracked_smelted", "soulstone_bricks", "soulstone_cracked_bricks");
 const nsItem = (id) => ({ item: `${NS}:${id}` });
 recipe("soulstone_bricks", "shaped", { pattern: ["##", "##"], key: { "#": nsItem("soulstone") }, result: { ...nsItem("soulstone_bricks"), count: 4 } }, `${NS}:soulstone`);
+// ponytail: one block to see whether the Wither respects a custom block's blast resistance; add bricks and glass if it does.
+plainBlock("witherproof_block", "Witherproof Block", SMOOTH, { T: "#3c3446", t: "#2a2431", k: "#16131a" }, "stone", 5, "witherproof_block", { components: { "minecraft:destructible_by_explosion": { explosion_resistance: 3600000 } } });
+recipe("witherproof_block", "shaped", { pattern: [" E ", "ESE", " E "], key: { E: nsItem("wither_skeleton_essence"), S: nsItem("soulstone") }, result: nsItem("witherproof_block") }, `${NS}:wither_skeleton_essence`);
 recipe("soul_glass", "shaped", { pattern: [" E ", "EGE", " E "], key: { E: nsItem("soul_dust"), G: { item: "minecraft:glass" } }, result: nsItem("soul_glass") }, `${NS}:soul_dust`);
 
 // Anima: the second material family, from Anima Ore in the Nether.
@@ -1410,6 +1436,7 @@ const DUST = [
 ];
 item("anima_dust", DUST, cfg.anima.color);
 item("soul_dust", DUST, "#7a6250");
+item("cognizant_dust", DUST, "#f0d78c"); // dropped by bosses (see scripts/main.js)
 materials("anima", cfg.anima.color);
 storageBlock("anima_block", "Anima Block", ESSENCE_BLOCK, cfg.anima.color, "stone");
 packs("anima_dust", "anima_block");
@@ -1499,13 +1526,22 @@ const STAND = grid((x, y) => {
   if (y < 3) return x % 5 === 2 ? "o" : "r"; // the gold-trimmed wool top
   return noise(x, y, 11) > 0.85 ? "T" : noise(x, y, 12) < 0.15 ? "k" : "t";
 });
-for (const [id, name, height] of [["infusion_altar", "Infusion Altar", 13], ["infusion_pedestal", "Infusion Pedestal", 13]]) {
-  blockTexture(id, STAND, "#8f8f8f", { r: "#b02a2a", o: "#e8c14a", T: "#a8a8a8", t: "#8f8f8f", k: "#6e6e6e" });
+// The Awakening Altar and its stands share these shapes, in soulstone. A vessel is a pedestal with a glass top.
+const STONE_STAND = { T: "#a8a8a8", t: "#8f8f8f", k: "#6e6e6e" };
+const SOUL_STAND = { T: "#7a6250", t: "#5f4a3a", k: "#3f3128" };
+for (const [id, shape, palette] of [
+  ["infusion_altar", "infusion_altar", { r: "#b02a2a", o: "#e8c14a", ...STONE_STAND }],
+  ["infusion_pedestal", "infusion_pedestal", { r: "#b02a2a", o: "#e8c14a", ...STONE_STAND }],
+  ["awakening_altar", "infusion_altar", { r: "#e07b22", o: "#e8c14a", ...SOUL_STAND }],
+  ["awakening_pedestal", "infusion_pedestal", { r: "#e07b22", o: "#e8c14a", ...SOUL_STAND }],
+  ["essence_vessel", "infusion_pedestal", { r: "#cfe8f0", o: "#e8c14a", ...SOUL_STAND }],
+]) {
+  blockTexture(id, STAND, palette.t, palette);
   block(id, "stone", { menu_category: { category: "items" } }, {
-    "minecraft:display_name": name,
-    "minecraft:geometry": `geometry.${NS}_${id}`,
-    "minecraft:collision_box": { origin: [-8, 0, -8], size: [16, height, 16] },
-    "minecraft:selection_box": { origin: [-8, 0, -8], size: [16, height, 16] },
+    "minecraft:display_name": title(id),
+    "minecraft:geometry": `geometry.${NS}_${shape}`,
+    "minecraft:collision_box": { origin: [-8, 0, -8], size: [16, 13, 16] },
+    "minecraft:selection_box": { origin: [-8, 0, -8], size: [16, 13, 16] },
     "minecraft:destructible_by_mining": { seconds_to_destroy: 2 },
     "minecraft:light_dampening": 0,
     "minecraft:material_instances": { "*": { texture: `${NS}_${id}`, render_method: "alpha_test" } },
@@ -1515,6 +1551,8 @@ for (const [id, name, height] of [["infusion_altar", "Infusion Altar", 13], ["in
 }
 for (const [id, pattern] of [["infusion_altar", ["GCG", " S ", "SSS"]], ["infusion_pedestal", ["GCG", " S ", " S "]]])
   recipe(id, "shaped", { pattern, key: { S: { item: "minecraft:stone" }, C: { item: "minecraft:red_wool" }, G: { item: "minecraft:gold_ingot" } }, result: nsItem(id) }, "minecraft:gold_ingot");
+for (const [id, pattern, top] of [["awakening_altar", ["GCG", " S ", "SSS"], "minecraft:orange_wool"], ["awakening_pedestal", ["GCG", " S ", " S "], "minecraft:orange_wool"], ["essence_vessel", ["GCG", " S ", " S "], "minecraft:glass"]])
+  recipe(id, "shaped", { pattern, key: { S: nsItem("soulstone"), C: { item: top }, G: { item: "minecraft:gold_ingot" } }, result: nsItem(id) }, `${NS}:soulstone`);
 
 // The display entity: invisible and untouchable, shows its item in a hand bone, and keeps the item in its own inventory across restarts.
 write(path.join(BP, "entities", "item_display.json"), {
@@ -1657,7 +1695,7 @@ const UPGRADE = [
 ];
 const v_ = (id) => ({ item: `minecraft:${id}` });
 item("upgrade_base", UPGRADE, cfg.vita.color, {}, { g: "#e0b84a" });
-cfg.tiers.forEach((t) => item(`${t.id}_machine_upgrade`, UPGRADE, t.color, { "minecraft:max_stack_size": 1 }, { g: "#e0b84a" }));
+[...cfg.tiers, DIVUS].forEach((t) => item(`${t.id}_machine_upgrade`, UPGRADE, t.color, { "minecraft:max_stack_size": 1 }, { g: "#e0b84a" }));
 recipe("machine_frame", "shaped", { pattern: ["IRI", "RSR", "IRI"], key: { I: v_("iron_ingot"), R: v_("redstone"), S: v_("stone") }, result: nsItem("machine_frame") }, "minecraft:redstone");
 recipe("harvester", "shaped", { pattern: ["IAI", "SFS", "IAI"], key: { I: v_("iron_ingot"), A: nsItem("anima_ingot"), S: nsItem("essence_sickle"), F: nsItem("machine_frame") }, result: nsItem("harvester") }, `${NS}:machine_frame`);
 const machineRecipe = (id, ingot, side) => recipe(id, "shaped", { pattern: ["IAI", "SFS", "IAI"], key: { I: v_("iron_ingot"), A: nsItem(ingot), S: side, F: nsItem("machine_frame") }, result: nsItem(id) }, `${NS}:machine_frame`);

@@ -1,17 +1,17 @@
 {
  "name": "Essence & Earth",
  "release": {
-  "version": "0.26.0",
-  "file": "EssenceAndEarth_v0.26.0.mcaddon",
+  "version": "0.27.0",
+  "file": "EssenceAndEarth_v0.27.0.mcaddon",
   "minBedrock": "1.21.90",
-  "download": "https://github.com/MedievalRose-Nick/EssenceAndEarth/raw/main/addon/EssenceAndEarth_v0.26.0.mcaddon",
+  "download": "https://github.com/MedievalRose-Nick/EssenceAndEarth/raw/main/addon/EssenceAndEarth_v0.27.0.mcaddon",
   "repo": "https://github.com/MedievalRose-Nick/EssenceAndEarth"
  },
  "stats": {
   "crops": 54,
   "tiers": 5,
-  "recipes": 367,
-  "items": 344
+  "recipes": 374,
+  "items": 358
  },
  "categories": [
   {
@@ -1996,6 +1996,138 @@
      "href": "wiki/materials/astra"
     },
     {
+     "slug": "divus",
+     "name": "Divus materials",
+     "icon": "img/icons/divus_ingot.png",
+     "summary": "Divus ingots, gemstones and storage blocks.",
+     "blocks": [
+      {
+       "t": "p",
+       "html": "The tier above Astra, and this add-on's version of awakening. Divus Blocks are made at the <a href='wiki/infusion/awakening-altar'>Awakening Altar</a>, and each breaks down into 9 Divus Essence. Vita materials plus two Divus Essence make the ingots and gemstones."
+      },
+      {
+       "t": "h2",
+       "text": "Divus Ingot"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Divus Ingot",
+        "icon": "img/icons/divus_ingot.png",
+        "href": "wiki/materials/divus",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Vita Ingot",
+          "icon": "img/icons/vita_ingot.png",
+          "href": "wiki/materials/vita"
+         },
+         {
+          "name": "Divus Essence",
+          "icon": "img/icons/divus_essence.png",
+          "href": "wiki/materials/divus"
+         },
+         {
+          "name": "Divus Essence",
+          "icon": "img/icons/divus_essence.png",
+          "href": "wiki/materials/divus"
+         }
+        ],
+        [
+         null,
+         null,
+         null
+        ],
+        [
+         null,
+         null,
+         null
+        ]
+       ],
+       "note": "Shapeless: any slots"
+      },
+      {
+       "t": "h2",
+       "text": "Divus Gemstone"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Divus Gemstone",
+        "icon": "img/icons/divus_gemstone.png",
+        "href": "wiki/materials/divus",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Vita Gemstone",
+          "icon": "img/icons/vita_gemstone.png",
+          "href": "wiki/materials/vita"
+         },
+         {
+          "name": "Divus Essence",
+          "icon": "img/icons/divus_essence.png",
+          "href": "wiki/materials/divus"
+         },
+         {
+          "name": "Divus Essence",
+          "icon": "img/icons/divus_essence.png",
+          "href": "wiki/materials/divus"
+         }
+        ],
+        [
+         null,
+         null,
+         null
+        ],
+        [
+         null,
+         null,
+         null
+        ]
+       ],
+       "note": "Shapeless: any slots"
+      },
+      {
+       "t": "h2",
+       "text": "Storage"
+      },
+      {
+       "t": "items",
+       "items": [
+        {
+         "name": "Divus Nugget",
+         "icon": "img/icons/divus_nugget.png",
+         "href": "wiki/materials/divus",
+         "sub": "9 of the smaller item, and back again"
+        },
+        {
+         "name": "Divus Ingot Block",
+         "icon": "img/icons/divus_ingot_block.png",
+         "href": "wiki/materials/divus",
+         "sub": "9 of the smaller item, and back again"
+        },
+        {
+         "name": "Divus Gemstone Block",
+         "icon": "img/icons/divus_gemstone_block.png",
+         "href": "wiki/materials/divus",
+         "sub": "9 of the smaller item, and back again"
+        },
+        {
+         "name": "Divus Block",
+         "icon": "img/icons/divus_block.png",
+         "href": "wiki/materials/divus",
+         "sub": "Made at the Awakening Altar. 9 Divus Essence, and back again"
+        }
+       ]
+      }
+     ],
+     "href": "wiki/materials/divus"
+    },
+    {
      "slug": "fertilizer",
      "name": "Fertilizer",
      "icon": "img/icons/essence_fertilizer.png",
@@ -2645,6 +2777,254 @@
       }
      ],
      "href": "wiki/infusion/soul-jars"
+    },
+    {
+     "slug": "awakening-altar",
+     "name": "Awakening Altar",
+     "icon": "img/icons/awakening_altar.png",
+     "summary": "Makes Divus, the tier above Astra, from boss drops and elemental essence.",
+     "blocks": [
+      {
+       "t": "p",
+       "html": "Divus is this add-on's version of awakening. The Awakening Altar works like the Infusion Altar, with elemental essence from four vessels as well."
+      },
+      {
+       "t": "facts",
+       "facts": [
+        [
+         "Layout",
+         "4 Awakening Pedestals 3 blocks away on each side, and 4 Essence Vessels 2 away on each diagonal, at the altar's height"
+        ],
+        [
+         "Vessels",
+         "Each holds up to 40 of one element: Air, Earth, Water or Fire Essence. Use essence on it to pour in as much as fits, and an empty hand to take it back"
+        ],
+        [
+         "Start",
+         "Use a Wand on the altar"
+        ],
+        [
+         "Time",
+         "5 seconds"
+        ]
+       ]
+      },
+      {
+       "t": "h2",
+       "text": "Recipes"
+      },
+      {
+       "t": "items",
+       "items": [
+        {
+         "name": "Divus Block",
+         "icon": "img/icons/divus_block.png",
+         "href": "wiki/materials/divus",
+         "sub": "Astra Block on the altar, 4 Cognizant Dust on the pedestals, 10 of each element"
+        },
+        {
+         "name": "Divus Machine Upgrade",
+         "icon": "img/icons/divus_machine_upgrade.png",
+         "sub": "Astra Machine Upgrade on the altar, 4 Divus Ingots on the pedestals, 20 of each element"
+        }
+       ]
+      },
+      {
+       "t": "h2",
+       "text": "Cognizant Dust"
+      },
+      {
+       "t": "p",
+       "html": "Kill the Wither or the Ender Dragon with an Astra sword in your hand. The Wither drops 6 Cognizant Dust and the dragon drops 10. Killing either one with any of our tiered swords or tools also drops 1–3 or 2–4 of that tier's essence."
+      },
+      {
+       "t": "h2",
+       "text": "Awakening Altar"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Awakening Altar",
+        "icon": "img/icons/awakening_altar.png",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Gold Ingot",
+          "icon": "img/vanilla/gold_ingot.png"
+         },
+         {
+          "name": "Orange Wool",
+          "icon": "img/vanilla/orange_wool.png"
+         },
+         {
+          "name": "Gold Ingot",
+          "icon": "img/vanilla/gold_ingot.png"
+         }
+        ],
+        [
+         null,
+         {
+          "name": "Soulstone",
+          "icon": "img/icons/soulstone.png"
+         },
+         null
+        ],
+        [
+         {
+          "name": "Soulstone",
+          "icon": "img/icons/soulstone.png"
+         },
+         {
+          "name": "Soulstone",
+          "icon": "img/icons/soulstone.png"
+         },
+         {
+          "name": "Soulstone",
+          "icon": "img/icons/soulstone.png"
+         }
+        ]
+       ]
+      },
+      {
+       "t": "h2",
+       "text": "Awakening Pedestal"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Awakening Pedestal",
+        "icon": "img/icons/awakening_pedestal.png",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Gold Ingot",
+          "icon": "img/vanilla/gold_ingot.png"
+         },
+         {
+          "name": "Orange Wool",
+          "icon": "img/vanilla/orange_wool.png"
+         },
+         {
+          "name": "Gold Ingot",
+          "icon": "img/vanilla/gold_ingot.png"
+         }
+        ],
+        [
+         null,
+         {
+          "name": "Soulstone",
+          "icon": "img/icons/soulstone.png"
+         },
+         null
+        ],
+        [
+         null,
+         {
+          "name": "Soulstone",
+          "icon": "img/icons/soulstone.png"
+         },
+         null
+        ]
+       ]
+      },
+      {
+       "t": "h2",
+       "text": "Essence Vessel"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Essence Vessel",
+        "icon": "img/icons/essence_vessel.png",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Gold Ingot",
+          "icon": "img/vanilla/gold_ingot.png"
+         },
+         {
+          "name": "Glass",
+          "icon": "img/vanilla/glass.png"
+         },
+         {
+          "name": "Gold Ingot",
+          "icon": "img/vanilla/gold_ingot.png"
+         }
+        ],
+        [
+         null,
+         {
+          "name": "Soulstone",
+          "icon": "img/icons/soulstone.png"
+         },
+         null
+        ],
+        [
+         null,
+         {
+          "name": "Soulstone",
+          "icon": "img/icons/soulstone.png"
+         },
+         null
+        ]
+       ]
+      },
+      {
+       "t": "h2",
+       "text": "Witherproof Block"
+      },
+      {
+       "t": "p",
+       "html": "Shrugs off explosions, and is meant to stop the Wither breaking it too. That part is still being tested."
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Witherproof Block",
+        "icon": "img/icons/witherproof_block.png",
+        "count": 1
+       },
+       "rows": [
+        [
+         null,
+         {
+          "name": "Wither Skeleton Essence",
+          "icon": "img/icons/wither_skeleton_essence.png"
+         },
+         null
+        ],
+        [
+         {
+          "name": "Wither Skeleton Essence",
+          "icon": "img/icons/wither_skeleton_essence.png"
+         },
+         {
+          "name": "Soulstone",
+          "icon": "img/icons/soulstone.png"
+         },
+         {
+          "name": "Wither Skeleton Essence",
+          "icon": "img/icons/wither_skeleton_essence.png"
+         }
+        ],
+        [
+         null,
+         {
+          "name": "Wither Skeleton Essence",
+          "icon": "img/icons/wither_skeleton_essence.png"
+         },
+         null
+        ]
+       ]
+      }
+     ],
+     "href": "wiki/infusion/awakening-altar"
     },
     {
      "slug": "anima-daggers",
@@ -3762,6 +4142,108 @@
       }
      ],
      "href": "wiki/accelerators/astra-accelerator"
+    },
+    {
+     "slug": "divus-accelerator",
+     "name": "Divus Growth Accelerator",
+     "icon": "img/icons/divus_accelerator.png",
+     "summary": "Reaches a crop up to 54 blocks away.",
+     "blocks": [
+      {
+       "t": "facts",
+       "facts": [
+        [
+         "Tier",
+         "Divus, above the crop tiers"
+        ],
+        [
+         "Reach",
+         "54 blocks up"
+        ],
+        [
+         "Effect",
+         "1 extra growth chance about every 30 seconds"
+        ]
+       ]
+      },
+      {
+       "t": "items",
+       "items": [
+        {
+         "name": "Divus Growth Accelerator",
+         "icon": "img/icons/divus_accelerator.png",
+         "href": "wiki/accelerators/divus-accelerator"
+        }
+       ]
+      },
+      {
+       "t": "h2",
+       "text": "Recipe"
+      },
+      {
+       "t": "p",
+       "html": "Four Divus Essence, four stone and one Divus Gemstone make 3."
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Divus Growth Accelerator",
+        "icon": "img/icons/divus_accelerator.png",
+        "href": "wiki/accelerators/divus-accelerator",
+        "count": 3
+       },
+       "rows": [
+        [
+         {
+          "name": "Divus Essence",
+          "icon": "img/icons/divus_essence.png",
+          "href": "wiki/materials/divus"
+         },
+         {
+          "name": "Stone",
+          "icon": "img/vanilla/stone.png"
+         },
+         {
+          "name": "Divus Essence",
+          "icon": "img/icons/divus_essence.png",
+          "href": "wiki/materials/divus"
+         }
+        ],
+        [
+         {
+          "name": "Stone",
+          "icon": "img/vanilla/stone.png"
+         },
+         {
+          "name": "Divus Gemstone",
+          "icon": "img/icons/divus_gemstone.png",
+          "href": "wiki/materials/divus"
+         },
+         {
+          "name": "Stone",
+          "icon": "img/vanilla/stone.png"
+         }
+        ],
+        [
+         {
+          "name": "Divus Essence",
+          "icon": "img/icons/divus_essence.png",
+          "href": "wiki/materials/divus"
+         },
+         {
+          "name": "Stone",
+          "icon": "img/vanilla/stone.png"
+         },
+         {
+          "name": "Divus Essence",
+          "icon": "img/icons/divus_essence.png",
+          "href": "wiki/materials/divus"
+         }
+        ]
+       ]
+      }
+     ],
+     "href": "wiki/accelerators/divus-accelerator"
     }
    ]
   },
@@ -9914,6 +10396,11 @@
          "name": "Astra Machine Upgrade",
          "icon": "img/icons/astra_machine_upgrade.png",
          "sub": "13×13, 0.125 s per block, 1,920 fuel per crop"
+        },
+        {
+         "name": "Divus Machine Upgrade",
+         "icon": "img/icons/divus_machine_upgrade.png",
+         "sub": "15×15, 0.025 s per block, 3,840 fuel per crop"
         }
        ]
       },
@@ -10256,6 +10743,10 @@
          }
         ]
        ]
+      },
+      {
+       "t": "p",
+       "html": "The Divus upgrade is made at the <a href=\"wiki/infusion/awakening-altar\">Awakening Altar</a>: an Astra upgrade on the altar, 4 Divus Ingots on the pedestals, and 20 of each element in the vessels."
       }
      ],
      "href": "wiki/machines/machine-upgrades"
@@ -28705,6 +29196,63 @@
   },
   {
    "result": {
+    "name": "Divus Growth Accelerator",
+    "icon": "img/icons/divus_accelerator.png",
+    "href": "wiki/accelerators/divus-accelerator",
+    "count": 3
+   },
+   "rows": [
+    [
+     {
+      "name": "Divus Essence",
+      "icon": "img/icons/divus_essence.png",
+      "href": "wiki/materials/divus"
+     },
+     {
+      "name": "Stone",
+      "icon": "img/vanilla/stone.png"
+     },
+     {
+      "name": "Divus Essence",
+      "icon": "img/icons/divus_essence.png",
+      "href": "wiki/materials/divus"
+     }
+    ],
+    [
+     {
+      "name": "Stone",
+      "icon": "img/vanilla/stone.png"
+     },
+     {
+      "name": "Divus Gemstone",
+      "icon": "img/icons/divus_gemstone.png",
+      "href": "wiki/materials/divus"
+     },
+     {
+      "name": "Stone",
+      "icon": "img/vanilla/stone.png"
+     }
+    ],
+    [
+     {
+      "name": "Divus Essence",
+      "icon": "img/icons/divus_essence.png",
+      "href": "wiki/materials/divus"
+     },
+     {
+      "name": "Stone",
+      "icon": "img/vanilla/stone.png"
+     },
+     {
+      "name": "Divus Essence",
+      "icon": "img/icons/divus_essence.png",
+      "href": "wiki/materials/divus"
+     }
+    ]
+   ]
+  },
+  {
+   "result": {
     "name": "Essence Sickle",
     "icon": "img/icons/essence_sickle.png",
     "href": "wiki/tools/essence-sickle",
@@ -41968,6 +42516,82 @@
   },
   {
    "result": {
+    "name": "Divus Ingot",
+    "icon": "img/icons/divus_ingot.png",
+    "href": "wiki/materials/divus",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Vita Ingot",
+      "icon": "img/icons/vita_ingot.png",
+      "href": "wiki/materials/vita"
+     },
+     {
+      "name": "Divus Essence",
+      "icon": "img/icons/divus_essence.png",
+      "href": "wiki/materials/divus"
+     },
+     {
+      "name": "Divus Essence",
+      "icon": "img/icons/divus_essence.png",
+      "href": "wiki/materials/divus"
+     }
+    ],
+    [
+     null,
+     null,
+     null
+    ],
+    [
+     null,
+     null,
+     null
+    ]
+   ],
+   "note": "Shapeless: any slots"
+  },
+  {
+   "result": {
+    "name": "Divus Gemstone",
+    "icon": "img/icons/divus_gemstone.png",
+    "href": "wiki/materials/divus",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Vita Gemstone",
+      "icon": "img/icons/vita_gemstone.png",
+      "href": "wiki/materials/vita"
+     },
+     {
+      "name": "Divus Essence",
+      "icon": "img/icons/divus_essence.png",
+      "href": "wiki/materials/divus"
+     },
+     {
+      "name": "Divus Essence",
+      "icon": "img/icons/divus_essence.png",
+      "href": "wiki/materials/divus"
+     }
+    ],
+    [
+     null,
+     null,
+     null
+    ],
+    [
+     null,
+     null,
+     null
+    ]
+   ],
+   "note": "Shapeless: any slots"
+  },
+  {
+   "result": {
     "name": "Essence Fertilizer",
     "icon": "img/icons/essence_fertilizer.png",
     "href": "wiki/materials/fertilizer",
@@ -42311,6 +42935,168 @@
      {
       "name": "Soul Glass",
       "icon": "img/icons/soul_glass.png"
+     },
+     null
+    ]
+   ]
+  },
+  {
+   "result": {
+    "name": "Awakening Altar",
+    "icon": "img/icons/awakening_altar.png",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Gold Ingot",
+      "icon": "img/vanilla/gold_ingot.png"
+     },
+     {
+      "name": "Orange Wool",
+      "icon": "img/vanilla/orange_wool.png"
+     },
+     {
+      "name": "Gold Ingot",
+      "icon": "img/vanilla/gold_ingot.png"
+     }
+    ],
+    [
+     null,
+     {
+      "name": "Soulstone",
+      "icon": "img/icons/soulstone.png"
+     },
+     null
+    ],
+    [
+     {
+      "name": "Soulstone",
+      "icon": "img/icons/soulstone.png"
+     },
+     {
+      "name": "Soulstone",
+      "icon": "img/icons/soulstone.png"
+     },
+     {
+      "name": "Soulstone",
+      "icon": "img/icons/soulstone.png"
+     }
+    ]
+   ]
+  },
+  {
+   "result": {
+    "name": "Awakening Pedestal",
+    "icon": "img/icons/awakening_pedestal.png",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Gold Ingot",
+      "icon": "img/vanilla/gold_ingot.png"
+     },
+     {
+      "name": "Orange Wool",
+      "icon": "img/vanilla/orange_wool.png"
+     },
+     {
+      "name": "Gold Ingot",
+      "icon": "img/vanilla/gold_ingot.png"
+     }
+    ],
+    [
+     null,
+     {
+      "name": "Soulstone",
+      "icon": "img/icons/soulstone.png"
+     },
+     null
+    ],
+    [
+     null,
+     {
+      "name": "Soulstone",
+      "icon": "img/icons/soulstone.png"
+     },
+     null
+    ]
+   ]
+  },
+  {
+   "result": {
+    "name": "Essence Vessel",
+    "icon": "img/icons/essence_vessel.png",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Gold Ingot",
+      "icon": "img/vanilla/gold_ingot.png"
+     },
+     {
+      "name": "Glass",
+      "icon": "img/vanilla/glass.png"
+     },
+     {
+      "name": "Gold Ingot",
+      "icon": "img/vanilla/gold_ingot.png"
+     }
+    ],
+    [
+     null,
+     {
+      "name": "Soulstone",
+      "icon": "img/icons/soulstone.png"
+     },
+     null
+    ],
+    [
+     null,
+     {
+      "name": "Soulstone",
+      "icon": "img/icons/soulstone.png"
+     },
+     null
+    ]
+   ]
+  },
+  {
+   "result": {
+    "name": "Witherproof Block",
+    "icon": "img/icons/witherproof_block.png",
+    "count": 1
+   },
+   "rows": [
+    [
+     null,
+     {
+      "name": "Wither Skeleton Essence",
+      "icon": "img/icons/wither_skeleton_essence.png"
+     },
+     null
+    ],
+    [
+     {
+      "name": "Wither Skeleton Essence",
+      "icon": "img/icons/wither_skeleton_essence.png"
+     },
+     {
+      "name": "Soulstone",
+      "icon": "img/icons/soulstone.png"
+     },
+     {
+      "name": "Wither Skeleton Essence",
+      "icon": "img/icons/wither_skeleton_essence.png"
+     }
+    ],
+    [
+     null,
+     {
+      "name": "Wither Skeleton Essence",
+      "icon": "img/icons/wither_skeleton_essence.png"
      },
      null
     ]
@@ -46968,6 +47754,11 @@
      "name": "Astra Growth Accelerator",
      "icon": "img/icons/astra_accelerator.png",
      "href": "wiki/accelerators/astra-accelerator"
+    },
+    {
+     "name": "Divus Growth Accelerator",
+     "icon": "img/icons/divus_accelerator.png",
+     "href": "wiki/accelerators/divus-accelerator"
     }
    ]
   },
@@ -47171,6 +47962,31 @@
      "href": "wiki/materials/astra"
     },
     {
+     "name": "Divus Ingot",
+     "icon": "img/icons/divus_ingot.png",
+     "href": "wiki/materials/divus"
+    },
+    {
+     "name": "Divus Gemstone",
+     "icon": "img/icons/divus_gemstone.png",
+     "href": "wiki/materials/divus"
+    },
+    {
+     "name": "Divus Nugget",
+     "icon": "img/icons/divus_nugget.png",
+     "href": "wiki/materials/divus"
+    },
+    {
+     "name": "Divus Ingot Block",
+     "icon": "img/icons/divus_ingot_block.png",
+     "href": "wiki/materials/divus"
+    },
+    {
+     "name": "Divus Gemstone Block",
+     "icon": "img/icons/divus_gemstone_block.png",
+     "href": "wiki/materials/divus"
+    },
+    {
      "name": "Vita Block",
      "icon": "img/icons/vita_block.png",
      "href": "wiki/materials/vita"
@@ -47179,6 +47995,16 @@
      "name": "Anima Block",
      "icon": "img/icons/anima_block.png",
      "href": "wiki/materials/anima"
+    },
+    {
+     "name": "Divus Essence",
+     "icon": "img/icons/divus_essence.png",
+     "href": "wiki/materials/divus-essence"
+    },
+    {
+     "name": "Divus Block",
+     "icon": "img/icons/divus_block.png",
+     "href": "wiki/materials/divus"
     }
    ]
   },
@@ -47271,6 +48097,26 @@
     {
      "name": "Anima Ore",
      "icon": "img/icons/anima_ore.png"
+    },
+    {
+     "name": "Awakening Altar",
+     "icon": "img/icons/awakening_altar.png"
+    },
+    {
+     "name": "Awakening Pedestal",
+     "icon": "img/icons/awakening_pedestal.png"
+    },
+    {
+     "name": "Essence Vessel",
+     "icon": "img/icons/essence_vessel.png"
+    },
+    {
+     "name": "Cognizant Dust",
+     "icon": "img/icons/cognizant_dust.png"
+    },
+    {
+     "name": "Witherproof Block",
+     "icon": "img/icons/witherproof_block.png"
     }
    ]
   },
@@ -47815,6 +48661,10 @@
     {
      "name": "Astra Machine Upgrade",
      "icon": "img/icons/astra_machine_upgrade.png"
+    },
+    {
+     "name": "Divus Machine Upgrade",
+     "icon": "img/icons/divus_machine_upgrade.png"
     }
    ]
   },

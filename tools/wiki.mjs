@@ -119,6 +119,10 @@ const acceleratorRecipe = (t) => {
   return recipe(acceleratorItem(t), BAL.acceleratorYield, [[e, s, e], [s, g, s], [e, s, e]]);
 };
 
+const DIVUS = { id: "divus" };
+const AW = BAL.awakening;
+const divusEssence = { name: "Divus Essence", icon: "img/icons/divus_essence.png", href: "wiki/materials/divus" };
+
 // ---------- pages ----------
 
 const p = (html) => ({ t: "p", html });
@@ -235,7 +239,17 @@ const accelerators = {
       p(`Four ${tierName(t)}, four stone and one ${title(t.id)} Gemstone make ${BAL.acceleratorYield}.`),
       acceleratorRecipe(t),
     ],
-  })),
+  })).concat({
+    slug: "divus-accelerator", name: "Divus Growth Accelerator", icon: acceleratorItem(DIVUS).icon,
+    summary: `Reaches a crop up to ${AW.acceleratorRange} blocks away.`,
+    blocks: [
+      facts([["Tier", "Divus, above the crop tiers"], ["Reach", `${AW.acceleratorRange} blocks up`], ["Effect", `1 extra growth chance about every ${BAL.acceleratorSeconds} seconds`]]),
+      list([acceleratorItem(DIVUS)]),
+      h2("Recipe"),
+      p(`Four Divus Essence, four stone and one Divus Gemstone make ${BAL.acceleratorYield}.`),
+      (() => { const e = divusEssence, st = vanilla("minecraft:stone"), g = matItem("divus_gemstone"); return recipe(acceleratorItem(DIVUS), BAL.acceleratorYield, [[e, st, e], [st, g, st], [e, st, e]]); })(),
+    ],
+  }),
 };
 
 const toolTier = cfg.tiers[1];
@@ -353,6 +367,11 @@ const materials = {
       recipe(matItem(`${t.id}_ingot`), 1, shapelessGrid(matItem("vita_ingot"), tierItem(t)), "Shapeless: any slots"),
       recipe(matItem(`${t.id}_gemstone`), 1, shapelessGrid(matItem("vita_gemstone"), tierItem(t)), "Shapeless: any slots"),
       `Vita materials plus two ${tierName(t)}. Nine ${tierName(t)} also store in a ${title(t.id)} Block.`)),
+    materialEntry("divus", "Divus",
+      recipe(matItem("divus_ingot"), 1, shapelessGrid(matItem("vita_ingot"), divusEssence), "Shapeless: any slots"),
+      recipe(matItem("divus_gemstone"), 1, shapelessGrid(matItem("vita_gemstone"), divusEssence), "Shapeless: any slots"),
+      "The tier above Astra, and this add-on's version of awakening. Divus Blocks are made at the <a href='wiki/infusion/awakening-altar'>Awakening Altar</a>, and each breaks down into 9 Divus Essence. Vita materials plus two Divus Essence make the ingots and gemstones.",
+      [], [{ ...matItem("divus_block"), sub: "Made at the Awakening Altar. 9 Divus Essence, and back again" }]),
     {
       slug: "fertilizer", name: "Fertilizer", icon: fertilizer.icon,
       summary: "Speed up one crop at a time.",
@@ -430,6 +449,30 @@ const infusion = {
       ],
     },
     {
+      slug: "awakening-altar", name: "Awakening Altar", icon: "img/icons/awakening_altar.png",
+      summary: "Makes Divus, the tier above Astra, from boss drops and elemental essence.",
+      blocks: [
+        p("Divus is this add-on's version of awakening. The Awakening Altar works like the Infusion Altar, with elemental essence from four vessels as well."),
+        facts([["Layout", "4 Awakening Pedestals 3 blocks away on each side, and 4 Essence Vessels 2 away on each diagonal, at the altar's height"], ["Vessels", `Each holds up to ${AW.vesselCapacity} of one element: Air, Earth, Water or Fire Essence. Use essence on it to pour in as much as fits, and an empty hand to take it back`], ["Start", "Use a Wand on the altar"], ["Time", `${BAL.altarTicks / 20} seconds`]]),
+        h2("Recipes"),
+        list([
+          { ...matItem("divus_block"), sub: "Astra Block on the altar, 4 Cognizant Dust on the pedestals, 10 of each element" },
+          { name: "Divus Machine Upgrade", icon: "img/icons/divus_machine_upgrade.png", sub: "Astra Machine Upgrade on the altar, 4 Divus Ingots on the pedestals, 20 of each element" },
+        ]),
+        h2("Cognizant Dust"),
+        p(`Kill the Wither or the Ender Dragon with an Astra sword in your hand. The Wither drops ${AW.cognizantDust["minecraft:wither"]} Cognizant Dust and the dragon drops ${AW.cognizantDust["minecraft:ender_dragon"]}. Killing either one with any of our tiered swords or tools also drops ${range(AW.bossEssence["minecraft:wither"])} or ${range(AW.bossEssence["minecraft:ender_dragon"])} of that tier's essence.`),
+        h2("Awakening Altar"),
+        (() => { const g = vanilla("minecraft:gold_ingot"), c = vanilla("minecraft:orange_wool"), st = named("soulstone"); return recipe(named("awakening_altar"), 1, [[g, c, g], [null, st, null], [st, st, st]]); })(),
+        h2("Awakening Pedestal"),
+        (() => { const g = vanilla("minecraft:gold_ingot"), c = vanilla("minecraft:orange_wool"), st = named("soulstone"); return recipe(named("awakening_pedestal"), 1, [[g, c, g], [null, st, null], [null, st, null]]); })(),
+        h2("Essence Vessel"),
+        (() => { const g = vanilla("minecraft:gold_ingot"), c = vanilla("minecraft:glass"), st = named("soulstone"); return recipe(named("essence_vessel"), 1, [[g, c, g], [null, st, null], [null, st, null]]); })(),
+        h2("Witherproof Block"),
+        p("Shrugs off explosions, and is meant to stop the Wither breaking it too. That part is still being tested."),
+        (() => { const e = named("wither_skeleton_essence"), st = named("soulstone"); return recipe(named("witherproof_block"), 1, plus(e, st)); })(),
+      ],
+    },
+    {
       slug: "anima-daggers", name: "Anima Daggers", icon: "img/icons/anima_dagger.png",
       summary: "Fill Soul Jars from your kills.",
       blocks: [
@@ -495,12 +538,13 @@ const machines = {
         p("Each upgrade is crafted from the one before, so you keep the cost of the last. Put one in the machine's upgrade slot."),
         list([
           { name: "No upgrade", icon: "img/icons/harvester_front.png", sub: `${machineSide(0)}×${machineSide(0)}, ${HV.operationTicks / 20} s per block, ${HV.fuelPerHarvest} fuel per crop` },
-          ...cfg.tiers.map((t, i) => ({ ...upgradeItem(t), sub: `${machineSide(i + 1)}×${machineSide(i + 1)}, ${+((HV.operationTicks * HV.upgrades[i].time) / 20).toFixed(3)} s per block, ${(HV.fuelPerHarvest * HV.upgrades[i].fuel).toLocaleString("en-US")} fuel per crop` })),
+          ...[...cfg.tiers, DIVUS].map((t, i) => ({ ...upgradeItem(t), sub: `${machineSide(i + 1)}×${machineSide(i + 1)}, ${+((HV.operationTicks * HV.upgrades[i].time) / 20).toFixed(3)} s per block, ${(HV.fuelPerHarvest * HV.upgrades[i].fuel).toLocaleString("en-US")} fuel per crop` })),
         ]),
         h2("Upgrade Base"),
         (() => { const s = named("vita_shard"), v = named("vita_ingot"); return recipe(named("upgrade_base"), 1, [[s, v, s], [v, vanilla("minecraft:diamond"), v], [s, v, s]]); })(),
         h2("Upgrades"),
         ...cfg.tiers.map((t, i) => { const e = tierItem(t), n = named(`${t.id}_ingot`), u = i ? upgradeItem(cfg.tiers[i - 1]) : named("upgrade_base"); return recipe(upgradeItem(t), 1, [[e, n, e], [n, u, n], [e, n, e]]); }),
+        p('The Divus upgrade is made at the <a href="wiki/infusion/awakening-altar">Awakening Altar</a>: an Astra upgrade on the altar, 4 Divus Ingots on the pedestals, and 20 of each element in the vessels.'),
       ],
     },
   ],
@@ -601,15 +645,15 @@ const gallery = [
   { title: "Seeds", items: cfg.crops.map(seedsItem) },
   { title: "Ripe crops", items: cfg.crops.map(ripeItem) },
   { title: "Essence farmland", items: cfg.tiers.map(farmlandItem) },
-  { title: "Growth accelerators", items: cfg.tiers.map(acceleratorItem) },
+  { title: "Growth accelerators", items: [...cfg.tiers, DIVUS].map(acceleratorItem) },
   { title: "Ores", items: ["essence_ore", "deepslate_essence_ore", "vita_ore", "deepslate_vita_ore"].map((id) => ({ name: title(id), icon: `img/icons/${id}.png` })) },
-  { title: "Materials", items: ["vita", "anima", ...cfg.tiers.map((t) => t.id)].flatMap((id) => [`${id}_ingot`, `${id}_gemstone`, `${id}_nugget`, `${id}_ingot_block`, `${id}_gemstone_block`].map(matItem)).concat(["vita_block", "anima_block"].map(matItem)) },
+  { title: "Materials", items: ["vita", "anima", ...cfg.tiers.map((t) => t.id), "divus"].flatMap((id) => [`${id}_ingot`, `${id}_gemstone`, `${id}_nugget`, `${id}_ingot_block`, `${id}_gemstone_block`].map(matItem)).concat(["vita_block", "anima_block", "divus_essence", "divus_block"].map(matItem)) },
   { title: "Fertilizer", items: [fertilized, fertilizer] },
-  { title: "Infusion and souls", items: ["infusion_altar", "infusion_pedestal", "wand", "vita_seed_base", "anima_seed_base", "soul_jar", "anima_dagger", "passive_anima_dagger", "hostile_anima_dagger", "soul_dust", "anima_dust", "soulstone", "soulstone_cobble", "soulstone_smooth", "soulstone_bricks", "soulstone_cracked_bricks", "soul_glass", "anima_ore"].map((id) => ({ name: title(id), icon: `img/icons/${id}.png` })) },
+  { title: "Infusion and souls", items: ["infusion_altar", "infusion_pedestal", "wand", "vita_seed_base", "anima_seed_base", "soul_jar", "anima_dagger", "passive_anima_dagger", "hostile_anima_dagger", "soul_dust", "anima_dust", "soulstone", "soulstone_cobble", "soulstone_smooth", "soulstone_bricks", "soulstone_cracked_bricks", "soul_glass", "anima_ore", "awakening_altar", "awakening_pedestal", "essence_vessel", "cognizant_dust", "witherproof_block"].map((id) => ({ name: title(id), icon: `img/icons/${id}.png` })) },
   { title: "Tools and guide", items: [sickleItem, hoeItem, guideItem] },
   { title: "Armor and tools", items: cfg.tiers.flatMap((t) => [...GEAR_ARMOR_NAMES, ...GEAR_TOOL_NAMES, "sickle", "hoe"].map((piece) => ({ name: `${title(t.id)} ${title(piece)}`, icon: `img/icons/${t.id}_${piece}.png` }))) },
   { title: "Augments", items: [tableItem, blankAugment, ...cfg.augments.flatMap((a) => augmentLevels(a).map((l) => l.item))] },
-  { title: "Machines", items: [{ name: "Harvester", icon: "img/icons/harvester_front.png" }, ...["seed_reprocessor", "soul_extractor", "essence_furnace"].map((id) => ({ name: title(id), icon: `img/icons/${id}_front.png` })), named("machine_frame"), named("upgrade_base"), ...cfg.tiers.map(upgradeItem)] },
+  { title: "Machines", items: [{ name: "Harvester", icon: "img/icons/harvester_front.png" }, ...["seed_reprocessor", "soul_extractor", "essence_furnace"].map((id) => ({ name: title(id), icon: `img/icons/${id}_front.png` })), named("machine_frame"), named("upgrade_base"), ...[...cfg.tiers, DIVUS].map(upgradeItem)] },
   { title: "Growth stages", items: stages(cfg.crops[0]).slice(0, 3) },
 ];
 

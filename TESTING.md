@@ -6,6 +6,22 @@ Before starting: upload the latest `addon/*.mcaddon` to the server, and use crea
 
 # Still to test
 
+## Divus and the Awakening Altar (v0.27.0)
+
+Quickest setup, on a test world: stand somewhere flat and run `/function ee/test_awakening`. It clears your inventory, builds the altar with its pedestals and vessels, and gives you everything below. `/function ee/test_awakening_off` puts the game rules back.
+
+- [ ] **Check this first:** the add-on loads with no script or content log errors. The Awakening Altar, pedestal and vessel show soulstone with orange or glass tops, and the Infusion Altar still works.
+- [ ] **Vessels:** using 64 Air Essence on a vessel puts in 40 and leaves 24 in your hand. The action bar says "Air Essence 40/40", and looking at the vessel shows the same. Using more says it's full, and using Earth Essence says it holds Air. An empty hand takes all 40 back. Breaking a vessel drops its essence.
+- [ ] **Divus Block:** with one element in each vessel (at least 10 each), an Astra Block on the altar and 4 Cognizant Dust on the pedestals, the wand makes a Divus Block after 5 seconds. Each vessel loses exactly 10.
+- [ ] **Problems:** with a pedestal and a vessel swapped, with two vessels of the same element, or with too little essence, the wand says what's wrong and nothing is used up.
+- [ ] **Divus Machine Upgrade:** an Astra Machine Upgrade on the altar, 4 Divus Ingots on the pedestals and 20 of each element make one. In a Harvester it reaches 15×15 and its screen says Divus.
+- [ ] **Crafting:** a Divus Block breaks into 9 Divus Essence, and 9 make it back. A Vita Ingot or Gemstone with 2 Divus Essence makes a Divus Ingot or Gemstone. 4 Divus Essence, 4 stone and a Divus Gemstone make 3 Divus Growth Accelerators.
+- [ ] **Accelerator:** the Divus Growth Accelerator under the farmland on your left grows the Iron crop. Note the Divus colour on the essence, materials and accelerator.
+- [ ] **Cognizant Dust:** killing the Wither with the Astra sword drops 6 Cognizant Dust and 1 to 3 Astra Essence. Killing it with any other weapon drops no dust. **Also check the Ender Dragon** if you can: 10 dust and 2 to 4 essence. **Note whether the dragon drops anything at all**, since it dies after a long animation and the kill may not count as yours.
+- [ ] A Terra Pickaxe kill on the Wither drops 1 to 3 Terra Essence and no dust.
+- [ ] **Witherproof Block:** TNT next to it leaves it standing. **The real test:** build the Wither inside a box of Witherproof Blocks. If the Wither breaks them, report it, and we drop the Witherproof idea.
+- [ ] The Guide's Divus and Awakening, Cognizant Dust and Altar Recipes: Divus pages read well, and the wiki has the Awakening Altar and Divus pages.
+
 ## Area augments (v0.26.0)
 
 Quickest setup, on a test world: stand somewhere flat and run `/function ee/test_tools`. It also covers the v0.25.0 sickle and hoe checks below. `/function ee/test_tools_off` puts the game rules back.
