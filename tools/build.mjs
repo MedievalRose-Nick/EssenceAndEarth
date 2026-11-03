@@ -659,12 +659,15 @@ const GUIDE_PAGES = [
   { title: "Growth Accelerators", body: `Place below a crop to give it an extra growth chance about every ${BAL.acceleratorSeconds} seconds. Each one works on its own, so more means faster.\n\nThey work through other blocks, on the first crop above them. The block directly above an accelerator is skipped, because that's where the farmland goes.\n\nReach by tier:\n${cfg.tiers.map((t, i) => `${tierTitle(t)}: ${BAL.acceleratorRange[i]} blocks`).join("\n")}\nDivus: ${BAL.awakening.acceleratorRange} blocks\n\n4 tier essence, 4 stone and 1 tier gemstone make ${BAL.acceleratorYield}.` },
   { title: "Materials", body: `Vita Ore, between y -60 and 24, drops ${range(BAL.vitaShards)} Vita Shards. Or craft 4 ${tierTitle(cfg.tiers[0])} Blocks around a flint for 4 shards.\n\nAnima Ore, in the Nether, drops ${range(BAL.animaDust)} Anima Dust. Or craft 4 ${tierTitle(cfg.tiers[1])} Blocks around soul sand for 4 dust.\n\n4 shards around an iron ingot make a Vita Ingot, and around a diamond a Vita Gemstone. Add 2 tier essence to either for that tier's version, or 2 Anima Dust for Anima Ingots and Gemstones.\n\nNine of anything stores in a block, and ingots break down into 9 nuggets.` },
   { title: "Fertilizer", body: `Ripe crops have a ${pct(BAL.fertilizedEssenceChance)} chance of dropping Fertilized Essence, which advances a crop a stage or two.\n\nEssence Fertilizer ripens a crop at once. 4 Terra Essence, 4 bone meal and a diamond make 4, or use Fertilized Essence instead of bone meal to make 8.` },
-  { title: "Tools", body: `Essence Sickle: break a ripe crop to harvest every ripe crop in the 3x3 around it. It won't break unripe crops.\n\nEssence Hoe: right-click a ripe crop to harvest and replant it. The replant takes one seed from the drops. Right-click dirt or grass to till it.\n\nBoth last ${BAL.toolDurability} uses and repair with ${tierTitle(cfg.tiers[1])} Essence in an anvil.\n\nUpgrade them at the Infusion Altar, like armor. Sickles reach further at each tier:\n${cfg.tiers.map((t, i) => { const side = BAL.gear.sickleRadius[i] * 2 + 1; return `${tierTitle(t)}: ${side}x${side}`; }).join("\n")}` },
+  { title: "Tools", body: `Essence Sickle: break a ripe crop to harvest every ripe crop in the 3x3 around it. It won't break unripe crops.\n\nEssence Hoe: right-click a ripe crop to harvest and replant it. The replant takes one seed from the drops. Right-click dirt or grass to till it.\n\nBoth last ${BAL.toolDurability} uses and repair with ${tierTitle(cfg.tiers[1])} Essence in an anvil.\n\nUpgrade them at the Infusion Altar, like armor. Sickles reach further at each tier:\n${cfg.tiers.map((t, i) => { const side = BAL.gear.sickleRadius[i] * 2 + 1; return `${tierTitle(t)}: ${side}x${side}`; }).join("\n")}\nDivus: ${BAL.gear.sickleRadius[5] * 2 + 1}x${BAL.gear.sickleRadius[5] * 2 + 1}` },
   { title: "Harvester", body: `Harvests and replants ripe crops for you. Place it at the height of your crops, with its front facing them. It works on the square in front of it, one block at a time.\n\nTap it with an empty hand to open it. The top left slot takes fuel, the bottom left takes a Machine Upgrade, and the block on the right holds the harvest. To mine it, hold a tool or sneak.\n\nFuel: coal, charcoal, coal blocks, lava buckets, blaze rods, logs, planks or sticks. Each one fills an internal tank, shown by the bar on its screen, and each crop harvested uses some.\n\nA chest, barrel or hopper on top supplies fuel. A chest or barrel touching its back gets the harvest automatically, and hoppers can take it from there. Redstone power pauses it.\n\nUpgrades make it wider and faster, but it burns much more fuel:\n${["No upgrade", ...cfg.tiers.map(tierTitle), "Divus"].map((name, i) => { const side = (BAL.harvester.range + (BAL.harvester.upgrades[i - 1]?.range ?? 0)) * 2 + 1; return `${name}: ${side}x${side}`; }).join("\n")}` },
   { title: "Crops by Tier", body:`${cfg.tiers.map((t, i) => [t, cfg.crops.filter((c) => c.tier === i + 1 && !c.retired)]).filter(([, crops]) => crops.length).map(([t, crops]) => `${tierTitle(t)}: ${crops.map((c) => title(c.id)).join(", ")}`).join("\n\n")}\n\nFull recipes: medievalrose-nick.github.io/EssenceAndEarth` },
 ];
 
-// Tiered gear. Each piece upgrades at the altar from the one below it, starting from diamond.
+// Divus, our take on MA's awakening: the tier above Astra. It isn't in cfg.tiers, so it has no crops, farmland or augments of its own.
+const DIVUS = { id: "divus", color: cfg.divus.color };
+// Tiered gear. Each piece upgrades at the altar from the one below it, starting from diamond. Divus gear is awakened from Astra gear.
+const GEAR_TIERS = [...cfg.tiers, DIVUS];
 const GEAR_TOOLS = {
   sword: { tag: "sword" },
   pickaxe: { tag: "pickaxe", destroys: "minecraft:is_pickaxe_item_destructible" },
@@ -764,12 +767,17 @@ const ENCHANT_RECIPES = Object.entries(BAL.enchanting).map(([enchant, ingredient
 }));
 for (const [item, [soul]] of Object.entries(BAL.soulExtractor.items)) if (!cfg.souls[soul]) throw new Error(`${item} gives unknown soul ${soul}`);
 
-// Divus, our take on MA's awakening: the tier above Astra. It isn't in cfg.tiers, so it has no crops, farmland or augments.
-// The Awakening Altar makes it: an item on the altar, 4 on the pedestals, and `essences` of each element from the 4 vessels.
-const DIVUS = { id: "divus", color: cfg.divus.color };
+// The Awakening Altar makes Divus things: an item on the altar, 4 on the pedestals, and `essences` of each element from the 4 vessels.
 const AWAKENING_RECIPES = [
   { input: `${NS}:${cfg.tiers[4].id}_block`, ingredients: Array(4).fill(`${NS}:cognizant_dust`), essences: 10, output: `${NS}:divus_block` },
   { input: `${NS}:${cfg.tiers[4].id}_machine_upgrade`, ingredients: Array(4).fill(`${NS}:divus_ingot`), essences: 20, output: `${NS}:divus_machine_upgrade` },
+  ...GEAR_PIECES.map((piece) => ({
+    upgrade: true,
+    input: `${NS}:${cfg.tiers[4].id}_${piece}`,
+    ingredients: [`${NS}:divus_gemstone`, `${NS}:divus_gemstone`, `${NS}:divus_ingot`, `${NS}:divus_ingot`],
+    essences: BAL.awakening.gearEssences,
+    output: `${NS}:divus_${piece}`,
+  })),
 ];
 
 // Guide pages listing every altar recipe, one per tier. There's no recipe viewer on Bedrock, and these don't show in the recipe book.
@@ -789,9 +797,9 @@ GUIDE_PAGES.splice(GUIDE_PAGES.findIndex((g) => g.title === "Crops by Tier"), 0,
   { title: "Seed Reprocessor", body: `Turns a seed into ${BAL.seedReprocessor.essencePerSeed} of its essence, using fuel. Use it on spare seeds from essence farmland.\n\nTap it with an empty hand to open it. Fuel and upgrades go on the left. Seeds go in the middle slot, and essence comes out on the right.\n\nA chest on top feeds it seeds and fuel, and a chest at its back takes the essence. Redstone power pauses it. Upgrades make it faster but burn more fuel, and don't change the essence per seed.` },
   { title: "Soul Extractor", body: `Fills a Soul Jar from mob drops instead of kills. Put a jar in the right slot and drops in the middle slot, and fuel and upgrades on the left. A jar holds one mob type, so mixed drops wait until you swap the jar.\n\nA chest on top feeds in drops and fuel, and a full jar moves to a chest at its back.\n\nWhat each drop is worth:\n${Object.entries(BAL.soulExtractor.items).map(([id, [soul, worth]]) => `${title(id.split(":")[1])}: ${worth} ${title(soul)}`).join("\n")}` },
   { title: "Essence Furnace", body: `A furnace that takes Machine Upgrades. One block, with no tiers to craft: each upgrade makes it faster but burn more fuel.\n\nPut fuel and an upgrade on the left, what you're smelting in the middle, and take the result on the right. A chest on top feeds it items and fuel, and a chest at its back takes the result. Logs in that chest get smelted, not burned.\n\nIt only knows common recipes: ores and raw metals, sand, stone, clay, food, logs and a few others. Use a normal furnace for anything else. It gives no experience.` },
-  { title: "Armor and Tools", body: `Each tier has a helmet, chestplate, leggings, boots, sword, pickaxe, axe, shovel, sickle and hoe. Make them at the Infusion Altar: put the piece on the altar, and 2 Gemstones and 2 Ingots of the new tier on the pedestals, leaving the other pedestals empty. Use the wand.\n\n${tierTitle(cfg.tiers[0])} gear starts from diamond gear, or the Essence Sickle and Hoe, and each later tier upgrades the one below it. Enchantments, damage and names carry over.\n\nRepair gear with its tier's Gemstones on an anvil. ${tierTitle(cfg.tiers[4])} tools never break.` },
+  { title: "Armor and Tools", body: `Each tier has a helmet, chestplate, leggings, boots, sword, pickaxe, axe, shovel, sickle and hoe. Make them at the Infusion Altar: put the piece on the altar, and 2 Gemstones and 2 Ingots of the new tier on the pedestals, leaving the other pedestals empty. Use the wand.\n\n${tierTitle(cfg.tiers[0])} gear starts from diamond gear, or the Essence Sickle and Hoe, and each later tier upgrades the one below it. Enchantments, damage and names carry over.\n\nRepair gear with its tier's Gemstones on an anvil. ${tierTitle(cfg.tiers[4])} tools never break.\n\nDivus gear is a step above ${tierTitle(cfg.tiers[4])}, awakened at the Awakening Altar, and holds two augments. See Altar Recipes: Divus.` },
   { title: "Enchanting", body: `Enchant at the Infusion Altar. Put a book or the item to enchant on the altar. On the pedestals, put 4 Experience Essence and 4 of the enchantment's ingredient. Use the wand.\n\nEach craft adds one level, so craft again with the same items to go higher. A book becomes an Enchanted Book for the anvil. Enchantments that clash can't be combined.\n\nIngredients:\n${ENCHANT_RECIPES.map((r) => `${title(r.enchant)}: ${title(r.ingredient.split(":")[1])}`).join("\n")}` },
-  { title: "Tinkering Table", body: `Fits augments to ${tierTitle(cfg.tiers[0])} to ${tierTitle(cfg.tiers[4])} armor, swords and tools. Craft it from 7 stone with 2 Anima Dust in the middle row.\n\nTap it with an empty hand to open it. Put the gear in the left slot and an augment in the right slot, and it's fitted straight away.\n\nEach piece holds one augment. An augment only fits the pieces it's made for, and only gear of its tier or higher. The bottom line says why one won't fit.\n\nTake the augment back out to remove it. Taking the gear out takes its augment with it. Augments stay on through upgrades at the altar.` },
+  { title: "Tinkering Table", body: `Fits augments to ${tierTitle(cfg.tiers[0])} to Divus armor, swords and tools. Craft it from 7 stone with 2 Anima Dust in the middle row.\n\nTap it with an empty hand to open it. Put the gear in the left slot and an augment in the slot next to it, and it's fitted straight away.\n\nEach piece holds one augment, and Divus gear holds two: the second goes in the far right slot. The two can't be the same augment, even at different levels. An augment only fits the pieces it's made for, and only gear of its tier or higher. The bottom line says why one won't fit.\n\nTake the augment back out to remove it. Taking the gear out takes its augment with it. Augments stay on through upgrades at the altar.` },
   { title: "Augments", body: `Make augments at the Infusion Altar. Put a Blank Augment on the altar, with 4 tier essence and 4 of the material on the pedestals. Where there are two materials, use 2 of each. For a higher level, put the level below on the altar instead.\n\nBlank Augment: 6 Vita Shards and 3 iron ingots, in two columns of shards with iron down the middle.\n\nFlight: hold jump to rise, let go to hover, and sneak to sink.\n\nMining breaks a square of blocks on the face you hit, from 3x3 at I to 9x9 at IV. Sneak to mine just one. Attack hits the mobs around your target too. Tilling and Pathing work on a square while you sneak. Each extra block or hit costs 1 durability.\n\n${cfg.augments.map((a) => {
     const levels = AUGMENT_LEVELS.filter((l) => l.augment === a);
     const tiers = [...new Set(a.tiers)].map((n) => tierTitle(cfg.tiers[n - 1]));
@@ -808,8 +816,8 @@ GUIDE_PAGES.push({
 const AW = BAL.awakening;
 GUIDE_PAGES.push(
   { title: "Divus and Awakening", body: `Divus is the tier above ${tierTitle(cfg.tiers[4])}, made at the Awakening Altar. It's this add-on's version of awakening.\n\nThe altar needs 4 Awakening Pedestals 3 blocks away on each side, and 4 Essence Vessels 2 away on each diagonal, all at the altar's height. Craft them like the Infusion Altar and pedestals, with soulstone instead of stone, orange wool instead of red, and glass for the vessels.\n\nEach vessel holds up to ${AW.vesselCapacity} of one element: Air, Earth, Water or Fire Essence. Use essence on a vessel to pour in as much as fits, and an empty hand to take it all back. Look at a vessel to see how full it is.\n\nPut the item on the altar and 4 items on the pedestals, then use a Wand on the altar. The craft takes the essence it needs from each vessel and leaves the rest.` },
-  { title: "Cognizant Dust", body: `Kill the Wither or the Ender Dragon with a ${tierTitle(cfg.tiers[4])} sword in your hand. The Wither drops ${AW.cognizantDust["minecraft:wither"]} Cognizant Dust and the dragon drops ${AW.cognizantDust["minecraft:ender_dragon"]}.\n\nKilling either one with any of our swords or tools also drops that tier's essence: ${range(AW.bossEssence["minecraft:wither"])} from the Wither, ${range(AW.bossEssence["minecraft:ender_dragon"])} from the dragon.\n\nWitherproof Blocks shrug off explosions, and are meant to stop the Wither too. Craft 4 Wither Skeleton Essence around soulstone.` },
-  { title: "Altar Recipes: Divus", body: `${AWAKENING_RECIPES.map((r) => `${title(r.output.split(":")[1])}: ${title(r.input.split(":")[1])} on the altar, 4 ${title(r.ingredients[0].split(":")[1])} on the pedestals, ${r.essences} of each element in the vessels.`).join("\n\n")}\n\nA Divus Block breaks down into 9 Divus Essence. A Vita Ingot or Gemstone with 2 Divus Essence makes a Divus Ingot or Gemstone, and 4 Divus Essence, 4 stone and a Divus Gemstone make ${BAL.acceleratorYield} Divus Growth Accelerators.` },
+  { title: "Cognizant Dust", body: `Kill the Wither or the Ender Dragon with a ${tierTitle(cfg.tiers[4])} or Divus sword in your hand. The Wither drops ${AW.cognizantDust["minecraft:wither"]} Cognizant Dust and the dragon drops ${AW.cognizantDust["minecraft:ender_dragon"]}.\n\nKilling either one with any of our swords or tools also drops that tier's essence: ${range(AW.bossEssence["minecraft:wither"])} from the Wither, ${range(AW.bossEssence["minecraft:ender_dragon"])} from the dragon.\n\nWitherproof Blocks shrug off explosions, and are meant to stop the Wither too. Craft 4 Wither Skeleton Essence around soulstone.` },
+  { title: "Altar Recipes: Divus", body: `${AWAKENING_RECIPES.filter((r) => !r.upgrade).map((r) => `${title(r.output.split(":")[1])}: ${title(r.input.split(":")[1])} on the altar, 4 ${title(r.ingredients[0].split(":")[1])} on the pedestals, ${r.essences} of each element in the vessels.`).join("\n\n")}\n\nA Divus Block breaks down into 9 Divus Essence. A Vita Ingot or Gemstone with 2 Divus Essence makes a Divus Ingot or Gemstone, and 4 Divus Essence, 4 stone and a Divus Gemstone make ${BAL.acceleratorYield} Divus Growth Accelerators.\n\nDivus gear: any ${tierTitle(cfg.tiers[4])} armor piece, sword, tool, sickle or hoe on the altar, 2 Divus Gemstones and 2 Divus Ingots on the pedestals, ${BAL.awakening.gearEssences} of each element in the vessels. Enchantments, augments and names carry over.` },
 );
 
 // Our ores for Deepcore's Geo Scanner (see scripts/main.js). Its hologram wants colours as 0-1.
@@ -829,12 +837,12 @@ for (const file of fs.readdirSync(path.join(BP, "scripts"), { recursive: true })
       .replaceAll("__ESSENCE_FARMLAND__", JSON.stringify(Object.fromEntries(cfg.tiers.map((t) => [`${NS}:${t.id}_essence`, `${NS}:${t.id}_farmland`]))))
       .replaceAll("__GUIDE_PAGES__", JSON.stringify(GUIDE_PAGES))
       .replaceAll("__ALTAR_RECIPES__", JSON.stringify(ALTAR_RECIPES))
-      .replaceAll("__GEAR_TOOLS__", JSON.stringify(cfg.tiers.flatMap((t) => Object.keys(GEAR_TOOLS).map((tool) => `${NS}:${t.id}_${tool}`))))
-      .replaceAll("__SICKLES__", JSON.stringify({ [`${NS}:essence_sickle`]: 1, ...Object.fromEntries(cfg.tiers.map((t, i) => [`${NS}:${t.id}_sickle`, BAL.gear.sickleRadius[i]])) }))
-      .replaceAll("__HOES__", JSON.stringify([`${NS}:essence_hoe`, ...cfg.tiers.map((t) => `${NS}:${t.id}_hoe`)]))
-      .replaceAll("__GEAR_PIECES__", JSON.stringify(Object.fromEntries(cfg.tiers.flatMap((t, i) => GEAR_PIECES.map((piece) => [`${NS}:${t.id}_${piece}`, { tier: i + 1, piece }])))))
+      .replaceAll("__GEAR_TOOLS__", JSON.stringify(GEAR_TIERS.flatMap((t) => Object.keys(GEAR_TOOLS).map((tool) => `${NS}:${t.id}_${tool}`))))
+      .replaceAll("__SICKLES__", JSON.stringify({ [`${NS}:essence_sickle`]: 1, ...Object.fromEntries(GEAR_TIERS.map((t, i) => [`${NS}:${t.id}_sickle`, BAL.gear.sickleRadius[i]])) }))
+      .replaceAll("__HOES__", JSON.stringify([`${NS}:essence_hoe`, ...GEAR_TIERS.map((t) => `${NS}:${t.id}_hoe`)]))
+      .replaceAll("__GEAR_PIECES__", JSON.stringify(Object.fromEntries(GEAR_TIERS.flatMap((t, i) => GEAR_PIECES.map((piece) => [`${NS}:${t.id}_${piece}`, { tier: i + 1, piece, sockets: t === DIVUS ? 2 : 1 }])))))
       .replaceAll("__AUGMENTS__", JSON.stringify(Object.fromEntries(AUGMENT_LEVELS.map(({ augment: a, level, tier, id, name, pieces }) => [`${NS}:${id}`, {
-        name, tier, needs: tierTitle(cfg.tiers[tier - 1]), on: pieces, onText: piecesText(pieces),
+        name, kind: a.id, tier, needs: tierTitle(cfg.tiers[tier - 1]), on: pieces, onText: piecesText(pieces),
         ...(a.effect && { effect: a.effect, amplifier: level - 1, keep: !!a.keep }),
         ...(a.clears && { clears: a.clears }),
         ...(a.damage && { damage: a.damage[level - 1] }),
@@ -846,7 +854,7 @@ for (const file of fs.readdirSync(path.join(BP, "scripts"), { recursive: true })
       .replaceAll("__REPROCESS__", JSON.stringify(Object.fromEntries(cfg.crops.filter((c) => !c.retired).map((c) => [`${NS}:${c.id}_seeds`, `${NS}:${c.id}_essence`]))))
       .replaceAll("__MACHINE_UPGRADES__", JSON.stringify(Object.fromEntries([...cfg.tiers, DIVUS].map((t, i) => [`${NS}:${t.id}_machine_upgrade`, { name: tierTitle(t), ...BAL.harvester.upgrades[i] }]))))
       .replaceAll("__AWAKENING_RECIPES__", JSON.stringify(AWAKENING_RECIPES))
-      .replaceAll("__GEAR_ESSENCE__", JSON.stringify(Object.fromEntries(cfg.tiers.flatMap((t) => [...Object.keys(GEAR_TOOLS), ...GEAR_FARM].map((tool) => [`${NS}:${t.id}_${tool}`, `${NS}:${t.id}_essence`])))))
+      .replaceAll("__GEAR_ESSENCE__", JSON.stringify(Object.fromEntries(GEAR_TIERS.flatMap((t) => [...Object.keys(GEAR_TOOLS), ...GEAR_FARM].map((tool) => [`${NS}:${t.id}_${tool}`, `${NS}:${t.id}_essence`])))))
       .replaceAll("__SOULS__", JSON.stringify(cfg.souls))
       .replaceAll("__DEEPCORE_ORES__", JSON.stringify(DEEPCORE_ORES))
       .replaceAll("__FARMLAND_TIER__", JSON.stringify(Object.fromEntries(cfg.tiers.map((t, i) => [`${NS}:${t.id}_farmland`, i + 1]))))
@@ -1021,8 +1029,8 @@ for (const [id, px, pattern] of [
   recipe(id, "shaped", { pattern, key: { E: { item: toolEssence }, S: { item: "minecraft:stick" } }, result: { item: `${NS}:${id}` } }, toolEssence);
 }
 
-// Tiered armor and tools, using MA's numbers. Tools wear through scripts/main.js, and Astra tools have no durability, so they never break.
-cfg.tiers.forEach((t, i) => {
+// Tiered armor and tools, using MA's numbers. Tools wear through scripts/main.js, and Astra and Divus tools have no durability, so they never break.
+GEAR_TIERS.forEach((t, i) => {
   const G = BAL.gear;
   const repair = (durability) => ({ "minecraft:repairable": { repair_items: [{ items: [`${NS}:${t.id}_gemstone`], repair_amount: Math.ceil(durability / 4) }] } });
   for (const [tool, { tag, destroys }] of Object.entries(GEAR_TOOLS)) {
@@ -1867,15 +1875,17 @@ const machinePanel = (top) => ({
     ] } },
   ],
 });
-// The Tinkering Table: gear on the left, its augment on the right, and why an augment won't fit underneath.
+// The Tinkering Table: gear on the left, its two augment sockets on the right (the second is for Divus gear), and why an augment won't fit underneath.
 const tinkeringTop = {
   type: "collection_panel", collection_name: "container_items", size: ["100%", "50%"], offset: [0, 12], ...topLeft,
   controls: [
     { title: { type: "label", layer: 2, offset: [7, -1], size: ["100%", "default"], text: "Tinkering Table", color: "$title_text_color", ...topLeft } },
-    { [`gear@${SCREENS_NS}.slot`]: at(0, [66, 27]) },
-    { gear_ghost: ghostSlot(0, "ghost_gear", [67, 28]) },
-    { [`augment@${SCREENS_NS}.slot`]: at(1, [93, 27]) },
-    { augment_ghost: ghostSlot(1, "ghost_augment", [94, 28]) },
+    { [`gear@${SCREENS_NS}.slot`]: at(0, [57, 27]) },
+    { gear_ghost: ghostSlot(0, "ghost_gear", [58, 28]) },
+    { [`augment@${SCREENS_NS}.slot`]: at(1, [84, 27]) },
+    { augment_ghost: ghostSlot(1, "ghost_augment", [85, 28]) },
+    { [`augment_2@${SCREENS_NS}.slot`]: at(2, [102, 27]) },
+    { augment_2_ghost: ghostSlot(2, "ghost_augment", [103, 28]) },
     { status: readout(24, [7, 58], [162, 8], "center") },
   ],
 };

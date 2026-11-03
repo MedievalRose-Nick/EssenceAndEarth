@@ -82,7 +82,7 @@ function wearHeld(player, amount) {
   if (worn) wear(player, worn);
 }
 
-// ponytail: an Astra sickle can run 224 setblocks in one tick; spread them over a few ticks if that stutters.
+// ponytail: a Divus sickle can run 288 setblocks in one tick; spread them over a few ticks if that stutters.
 function sweep(player, dimension, { x, y, z }, reach) {
   let harvested = 1; // the crop the player broke
   for (let dx = -reach; dx <= reach; dx++)
@@ -254,10 +254,10 @@ world.afterEvents.entityDie.subscribe(({ deadEntity }) => {
   }
 });
 
-// Bosses killed with one of our tiered tools drop that tier's essence, and with an Astra sword, Cognizant Dust as well.
+// Bosses killed with one of our tiered tools drop that tier's essence, and with an Astra or Divus sword, Cognizant Dust as well.
 // Hollowdeep's bosses count too, and its elites (tagged with their affix) drop a little essence. Without Hollowdeep, none of them exist.
 const GEAR_ESSENCE = __GEAR_ESSENCE__; // tiered tool -> its tier's essence
-const COGNIZANT_SWORD = "__NS__:astra_sword";
+const COGNIZANT_SWORDS = new Set(["__NS__:astra_sword", "__NS__:divus_sword"]);
 world.afterEvents.entityDie.subscribe(({ deadEntity, damageSource }) => {
   const held = damageSource.damagingEntity?.getComponent("minecraft:equippable")?.getEquipment(EquipmentSlot.Mainhand)?.typeId;
   if (!held || !(held in GEAR_ESSENCE)) return;
@@ -266,7 +266,7 @@ world.afterEvents.entityDie.subscribe(({ deadEntity, damageSource }) => {
     if (min === undefined) return;
     const { dimension, location } = deadEntity;
     drop(dimension, GEAR_ESSENCE[held], location, min + Math.floor(Math.random() * (max - min + 1)));
-    if (held === COGNIZANT_SWORD && COGNIZANT_DUST[deadEntity.typeId]) drop(dimension, "__NS__:cognizant_dust", location, COGNIZANT_DUST[deadEntity.typeId]);
+    if (COGNIZANT_SWORDS.has(held) &&COGNIZANT_DUST[deadEntity.typeId]) drop(dimension, "__NS__:cognizant_dust", location, COGNIZANT_DUST[deadEntity.typeId]);
   } catch {
     // already gone, or an unloaded chunk
   }
@@ -541,7 +541,7 @@ function upgraded(input, id) {
   for (const enchantment of input.getComponent("minecraft:enchantable")?.getEnchantments() ?? []) {
     if (enchantable?.canAddEnchantment(enchantment)) enchantable.addEnchantment(enchantment);
   }
-  for (const key of [AUGMENT, TOKEN]) output.setDynamicProperty(key, input.getDynamicProperty(key));
+  for (const { augment, token } of SOCKETS) for (const key of [augment, token]) output.setDynamicProperty(key, input.getDynamicProperty(key));
   output.setLore(input.getLore());
   return output;
 }
@@ -1186,50 +1186,67 @@ system.runInterval(() => {
 }, 40);
 
 // ---------- Tinkering Table ----------
-// Gear goes in the left slot and an augment in the right one. A fitted augment is saved on the gear, and a copy of it shows in
-// the right slot while the gear is in: taking the copy out takes the augment off, and taking the gear out takes it along.
-// The gear and the copy share a token, so a copy taken out in the same tick as its gear can be found and removed (see below).
-const AUGMENTS = __AUGMENTS__; // augment item -> { name, tier, needs, on, onText, effect?, amplifier?, keep?, clears?, damage?, flight?, noFall? }
-const GEAR_PIECES = __GEAR_PIECES__; // our armor and tools -> { tier, piece }
-const AUGMENT = "__NS__:augment"; // on gear: the fitted augment's item id
-const TOKEN = "__NS__:augment_token"; // on gear, and on the copy of its augment shown in the table
+// Gear goes in the left slot and augments in the sockets on its right. Divus gear has two sockets, everything else one.
+// A fitted augment is saved on the gear, and a copy of it shows in its socket while the gear is in: taking the copy out
+// takes the augment off, and taking the gear out takes it along.
+// The gear and each copy share a token, so a copy taken out in the same tick as its gear can be found and removed (see below).
+const AUGMENTS = __AUGMENTS__; // augment item -> { name, kind, tier, needs, on, onText, effect?, amplifier?, keep?, clears?, damage?, flight?, noFall? }
+const GEAR_PIECES = __GEAR_PIECES__; // our armor and tools -> { tier, piece, sockets }
+const AUGMENT = "__NS__:augment"; // on gear: the first socket's augment item id
+const TOKEN = "__NS__:augment_token"; // on gear: the first socket's token. On the copy of an augment shown in the table: its token
+// Each socket's table slot, and the gear properties holding its augment and token. The first keeps the names from before Divus.
+const SOCKETS = [
+  { slot: 1, augment: AUGMENT, token: TOKEN },
+  { slot: 2, augment: `${AUGMENT}_2`, token: `${TOKEN}_2` },
+];
 const GEAR_SLOT = 0;
-const AUGMENT_SLOT = 1;
-const shownTokens = new Map(); // screen entity id -> token of the copy it showed last tick
+const shownTokens = new Map(); // screen entity id -> tokens of the copies each socket showed last tick
+
+const augmentsOf = (gear) => SOCKETS.map((s) => AUGMENTS[gear?.getDynamicProperty(s.augment)]).filter(Boolean);
+const tokensOf = (gear) => SOCKETS.map((s) => gear?.getDynamicProperty(s.token)).filter(Boolean);
 
 const isShownCopy = (container, slot) => {
-  const token = slot === AUGMENT_SLOT && container.getItem(slot)?.getDynamicProperty(TOKEN);
-  return !!token && container.getItem(GEAR_SLOT)?.getDynamicProperty(TOKEN) === token;
+  const socket = SOCKETS.find((s) => s.slot === slot);
+  const token = socket && container.getItem(slot)?.getDynamicProperty(TOKEN);
+  return !!token && container.getItem(GEAR_SLOT)?.getDynamicProperty(socket.token) === token;
 };
 
-// Fits an augment to gear, or takes it off with no id, and returns the new token.
-function fitAugment(gear, id) {
+// Fits an augment to a socket, or empties it with no id, and returns the new token.
+function fitAugment(gear, socket, id) {
   const token = id && `${Date.now().toString(36)}${Math.random().toString(36).slice(2)}`;
-  gear.setDynamicProperty(AUGMENT, id);
-  gear.setDynamicProperty(TOKEN, token);
-  gear.setLore(id ? [`§r§7Augment: ${AUGMENTS[id].name}`] : []);
+  gear.setDynamicProperty(socket.augment, id);
+  gear.setDynamicProperty(socket.token, token);
+  gear.setLore(augmentsOf(gear).map((a) => `§r§7Augment: ${a.name}`));
   return token;
 }
 
-// Why an augment won't go on the gear, or nothing if it will.
-function fitProblem(gear, augment) {
+// Why an augment won't go in a socket, or nothing if it will.
+function fitProblem(gear, augment, socket) {
   const piece = GEAR_PIECES[gear.typeId];
   const a = AUGMENTS[augment.typeId];
   if (!piece) return "This gear can't take augments";
   if (!a) return "That isn't an augment";
+  if (SOCKETS.indexOf(socket) >= piece.sockets) return "Only Divus gear takes a second augment";
   if (!a.on.includes(piece.piece)) return `${a.name} only fits ${a.onText}`;
   if (piece.tier < a.tier) return `${a.name} needs ${a.needs} gear or higher`;
+  const twin = SOCKETS.filter((s) => s !== socket).map((s) => AUGMENTS[gear.getDynamicProperty(s.augment)]).find((o) => o?.kind === a.kind);
+  if (twin) return `It already has ${twin.name}`;
   return undefined;
 }
 
 function tableState(container) {
   const gear = container.getItem(GEAR_SLOT);
-  const augment = container.getItem(AUGMENT_SLOT);
-  const fitted = gear?.getDynamicProperty(AUGMENT);
   if (!gear) return "Put armor or a sword on the left";
-  if (fitted) return `§2Fitted: ${AUGMENTS[fitted]?.name ?? fitted}`;
-  if (!augment) return GEAR_PIECES[gear.typeId] ? "Put an augment on the right" : "§4This gear can't take augments";
-  return `§4${fitProblem(gear, augment)}`;
+  const piece = GEAR_PIECES[gear.typeId];
+  if (!piece) return "§4This gear can't take augments";
+  const problem = SOCKETS.map((s) => {
+    const augment = container.getItem(s.slot);
+    return augment && !isShownCopy(container, s.slot) && fitProblem(gear, augment, s);
+  }).find(Boolean);
+  if (problem) return `§4${problem}`;
+  const fitted = augmentsOf(gear);
+  if (fitted.length) return `§2Fitted: ${fitted.map((a) => a.name).join(", ")}`;
+  return piece.sockets > 1 ? "Put up to 2 augments on the right" : "Put an augment on the right";
 }
 
 function tableTick(block) {
@@ -1237,41 +1254,46 @@ function tableTick(block) {
   const container = screen.getComponent("minecraft:inventory").container;
   // A shift-click fills the first open slot, so an augment can land on the left.
   const left = container.getItem(GEAR_SLOT);
-  const right = container.getItem(AUGMENT_SLOT);
+  const right = container.getItem(SOCKETS[0].slot);
   if (AUGMENTS[left?.typeId] && (!right || right.typeId in GEAR_PIECES)) {
     container.setItem(GEAR_SLOT, right);
-    container.setItem(AUGMENT_SLOT, left);
+    container.setItem(SOCKETS[0].slot, left);
   }
   const gear = container.getItem(GEAR_SLOT);
-  let augment = container.getItem(AUGMENT_SLOT);
-  const last = shownTokens.get(screen.id);
-  const token = gear?.getDynamicProperty(TOKEN);
-  shownTokens.delete(screen.id);
-  if (last && augment?.getDynamicProperty(TOKEN) === last && token !== last) {
-    container.setItem(AUGMENT_SLOT); // its gear was taken out, and the augment went with it
-    augment = undefined;
-  }
-  if (token) {
-    if (augment?.getDynamicProperty(TOKEN) === token) {
-      shownTokens.set(screen.id, token);
-    } else if (last === token) {
-      fitAugment(gear); // the copy was taken out, or swapped for another augment
-      container.setItem(GEAR_SLOT, gear);
-    } else if (!augment) {
-      const copy = new ItemStack(gear.getDynamicProperty(AUGMENT));
-      copy.setDynamicProperty(TOKEN, token);
-      container.setItem(AUGMENT_SLOT, copy);
-      shownTokens.set(screen.id, token);
+  const lastShown = shownTokens.get(screen.id) ?? [];
+  const shown = [];
+  SOCKETS.forEach((socket, k) => {
+    let augment = container.getItem(socket.slot);
+    const last = lastShown[k];
+    const token = gear?.getDynamicProperty(socket.token);
+    if (last && augment?.getDynamicProperty(TOKEN) === last && token !== last) {
+      container.setItem(socket.slot); // its gear was taken out, and the augment went with it
+      augment = undefined;
     }
-  }
-  if (gear && !gear.getDynamicProperty(TOKEN) && augment && !fitProblem(gear, augment)) {
-    const fitted = fitAugment(gear, augment.typeId);
-    container.setItem(GEAR_SLOT, gear);
-    augment.setDynamicProperty(TOKEN, fitted);
-    container.setItem(AUGMENT_SLOT, augment);
-    shownTokens.set(screen.id, fitted);
-  }
-  for (let i = AUGMENT_SLOT + 1; i < container.size; i++) if (i !== STATUS_SLOT) setReadout(screen, container, i, `${SCREEN_ITEM}blank`, "§r", FIRST_OUTPUT_SLOT);
+    if (token) {
+      if (augment?.getDynamicProperty(TOKEN) === token) {
+        shown[k] = token;
+      } else if (last === token) {
+        fitAugment(gear, socket); // the copy was taken out, or swapped for another augment
+        container.setItem(GEAR_SLOT, gear);
+      } else if (!augment) {
+        const copy = new ItemStack(gear.getDynamicProperty(socket.augment));
+        copy.setDynamicProperty(TOKEN, token);
+        container.setItem(socket.slot, copy);
+        shown[k] = token;
+      }
+    }
+    if (gear && !gear.getDynamicProperty(socket.token) && augment && !fitProblem(gear, augment, socket)) {
+      const fitted = fitAugment(gear, socket, augment.typeId);
+      container.setItem(GEAR_SLOT, gear);
+      augment.setDynamicProperty(TOKEN, fitted);
+      container.setItem(socket.slot, augment);
+      shown[k] = fitted;
+    }
+  });
+  if (shown.some(Boolean)) shownTokens.set(screen.id, shown);
+  else shownTokens.delete(screen.id);
+  for (let i = SOCKETS.length + 1; i < container.size; i++) if (i !== STATUS_SLOT) setReadout(screen, container, i, `${SCREEN_ITEM}blank`, "§r", FIRST_OUTPUT_SLOT);
   setReadout(screen, container, STATUS_SLOT, `${SCREEN_ITEM}blank`, `§8${tableState(container)}`, FIRST_OUTPUT_SLOT);
 }
 
@@ -1289,14 +1311,13 @@ function removeLooseCopies(player) {
   const container = player.getComponent("minecraft:inventory")?.container;
   if (!container) return;
   const equip = player.getComponent("minecraft:equippable");
-  const tokens = new Set(WORN.map((slot) => equip?.getEquipment(slot)?.getDynamicProperty(TOKEN)));
+  const tokens = new Set(WORN.flatMap((slot) => tokensOf(equip?.getEquipment(slot))));
   const copies = [];
   for (let i = 0; i < container.size; i++) {
     const item = container.getItem(i);
-    const token = item?.getDynamicProperty(TOKEN);
-    if (!token) continue;
-    if (item.typeId in AUGMENTS) copies.push([i, token]);
-    else tokens.add(token);
+    if (!item) continue;
+    if (!(item.typeId in AUGMENTS)) for (const token of tokensOf(item)) tokens.add(token);
+    else if (item.getDynamicProperty(TOKEN)) copies.push([i, item.getDynamicProperty(TOKEN)]);
   }
   for (const [i, token] of copies) if (tokens.has(token)) container.setItem(i);
 }
@@ -1305,9 +1326,7 @@ function applyAugments(player) {
   const equip = player.getComponent("minecraft:equippable");
   const effects = {};
   const move = { clears: new Set() };
-  for (const slot of WORN) {
-    const a = AUGMENTS[equip?.getEquipment(slot)?.getDynamicProperty(AUGMENT)];
-    if (!a) continue;
+  for (const a of WORN.flatMap((slot) => augmentsOf(equip?.getEquipment(slot)))) {
     if (a.effect) effects[a.effect] = Math.max(effects[a.effect] ?? 0, a.amplifier);
     for (const effect of a.clears ?? []) move.clears.add(effect);
     move.flight ||= a.flight;
@@ -1397,7 +1416,7 @@ system.runInterval(() => {
 world.afterEvents.entityHurt.subscribe(({ hurtEntity, damageSource }) => {
   const player = damageSource.damagingEntity;
   if (player?.typeId !== "minecraft:player" || damageSource.cause !== "entityAttack" || hurtEntity.typeId === "minecraft:player") return;
-  const bonus = AUGMENTS[player.getComponent("minecraft:equippable")?.getEquipment(EquipmentSlot.Mainhand)?.getDynamicProperty(AUGMENT)]?.damage;
+  const bonus = augmentsOf(player.getComponent("minecraft:equippable")?.getEquipment(EquipmentSlot.Mainhand)).reduce((sum, a) => sum + (a.damage ?? 0), 0);
   const health = bonus && hurtEntity.isValid && hurtEntity.getComponent("minecraft:health");
   if (!health || health.currentValue <= 0) return;
   if (health.currentValue > bonus) health.setCurrentValue(health.currentValue - bonus);
@@ -1407,8 +1426,7 @@ world.afterEvents.entityHurt.subscribe(({ hurtEntity, damageSource }) => {
 // Area augments, from MA. Mining breaks a square on the face hit, unless sneaking. Attack hits the mobs around the target.
 // Tilling (with the hoes above) and Pathing work on a square while sneaking. Every extra block or hit wears the tool by 1.
 function heldArea(player, kind) {
-  const a = AUGMENTS[player.getComponent("minecraft:equippable")?.getEquipment(EquipmentSlot.Mainhand)?.getDynamicProperty(AUGMENT)];
-  return a?.area === kind ? a.reach : 0;
+  return augmentsOf(player.getComponent("minecraft:equippable")?.getEquipment(EquipmentSlot.Mainhand)).find((a) => a.area === kind)?.reach ?? 0;
 }
 
 // The square around a block, flat across the axis given, without the block itself.
@@ -1441,9 +1459,9 @@ const NO_AREA_MINING = new Set([
   HARVESTER, ALTAR, PEDESTAL, "__NS__:tinkering_table", "__NS__:seed_reprocessor", "__NS__:soul_extractor", "__NS__:essence_furnace",
 ]);
 world.afterEvents.playerBreakBlock.subscribe(({ block, brokenBlockPermutation: broken, itemStackBeforeBreak: tool, player, dimension }) => {
-  const a = AUGMENTS[tool?.getDynamicProperty(AUGMENT)];
+  const a = augmentsOf(tool).find((a) => a.area === "mine");
   const tag = DIGS[GEAR_PIECES[tool?.typeId]?.piece];
-  if (a?.area !== "mine" || !tag || player.isSneaking || !broken.hasTag(tag)) return;
+  if (!a ||!tag || player.isSneaking || !broken.hasTag(tag)) return;
   // The face hit is taken from where the player looks: mostly down or up mines flat, otherwise a wall.
   const view = player.getViewDirection();
   const [ax, ay, az] = [Math.abs(view.x), Math.abs(view.y), Math.abs(view.z)];

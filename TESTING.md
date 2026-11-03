@@ -6,6 +6,23 @@ Before starting: upload the latest `addon/*.mcaddon` to the server, and use crea
 
 # Still to test
 
+## Divus gear (v0.28.0)
+
+Quickest setup, on a test world: stand somewhere flat and run `/function ee/test_divus_gear`. It clears your inventory, builds the Awakening Altar with a Tinkering Table on your right, and gives you everything below. `/function ee/test_awakening_off` puts the game rules back.
+
+- [ ] **Check this first:** the add-on loads with no script or content log errors. The Tinkering Table screen shows the gear slot and two augment slots side by side.
+- [ ] **Colour:** Divus is now deep purple with gold sparkles on the essence. It should be easy to tell apart from Astra (light violet) and Anima (dusty purple), in the inventory and on worn armor.
+- [ ] **Awakening:** put Mining I on the Astra Pickaxe at the table. Fill each vessel with 40 of one element. The pickaxe on the altar, with 2 Divus Ingots and 2 Divus Gemstones on the pedestals, makes a Divus Pickaxe after 5 seconds, and each vessel is left empty. The pickaxe keeps Mining I, its enchantments and its name.
+- [ ] Do the same with the chestplate and sword. Each Divus piece also needs exactly 40 of each element. With less, the altar says which element is short.
+- [ ] **Stats:** the Divus Sword hits for 29, the Divus Chestplate gives 12 armor, and Divus tools never lose durability. The pickaxe mines faster than the Astra one.
+- [ ] **Two augments:** on the Divus Sword, Strength I goes in the middle slot and Attack I in the right slot. Both work: extra damage and hits around the target. The tooltip lists both.
+- [ ] Strength II won't go in the second slot while Strength I is fitted, and the bottom line says "It already has Strength I".
+- [ ] Taking one augment out removes only that one. Taking the sword out takes both, and neither copy is left behind in your inventory.
+- [ ] On an Astra piece, an augment in the right slot doesn't fit, and the line says "Only Divus gear takes a second augment".
+- [ ] Haste I and the Mining augment carried over from Astra still work on Divus gear. Speed I on the chestplate fails with "only fits leggings".
+- [ ] **Cognizant Dust:** killing the Wither with the Divus Sword drops 6 Cognizant Dust and 1 to 3 Divus Essence.
+- [ ] The Guide's Armor and Tools, Tinkering Table and Altar Recipes: Divus pages, and the wiki's Divus Gear page, read well.
+
 ## Hollowdeep bosses and elites (v0.27.1)
 
 Needs Hollowdeep on the same world. Without it, nothing here happens.

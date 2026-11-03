@@ -267,7 +267,7 @@ const tools = {
         facts([["Use", "Break a ripe crop"], ["Area", "3×3, centred on that crop"], ["Wear", "1 durability per crop harvested"], ...toolFacts]),
         p("Breaking a ripe crop also harvests every ripe crop around it. Unripe crops are left alone, and the sickle won't break one even if you hit it directly. Farmland bonus essence and second seeds work as normal."),
         p("Upgrade it at the Infusion Altar for a wider sweep, the same way as armor:"),
-        list(cfg.tiers.map((t, i) => { const side = BAL.gear.sickleRadius[i] * 2 + 1; return { name: `${title(t.id)} Sickle`, icon: `img/icons/${t.id}_sickle.png`, sub: `${side}×${side}, ${BAL.gear.toolDurability[i] ? `${BAL.gear.toolDurability[i].toLocaleString("en-US")} durability` : "never breaks"}` }; })),
+        list([...cfg.tiers, DIVUS].map((t, i) => { const side = BAL.gear.sickleRadius[i] * 2 + 1; return { name: `${title(t.id)} Sickle`, icon: `img/icons/${t.id}_sickle.png`, sub: `${side}×${side}, ${BAL.gear.toolDurability[i] ? `${BAL.gear.toolDurability[i].toLocaleString("en-US")} durability` : "never breaks"}` }; })),
         h2("Recipe"),
         (() => {
           const e = tierItem(toolTier), s = vanilla("minecraft:stick");
@@ -282,7 +282,7 @@ const tools = {
         facts([["Use", "Right-click a ripe crop, or dirt and grass to till it"], ["Wear", "1 durability per crop or block tilled"], ...toolFacts]),
         p("The crop drops as normal and restarts at its first stage. The replant takes one seed from the drops, so it costs the same as replanting by hand."),
         p("Upgrade it at the Infusion Altar for more durability, the same way as armor:"),
-        list(cfg.tiers.map((t, i) => ({ name: `${title(t.id)} Hoe`, icon: `img/icons/${t.id}_hoe.png`, sub: BAL.gear.toolDurability[i] ? `${BAL.gear.toolDurability[i].toLocaleString("en-US")} durability` : "Never breaks" }))),
+        list([...cfg.tiers, DIVUS].map((t, i) => ({ name: `${title(t.id)} Hoe`, icon: `img/icons/${t.id}_hoe.png`, sub: BAL.gear.toolDurability[i] ? `${BAL.gear.toolDurability[i].toLocaleString("en-US")} durability` : "Never breaks" }))),
         h2("Recipe"),
         (() => {
           const e = tierItem(toolTier), s = vanilla("minecraft:stick");
@@ -458,9 +458,10 @@ const infusion = {
         list([
           { ...matItem("divus_block"), sub: "Astra Block on the altar, 4 Cognizant Dust on the pedestals, 10 of each element" },
           { name: "Divus Machine Upgrade", icon: "img/icons/divus_machine_upgrade.png", sub: "Astra Machine Upgrade on the altar, 4 Divus Ingots on the pedestals, 20 of each element" },
+          { name: "Divus Gear", icon: "img/icons/divus_chestplate.png", href: "wiki/armor-and-tools/divus", sub: `Any Astra armor, sword, tool, sickle or hoe on the altar, 2 Divus Gemstones and 2 Divus Ingots on the pedestals, ${AW.gearEssences} of each element` },
         ]),
         h2("Cognizant Dust"),
-        p(`Kill the Wither or the Ender Dragon with an Astra sword in your hand. The Wither drops ${AW.cognizantDust["minecraft:wither"]} Cognizant Dust and the dragon drops ${AW.cognizantDust["minecraft:ender_dragon"]}. Killing either one with any of our tiered swords or tools also drops ${range(AW.bossEssence["minecraft:wither"])} or ${range(AW.bossEssence["minecraft:ender_dragon"])} of that tier's essence.`),
+        p(`Kill the Wither or the Ender Dragon with an Astra or Divus sword in your hand. The Wither drops ${AW.cognizantDust["minecraft:wither"]} Cognizant Dust and the dragon drops ${AW.cognizantDust["minecraft:ender_dragon"]}. Killing either one with any of our tiered swords or tools also drops ${range(AW.bossEssence["minecraft:wither"])} or ${range(AW.bossEssence["minecraft:ender_dragon"])} of that tier's essence.`),
         h2("Awakening Altar"),
         (() => { const g = vanilla("minecraft:gold_ingot"), c = vanilla("minecraft:orange_wool"), st = named("soulstone"); return recipe(named("awakening_altar"), 1, [[g, c, g], [null, st, null], [st, st, st]]); })(),
         h2("Awakening Pedestal"),
@@ -555,16 +556,18 @@ const GEAR_TOOL_NAMES = ["sword", "pickaxe", "axe", "shovel"];
 const GEAR_ARMOR_NAMES = ["helmet", "chestplate", "leggings", "boots"];
 const gear = {
   slug: "armor-and-tools", title: "Armor and Tools", group: "Getting started", icon: `img/icons/${cfg.tiers[0].id}_sword.png`,
-  blurb: "Five tiers of armor and tools, upgraded at the Infusion Altar.",
-  entries: cfg.tiers.map((t, i) => ({
+  blurb: "Six tiers of armor and tools, upgraded at the Infusion Altar and, for Divus, the Awakening Altar.",
+  entries: [...cfg.tiers, DIVUS].map((t, i) => ({
     slug: t.id, name: `${title(t.id)} Gear`, icon: `img/icons/${t.id}_chestplate.png`,
     summary: `${G.toolDurability[i] ? `${G.toolDurability[i].toLocaleString("en-US")} tool durability` : "Tools never break"}, ${GEAR_ARMOR_NAMES.reduce((sum, a) => sum + G.armorPoints[a][i], 0)} armor points.`,
     blocks: [
-      p(`Upgrade each piece at the Infusion Altar. Put ${i ? `the ${title(cfg.tiers[i - 1].id)} piece` : "the diamond piece"} on the altar, and 2 ${title(t.id)} Gemstones and 2 ${title(t.id)} Ingots on the pedestals. Leave the other pedestals empty. Enchantments, damage and names carry over.`),
+      p(t === DIVUS
+        ? `Awaken each piece at the <a href="wiki/infusion/awakening-altar">Awakening Altar</a>. Put the Astra piece on the altar, 2 Divus Gemstones and 2 Divus Ingots on the pedestals, and ${AW.gearEssences} of each element in the vessels. Enchantments, augments, damage and names carry over. Divus gear holds two augments.`
+        : `Upgrade each piece at the Infusion Altar. Put ${i ? `the ${title(cfg.tiers[i - 1].id)} piece` : "the diamond piece"} on the altar, and 2 ${title(t.id)} Gemstones and 2 ${title(t.id)} Ingots on the pedestals. Leave the other pedestals empty. Enchantments, damage and names carry over.`),
       facts([["Mining speed", `${G.miningSpeed[i]}`], ["Repair", `${title(t.id)} Gemstones on an anvil`], ...(G.toolDurability[i] ? [["Tool durability", G.toolDurability[i].toLocaleString("en-US")]] : [["Tool durability", "Never breaks"]])]),
       h2("Tools"),
       list(GEAR_TOOL_NAMES.map((tool) => ({ name: `${title(t.id)} ${title(tool)}`, icon: `img/icons/${t.id}_${tool}.png`, sub: `${G.attack[i] + G.toolAttackBonus[tool]} attack damage` }))),
-      p(`The sickle and hoe upgrade from the ${i ? `${title(cfg.tiers[i - 1].id)} ones` : "Essence Sickle and Hoe"} instead.`),
+      p(t === DIVUS ? "The sickle and hoe are awakened from the Astra ones the same way." : `The sickle and hoe upgrade from the ${i ? `${title(cfg.tiers[i - 1].id)} ones` : "Essence Sickle and Hoe"} instead.`),
       list([
         { name: `${title(t.id)} Sickle`, icon: `img/icons/${t.id}_sickle.png`, sub: `Harvests ${G.sickleRadius[i] * 2 + 1}×${G.sickleRadius[i] * 2 + 1}` },
         { name: `${title(t.id)} Hoe`, icon: `img/icons/${t.id}_hoe.png`, sub: "Replants and tills" },
@@ -606,7 +609,7 @@ const augments = {
       slug: "tinkering-table", name: tableItem.name, icon: tableItem.icon,
       summary: "Fits augments to armor, swords and tools.",
       blocks: [
-        facts([["Open", "Tap it with an empty hand"], ["Fit", "Gear in the left slot, augment in the right"], ["Remove", "Take the augment back out"], ["Per piece", "One augment"], ["Tiers", "An augment needs gear of its tier or higher"]]),
+        facts([["Open", "Tap it with an empty hand"], ["Fit", "Gear in the left slot, augment in the slot next to it"], ["Remove", "Take the augment back out"], ["Per piece", "One augment, or two on Divus gear. The second goes in the far right slot, and can't be the same augment as the first"], ["Tiers", "An augment needs gear of its tier or higher"]]),
         p("An augment is fitted as soon as both are in. Taking the gear out takes its augment with it, and augments stay on through tier upgrades at the Infusion Altar. The line at the bottom of the screen says why an augment won't fit."),
         h2("Tinkering Table"),
         (() => { const s = vanilla("minecraft:stone"), d = { name: "Anima Dust", icon: "img/icons/anima_dust.png" }; return recipe(tableItem, 1, [[s, s, s], [d, s, d], [s, s, s]]); })(),
@@ -651,7 +654,7 @@ const gallery = [
   { title: "Fertilizer", items: [fertilized, fertilizer] },
   { title: "Infusion and souls", items: ["infusion_altar", "infusion_pedestal", "wand", "vita_seed_base", "anima_seed_base", "soul_jar", "anima_dagger", "passive_anima_dagger", "hostile_anima_dagger", "soul_dust", "anima_dust", "soulstone", "soulstone_cobble", "soulstone_smooth", "soulstone_bricks", "soulstone_cracked_bricks", "soul_glass", "anima_ore", "awakening_altar", "awakening_pedestal", "essence_vessel", "cognizant_dust", "witherproof_block"].map((id) => ({ name: title(id), icon: `img/icons/${id}.png` })) },
   { title: "Tools and guide", items: [sickleItem, hoeItem, guideItem] },
-  { title: "Armor and tools", items: cfg.tiers.flatMap((t) => [...GEAR_ARMOR_NAMES, ...GEAR_TOOL_NAMES, "sickle", "hoe"].map((piece) => ({ name: `${title(t.id)} ${title(piece)}`, icon: `img/icons/${t.id}_${piece}.png` }))) },
+  { title: "Armor and tools", items: [...cfg.tiers, DIVUS].flatMap((t) => [...GEAR_ARMOR_NAMES, ...GEAR_TOOL_NAMES, "sickle", "hoe"].map((piece) => ({ name: `${title(t.id)} ${title(piece)}`, icon: `img/icons/${t.id}_${piece}.png` }))) },
   { title: "Augments", items: [tableItem, blankAugment, ...cfg.augments.flatMap((a) => augmentLevels(a).map((l) => l.item))] },
   { title: "Machines", items: [{ name: "Harvester", icon: "img/icons/harvester_front.png" }, ...["seed_reprocessor", "soul_extractor", "essence_furnace"].map((id) => ({ name: title(id), icon: `img/icons/${id}_front.png` })), named("machine_frame"), named("upgrade_base"), ...[...cfg.tiers, DIVUS].map(upgradeItem)] },
   { title: "Growth stages", items: stages(cfg.crops[0]).slice(0, 3) },
