@@ -6,6 +6,26 @@ Before starting: upload the latest `addon/*.mcaddon` to the server, and use crea
 
 # Still to test
 
+## Tinkering Table and augments (v0.24.0)
+
+Quickest setup: `/give @s ee:tinkering_table`, `/give @s ee:astra_chestplate`, `/give @s ee:terra_leggings`, `/give @s ee:speed_iii_augment`, `/give @s ee:flight_augment`, `/give @s ee:health_boost_v_augment` and `/give @s ee:astra_sword`.
+
+- [ ] **Check this first:** the add-on loads with no script or content log errors, and the other machines still open their own screens.
+- [ ] The table opens with an empty hand and shows its title, a gear slot with a faint chestplate, an augment slot with a faint shard, and a status line. Note anything misplaced, as the layout hasn't been seen in-game.
+- [ ] **Fitting:** an Astra chestplate, then Flight, says "Fitted: Flight" and the chestplate's tooltip says "Augment: Flight". Shift-clicking either one in first works too.
+- [ ] **Removing:** taking the augment back out gives the augment back, and the gear loses its tooltip line. Taking the gear out leaves nothing behind in the right slot.
+- [ ] **No duplicates:** spam shift-click on the gear and the augment to take both out as fast as possible. You should never end up with the gear still fitted and a spare augment. Report it if you do.
+- [ ] **Rules:** Speed III on Terra leggings says it needs Aether gear. Flight on leggings says it only fits a chestplate. Diamond armor says it can't take augments.
+- [ ] Breaking the table with fitted gear inside drops the gear and no spare augment.
+- [ ] A fitted piece keeps its augment through an altar upgrade, such as Ignis to Aether leggings.
+- [ ] **Health Boost V** adds 10 hearts while worn, doesn't knock health down every second, and the hearts go when it comes off. **Absorption** gives its hearts once and only renews after the effect runs out.
+- [ ] **Effects:** Speed, Haste, Jump Boost, Night Vision (no flicker), Water Breathing, Fire Resistance and Slow Falling all work, show no particles, and end a few seconds after taking the piece off.
+- [ ] **Resistances:** a splash potion of Poison, Weakness or Slowness, or a pufferfish for Nausea and Hunger, is cleared at once. A Wither skeleton's Wither too.
+- [ ] **Flight:** holding jump climbs, letting go hovers in place, and sneaking sinks slowly. Note how smooth the hover is, and whether landing from high up hurts. It does nothing in creative mode.
+- [ ] **No Fall Damage:** jumping feels normal, and a fall from 30 blocks does no damage.
+- [ ] **Strength:** an Astra sword with Strength III kills a zombie in one hit, and the kill still fills a Soul Jar or drops loot as a player kill. It doesn't add damage to players. An Aether sword with Strength II loses 1 durability per hit, not 2.
+- [ ] Each augment's altar recipe works, including Strength III with diamond swords and the Blank Augment crafting recipe. The Guide and wiki pages match.
+
 ## Soul Jar display (v0.22.4)
 
 - [ ] The first kill with an Anima Dagger shows on the jar straight away, in creative and survival, with the inventory closed and open.

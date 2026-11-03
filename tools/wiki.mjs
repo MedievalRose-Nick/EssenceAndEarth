@@ -522,7 +522,62 @@ const gear = {
   })),
 };
 
-const categories = [guide, essence, materials, infusion, farmland, accelerators, tools, gear, machines, ...cropCategories];
+// Augments: the Tinkering Table, then a page per augment with each level's altar recipe. Names and recipes follow tools/build.mjs.
+const ROMAN = ["I", "II", "III", "IV", "V"];
+const tableItem = { name: "Tinkering Table", icon: "img/icons/tinkering_table_top.png", href: "wiki/augments/tinkering-table" };
+const blankAugment = { name: "Blank Augment", icon: "img/icons/blank_augment.png", href: "wiki/augments/tinkering-table" };
+const augmentLevels = (a) => a.tiers.map((tier, k) => {
+  const multi = a.tiers.length > 1;
+  const id = `${a.id}${multi ? `_${ROMAN[k].toLowerCase()}` : ""}_augment`;
+  const materials = Array.isArray(a.materials[0]) ? a.materials[k] : a.materials;
+  return { id, tier, level: k + 1, materials, item: { name: `${title(a.id)}${multi ? ` ${ROMAN[k]}` : ""} Augment`, icon: `img/icons/${id}.png`, href: `wiki/augments/${slug(a.id)}` } };
+});
+const augmentPieces = (a) => (a.on === "armor" ? "Any armor piece" : title(a.on));
+const augmentEffect = (a, level) => {
+  if (a.effect) return `${title(a.effect)}${a.tiers.length > 1 ? ` ${ROMAN[level - 1]}` : ""} while worn`;
+  if (a.clears) return `Clears ${a.clears.map((e) => title(e)).join(" and ")} while worn`;
+  if (a.damage) return `${a.damage[level - 1]} extra damage per hit on mobs`;
+  if (a.flight) return "Hold jump to rise, let go to hover, sneak to sink";
+  return "Slow Falling turns on once you're falling fast, so landings don't hurt";
+};
+const augments = {
+  slug: "augments", title: "Augments", group: "Getting started", icon: "img/icons/speed_i_augment.png",
+  blurb: "Effects for your armor and swords, fitted at the Tinkering Table.",
+  entries: [
+    {
+      slug: "tinkering-table", name: tableItem.name, icon: tableItem.icon,
+      summary: "Fits augments to armor and swords.",
+      blocks: [
+        facts([["Open", "Tap it with an empty hand"], ["Fit", "Gear in the left slot, augment in the right"], ["Remove", "Take the augment back out"], ["Per piece", "One augment"], ["Tiers", "An augment needs gear of its tier or higher"]]),
+        p("An augment is fitted as soon as both are in. Taking the gear out takes its augment with it, and augments stay on through tier upgrades at the Infusion Altar. The line at the bottom of the screen says why an augment won't fit."),
+        h2("Tinkering Table"),
+        (() => { const s = vanilla("minecraft:stone"), d = { name: "Anima Dust", icon: "img/icons/anima_dust.png" }; return recipe(tableItem, 1, [[s, s, s], [d, s, d], [s, s, s]]); })(),
+        h2("Blank Augment"),
+        p("Every augment starts as a Blank Augment at the Infusion Altar."),
+        (() => { const v = { name: "Vita Shard", icon: "img/icons/vita_shard.png" }, i = vanilla("minecraft:iron_ingot"); return recipe(blankAugment, 1, [[v, i, v], [v, i, v], [v, i, v]]); })(),
+      ],
+    },
+    ...cfg.augments.map((a) => {
+      const levels = augmentLevels(a);
+      return {
+        slug: slug(a.id), name: `${title(a.id)} Augment`, icon: levels[0].item.icon,
+        summary: `${augmentPieces(a)}. ${augmentEffect(a, 1)}.`,
+        blocks: [
+          facts([["Goes on", augmentPieces(a)], ["Levels", levels.length > 1 ? `${ROMAN[0]} to ${ROMAN[levels.length - 1]}` : "One"], ["Needs", levels.map((l) => `${title(cfg.tiers[l.tier - 1].id)} gear${levels.length > 1 ? ` for ${ROMAN[l.level - 1]}` : ""}`).join(", ")]]),
+          list(levels.map((l) => ({ ...l.item, href: undefined, sub: augmentEffect(a, l.level) }))),
+          ...levels.flatMap((l, k) => {
+            const e = tierItem(cfg.tiers[l.tier - 1]);
+            const m = l.materials.map(vanilla);
+            const ring = m.length === 1 ? [m[0], m[0], m[0], m[0]] : [m[0], m[1], m[1], m[0]];
+            return [h2(l.item.name), recipe(l.item, 1, [[e, ring[0], e], [ring[1], k ? levels[k - 1].item : blankAugment, ring[2]], [e, ring[3], e]], "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals")];
+          }),
+        ],
+      };
+    }),
+  ],
+};
+
+const categories = [guide, essence, materials, infusion, farmland, accelerators, tools, gear, augments, machines, ...cropCategories];
 for (const c of categories) for (const e of c.entries) e.href = `wiki/${c.slug}/${e.slug}`;
 
 const gallery = [
@@ -539,6 +594,7 @@ const gallery = [
   { title: "Infusion and souls", items: ["infusion_altar", "infusion_pedestal", "wand", "vita_seed_base", "anima_seed_base", "soul_jar", "anima_dagger", "passive_anima_dagger", "hostile_anima_dagger", "soul_dust", "anima_dust", "soulstone", "soulstone_cobble", "soulstone_smooth", "soulstone_bricks", "soulstone_cracked_bricks", "soul_glass", "anima_ore"].map((id) => ({ name: title(id), icon: `img/icons/${id}.png` })) },
   { title: "Tools and guide", items: [sickleItem, hoeItem, guideItem] },
   { title: "Armor and tools", items: cfg.tiers.flatMap((t) => [...GEAR_ARMOR_NAMES, ...GEAR_TOOL_NAMES].map((piece) => ({ name: `${title(t.id)} ${title(piece)}`, icon: `img/icons/${t.id}_${piece}.png` }))) },
+  { title: "Augments", items: [tableItem, blankAugment, ...cfg.augments.flatMap((a) => augmentLevels(a).map((l) => l.item))] },
   { title: "Machines", items: [{ name: "Harvester", icon: "img/icons/harvester_front.png" }, ...["seed_reprocessor", "soul_extractor", "essence_furnace"].map((id) => ({ name: title(id), icon: `img/icons/${id}_front.png` })), named("machine_frame"), named("upgrade_base"), ...cfg.tiers.map(upgradeItem)] },
   { title: "Growth stages", items: stages(cfg.crops[0]).slice(0, 3) },
 ];
