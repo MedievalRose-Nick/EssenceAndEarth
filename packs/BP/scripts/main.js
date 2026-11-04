@@ -1376,19 +1376,29 @@ function jumpHeld(player) {
 }
 
 // Bedrock has no way for an add-on to let a player fly, so Flight is made of Levitation and Slow Falling, as Deepcore's jetpack is.
-// Holding jump climbs. Letting go hovers, by catching each start of a fall with a moment of Levitation. Sneaking sinks slowly.
+// Holding jump climbs. Letting go hovers at that height: Levitation while below it, Slow Falling while above. Sneaking sinks slowly.
+const hoverY = new Map(); // player id -> the height Flight holds
 function fly(player) {
   const mode = player.getGameMode();
   if (mode === GameMode.Creative || mode === GameMode.Spectator) return;
   const quiet = { showParticles: false };
   if (jumpHeld(player) && !player.isSneaking) {
+    hoverY.delete(player.id);
     player.addEffect("levitation", 3, { amplifier: LIFT, ...quiet });
     return;
   }
   if (player.getEffect("levitation")?.amplifier === LIFT) player.removeEffect("levitation");
+  if (player.isOnGround || player.isSneaking) hoverY.delete(player.id);
   if (player.isOnGround) return;
-  if (!player.isSneaking && player.getVelocity().y < -0.02) player.addEffect("levitation", 2, { amplifier: 0, ...quiet });
-  else player.addEffect("slow_falling", 6, { amplifier: 0, ...quiet });
+  const y = player.location.y;
+  if (!player.isSneaking && !hoverY.has(player.id)) hoverY.set(player.id, y);
+  if (!player.isSneaking && y < hoverY.get(player.id)) {
+    player.addEffect("levitation", 10, { amplifier: 0, ...quiet });
+    return;
+  }
+  // Removed rather than left to run out, so the switch reaches the player straight away.
+  if (player.getEffect("levitation")) player.removeEffect("levitation");
+  player.addEffect("slow_falling", 6, { amplifier: 0, ...quiet });
 }
 
 // No Fall Damage: Slow Falling, but only once a fall gets going, so jumps don't float.

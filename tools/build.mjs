@@ -1024,6 +1024,7 @@ for (const [id, px, pattern] of [
     "minecraft:max_stack_size": 1,
     "minecraft:hand_equipped": true,
     "minecraft:durability": { max_durability: BAL.toolDurability },
+    "minecraft:enchantable": { slot: "hoe", value: 10 },
     "minecraft:repairable": { repair_items: [{ items: [toolEssence], repair_amount: Math.ceil(BAL.toolDurability / 4) }] },
   });
   recipe(id, "shaped", { pattern, key: { E: { item: toolEssence }, S: { item: "minecraft:stick" } }, result: { item: `${NS}:${id}` } }, toolEssence);

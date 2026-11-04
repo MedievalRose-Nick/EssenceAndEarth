@@ -6,6 +6,21 @@ Before starting: upload the latest `addon/*.mcaddon` to the server, and use crea
 
 # Still to test
 
+## Flight hover and starter tool enchanting (v0.28.1)
+
+Use the `/function ee/test_augments` world for Flight, and the `/function ee/test_tools` world for the hoe.
+
+```
+/function ee/test_augments
+/tp @s ~ ~30 ~
+/give @s ee:essence_hoe
+/give @s obsidian 4
+/give @s ee:experience_essence 4
+```
+
+- [ ] **Flight:** holding jump climbs, and letting go holds you at that height, bobbing a little at most, where before it dropped a block at a time. Sneaking sinks slowly, and letting go of sneak holds the new height. Note how smooth it is, and whether landing from high up hurts. It does nothing in creative mode.
+- [ ] **Altar enchanting:** the Essence Hoe and Essence Sickle now take Unbreaking (4 obsidian and 4 Experience Essence), and so do the tiered sickles and hoes. Efficiency and Mending work too. The enchantment carries over when a starter is upgraded to Terra.
+
 ## Divus gear (v0.28.0)
 
 Quickest setup, on a test world: stand somewhere flat and run `/function ee/test_divus_gear`. It clears your inventory, builds the Awakening Altar with a Tinkering Table on your right, and gives you everything below. `/function ee/test_awakening_off` puts the game rules back.
@@ -106,6 +121,8 @@ Quickest setup, on a test world: stand somewhere flat and run `/function ee/test
 - [ ] **Pathing IV:** sneaking and using the shovel on grass or dirt makes 9×9 of path. **Also check that a tiered shovel makes a single path without sneaking**, as it isn't a vanilla shovel.
 - [ ] Each extra block or hit costs 1 durability on a Terra-to-Aether tool. **Note any stutter** at 9×9.
 
+# Tested
+
 ## Tiered sickles and hoes (v0.25.0)
 
 Use the `/function ee/test_tools` world from above. The altar checks need the altar from `/function ee/test_augments`, or place one with the commands below. Altar enchanting takes 4 of the enchantment's item (obsidian for Unbreaking) and 4 Experience Essence.
@@ -123,13 +140,12 @@ Use the `/function ee/test_tools` world from above. The altar checks need the al
 /give @s ee:essence_guide
 ```
 
-- [ ] The Essence Sickle and Hoe now look plain steel, and the Terra to Astra sickles and hoes each show their tier's crystal colour, in the inventory and in the hand.
-- [ ] **Upgrading:** an Essence Sickle on the altar, with 2 Terra Gemstones and 2 Terra Ingots, makes a Terra Sickle. The same works for the hoe, and for each tier after. Damage, enchantments and names carry over.
-- [ ] **Reach:** a Terra Sickle harvests every ripe crop in a 7×7 around the crop you break, and an Astra Sickle 15×15. Unripe crops are left alone. **Note any stutter** with the Astra Sickle on a full field.
-- [ ] **Wear:** a Terra Sickle loses 1 durability per crop harvested. An Astra Sickle and Hoe never lose any. Unbreaking III on a Terra Sickle makes it lose about a quarter as much.
-- [ ] **Hoes:** every hoe, including the Essence Hoe, still harvests and replants a ripe crop. Right-clicking grass, dirt or a path with air above turns it into farmland and costs 1 durability. Dirt under a block doesn't till.
-- [ ] The altar enchants a tiered sickle or hoe with Unbreaking, Efficiency or Mending.
-- [ ] The Guide's Tools and Armor and Tools pages, and the wiki's Tools pages, list the new tiers.
+- [x] The Essence Sickle and Hoe now look plain steel, and the Terra to Astra sickles and hoes each show their tier's crystal colour, in the inventory and in the hand.
+- [x] **Upgrading:** an Essence Sickle on the altar, with 2 Terra Gemstones and 2 Terra Ingots, makes a Terra Sickle. The same works for the hoe, and for each tier after. Damage, enchantments and names carry over.
+- [x] **Reach:** a Terra Sickle harvests every ripe crop in a 7×7 around the crop you break, and an Astra Sickle 15×15. Unripe crops are left alone. **Note any stutter** with the Astra Sickle on a full field.
+- [x] **Wear:** a Terra Sickle loses 1 durability per crop harvested. An Astra Sickle and Hoe never lose any. Unbreaking III on a Terra Sickle makes it lose about a quarter as much.
+- [x] **Hoes:** every hoe, including the Essence Hoe, still harvests and replants a ripe crop. Right-clicking grass, dirt or a path with air above turns it into farmland and costs 1 durability. Dirt under a block doesn't till.
+- [x] The Guide's Tools and Armor and Tools pages, and the wiki's Tools pages, list the new tiers.
 
 ## Tinkering Table and augments (v0.24.0)
 
@@ -151,21 +167,20 @@ Quickest setup, on a test world: stand somewhere open and run `/function ee/test
 /function ee/test_augments_off
 ```
 
-- [ ] **Check this first:** the add-on loads with no script or content log errors, and the other machines still open their own screens.
-- [ ] The table opens with an empty hand and shows its title, a gear slot with a faint chestplate, an augment slot with a faint shard, and a status line. Note anything misplaced, as the layout hasn't been seen in-game.
-- [ ] **Fitting:** an Astra chestplate, then Flight, says "Fitted: Flight" and the chestplate's tooltip says "Augment: Flight". Shift-clicking either one in first works too.
-- [ ] **Removing:** taking the augment back out gives the augment back, and the gear loses its tooltip line. Taking the gear out leaves nothing behind in the right slot.
-- [ ] **No duplicates:** spam shift-click on the gear and the augment to take both out as fast as possible. You should never end up with the gear still fitted and a spare augment. Report it if you do.
-- [ ] **Rules:** Speed III on Terra leggings says it needs Aether gear. Flight on leggings says it only fits a chestplate. Diamond armor says it can't take augments.
-- [ ] Breaking the table with fitted gear inside drops the gear and no spare augment.
-- [ ] A fitted piece keeps its augment through an altar upgrade, such as Ignis to Aether leggings.
-- [ ] **Health Boost V** adds 10 hearts while worn, doesn't knock health down every second, and the hearts go when it comes off. **Absorption** gives its hearts once and only renews after the effect runs out.
-- [ ] **Effects:** Speed, Haste, Jump Boost, Night Vision (no flicker), Water Breathing, Fire Resistance and Slow Falling all work, show no particles, and end a few seconds after taking the piece off.
-- [ ] **Resistances:** a splash potion of Poison, Weakness or Slowness, or a pufferfish for Nausea and Hunger, is cleared at once. A Wither skeleton's Wither too.
-- [ ] **Flight:** holding jump climbs, letting go hovers in place, and sneaking sinks slowly. Note how smooth the hover is, and whether landing from high up hurts. It does nothing in creative mode.
-- [ ] **No Fall Damage:** jumping feels normal, and a fall from 30 blocks does no damage.
-- [ ] **Strength:** an Astra sword with Strength III kills a zombie in one hit, and the kill still fills a Soul Jar or drops loot as a player kill. It doesn't add damage to players. An Aether sword with Strength II loses 1 durability per hit, not 2.
-- [ ] Each augment's altar recipe works, including Strength III with diamond swords and the Blank Augment crafting recipe. The Guide and wiki pages match.
+- [x] **Check this first:** the add-on loads with no script or content log errors, and the other machines still open their own screens.
+- [x] The table opens with an empty hand and shows its title, a gear slot with a faint chestplate, an augment slot with a faint shard, and a status line. Note anything misplaced, as the layout hasn't been seen in-game.
+- [x] **Fitting:** an Astra chestplate, then Flight, says "Fitted: Flight" and the chestplate's tooltip says "Augment: Flight". Shift-clicking either one in first works too.
+- [x] **Removing:** taking the augment back out gives the augment back, and the gear loses its tooltip line. Taking the gear out leaves nothing behind in the right slot.
+- [x] **No duplicates:** spam shift-click on the gear and the augment to take both out as fast as possible. You should never end up with the gear still fitted and a spare augment. Report it if you do.
+- [x] **Rules:** Speed III on Terra leggings says it needs Aether gear. Flight on leggings says it only fits a chestplate. Diamond armor says it can't take augments.
+- [x] Breaking the table with fitted gear inside drops the gear and no spare augment.
+- [x] A fitted piece keeps its augment through an altar upgrade, such as Ignis to Aether leggings.
+- [x] **Health Boost V** adds 10 hearts while worn, doesn't knock health down every second, and the hearts go when it comes off. **Absorption** gives its hearts once and only renews after the effect runs out.
+- [x] **Effects:** Speed, Haste, Jump Boost, Night Vision (no flicker), Water Breathing, Fire Resistance and Slow Falling all work, show no particles, and end a few seconds after taking the piece off.
+- [x] **Resistances:** a splash potion of Poison, Weakness or Slowness, or a pufferfish for Nausea and Hunger, is cleared at once. A Wither skeleton's Wither too.
+- [x] **No Fall Damage:** jumping feels normal, and a fall from 30 blocks does no damage.
+- [x] **Strength:** an Astra sword with Strength III kills a zombie in one hit, and the kill still fills a Soul Jar or drops loot as a player kill. It doesn't add damage to players. An Aether sword with Strength II loses 1 durability per hit, not 2.
+- [x] Each augment's altar recipe works, including Strength III with diamond swords and the Blank Augment crafting recipe. The Guide and wiki pages match.
 
 ## Shift-click into machines (v0.23.1)
 
@@ -176,24 +191,9 @@ Quickest setup, on a test world: stand somewhere open and run `/function ee/test
 /give @s ee:terra_machine_upgrade
 ```
 
-- [ ] With lava in the fuel slot, Y on controller (or shift-click) puts seeds in the Seed Reprocessor's seed slot, not the upgrade slot.
-- [ ] An upgrade shift-clicked in still lands in the upgrade slot.
+- [x] With lava in the fuel slot, Y on controller (or shift-click) puts seeds in the Seed Reprocessor's seed slot, not the upgrade slot.
+- [x] An upgrade shift-clicked in still lands in the upgrade slot.
 
-## Armor and tools (v0.21.0)
-
-Quickest setup, on a test world: run `/function ee/test_wear`. It puts Terra armor on you, gives you the Astra and diamond sets and three pickaxes, and places 10 stone and a zombie. Health and durability show above the hotbar.
-
-```
-/function ee/test_wear
-/damage @s 10 entity_attack                         the same hit in each armor set
-/effect @s instant_health 1 10                      heal between hits
-/function ee/test_wear_off
-```
-
-- [ ] **Armor points:** the armor bar fills as expected. **Does a higher tier actually protect more?** Compare damage from the same mob in Terra and Astra. If they match, Bedrock caps armor as suspected, and this goes in the balance pass.
-- [ ] **Tool wear:** a Terra pickaxe loses 1 durability per block and on a hit. **Note if it loses 2**, which means Bedrock wears it natively too and the script should stop. Astra tools never lose any.
-
-# Tested
 
 ## Soul Jar display (v0.22.4)
 
@@ -233,6 +233,8 @@ Quickest setup: `/give @s ee:terra_chestplate`, `/give @s ee:astra_pickaxe`, and
 - [x] A spare item on an empty pedestal stops any altar craft and says "These items don't make anything". All old seed and dagger recipes still work.
 - [x] Gemstones repair gear on an anvil. Normal enchanting tables and anvils accept the gear, and altar enchanting works on it.
 - [x] Items keep working after a server restart, and the Guide and wiki match.
+- [x] **Armor points:** the armor bar fills as expected. **Does a higher tier actually protect more?** Compare damage from the same mob in Terra and Astra. If they match, Bedrock caps armor as suspected, and this goes in the balance pass.
+- [x] **Tool wear:** a Terra pickaxe loses 1 durability per block and on a hit. **Note if it loses 2**, which means Bedrock wears it natively too and the script should stop. Astra tools never lose any.
 
 ## Essence Hoe texture (v0.20.1)
 
