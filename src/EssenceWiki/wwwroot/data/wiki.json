@@ -2841,7 +2841,7 @@
       },
       {
        "t": "p",
-       "html": "Kill the Wither or the Ender Dragon with an Astra or Divus sword in your hand. The Wither drops 6 Cognizant Dust and the dragon drops 10. Killing either one with any of our tiered swords or tools also drops 1–3 or 2–4 of that tier's essence."
+       "html": "Kill the Wither or the Ender Dragon with an Astra or Divus sword in your hand. The Wither drops 6 Cognizant Dust and the dragon drops 10. Killing either one with any of our tiered swords or tools also drops 1–3 or 2–4 of that tier's essence. These drops land at your feet, so the Wither's death explosion can't destroy them."
       },
       {
        "t": "h2",
@@ -2987,7 +2987,7 @@
       },
       {
        "t": "p",
-       "html": "Shrugs off explosions, and is meant to stop the Wither breaking it too. That part is still being tested."
+       "html": "Shrugs off explosions, and the Wither can't break it either. Use it to build a box to fight the Wither in."
       },
       {
        "t": "grid",
