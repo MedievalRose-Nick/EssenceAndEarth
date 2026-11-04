@@ -6,6 +6,11 @@ Before starting: upload the latest `addon/*.mcaddon` to the server, and use crea
 
 # Still to test
 
+## Pale Astra and boss drops at your feet (v0.28.3)
+
+- [x] A Wither killed with the Astra or Divus Sword, including with `/damage @e[type=wither] 1000 entity_attack entity @s`, drops its Cognizant Dust and essence at the killer's feet, where its death explosion can't destroy them.
+- [ ] Astra is pale lavender across the whole blade and armor, clearly apart from Divus, in the inventory and when worn.
+
 ## Killer gone before its death is handled (v0.28.2)
 
 ```

@@ -726,6 +726,8 @@ function crystal(px, w, color) {
   const [th, ts, tl] = toHsl(...hex(color)), out = Buffer.from(px);
   // Worn armor shows far more texels than an icon, so its facets are wider and softer.
   const worn = w > 16, span = worn ? 14 : 7, drift = worn ? 18 : 9;
+  // Very pale tiers (only Astra) pull the darker gem shades up toward their own colour, so the whole blade reads light.
+  const pull = Math.max(0, tl - 0.8) * 5;
   for (let i = 0; i < px.length; i += 4) {
     const r = px[i], g = px[i + 1], b = px[i + 2];
     if (!px[i + 3] || r > b || (r === 255 && g === 255)) continue;
@@ -734,7 +736,8 @@ function crystal(px, w, color) {
     const band = (x + y) % span;
     const facet = worn ? (band < 3 ? 0.05 : band > 10 ? -0.035 : 0) : band < 2 ? 0.11 : band > 4 ? -0.07 : 0;
     const hue = th + (((x - y + 90) % drift) / (drift - 1) - 0.5) * (worn ? 12 : 26);
-    out.set(toRgb(hue, Math.max(ts, 0.7), sl + (tl - 0.55) * 0.55 + facet), i);
+    const l = sl + (tl - 0.55) * 0.55;
+    out.set(toRgb(hue, Math.max(ts, 0.7), l + (Math.max(l, tl) - l) * pull + facet), i);
   }
   return out;
 }

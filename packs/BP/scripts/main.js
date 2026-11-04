@@ -261,11 +261,14 @@ const COGNIZANT_SWORDS = new Set(["__NS__:astra_sword", "__NS__:divus_sword"]);
 world.afterEvents.entityDie.subscribe(({ deadEntity, damageSource }) => {
   try {
     // the killer can be gone already, such as a player who used /kill
-    const held = damageSource.damagingEntity?.getComponent("minecraft:equippable")?.getEquipment(EquipmentSlot.Mainhand)?.typeId;
+    const killer = damageSource.damagingEntity;
+    const held = killer?.getComponent("minecraft:equippable")?.getEquipment(EquipmentSlot.Mainhand)?.typeId;
     if (!held || !(held in GEAR_ESSENCE)) return;
-    const [min, max] = BOSS_ESSENCE[deadEntity.typeId] ?? (deadEntity.getTags().some((t) => t.startsWith(ELITE_TAG)) ? ELITE_ESSENCE : []);
+    const boss = BOSS_ESSENCE[deadEntity.typeId];
+    const [min, max] = boss ?? (deadEntity.getTags().some((t) => t.startsWith(ELITE_TAG)) ? ELITE_ESSENCE : []);
     if (min === undefined) return;
-    const { dimension, location } = deadEntity;
+    // Bosses drop at the killer's feet: the Wither's death explosion destroys items where it died, and the dragon dies in mid-air.
+    const { dimension, location } = boss ? killer : deadEntity;
     drop(dimension, GEAR_ESSENCE[held], location, min + Math.floor(Math.random() * (max - min + 1)));
     if (COGNIZANT_SWORDS.has(held) &&COGNIZANT_DUST[deadEntity.typeId]) drop(dimension, "__NS__:cognizant_dust", location, COGNIZANT_DUST[deadEntity.typeId]);
   } catch {
