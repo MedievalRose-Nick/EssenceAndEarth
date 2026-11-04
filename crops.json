@@ -1,7 +1,7 @@
 {
   "name": "Essence & Earth",
   "namespace": "ee",
-  "version": [0, 28, 3],
+  "version": [1, 0, 0],
   "balance": {
     "growChance": 0.43,
     "grassEssenceChance": 0.2,
@@ -148,7 +148,7 @@
     { "id": "aqua", "color": "#3f8fdf" },
     { "id": "ignis", "color": "#e8602c" },
     { "id": "aether", "color": "#9fe3f0" },
-    { "id": "astra", "color": "#d8bcff" }
+    { "id": "astra", "color": "#c4a2f2", "pale": true }
   ],
   "crops": [
     { "id": "terra", "tier": 1, "color": "#5fbf3f", "ingredient": "minecraft:dirt", "essenceCrop": true },

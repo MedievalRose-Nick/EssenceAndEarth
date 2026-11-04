@@ -722,17 +722,21 @@ const toRgb = (h, s, l) => {
   return [f(0), f(8), f(4)];
 };
 // Turns a texture's gem pixels into a tier's crystal, with diagonal facets and a slight colour shift. Wood and pure white glints stay.
-function crystal(px, w, color) {
+function crystal(px, w, { color, pale }) {
   const [th, ts, tl] = toHsl(...hex(color)), out = Buffer.from(px);
   // Worn armor shows far more texels than an icon, so its facets are wider and softer.
   const worn = w > 16, span = worn ? 14 : 7, drift = worn ? 18 : 9;
-  // Very pale tiers (only Astra) pull the darker gem shades up toward their own colour, so the whole blade reads light.
-  const pull = Math.max(0, tl - 0.8) * 5;
+  // Pale tiers (only Astra, marked in crops.json) pull the darker gem shades up toward their own colour, so the whole blade reads light.
+  const pull = pale ? 0.35 : 0;
+  // On those, a dark pixel is only outline where it touches the item's edge; inside the guard it takes the guard colour.
+  const solid = (x, y) => x >= 0 && y >= 0 && x < w && y < px.length / 4 / w && px[(y * w + x) * 4 + 3] > 0;
+  const inside = (x, y) => solid(x - 1, y) && solid(x + 1, y) && solid(x, y - 1) && solid(x, y + 1);
   for (let i = 0; i < px.length; i += 4) {
     const r = px[i], g = px[i + 1], b = px[i + 2];
     if (!px[i + 3] || r > b || (r === 255 && g === 255)) continue;
     const x = (i / 4) % w, y = ((i / 4 / w) | 0), [, , sl] = toHsl(r, g, b);
-    if (sl < 0.25) { out.set(toRgb(th, 0.55, sl), i); continue; } // the outline
+    if (sl < (pull ? 0.2 : 0.25) && !(pull && !worn && inside(x, y))) { out.set(toRgb(th, 0.55, sl), i); continue; } // the outline
+    if (pull && sl < 0.4) { out.set(toRgb(th, Math.max(ts, 0.7), tl - 0.22 + sl * 0.2), i); continue; } // a pale tier's crossguard and pommel, one shade, matching the pickaxe head's darker purple
     const band = (x + y) % span;
     const facet = worn ? (band < 3 ? 0.05 : band > 10 ? -0.035 : 0) : band < 2 ? 0.11 : band > 4 ? -0.07 : 0;
     const hue = th + (((x - y + 90) % drift) / (drift - 1) - 0.5) * (worn ? 12 : 26);
@@ -741,6 +745,8 @@ function crystal(px, w, color) {
   }
   return out;
 }
+// A pale sword gets an unbroken outline between its guard and blade: (6, 9) takes the outline pixel at (5, 8).
+const sword = (px, { pale }, tool) => (pale && tool === "sword" && px.copy(px, (9 * 16 + 6) * 4, (8 * 16 + 5) * 4, (8 * 16 + 6) * 4), px);
 // Mojang's diamond textures, from github.com/Mojang/bedrock-samples, are the base for every piece.
 const diamond = (name) => readPng(path.join(ROOT, "tools", "vanilla", "gear", `diamond${name}.png`)).px;
 
@@ -1039,7 +1045,7 @@ GEAR_TIERS.forEach((t, i) => {
   const repair = (durability) => ({ "minecraft:repairable": { repair_items: [{ items: [`${NS}:${t.id}_gemstone`], repair_amount: Math.ceil(durability / 4) }] } });
   for (const [tool, { tag, destroys }] of Object.entries(GEAR_TOOLS)) {
     const durability = G.toolDurability[i];
-    item(`${t.id}_${tool}`, crystal(diamond(`_${tool}`), 16, t.color), t.color, {
+    item(`${t.id}_${tool}`, sword(crystal(diamond(`_${tool}`), 16, t), t, tool), t.color, {
       "minecraft:max_stack_size": 1,
       "minecraft:hand_equipped": true,
       "minecraft:damage": { value: G.attack[i] + G.toolAttackBonus[tool] },
@@ -1052,7 +1058,7 @@ GEAR_TIERS.forEach((t, i) => {
   // Sickles and hoes wear through scripts/main.js, like the starters.
   for (const [piece, px] of [["sickle", render(SICKLE, t.color, { b: t.color, o: "#12263c", h: "#6b4a2f", H: "#93704a" })], ["hoe", diamond("_hoe")]]) {
     const durability = G.toolDurability[i];
-    item(`${t.id}_${piece}`, crystal(px, 16, t.color), t.color, {
+    item(`${t.id}_${piece}`, crystal(px, 16, t), t.color, {
       "minecraft:max_stack_size": 1,
       "minecraft:hand_equipped": true,
       "minecraft:enchantable": { slot: "hoe", value: G.enchantability[i] },
@@ -1061,7 +1067,7 @@ GEAR_TIERS.forEach((t, i) => {
   }
   for (const [piece, { slot, enchantSlot }] of Object.entries(GEAR_ARMOR)) {
     const durability = G.armorBaseDurability[piece] * G.armorDurabilityMultiplier[i];
-    item(`${t.id}_${piece}`, crystal(diamond(`_${piece}`), 16, t.color), t.color, {
+    item(`${t.id}_${piece}`, crystal(diamond(`_${piece}`), 16, t), t.color, {
       "minecraft:max_stack_size": 1,
       "minecraft:wearable": { slot, protection: G.armorPoints[piece][i] },
       "minecraft:enchantable": { slot: enchantSlot, value: G.enchantability[i] },
@@ -1081,7 +1087,7 @@ GEAR_TIERS.forEach((t, i) => {
       } },
     });
   }
-  for (const layer of [1, 2]) write(path.join(RP, "textures", "models", "armor", `${t.id}_${layer}.png`), png(64, crystal(diamond(`_${layer}`), 64, t.color), 32));
+  for (const layer of [1, 2]) write(path.join(RP, "textures", "models", "armor", `${t.id}_${layer}.png`), png(64, crystal(diamond(`_${layer}`), 64, t), 32));
 });
 
 // Every piece's model, using vanilla's two 64x32 armor layers. Layer 1: head 0,0; body 16,16; arms 40,16; boots 0,16. Layer 2, for leggings: body 16,16; legs 0,16.
