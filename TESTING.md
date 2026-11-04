@@ -6,44 +6,13 @@ Before starting: upload the latest `addon/*.mcaddon` to the server, and use crea
 
 # Still to test
 
-## Flight hover and starter tool enchanting (v0.28.1)
-
-Use the `/function ee/test_augments` world for Flight, and the `/function ee/test_tools` world for the hoe.
+## Killer gone before its death is handled (v0.28.2)
 
 ```
-/function ee/test_augments
-/tp @s ~ ~30 ~
-/give @s ee:essence_hoe
-/give @s obsidian 4
-/give @s ee:experience_essence 4
+/kill @s
 ```
 
-- [ ] **Flight:** holding jump climbs, and letting go holds you at that height, bobbing a little at most, where before it dropped a block at a time. Sneaking sinks slowly, and letting go of sneak holds the new height. Note how smooth it is, and whether landing from high up hurts. It does nothing in creative mode.
-- [ ] **Altar enchanting:** the Essence Hoe and Essence Sickle now take Unbreaking (4 obsidian and 4 Experience Essence), and so do the tiered sickles and hoes. Efficiency and Mending work too. The enchantment carries over when a starter is upgraded to Terra.
-
-## Divus gear (v0.28.0)
-
-Quickest setup, on a test world: stand somewhere flat and run `/function ee/test_divus_gear`. It clears your inventory, builds the Awakening Altar with a Tinkering Table on your right, and gives you everything below. `/function ee/test_awakening_off` puts the game rules back.
-
-```
-/function ee/test_divus_gear
-/summon wither                                      Cognizant Dust check, with the awakened Divus Sword
-/give @s ee:essence_guide                           Guide pages
-/function ee/test_awakening_off
-```
-
-- [ ] **Check this first:** the add-on loads with no script or content log errors. The Tinkering Table screen shows the gear slot and two augment slots side by side.
-- [ ] **Colour:** Divus is now deep purple with gold sparkles on the essence. It should be easy to tell apart from Astra (light violet) and Anima (dusty purple), in the inventory and on worn armor.
-- [ ] **Awakening:** put Mining I on the Astra Pickaxe at the table. Fill each vessel with 40 of one element. The pickaxe on the altar, with 2 Divus Ingots and 2 Divus Gemstones on the pedestals, makes a Divus Pickaxe after 5 seconds, and each vessel is left empty. The pickaxe keeps Mining I, its enchantments and its name.
-- [ ] Do the same with the chestplate and sword. Each Divus piece also needs exactly 40 of each element. With less, the altar says which element is short.
-- [ ] **Stats:** the Divus Sword hits for 29, the Divus Chestplate gives 12 armor, and Divus tools never lose durability. The pickaxe mines faster than the Astra one.
-- [ ] **Two augments:** on the Divus Sword, Strength I goes in the middle slot and Attack I in the right slot. Both work: extra damage and hits around the target. The tooltip lists both.
-- [ ] Strength II won't go in the second slot while Strength I is fitted, and the bottom line says "It already has Strength I".
-- [ ] Taking one augment out removes only that one. Taking the sword out takes both, and neither copy is left behind in your inventory.
-- [ ] On an Astra piece, an augment in the right slot doesn't fit, and the line says "Only Divus gear takes a second augment".
-- [ ] Haste I and the Mining augment carried over from Astra still work on Divus gear. Speed I on the chestplate fails with "only fits leggings".
-- [ ] **Cognizant Dust:** killing the Wither with the Divus Sword drops 6 Cognizant Dust and 1 to 3 Divus Essence.
-- [ ] The Guide's Armor and Tools, Tinkering Table and Altar Recipes: Divus pages, and the wiki's Divus Gear page, read well.
+- [ ] `/kill` on yourself, in any dimension, logs no `InvalidEntityError` from main.js.
 
 ## Hollowdeep bosses and elites (v0.27.1)
 
@@ -64,6 +33,47 @@ Needs Hollowdeep on the same world. Without it, nothing here happens. An elite i
 - [ ] A kill with a vanilla weapon drops none of this.
 - [ ] **Vault (v0.27.2):** `/scriptevent hollowdeep:drops` lists `ee:cognizant_dust: 100% x2-3, tier 1+`. After clearing a rift, each vault chest apart from the relic chest has 2 or 3 Cognizant Dust: one chest at tier I, two at II and III, three at IV and V.
 
+# Tested
+
+## Flight hover and starter tool enchanting (v0.28.1)
+
+Use the `/function ee/test_augments` world for Flight, and the `/function ee/test_tools` world for the hoe.
+
+```
+/function ee/test_augments
+/tp @s ~ ~30 ~
+/give @s ee:essence_hoe
+/give @s obsidian 4
+/give @s ee:experience_essence 4
+```
+
+- [x] **Flight:** holding jump climbs, and letting go holds you at that height, bobbing a little at most, where before it dropped a block at a time. Sneaking sinks slowly, and letting go of sneak holds the new height. Note how smooth it is, and whether landing from high up hurts. It does nothing in creative mode.
+- [x] **Altar enchanting:** the Essence Hoe and Essence Sickle now take Unbreaking (4 obsidian and 4 Experience Essence), and so do the tiered sickles and hoes. Efficiency and Mending work too. The enchantment carries over when a starter is upgraded to Terra.
+
+## Divus gear (v0.28.0)
+
+Quickest setup, on a test world: stand somewhere flat and run `/function ee/test_divus_gear`. It clears your inventory, builds the Awakening Altar with a Tinkering Table on your right, and gives you everything below. `/function ee/test_awakening_off` puts the game rules back.
+
+```
+/function ee/test_divus_gear
+/summon wither                                      Cognizant Dust check, with the awakened Divus Sword
+/give @s ee:essence_guide                           Guide pages
+/function ee/test_awakening_off
+```
+
+- [x] **Check this first:** the add-on loads with no script or content log errors. The Tinkering Table screen shows the gear slot and two augment slots side by side.
+- [x] **Colour:** Divus is now deep purple with gold sparkles on the essence. It should be easy to tell apart from Astra (light violet) and Anima (dusty purple), in the inventory and on worn armor.
+- [x] **Awakening:** put Mining I on the Astra Pickaxe at the table. Fill each vessel with 40 of one element. The pickaxe on the altar, with 2 Divus Ingots and 2 Divus Gemstones on the pedestals, makes a Divus Pickaxe after 5 seconds, and each vessel is left empty. The pickaxe keeps Mining I, its enchantments and its name.
+- [x] Do the same with the chestplate and sword. Each Divus piece also needs exactly 40 of each element. With less, the altar says which element is short.
+- [x] **Stats:** the Divus Sword hits for 29, the Divus Chestplate gives 12 armor, and Divus tools never lose durability. The pickaxe mines faster than the Astra one.
+- [x] **Two augments:** on the Divus Sword, Strength I goes in the middle slot and Attack I in the right slot. Both work: extra damage and hits around the target. The tooltip lists both.
+- [x] Strength II won't go in the second slot while Strength I is fitted, and the bottom line says "It already has Strength I".
+- [x] Taking one augment out removes only that one. Taking the sword out takes both, and neither copy is left behind in your inventory.
+- [x] On an Astra piece, an augment in the right slot doesn't fit, and the line says "Only Divus gear takes a second augment".
+- [x] Haste I and the Mining augment carried over from Astra still work on Divus gear. Speed I on the chestplate fails with "only fits leggings".
+- [x] **Cognizant Dust:** killing the Wither with the Divus Sword drops 6 Cognizant Dust and 1 to 3 Divus Essence.
+- [x] The Guide's Armor and Tools, Tinkering Table and Altar Recipes: Divus pages, and the wiki's Divus Gear page, read well.
+
 ## Divus and the Awakening Altar (v0.27.0)
 
 Quickest setup, on a test world: stand somewhere flat and run `/function ee/test_awakening`. It clears your inventory, builds the altar with its pedestals and vessels, and gives you everything below. `/function ee/test_awakening_off` puts the game rules back.
@@ -81,17 +91,17 @@ Quickest setup, on a test world: stand somewhere flat and run `/function ee/test
 /function ee/test_awakening_off
 ```
 
-- [ ] **Check this first:** the add-on loads with no script or content log errors. The Awakening Altar, pedestal and vessel show soulstone with orange or glass tops, and the Infusion Altar still works.
-- [ ] **Vessels:** using 64 Air Essence on a vessel puts in 40 and leaves 24 in your hand. The action bar says "Air Essence 40/40", and looking at the vessel shows the same. Using more says it's full, and using Earth Essence says it holds Air. An empty hand takes all 40 back. Breaking a vessel drops its essence.
-- [ ] **Divus Block:** with one element in each vessel (at least 10 each), an Astra Block on the altar and 4 Cognizant Dust on the pedestals, the wand makes a Divus Block after 5 seconds. Each vessel loses exactly 10.
-- [ ] **Problems:** with a pedestal and a vessel swapped, with two vessels of the same element, or with too little essence, the wand says what's wrong and nothing is used up.
-- [ ] **Divus Machine Upgrade:** an Astra Machine Upgrade on the altar, 4 Divus Ingots on the pedestals and 20 of each element make one. In a Harvester it reaches 15×15 and its screen says Divus.
-- [ ] **Crafting:** a Divus Block breaks into 9 Divus Essence, and 9 make it back. A Vita Ingot or Gemstone with 2 Divus Essence makes a Divus Ingot or Gemstone. 4 Divus Essence, 4 stone and a Divus Gemstone make 3 Divus Growth Accelerators.
-- [ ] **Accelerator:** the Divus Growth Accelerator under the farmland on your left grows the Iron crop. Note the Divus colour on the essence, materials and accelerator.
-- [ ] **Cognizant Dust:** killing the Wither with the Astra sword drops 6 Cognizant Dust and 1 to 3 Astra Essence. Killing it with any other weapon drops no dust. **Also check the Ender Dragon** if you can: 10 dust and 2 to 4 essence. **Note whether the dragon drops anything at all**, since it dies after a long animation and the kill may not count as yours.
-- [ ] A Terra Pickaxe kill on the Wither drops 1 to 3 Terra Essence and no dust.
-- [ ] **Witherproof Block:** TNT next to it leaves it standing. **The real test:** build the Wither inside a box of Witherproof Blocks. If the Wither breaks them, report it, and we drop the Witherproof idea.
-- [ ] The Guide's Divus and Awakening, Cognizant Dust and Altar Recipes: Divus pages read well, and the wiki has the Awakening Altar and Divus pages.
+- [x] **Check this first:** the add-on loads with no script or content log errors. The Awakening Altar, pedestal and vessel show soulstone with orange or glass tops, and the Infusion Altar still works.
+- [x] **Vessels:** using 64 Air Essence on a vessel puts in 40 and leaves 24 in your hand. The action bar says "Air Essence 40/40", and looking at the vessel shows the same. Using more says it's full, and using Earth Essence says it holds Air. An empty hand takes all 40 back. Breaking a vessel drops its essence.
+- [x] **Divus Block:** with one element in each vessel (at least 10 each), an Astra Block on the altar and 4 Cognizant Dust on the pedestals, the wand makes a Divus Block after 5 seconds. Each vessel loses exactly 10.
+- [x] **Problems:** with a pedestal and a vessel swapped, with two vessels of the same element, or with too little essence, the wand says what's wrong and nothing is used up.
+- [x] **Divus Machine Upgrade:** an Astra Machine Upgrade on the altar, 4 Divus Ingots on the pedestals and 20 of each element make one. In a Harvester it reaches 15×15 and its screen says Divus.
+- [x] **Crafting:** a Divus Block breaks into 9 Divus Essence, and 9 make it back. A Vita Ingot or Gemstone with 2 Divus Essence makes a Divus Ingot or Gemstone. 4 Divus Essence, 4 stone and a Divus Gemstone make 3 Divus Growth Accelerators.
+- [x] **Accelerator:** the Divus Growth Accelerator under the farmland on your left grows the Iron crop. Note the Divus colour on the essence, materials and accelerator.
+- [x] **Cognizant Dust:** killing the Wither with the Astra sword drops 6 Cognizant Dust and 1 to 3 Astra Essence. Killing it with any other weapon drops no dust. **Also check the Ender Dragon** if you can: 10 dust and 2 to 4 essence. **Note whether the dragon drops anything at all**, since it dies after a long animation and the kill may not count as yours.
+- [x] A Terra Pickaxe kill on the Wither drops 1 to 3 Terra Essence and no dust.
+- [x] **Witherproof Block:** TNT next to it leaves it standing. **The real test:** build the Wither inside a box of Witherproof Blocks. If the Wither breaks them, report it, and we drop the Witherproof idea.
+- [x] The Guide's Divus and Awakening, Cognizant Dust and Altar Recipes: Divus pages read well, and the wiki has the Awakening Altar and Divus pages.
 
 ## Area augments (v0.26.0)
 
@@ -113,15 +123,13 @@ Quickest setup, on a test world: stand somewhere flat and run `/function ee/test
 /function ee/test_tools_off
 ```
 
-- [ ] **Fitting:** Mining fits a pickaxe, axe or shovel, Attack a sword, Tilling a tiered hoe (not the Essence Hoe), and Pathing a shovel. Each says so when put on the wrong piece.
-- [ ] **Mining IV** on an Astra pickaxe breaks 9×9 on a wall facing you, and 9×9 flat when you mine straight down. **Note if the square ever lies the wrong way**, such as when looking slightly up or down at a wall. Sneaking mines one block.
-- [ ] Mining drops what the pickaxe would: Fortune gives extra raw iron, and Silk Touch gives the ore. It skips chests, machines and bedrock, and an axe with Mining only takes wood. Area-mined ores give no experience.
-- [ ] **Attack III** on a sword: hitting one zombie in a group hurts the others too, and kills still fill a Soul Jar. Tamed wolves and other players aren't hit.
-- [ ] **Tilling IV:** sneaking and using the hoe on dirt tills 9×9. Without sneaking it tills one block.
-- [ ] **Pathing IV:** sneaking and using the shovel on grass or dirt makes 9×9 of path. **Also check that a tiered shovel makes a single path without sneaking**, as it isn't a vanilla shovel.
-- [ ] Each extra block or hit costs 1 durability on a Terra-to-Aether tool. **Note any stutter** at 9×9.
-
-# Tested
+- [x] **Fitting:** Mining fits a pickaxe, axe or shovel, Attack a sword, Tilling a tiered hoe (not the Essence Hoe), and Pathing a shovel. Each says so when put on the wrong piece.
+- [x] **Mining IV** on an Astra pickaxe breaks 9×9 on a wall facing you, and 9×9 flat when you mine straight down. **Note if the square ever lies the wrong way**, such as when looking slightly up or down at a wall. Sneaking mines one block.
+- [x] Mining drops what the pickaxe would: Fortune gives extra raw iron, and Silk Touch gives the ore. It skips chests, machines and bedrock, and an axe with Mining only takes wood. Area-mined ores give no experience.
+- [x] **Attack III** on a sword: hitting one zombie in a group hurts the others too, and kills still fill a Soul Jar. Tamed wolves and other players aren't hit.
+- [x] **Tilling IV:** sneaking and using the hoe on dirt tills 9×9. Without sneaking it tills one block.
+- [x] **Pathing IV:** sneaking and using the shovel on grass or dirt makes 9×9 of path. **Also check that a tiered shovel makes a single path without sneaking**, as it isn't a vanilla shovel.
+- [x] Each extra block or hit costs 1 durability on a Terra-to-Aether tool. **Note any stutter** at 9×9.
 
 ## Tiered sickles and hoes (v0.25.0)
 

@@ -259,9 +259,10 @@ world.afterEvents.entityDie.subscribe(({ deadEntity }) => {
 const GEAR_ESSENCE = __GEAR_ESSENCE__; // tiered tool -> its tier's essence
 const COGNIZANT_SWORDS = new Set(["__NS__:astra_sword", "__NS__:divus_sword"]);
 world.afterEvents.entityDie.subscribe(({ deadEntity, damageSource }) => {
-  const held = damageSource.damagingEntity?.getComponent("minecraft:equippable")?.getEquipment(EquipmentSlot.Mainhand)?.typeId;
-  if (!held || !(held in GEAR_ESSENCE)) return;
   try {
+    // the killer can be gone already, such as a player who used /kill
+    const held = damageSource.damagingEntity?.getComponent("minecraft:equippable")?.getEquipment(EquipmentSlot.Mainhand)?.typeId;
+    if (!held || !(held in GEAR_ESSENCE)) return;
     const [min, max] = BOSS_ESSENCE[deadEntity.typeId] ?? (deadEntity.getTags().some((t) => t.startsWith(ELITE_TAG)) ? ELITE_ESSENCE : []);
     if (min === undefined) return;
     const { dimension, location } = deadEntity;
