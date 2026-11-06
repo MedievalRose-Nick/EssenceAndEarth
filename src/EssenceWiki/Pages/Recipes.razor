@@ -14,7 +14,7 @@
 <div class="recipe-grid">
     @foreach (var r in shown)
     {
-        <CraftGrid Result="r.Result" Rows="r.Rows" Note="r.Note" />
+        <CraftGrid Result="r.Result" Rows="r.Rows" Note="@r.Note" />
     }
 </div>
 @if (shown.Count == 0)

@@ -638,6 +638,12 @@ const augments = {
   ],
 };
 
+// Cluster recipes live only in build.mjs, so read them back from the built pack.
+for (const f of fs.readdirSync(path.join(BP, "recipes")).filter((f) => f.endsWith("_cluster.json"))) {
+  const r = JSON.parse(fs.readFileSync(path.join(BP, "recipes", f), "utf8"))["minecraft:recipe_shaped"];
+  essenceRecipe({ pattern: r.pattern, key: Object.fromEntries(Object.entries(r.key).map(([k, v]) => [k, v.item])), result: r.result.item, count: 1 });
+}
+
 const categories = [guide, essence, materials, infusion, farmland, accelerators, tools, gear, augments, machines, ...cropCategories];
 for (const c of categories) for (const e of c.entries) e.href = `wiki/${c.slug}/${e.slug}`;
 

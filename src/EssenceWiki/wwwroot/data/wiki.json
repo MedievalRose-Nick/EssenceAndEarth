@@ -10,7 +10,7 @@
  "stats": {
   "crops": 54,
   "tiers": 5,
-  "recipes": 374,
+  "recipes": 385,
   "items": 368
  },
  "categories": [
@@ -46906,6 +46906,402 @@
     ]
    ],
    "note": "Made at the Infusion Altar: the middle item on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "Air Cluster",
+    "icon": "img/icons/air_cluster.png",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Glass Bottle",
+      "icon": "img/vanilla/glass_bottle.png"
+     },
+     {
+      "name": "Gravel",
+      "icon": "img/vanilla/gravel.png"
+     },
+     null
+    ],
+    [
+     {
+      "name": "Dirt",
+      "icon": "img/vanilla/dirt.png"
+     },
+     {
+      "name": "Clay Ball",
+      "icon": "img/vanilla/clay_ball.png"
+     },
+     null
+    ],
+    [
+     null,
+     null,
+     null
+    ]
+   ]
+  },
+  {
+   "result": {
+    "name": "Coral Cluster",
+    "icon": "img/icons/coral_cluster.png",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Brain Coral Block",
+      "icon": "img/vanilla/brain_coral_block.png"
+     },
+     {
+      "name": "Tube Coral Block",
+      "icon": "img/vanilla/tube_coral_block.png"
+     },
+     null
+    ],
+    [
+     {
+      "name": "Fire Coral Block",
+      "icon": "img/vanilla/fire_coral_block.png"
+     },
+     {
+      "name": "Horn Coral Block",
+      "icon": "img/vanilla/horn_coral_block.png"
+     },
+     null
+    ],
+    [
+     null,
+     null,
+     null
+    ]
+   ]
+  },
+  {
+   "result": {
+    "name": "Dye Cluster",
+    "icon": "img/icons/dye_cluster.png",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Cyan Dye",
+      "icon": "img/vanilla/cyan_dye.png"
+     },
+     {
+      "name": "Orange Dye",
+      "icon": "img/vanilla/orange_dye.png"
+     },
+     null
+    ],
+    [
+     {
+      "name": "Pink Dye",
+      "icon": "img/vanilla/pink_dye.png"
+     },
+     {
+      "name": "Lime Dye",
+      "icon": "img/vanilla/lime_dye.png"
+     },
+     null
+    ],
+    [
+     null,
+     null,
+     null
+    ]
+   ]
+  },
+  {
+   "result": {
+    "name": "Earth Cluster",
+    "icon": "img/icons/earth_cluster.png",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Short Grass",
+      "icon": "img/vanilla/short_grass.png"
+     },
+     {
+      "name": "Gravel",
+      "icon": "img/vanilla/gravel.png"
+     },
+     null
+    ],
+    [
+     {
+      "name": "Dirt",
+      "icon": "img/vanilla/dirt.png"
+     },
+     {
+      "name": "Clay Ball",
+      "icon": "img/vanilla/clay_ball.png"
+     },
+     null
+    ],
+    [
+     null,
+     null,
+     null
+    ]
+   ]
+  },
+  {
+   "result": {
+    "name": "End Cluster",
+    "icon": "img/icons/end_cluster.png",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "End Stone",
+      "icon": "img/vanilla/end_stone.png"
+     },
+     {
+      "name": "Chorus Fruit",
+      "icon": "img/vanilla/chorus_fruit.png"
+     },
+     null
+    ],
+    [
+     {
+      "name": "Purpur Block",
+      "icon": "img/vanilla/purpur_block.png"
+     },
+     {
+      "name": "End Stone",
+      "icon": "img/vanilla/end_stone.png"
+     },
+     null
+    ],
+    [
+     null,
+     null,
+     null
+    ]
+   ]
+  },
+  {
+   "result": {
+    "name": "Fire Cluster",
+    "icon": "img/icons/fire_cluster.png",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Lava Bucket",
+      "icon": "img/vanilla/lava_bucket.png"
+     },
+     {
+      "name": "Gravel",
+      "icon": "img/vanilla/gravel.png"
+     },
+     null
+    ],
+    [
+     {
+      "name": "Dirt",
+      "icon": "img/vanilla/dirt.png"
+     },
+     {
+      "name": "Clay Ball",
+      "icon": "img/vanilla/clay_ball.png"
+     },
+     null
+    ],
+    [
+     null,
+     null,
+     null
+    ]
+   ]
+  },
+  {
+   "result": {
+    "name": "Honey Cluster",
+    "icon": "img/icons/honey_cluster.png",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Honey Bottle",
+      "icon": "img/vanilla/honey_bottle.png"
+     },
+     {
+      "name": "Honeycomb",
+      "icon": "img/vanilla/honeycomb.png"
+     },
+     null
+    ],
+    [
+     {
+      "name": "Honeycomb",
+      "icon": "img/vanilla/honeycomb.png"
+     },
+     {
+      "name": "Honey Bottle",
+      "icon": "img/vanilla/honey_bottle.png"
+     },
+     null
+    ],
+    [
+     null,
+     null,
+     null
+    ]
+   ]
+  },
+  {
+   "result": {
+    "name": "Nature Cluster",
+    "icon": "img/icons/nature_cluster.png",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Pumpkin",
+      "icon": "img/vanilla/pumpkin.png"
+     },
+     {
+      "name": "Potato",
+      "icon": "img/vanilla/potato.png"
+     },
+     null
+    ],
+    [
+     {
+      "name": "Cactus",
+      "icon": "img/vanilla/cactus.png"
+     },
+     {
+      "name": "Sugar Cane",
+      "icon": "img/vanilla/sugar_cane.png"
+     },
+     null
+    ],
+    [
+     null,
+     null,
+     null
+    ]
+   ]
+  },
+  {
+   "result": {
+    "name": "Nether Cluster",
+    "icon": "img/icons/nether_cluster.png",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Netherrack",
+      "icon": "img/vanilla/netherrack.png"
+     },
+     {
+      "name": "Soul Sand",
+      "icon": "img/vanilla/soul_sand.png"
+     },
+     null
+    ],
+    [
+     {
+      "name": "Nether Bricks",
+      "icon": "img/vanilla/nether_brick.png"
+     },
+     {
+      "name": "Nether Wart",
+      "icon": "img/vanilla/nether_wart.png"
+     },
+     null
+    ],
+    [
+     null,
+     null,
+     null
+    ]
+   ]
+  },
+  {
+   "result": {
+    "name": "Prismarine Cluster",
+    "icon": "img/icons/prismarine_cluster.png",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Prismarine Crystals",
+      "icon": "img/vanilla/prismarine_crystals.png"
+     },
+     {
+      "name": "Prismarine Shard",
+      "icon": "img/vanilla/prismarine_shard.png"
+     },
+     null
+    ],
+    [
+     {
+      "name": "Prismarine Shard",
+      "icon": "img/vanilla/prismarine_shard.png"
+     },
+     {
+      "name": "Prismarine Crystals",
+      "icon": "img/vanilla/prismarine_crystals.png"
+     },
+     null
+    ],
+    [
+     null,
+     null,
+     null
+    ]
+   ]
+  },
+  {
+   "result": {
+    "name": "Water Cluster",
+    "icon": "img/icons/water_cluster.png",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Water Bucket",
+      "icon": "img/vanilla/water_bucket.png"
+     },
+     {
+      "name": "Gravel",
+      "icon": "img/vanilla/gravel.png"
+     },
+     null
+    ],
+    [
+     {
+      "name": "Dirt",
+      "icon": "img/vanilla/dirt.png"
+     },
+     {
+      "name": "Clay Ball",
+      "icon": "img/vanilla/clay_ball.png"
+     },
+     null
+    ],
+    [
+     null,
+     null,
+     null
+    ]
+   ]
   }
  ],
  "gallery": [
