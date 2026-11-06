@@ -45,6 +45,17 @@ else
                 case "grid":
                     <CraftGrid Result="@(b.Result ?? new())" Rows="@(b.Rows ?? new())" Note="@b.Note" />
                     break;
+                case "layout":
+                    <figure class="craft layout">
+                        <div class="layout-grid">
+                            @foreach (var cell in (b.Rows ?? new()).SelectMany(r => r))
+                            {
+                                <Slot Item="cell" />
+                            }
+                        </div>
+                        <figcaption><span>@b.Note</span></figcaption>
+                    </figure>
+                    break;
             }
         }
     </article>

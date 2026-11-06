@@ -55,13 +55,13 @@ public sealed class Entry
 /// <summary>One piece of an entry page; <see cref="T"/> says which fields are set.</summary>
 public sealed class Block
 {
-    public string T { get; set; } = "";                // h2, p, facts, items, grid
+    public string T { get; set; } = "";                // h2, p, facts, items, grid, layout
     public string? Text { get; set; }                   // h2
     public string? Html { get; set; }                   // p
     public List<List<string>>? Facts { get; set; }      // facts: [label, value] rows
     public List<Item>? Items { get; set; }              // items
     public Item? Result { get; set; }                   // grid
-    public List<List<Item?>>? Rows { get; set; }        // grid: 3x3
+    public List<List<Item?>>? Rows { get; set; }        // grid: 3x3, layout: 7x7
     public string? Note { get; set; }                   // grid
 }
 

@@ -14,6 +14,7 @@ const JAVA_ID = JSON.parse(fs.readFileSync(path.join(ROOT, "tools", "vanilla", "
 const wanted = new Set(["minecraft:wheat_seeds", "minecraft:farmland", "minecraft:short_grass", "minecraft:bone_meal", "minecraft:wheat", "minecraft:dirt", "minecraft:stick", "minecraft:book", "minecraft:stone", "minecraft:gold_ingot", "minecraft:red_wool", "minecraft:orange_wool", "minecraft:glass", "minecraft:golden_sword", "minecraft:bone_block", "minecraft:coal_block", "minecraft:iron_hoe", "minecraft:furnace"]);
 for (const c of cfg.crops) wanted.add(c.ingredient);
 for (const a of cfg.augments) for (const id of a.materials.flat()) wanted.add(id);
+for (const id of Object.values(cfg.balance.enchanting)) wanted.add(id);
 for (const r of RECIPES) for (const id of [r.result, ...(r.ingredients ?? Object.values(r.key))]) wanted.add(id);
 for (const id of [...wanted]) if (!id.startsWith("minecraft:")) wanted.delete(id);
 

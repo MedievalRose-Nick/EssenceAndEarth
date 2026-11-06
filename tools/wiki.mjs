@@ -129,6 +129,14 @@ const p = (html) => ({ t: "p", html });
 const h2 = (text) => ({ t: "h2", text });
 const facts = (rows) => ({ t: "facts", facts: rows });
 const list = (items) => ({ t: "items", items });
+const named = (id) => ({ name: title(id), icon: `img/icons/${id}.png` });
+// A top-down 7x7 view of an altar: the altar in the middle, blocks 3 away on each side and 2 away on each diagonal.
+const layout = (altar, side, diagonal, note) => ({
+  t: "layout", note,
+  rows: [-3, -2, -1, 0, 1, 2, 3].map((z) => [-3, -2, -1, 0, 1, 2, 3].map((x) =>
+    !x && !z ? altar : (!x || !z) && Math.abs(x + z) === 3 ? side : Math.abs(x) === 2 && Math.abs(z) === 2 ? diagonal : null)),
+});
+const infusionLayout = () => layout({ ...named("infusion_altar"), href: "wiki/infusion/infusion-altar" }, named("infusion_pedestal"), named("infusion_pedestal"), "Seen from above. Every block sits at the same height, and the gaps can be anything");
 const terraCrop = cfg.crops.find((c) => c.essenceCrop);
 const terraYield = `${BAL.terraCropYield[0]} to ${BAL.terraCropYield.at(-1)} per ripe harvest on average, by farmland tier`;
 const terraCropDrop = { ...seedsItem(terraCrop), name: "Terra Crop", icon: `img/icons/${terraCrop.id}_crop.png`, sub: terraYield };
@@ -156,6 +164,7 @@ const guide = {
         p(`Four essence of one tier craft one of the next: ${cfg.tiers.map((t) => `<a href="${essenceHref(`${t.id}_essence`)}">${title(t.id)}</a>`).join(" → ")}. Each crop needs the essence of its tier.`),
         h2("3. Craft seeds and plant them"),
         p(`Build an <a href="wiki/infusion/infusion-altar">Infusion Altar</a> with eight pedestals. Put a seed base on the altar, and four tier essence and four of the resource on the pedestals, then use a Wand on the altar. Plant the seeds on any farmland and wait. <a href="wiki/farmland">Essence farmland</a> gives extra drops, and <a href="wiki/accelerators">growth accelerators</a> speed them up.`),
+        infusionLayout(),
         h2("4. Harvest and craft"),
         p(`A ripe crop drops ${harvest} of its essence and its seed back. Each crop page shows the recipe that turns its essence into the resource.`),
       ],
@@ -170,6 +179,35 @@ const guide = {
         p(`On any <a href="wiki/farmland">essence farmland</a>, a ripe crop has a ${secondary} chance of a second essence and a ${secondary} chance of a second seed. If the farmland matches the crop's tier, each rises to ${matching}. On vanilla farmland there are no extras.`),
         h2("Growth accelerators"),
         p(`Place <a href="wiki/accelerators">growth accelerators</a> below a crop. Each gives it an extra growth chance about every ${BAL.acceleratorSeconds} seconds, so more means faster.`),
+      ],
+    },
+    {
+      slug: "progression", name: "Progression", icon: "img/icons/divus_essence.png",
+      summary: "What to aim for next, from your first essence to Divus.",
+      blocks: [
+        p("A rough order to work through. Each step links to the page with the details."),
+        h2("Early game"),
+        p(`Collect Terra Essence from <a href="wiki/materials/ores">Essence Ore</a>, mobs and grass, and plant the <a href="${cropHref(terraCrop)}">Terra crop</a>. Make an <a href="wiki/tools/essence-sickle">Essence Sickle</a> and some <a href="wiki/farmland">essence farmland</a>. Mine Vita Ore for Vita Shards, then build the <a href="wiki/infusion/infusion-altar">Infusion Altar</a> and start your first resource crops.`),
+        h2("Mid game"),
+        p(`Upgrade essence through the tiers and plant the crops each one unlocks. Put <a href="wiki/accelerators">growth accelerators</a> under your best crops. In the Nether, find <a href="wiki/infusion/soulstone">Soulstone and Anima Ore</a> for Anima materials, then fill <a href="wiki/infusion/soul-jars">Soul Jars</a> for mob seeds. A <a href="wiki/machines/harvester">Harvester</a> takes over the farm work.`),
+        h2("Late game"),
+        p(`Upgrade diamond gear tier by tier into <a href="wiki/armor-and-tools">essence armor and tools</a>, and enchant at the altar. Fit <a href="wiki/augments">augments</a> at the Tinkering Table. With an Astra sword, kill the Wither and the Ender Dragon for Cognizant Dust, then build the <a href="wiki/infusion/awakening-altar">Awakening Altar</a> for Divus.`),
+      ],
+    },
+    {
+      slug: "tips", name: "Tips", icon: "img/icons/wand.png",
+      summary: "Things that are easy to miss.",
+      blocks: [
+        list([
+          { ...named("infusion_pedestal"), href: "wiki/infusion/infusion-altar", sub: "Pedestals must be at the altar's height, in the exact layout. Their order doesn't matter" },
+          { ...named("wand"), href: "wiki/infusion/infusion-altar", sub: "Nothing happens until you use a Wand on the altar. Taking an item away stops the craft" },
+          { ...vanilla("minecraft:bone_meal"), sub: "Bone meal doesn't work on essence crops. Use Fertilized Essence or Essence Fertilizer" },
+          { ...farmlandItem(cfg.tiers[0]), sub: "Essence farmland never dries out and needs no water. Matching the crop's tier gives the most extras" },
+          { ...acceleratorItem(cfg.tiers[0]), sub: "Accelerators go below the farmland, and they stack: more means faster" },
+          { name: "Essence Sickle", icon: "img/icons/essence_sickle.png", href: "wiki/tools/essence-sickle", sub: "The sickle only breaks ripe crops, so you can swing it across a whole field" },
+          { ...named("soul_jar"), href: "wiki/infusion/soul-jars", sub: "Hold the Anima Dagger in your hand. The jar can be anywhere in your inventory" },
+          { ...named("cognizant_dust"), href: "wiki/infusion/awakening-altar", sub: "Boss drops land at your feet, so the Wither's explosion can't destroy them" },
+        ]),
       ],
     },
     {
@@ -392,7 +430,6 @@ const materials = {
   ],
 };
 
-const named = (id) => ({ name: title(id), icon: `img/icons/${id}.png` });
 const infusion = {
   slug: "infusion", title: "Infusion and souls", group: "Getting started", icon: "img/icons/infusion_altar.png",
   blurb: "The altar that makes seeds, the bases they start from, and the souls mob seeds need.",
@@ -403,6 +440,8 @@ const infusion = {
       blocks: [
         facts([["Layout", "8 pedestals at the altar's height: 3 blocks away on each side, 2 away on each diagonal"], ["Place items", "Use an item on the block. Each holds one"], ["Take items", "Use an empty hand"], ["Start", "Use a Wand on the altar"], ["Time", `${BAL.altarTicks / 20} seconds`]]),
         p("Pedestal order doesn't matter. Taking an item away stops the craft, and breaking a block drops what it held."),
+        h2("Layout"),
+        infusionLayout(),
         h2("Infusion Altar"),
         (() => { const g = vanilla("minecraft:gold_ingot"), c = vanilla("minecraft:red_wool"), s = vanilla("minecraft:stone"); return recipe(named("infusion_altar"), 1, [[g, c, g], [null, s, null], [s, s, s]]); })(),
         h2("Infusion Pedestal"),
@@ -449,11 +488,22 @@ const infusion = {
       ],
     },
     {
+      slug: "enchanting", name: "Enchanting", icon: "img/icons/experience_essence.png",
+      summary: "Add enchantments at the Infusion Altar.",
+      blocks: [
+        p("Put a book or the item to enchant on the altar. On the pedestals, put 4 Experience Essence and 4 of the enchantment's ingredient, then use a Wand. Each craft adds one level, so craft again with the same items to go higher. A book becomes an Enchanted Book for the anvil. Enchantments that clash can't be combined."),
+        h2("Ingredients"),
+        list(Object.entries(BAL.enchanting).map(([enchant, id]) => ({ ...vanilla(id), sub: title(enchant) }))),
+      ],
+    },
+    {
       slug: "awakening-altar", name: "Awakening Altar", icon: "img/icons/awakening_altar.png",
       summary: "Makes Divus, the tier above Astra, from boss drops and elemental essence.",
       blocks: [
         p("Divus is this add-on's version of awakening. The Awakening Altar works like the Infusion Altar, with elemental essence from four vessels as well."),
         facts([["Layout", "4 Awakening Pedestals 3 blocks away on each side, and 4 Essence Vessels 2 away on each diagonal, at the altar's height"], ["Vessels", `Each holds up to ${AW.vesselCapacity} of one element: Air, Earth, Water or Fire Essence. Use essence on it to pour in as much as fits, and an empty hand to take it back`], ["Start", "Use a Wand on the altar"], ["Time", `${BAL.altarTicks / 20} seconds`]]),
+        h2("Layout"),
+        layout(named("awakening_altar"), named("awakening_pedestal"), named("essence_vessel"), "Seen from above: pedestals on the sides, vessels on the diagonals, all at the same height"),
         h2("Recipes"),
         list([
           { ...matItem("divus_block"), sub: "Astra Block on the altar, 4 Cognizant Dust on the pedestals, 10 of each element" },

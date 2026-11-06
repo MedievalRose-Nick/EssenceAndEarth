@@ -88,6 +88,103 @@
        "html": "Build an <a href=\"wiki/infusion/infusion-altar\">Infusion Altar</a> with eight pedestals. Put a seed base on the altar, and four tier essence and four of the resource on the pedestals, then use a Wand on the altar. Plant the seeds on any farmland and wait. <a href=\"wiki/farmland\">Essence farmland</a> gives extra drops, and <a href=\"wiki/accelerators\">growth accelerators</a> speed them up."
       },
       {
+       "t": "layout",
+       "note": "Seen from above. Every block sits at the same height, and the gaps can be anything",
+       "rows": [
+        [
+         null,
+         null,
+         null,
+         {
+          "name": "Infusion Pedestal",
+          "icon": "img/icons/infusion_pedestal.png"
+         },
+         null,
+         null,
+         null
+        ],
+        [
+         null,
+         {
+          "name": "Infusion Pedestal",
+          "icon": "img/icons/infusion_pedestal.png"
+         },
+         null,
+         null,
+         null,
+         {
+          "name": "Infusion Pedestal",
+          "icon": "img/icons/infusion_pedestal.png"
+         },
+         null
+        ],
+        [
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null
+        ],
+        [
+         {
+          "name": "Infusion Pedestal",
+          "icon": "img/icons/infusion_pedestal.png"
+         },
+         null,
+         null,
+         {
+          "name": "Infusion Altar",
+          "icon": "img/icons/infusion_altar.png",
+          "href": "wiki/infusion/infusion-altar"
+         },
+         null,
+         null,
+         {
+          "name": "Infusion Pedestal",
+          "icon": "img/icons/infusion_pedestal.png"
+         }
+        ],
+        [
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null
+        ],
+        [
+         null,
+         {
+          "name": "Infusion Pedestal",
+          "icon": "img/icons/infusion_pedestal.png"
+         },
+         null,
+         null,
+         null,
+         {
+          "name": "Infusion Pedestal",
+          "icon": "img/icons/infusion_pedestal.png"
+         },
+         null
+        ],
+        [
+         null,
+         null,
+         null,
+         {
+          "name": "Infusion Pedestal",
+          "icon": "img/icons/infusion_pedestal.png"
+         },
+         null,
+         null,
+         null
+        ]
+       ]
+      },
+      {
        "t": "h2",
        "text": "4. Harvest and craft"
       },
@@ -168,6 +265,104 @@
       }
      ],
      "href": "wiki/guide/growing-crops"
+    },
+    {
+     "slug": "progression",
+     "name": "Progression",
+     "icon": "img/icons/divus_essence.png",
+     "summary": "What to aim for next, from your first essence to Divus.",
+     "blocks": [
+      {
+       "t": "p",
+       "html": "A rough order to work through. Each step links to the page with the details."
+      },
+      {
+       "t": "h2",
+       "text": "Early game"
+      },
+      {
+       "t": "p",
+       "html": "Collect Terra Essence from <a href=\"wiki/materials/ores\">Essence Ore</a>, mobs and grass, and plant the <a href=\"wiki/terra-crops/terra\">Terra crop</a>. Make an <a href=\"wiki/tools/essence-sickle\">Essence Sickle</a> and some <a href=\"wiki/farmland\">essence farmland</a>. Mine Vita Ore for Vita Shards, then build the <a href=\"wiki/infusion/infusion-altar\">Infusion Altar</a> and start your first resource crops."
+      },
+      {
+       "t": "h2",
+       "text": "Mid game"
+      },
+      {
+       "t": "p",
+       "html": "Upgrade essence through the tiers and plant the crops each one unlocks. Put <a href=\"wiki/accelerators\">growth accelerators</a> under your best crops. In the Nether, find <a href=\"wiki/infusion/soulstone\">Soulstone and Anima Ore</a> for Anima materials, then fill <a href=\"wiki/infusion/soul-jars\">Soul Jars</a> for mob seeds. A <a href=\"wiki/machines/harvester\">Harvester</a> takes over the farm work."
+      },
+      {
+       "t": "h2",
+       "text": "Late game"
+      },
+      {
+       "t": "p",
+       "html": "Upgrade diamond gear tier by tier into <a href=\"wiki/armor-and-tools\">essence armor and tools</a>, and enchant at the altar. Fit <a href=\"wiki/augments\">augments</a> at the Tinkering Table. With an Astra sword, kill the Wither and the Ender Dragon for Cognizant Dust, then build the <a href=\"wiki/infusion/awakening-altar\">Awakening Altar</a> for Divus."
+      }
+     ],
+     "href": "wiki/guide/progression"
+    },
+    {
+     "slug": "tips",
+     "name": "Tips",
+     "icon": "img/icons/wand.png",
+     "summary": "Things that are easy to miss.",
+     "blocks": [
+      {
+       "t": "items",
+       "items": [
+        {
+         "name": "Infusion Pedestal",
+         "icon": "img/icons/infusion_pedestal.png",
+         "href": "wiki/infusion/infusion-altar",
+         "sub": "Pedestals must be at the altar's height, in the exact layout. Their order doesn't matter"
+        },
+        {
+         "name": "Wand",
+         "icon": "img/icons/wand.png",
+         "href": "wiki/infusion/infusion-altar",
+         "sub": "Nothing happens until you use a Wand on the altar. Taking an item away stops the craft"
+        },
+        {
+         "name": "Bone Meal",
+         "icon": "img/vanilla/bone_meal.png",
+         "sub": "Bone meal doesn't work on essence crops. Use Fertilized Essence or Essence Fertilizer"
+        },
+        {
+         "name": "Terra Farmland",
+         "icon": "img/icons/terra_farmland_top.png",
+         "href": "wiki/farmland/terra-farmland",
+         "sub": "Essence farmland never dries out and needs no water. Matching the crop's tier gives the most extras"
+        },
+        {
+         "name": "Terra Growth Accelerator",
+         "icon": "img/icons/terra_accelerator.png",
+         "href": "wiki/accelerators/terra-accelerator",
+         "sub": "Accelerators go below the farmland, and they stack: more means faster"
+        },
+        {
+         "name": "Essence Sickle",
+         "icon": "img/icons/essence_sickle.png",
+         "href": "wiki/tools/essence-sickle",
+         "sub": "The sickle only breaks ripe crops, so you can swing it across a whole field"
+        },
+        {
+         "name": "Soul Jar",
+         "icon": "img/icons/soul_jar.png",
+         "href": "wiki/infusion/soul-jars",
+         "sub": "Hold the Anima Dagger in your hand. The jar can be anywhere in your inventory"
+        },
+        {
+         "name": "Cognizant Dust",
+         "icon": "img/icons/cognizant_dust.png",
+         "href": "wiki/infusion/awakening-altar",
+         "sub": "Boss drops land at your feet, so the Wither's explosion can't destroy them"
+        }
+       ]
+      }
+     ],
+     "href": "wiki/guide/tips"
     },
     {
      "slug": "essence-guide",
@@ -2325,6 +2520,107 @@
       },
       {
        "t": "h2",
+       "text": "Layout"
+      },
+      {
+       "t": "layout",
+       "note": "Seen from above. Every block sits at the same height, and the gaps can be anything",
+       "rows": [
+        [
+         null,
+         null,
+         null,
+         {
+          "name": "Infusion Pedestal",
+          "icon": "img/icons/infusion_pedestal.png"
+         },
+         null,
+         null,
+         null
+        ],
+        [
+         null,
+         {
+          "name": "Infusion Pedestal",
+          "icon": "img/icons/infusion_pedestal.png"
+         },
+         null,
+         null,
+         null,
+         {
+          "name": "Infusion Pedestal",
+          "icon": "img/icons/infusion_pedestal.png"
+         },
+         null
+        ],
+        [
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null
+        ],
+        [
+         {
+          "name": "Infusion Pedestal",
+          "icon": "img/icons/infusion_pedestal.png"
+         },
+         null,
+         null,
+         {
+          "name": "Infusion Altar",
+          "icon": "img/icons/infusion_altar.png",
+          "href": "wiki/infusion/infusion-altar"
+         },
+         null,
+         null,
+         {
+          "name": "Infusion Pedestal",
+          "icon": "img/icons/infusion_pedestal.png"
+         }
+        ],
+        [
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null
+        ],
+        [
+         null,
+         {
+          "name": "Infusion Pedestal",
+          "icon": "img/icons/infusion_pedestal.png"
+         },
+         null,
+         null,
+         null,
+         {
+          "name": "Infusion Pedestal",
+          "icon": "img/icons/infusion_pedestal.png"
+         },
+         null
+        ],
+        [
+         null,
+         null,
+         null,
+         {
+          "name": "Infusion Pedestal",
+          "icon": "img/icons/infusion_pedestal.png"
+         },
+         null,
+         null,
+         null
+        ]
+       ]
+      },
+      {
+       "t": "h2",
        "text": "Infusion Altar"
       },
       {
@@ -2779,6 +3075,223 @@
      "href": "wiki/infusion/soul-jars"
     },
     {
+     "slug": "enchanting",
+     "name": "Enchanting",
+     "icon": "img/icons/experience_essence.png",
+     "summary": "Add enchantments at the Infusion Altar.",
+     "blocks": [
+      {
+       "t": "p",
+       "html": "Put a book or the item to enchant on the altar. On the pedestals, put 4 Experience Essence and 4 of the enchantment's ingredient, then use a Wand. Each craft adds one level, so craft again with the same items to go higher. A book becomes an Enchanted Book for the anvil. Enchantments that clash can't be combined."
+      },
+      {
+       "t": "h2",
+       "text": "Ingredients"
+      },
+      {
+       "t": "items",
+       "items": [
+        {
+         "name": "Lily Pad",
+         "icon": "img/vanilla/waterlily.png",
+         "sub": "Aqua Affinity"
+        },
+        {
+         "name": "Spider Eye",
+         "icon": "img/vanilla/spider_eye.png",
+         "sub": "Bane Of Arthropods"
+        },
+        {
+         "name": "Gunpowder",
+         "icon": "img/vanilla/gunpowder.png",
+         "sub": "Blast Protection"
+        },
+        {
+         "name": "Copper Ingot",
+         "icon": "img/vanilla/copper_ingot.png",
+         "sub": "Breach"
+        },
+        {
+         "name": "Lightning Rod",
+         "icon": "img/vanilla/lightning_rod.png",
+         "sub": "Channeling"
+        },
+        {
+         "name": "Block of Iron",
+         "icon": "img/vanilla/iron_block.png",
+         "sub": "Density"
+        },
+        {
+         "name": "Prismarine Shard",
+         "icon": "img/vanilla/prismarine_shard.png",
+         "sub": "Depth Strider"
+        },
+        {
+         "name": "Redstone Dust",
+         "icon": "img/vanilla/redstone.png",
+         "sub": "Efficiency"
+        },
+        {
+         "name": "Feather",
+         "icon": "img/vanilla/feather.png",
+         "sub": "Feather Falling"
+        },
+        {
+         "name": "Blaze Rod",
+         "icon": "img/vanilla/blaze_rod.png",
+         "sub": "Fire Aspect"
+        },
+        {
+         "name": "Magma Cream",
+         "icon": "img/vanilla/magma_cream.png",
+         "sub": "Fire Protection"
+        },
+        {
+         "name": "Blaze Powder",
+         "icon": "img/vanilla/blaze_powder.png",
+         "sub": "Flame"
+        },
+        {
+         "name": "Gold Ingot",
+         "icon": "img/vanilla/gold_ingot.png",
+         "sub": "Fortune"
+        },
+        {
+         "name": "Ice",
+         "icon": "img/vanilla/ice.png",
+         "sub": "Frost Walker"
+        },
+        {
+         "name": "Iron Ingot",
+         "icon": "img/vanilla/iron_ingot.png",
+         "sub": "Impaling"
+        },
+        {
+         "name": "Arrow",
+         "icon": "img/vanilla/arrow.png",
+         "sub": "Infinity"
+        },
+        {
+         "name": "Piston",
+         "icon": "img/vanilla/piston.png",
+         "sub": "Knockback"
+        },
+        {
+         "name": "Emerald",
+         "icon": "img/vanilla/emerald.png",
+         "sub": "Looting"
+        },
+        {
+         "name": "Lead",
+         "icon": "img/vanilla/lead.png",
+         "sub": "Loyalty"
+        },
+        {
+         "name": "Lapis Lazuli",
+         "icon": "img/vanilla/lapis_lazuli.png",
+         "sub": "Luck Of The Sea"
+        },
+        {
+         "name": "Raw Cod",
+         "icon": "img/vanilla/cod.png",
+         "sub": "Lure"
+        },
+        {
+         "name": "Wither Skeleton Skull",
+         "icon": "img/vanilla/wither_skeleton_skull.png",
+         "sub": "Mending"
+        },
+        {
+         "name": "Bow",
+         "icon": "img/vanilla/bow.png",
+         "sub": "Multishot"
+        },
+        {
+         "name": "Amethyst Shard",
+         "icon": "img/vanilla/amethyst_shard.png",
+         "sub": "Piercing"
+        },
+        {
+         "name": "Flint",
+         "icon": "img/vanilla/flint.png",
+         "sub": "Power"
+        },
+        {
+         "name": "Bone",
+         "icon": "img/vanilla/bone.png",
+         "sub": "Projectile Protection"
+        },
+        {
+         "name": "Leather",
+         "icon": "img/vanilla/leather.png",
+         "sub": "Protection"
+        },
+        {
+         "name": "String",
+         "icon": "img/vanilla/string.png",
+         "sub": "Punch"
+        },
+        {
+         "name": "Sugar",
+         "icon": "img/vanilla/sugar.png",
+         "sub": "Quick Charge"
+        },
+        {
+         "name": "Glass Bottle",
+         "icon": "img/vanilla/glass_bottle.png",
+         "sub": "Respiration"
+        },
+        {
+         "name": "Ender Pearl",
+         "icon": "img/vanilla/ender_pearl.png",
+         "sub": "Riptide"
+        },
+        {
+         "name": "Nether Quartz",
+         "icon": "img/vanilla/quartz.png",
+         "sub": "Sharpness"
+        },
+        {
+         "name": "Slimeball",
+         "icon": "img/vanilla/slime_ball.png",
+         "sub": "Silk Touch"
+        },
+        {
+         "name": "Rotten Flesh",
+         "icon": "img/vanilla/rotten_flesh.png",
+         "sub": "Smite"
+        },
+        {
+         "name": "Soul Soil",
+         "icon": "img/vanilla/soul_soil.png",
+         "sub": "Soul Speed"
+        },
+        {
+         "name": "Cocoa Beans",
+         "icon": "img/vanilla/cocoa_beans.png",
+         "sub": "Swift Sneak"
+        },
+        {
+         "name": "Rose Bush",
+         "icon": "img/vanilla/rose_bush.png",
+         "sub": "Thorns"
+        },
+        {
+         "name": "Obsidian",
+         "icon": "img/vanilla/obsidian.png",
+         "sub": "Unbreaking"
+        },
+        {
+         "name": "Wind Charge",
+         "icon": "img/vanilla/wind_charge.png",
+         "sub": "Wind Burst"
+        }
+       ]
+      }
+     ],
+     "href": "wiki/infusion/enchanting"
+    },
+    {
      "slug": "awakening-altar",
      "name": "Awakening Altar",
      "icon": "img/icons/awakening_altar.png",
@@ -2806,6 +3319,106 @@
         [
          "Time",
          "5 seconds"
+        ]
+       ]
+      },
+      {
+       "t": "h2",
+       "text": "Layout"
+      },
+      {
+       "t": "layout",
+       "note": "Seen from above: pedestals on the sides, vessels on the diagonals, all at the same height",
+       "rows": [
+        [
+         null,
+         null,
+         null,
+         {
+          "name": "Awakening Pedestal",
+          "icon": "img/icons/awakening_pedestal.png"
+         },
+         null,
+         null,
+         null
+        ],
+        [
+         null,
+         {
+          "name": "Essence Vessel",
+          "icon": "img/icons/essence_vessel.png"
+         },
+         null,
+         null,
+         null,
+         {
+          "name": "Essence Vessel",
+          "icon": "img/icons/essence_vessel.png"
+         },
+         null
+        ],
+        [
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null
+        ],
+        [
+         {
+          "name": "Awakening Pedestal",
+          "icon": "img/icons/awakening_pedestal.png"
+         },
+         null,
+         null,
+         {
+          "name": "Awakening Altar",
+          "icon": "img/icons/awakening_altar.png"
+         },
+         null,
+         null,
+         {
+          "name": "Awakening Pedestal",
+          "icon": "img/icons/awakening_pedestal.png"
+         }
+        ],
+        [
+         null,
+         null,
+         null,
+         null,
+         null,
+         null,
+         null
+        ],
+        [
+         null,
+         {
+          "name": "Essence Vessel",
+          "icon": "img/icons/essence_vessel.png"
+         },
+         null,
+         null,
+         null,
+         {
+          "name": "Essence Vessel",
+          "icon": "img/icons/essence_vessel.png"
+         },
+         null
+        ],
+        [
+         null,
+         null,
+         null,
+         {
+          "name": "Awakening Pedestal",
+          "icon": "img/icons/awakening_pedestal.png"
+         },
+         null,
+         null,
+         null
         ]
        ]
       },

@@ -257,5 +257,13 @@
   "minecraft:diamond_hoe": "Diamond Hoe",
   "minecraft:iron_shovel": "Iron Shovel",
   "minecraft:diamond_shovel": "Diamond Shovel",
-  "minecraft:orange_wool": "Orange Wool"
+  "minecraft:orange_wool": "Orange Wool",
+  "minecraft:lightning_rod": "Lightning Rod",
+  "minecraft:iron_block": "Block of Iron",
+  "minecraft:blaze_powder": "Blaze Powder",
+  "minecraft:piston": "Piston",
+  "minecraft:lead": "Lead",
+  "minecraft:bow": "Bow",
+  "minecraft:rose_bush": "Rose Bush",
+  "minecraft:wind_charge": "Wind Charge"
 }
