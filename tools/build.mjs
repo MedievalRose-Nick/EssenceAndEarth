@@ -1233,6 +1233,7 @@ for (const c of cfg.crops) {
       "minecraft:selection_box": { origin: [-8, 0, -8], size: [16, 6, 16] },
       "minecraft:destructible_by_mining": { seconds_to_destroy: 0 },
       "minecraft:light_dampening": 0,
+      "minecraft:connection_rule": { accepts_connections_from: "none" }, // fences and walls don't join onto crops
       // Also pops the crop when the farmland under it is broken.
       "minecraft:placement_filter": { conditions: [{ allowed_faces: ["up"], block_filter: soils }] },
       "minecraft:loot": loot(`${c.id}_crop`, [drop(seeds)]),
