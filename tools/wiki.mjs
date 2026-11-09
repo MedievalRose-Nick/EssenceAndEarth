@@ -660,6 +660,33 @@ const augmentEffect = (a, level) => {
   if (a.flight) return "Hold jump to rise, let go to hover, sneak to sink";
   return "Slow Falling turns on once you're falling fast, so landings don't hurt";
 };
+// What each level's effect does, for the level list. Vanilla Bedrock numbers.
+const EFFECT_LEVEL = {
+  absorption: (n) => `${2 * n} golden hearts that take damage before your health`,
+  health_boost: (n) => `${2 * n} extra hearts of max health`,
+  haste: (n) => `Mines ${20 * n}% faster`,
+  speed: (n) => `Walks ${20 * n}% faster`,
+  fire_resistance: () => "No damage from fire, lava or magma blocks",
+  night_vision: () => "See clearly in the dark and underwater",
+  water_breathing: () => "Breathe underwater without running out of air",
+  slow_falling: () => "Fall slowly and take no fall damage",
+  jump_boost: (n) => `Jumps higher, and falls ${n} more block${n > 1 ? "s" : ""} before taking damage`,
+};
+// How often an augment acts, and how long its effect lingers. Timings follow packs/BP/scripts/main.js.
+const augmentTiming = (a) => {
+  if (a.effect === "absorption") return [["Refreshes", "Lasts 8 minutes. A new one starts within a second of the last one ending, not when the hearts are used up"], "Worn gear is checked every second. The hearts aren't topped back up while the effect is still running, so after a fight they come back when the 8 minutes are up."];
+  if (a.effect === "health_boost") return [["Refreshes", "Never. It's given once and stays while worn"], "Worn gear is checked every second. Health Boost goes on when you put the piece on and comes off within a second of taking it off. It isn't renewed while worn, as renewing it can knock your health down."];
+  if (a.effect === "night_vision") return [["Refreshes", "Every second, back up to 20 seconds"], "Worn gear is checked every second. It's kept at 20 seconds so the screen never flickers, so it lasts up to 20 seconds after you take the helmet off."];
+  if (a.effect) return [["Refreshes", "Every second, back up to 3 seconds"], "Worn gear is checked every second and the effect renewed for 3 seconds, so it ends about 3 seconds after you take the piece off. Wearing two pieces with the same augment gives the higher level, not both."];
+  if (a.clears) return [["Refreshes", "Every tick (20 times a second)"], `Any ${a.clears.map((e) => title(e)).join(" or ")} on you is removed the tick after it lands, so it never takes hold. Potions and mobs can still put it on; it just doesn't last.`];
+  if (a.flight) return [["Refreshes", "Every tick (20 times a second)"], "Holding jump gives a strong Levitation that climbs fast. Letting go holds you at that height: Levitation while you're below it, Slow Falling while above. Sneaking drops the hover height and sinks you slowly. It does nothing in Creative or Spectator."];
+  if (a.noFall) return [["Refreshes", "Every tick (20 times a second)"], "Once you're falling faster than 8 blocks a second, you get half a second of Slow Falling, renewed for as long as the fall goes on. Small jumps and steps don't trigger it, so you don't float."];
+  if (a.damage) return [["Activates", "Every hit on a mob"], "The extra damage comes straight off the mob's health on every melee hit, even while it's still flashing red from the last one. It doesn't work on players."];
+  if (a.area === "mine") return [["Activates", "Every block you break, unless sneaking"], "Only blocks the tool is meant for are taken, and containers, machines and unbreakable blocks are left alone. Fortune and Silk Touch apply to every block. Each extra block wears the tool by 1."];
+  if (a.area === "attack") return [["Activates", "Every melee hit on a mob"], "Every other mob in range takes the extra damage as magic, so kills still count as yours. Players and tamed pets are spared. Each extra mob hit wears the sword by 1."];
+  if (a.area === "till") return [["Activates", "Every time you till while sneaking"], "Only dirt, grass and paths with air above them are tilled. Without sneaking, the hoe tills one block. Each extra block wears the hoe by 1."];
+  return [["Activates", "Every time you make a path while sneaking"], "Grass, dirt, coarse dirt, podzol, mycelium and rooted dirt with air above them turn into paths. Without sneaking, the shovel works as normal. Each extra block wears the shovel by 1."];
+};
 const augments = {
   slug: "augments", title: "Augments", group: "Getting started", icon: "img/icons/speed_i_augment.png",
   blurb: "Effects for your armor, swords and tools, fitted at the Tinkering Table.",
@@ -679,12 +706,15 @@ const augments = {
     },
     ...cfg.augments.map((a) => {
       const levels = augmentLevels(a);
+      const [timing, how] = augmentTiming(a);
       return {
         slug: slug(a.id), name: `${title(a.id)} Augment`, icon: levels[0].item.icon,
         summary: `${augmentPieces(a)}. ${augmentEffect(a, 1)}.`,
         blocks: [
-          facts([["Goes on", augmentPieces(a)], ["Levels", levels.length > 1 ? `${ROMAN[0]} to ${ROMAN[levels.length - 1]}` : "One"], ["Needs", levels.map((l) => `${title(cfg.tiers[l.tier - 1].id)} gear${levels.length > 1 ? ` for ${ROMAN[l.level - 1]}` : ""}`).join(", ")]]),
-          list(levels.map((l) => ({ ...l.item, href: undefined, sub: augmentEffect(a, l.level) }))),
+          facts([["Goes on", augmentPieces(a)], ["Levels", levels.length > 1 ? `${ROMAN[0]} to ${ROMAN[levels.length - 1]}` : "One"], ["Needs", levels.map((l) => `${title(cfg.tiers[l.tier - 1].id)} gear${levels.length > 1 ? ` for ${ROMAN[l.level - 1]}` : ""}`).join(", ")], timing]),
+          list(levels.map((l) => ({ ...l.item, href: undefined, sub: [augmentEffect(a, l.level), EFFECT_LEVEL[a.effect]?.(l.level)].filter(Boolean).join(". ") }))),
+          h2("How it works"),
+          p(how),
           ...levels.flatMap((l, k) => {
             const e = tierItem(cfg.tiers[l.tier - 1]);
             const m = l.materials.map(vanilla);

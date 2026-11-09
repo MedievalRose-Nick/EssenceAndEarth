@@ -5971,6 +5971,10 @@
         [
          "Needs",
          "Terra gear for I, Aqua gear for II, Ignis gear for III, Aether gear for IV, Astra gear for V"
+        ],
+        [
+         "Refreshes",
+         "Lasts 8 minutes. A new one starts within a second of the last one ending, not when the hearts are used up"
         ]
        ]
       },
@@ -5980,29 +5984,37 @@
         {
          "name": "Absorption I Augment",
          "icon": "img/icons/absorption_i_augment.png",
-         "sub": "Absorption I while worn"
+         "sub": "Absorption I while worn. 2 golden hearts that take damage before your health"
         },
         {
          "name": "Absorption II Augment",
          "icon": "img/icons/absorption_ii_augment.png",
-         "sub": "Absorption II while worn"
+         "sub": "Absorption II while worn. 4 golden hearts that take damage before your health"
         },
         {
          "name": "Absorption III Augment",
          "icon": "img/icons/absorption_iii_augment.png",
-         "sub": "Absorption III while worn"
+         "sub": "Absorption III while worn. 6 golden hearts that take damage before your health"
         },
         {
          "name": "Absorption IV Augment",
          "icon": "img/icons/absorption_iv_augment.png",
-         "sub": "Absorption IV while worn"
+         "sub": "Absorption IV while worn. 8 golden hearts that take damage before your health"
         },
         {
          "name": "Absorption V Augment",
          "icon": "img/icons/absorption_v_augment.png",
-         "sub": "Absorption V while worn"
+         "sub": "Absorption V while worn. 10 golden hearts that take damage before your health"
         }
        ]
+      },
+      {
+       "t": "h2",
+       "text": "How it works"
+      },
+      {
+       "t": "p",
+       "html": "Worn gear is checked every second. The hearts aren't topped back up while the effect is still running, so after a fight they come back when the 8 minutes are up."
       },
       {
        "t": "h2",
@@ -6342,6 +6354,10 @@
         [
          "Needs",
          "Terra gear for I, Aqua gear for II, Ignis gear for III, Aether gear for IV, Astra gear for V"
+        ],
+        [
+         "Refreshes",
+         "Never. It's given once and stays while worn"
         ]
        ]
       },
@@ -6351,29 +6367,37 @@
         {
          "name": "Health Boost I Augment",
          "icon": "img/icons/health_boost_i_augment.png",
-         "sub": "Health Boost I while worn"
+         "sub": "Health Boost I while worn. 2 extra hearts of max health"
         },
         {
          "name": "Health Boost II Augment",
          "icon": "img/icons/health_boost_ii_augment.png",
-         "sub": "Health Boost II while worn"
+         "sub": "Health Boost II while worn. 4 extra hearts of max health"
         },
         {
          "name": "Health Boost III Augment",
          "icon": "img/icons/health_boost_iii_augment.png",
-         "sub": "Health Boost III while worn"
+         "sub": "Health Boost III while worn. 6 extra hearts of max health"
         },
         {
          "name": "Health Boost IV Augment",
          "icon": "img/icons/health_boost_iv_augment.png",
-         "sub": "Health Boost IV while worn"
+         "sub": "Health Boost IV while worn. 8 extra hearts of max health"
         },
         {
          "name": "Health Boost V Augment",
          "icon": "img/icons/health_boost_v_augment.png",
-         "sub": "Health Boost V while worn"
+         "sub": "Health Boost V while worn. 10 extra hearts of max health"
         }
        ]
+      },
+      {
+       "t": "h2",
+       "text": "How it works"
+      },
+      {
+       "t": "p",
+       "html": "Worn gear is checked every second. Health Boost goes on when you put the piece on and comes off within a second of taking it off. It isn't renewed while worn, as renewing it can knock your health down."
       },
       {
        "t": "h2",
@@ -6713,6 +6737,10 @@
         [
          "Needs",
          "Ignis gear"
+        ],
+        [
+         "Refreshes",
+         "Every second, back up to 3 seconds"
         ]
        ]
       },
@@ -6722,9 +6750,17 @@
         {
          "name": "Fire Resistance Augment",
          "icon": "img/icons/fire_resistance_augment.png",
-         "sub": "Fire Resistance while worn"
+         "sub": "Fire Resistance while worn. No damage from fire, lava or magma blocks"
         }
        ]
+      },
+      {
+       "t": "h2",
+       "text": "How it works"
+      },
+      {
+       "t": "p",
+       "html": "Worn gear is checked every second and the effect renewed for 3 seconds, so it ends about 3 seconds after you take the piece off. Wearing two pieces with the same augment gives the higher level, not both."
       },
       {
        "t": "h2",
@@ -6812,6 +6848,10 @@
         [
          "Needs",
          "Aether gear"
+        ],
+        [
+         "Refreshes",
+         "Every tick (20 times a second)"
         ]
        ]
       },
@@ -6824,6 +6864,14 @@
          "sub": "Clears Poison while worn"
         }
        ]
+      },
+      {
+       "t": "h2",
+       "text": "How it works"
+      },
+      {
+       "t": "p",
+       "html": "Any Poison on you is removed the tick after it lands, so it never takes hold. Potions and mobs can still put it on; it just doesn't last."
       },
       {
        "t": "h2",
@@ -6911,6 +6959,10 @@
         [
          "Needs",
          "Aether gear"
+        ],
+        [
+         "Refreshes",
+         "Every tick (20 times a second)"
         ]
        ]
       },
@@ -6923,6 +6975,14 @@
          "sub": "Clears Mining Fatigue while worn"
         }
        ]
+      },
+      {
+       "t": "h2",
+       "text": "How it works"
+      },
+      {
+       "t": "p",
+       "html": "Any Mining Fatigue on you is removed the tick after it lands, so it never takes hold. Potions and mobs can still put it on; it just doesn't last."
       },
       {
        "t": "h2",
@@ -7010,6 +7070,10 @@
         [
          "Needs",
          "Astra gear"
+        ],
+        [
+         "Refreshes",
+         "Every tick (20 times a second)"
         ]
        ]
       },
@@ -7022,6 +7086,14 @@
          "sub": "Clears Wither while worn"
         }
        ]
+      },
+      {
+       "t": "h2",
+       "text": "How it works"
+      },
+      {
+       "t": "p",
+       "html": "Any Wither on you is removed the tick after it lands, so it never takes hold. Potions and mobs can still put it on; it just doesn't last."
       },
       {
        "t": "h2",
@@ -7109,6 +7181,10 @@
         [
          "Needs",
          "Terra gear"
+        ],
+        [
+         "Refreshes",
+         "Every tick (20 times a second)"
         ]
        ]
       },
@@ -7121,6 +7197,14 @@
          "sub": "Clears Nausea while worn"
         }
        ]
+      },
+      {
+       "t": "h2",
+       "text": "How it works"
+      },
+      {
+       "t": "p",
+       "html": "Any Nausea on you is removed the tick after it lands, so it never takes hold. Potions and mobs can still put it on; it just doesn't last."
       },
       {
        "t": "h2",
@@ -7208,6 +7292,10 @@
         [
          "Needs",
          "Aqua gear"
+        ],
+        [
+         "Refreshes",
+         "Every second, back up to 20 seconds"
         ]
        ]
       },
@@ -7217,9 +7305,17 @@
         {
          "name": "Night Vision Augment",
          "icon": "img/icons/night_vision_augment.png",
-         "sub": "Night Vision while worn"
+         "sub": "Night Vision while worn. See clearly in the dark and underwater"
         }
        ]
+      },
+      {
+       "t": "h2",
+       "text": "How it works"
+      },
+      {
+       "t": "p",
+       "html": "Worn gear is checked every second. It's kept at 20 seconds so the screen never flickers, so it lasts up to 20 seconds after you take the helmet off."
       },
       {
        "t": "h2",
@@ -7307,6 +7403,10 @@
         [
          "Needs",
          "Aqua gear"
+        ],
+        [
+         "Refreshes",
+         "Every second, back up to 3 seconds"
         ]
        ]
       },
@@ -7316,9 +7416,17 @@
         {
          "name": "Water Breathing Augment",
          "icon": "img/icons/water_breathing_augment.png",
-         "sub": "Water Breathing while worn"
+         "sub": "Water Breathing while worn. Breathe underwater without running out of air"
         }
        ]
+      },
+      {
+       "t": "h2",
+       "text": "How it works"
+      },
+      {
+       "t": "p",
+       "html": "Worn gear is checked every second and the effect renewed for 3 seconds, so it ends about 3 seconds after you take the piece off. Wearing two pieces with the same augment gives the higher level, not both."
       },
       {
        "t": "h2",
@@ -7406,6 +7514,10 @@
         [
          "Needs",
          "Aqua gear"
+        ],
+        [
+         "Refreshes",
+         "Every tick (20 times a second)"
         ]
        ]
       },
@@ -7418,6 +7530,14 @@
          "sub": "Clears Blindness and Darkness while worn"
         }
        ]
+      },
+      {
+       "t": "h2",
+       "text": "How it works"
+      },
+      {
+       "t": "p",
+       "html": "Any Blindness or Darkness on you is removed the tick after it lands, so it never takes hold. Potions and mobs can still put it on; it just doesn't last."
       },
       {
        "t": "h2",
@@ -7505,6 +7625,10 @@
         [
          "Needs",
          "Aether gear"
+        ],
+        [
+         "Refreshes",
+         "Every tick (20 times a second)"
         ]
        ]
       },
@@ -7517,6 +7641,14 @@
          "sub": "Clears Hunger while worn"
         }
        ]
+      },
+      {
+       "t": "h2",
+       "text": "How it works"
+      },
+      {
+       "t": "p",
+       "html": "Any Hunger on you is removed the tick after it lands, so it never takes hold. Potions and mobs can still put it on; it just doesn't last."
       },
       {
        "t": "h2",
@@ -7604,6 +7736,10 @@
         [
          "Needs",
          "Ignis gear for I, Aether gear for II, Astra gear for III"
+        ],
+        [
+         "Refreshes",
+         "Every second, back up to 3 seconds"
         ]
        ]
       },
@@ -7613,19 +7749,27 @@
         {
          "name": "Haste I Augment",
          "icon": "img/icons/haste_i_augment.png",
-         "sub": "Haste I while worn"
+         "sub": "Haste I while worn. Mines 20% faster"
         },
         {
          "name": "Haste II Augment",
          "icon": "img/icons/haste_ii_augment.png",
-         "sub": "Haste II while worn"
+         "sub": "Haste II while worn. Mines 40% faster"
         },
         {
          "name": "Haste III Augment",
          "icon": "img/icons/haste_iii_augment.png",
-         "sub": "Haste III while worn"
+         "sub": "Haste III while worn. Mines 60% faster"
         }
        ]
+      },
+      {
+       "t": "h2",
+       "text": "How it works"
+      },
+      {
+       "t": "p",
+       "html": "Worn gear is checked every second and the effect renewed for 3 seconds, so it ends about 3 seconds after you take the piece off. Wearing two pieces with the same augment gives the higher level, not both."
       },
       {
        "t": "h2",
@@ -7839,6 +7983,10 @@
         [
          "Needs",
          "Ignis gear"
+        ],
+        [
+         "Refreshes",
+         "Every tick (20 times a second)"
         ]
        ]
       },
@@ -7851,6 +7999,14 @@
          "sub": "Clears Weakness while worn"
         }
        ]
+      },
+      {
+       "t": "h2",
+       "text": "How it works"
+      },
+      {
+       "t": "p",
+       "html": "Any Weakness on you is removed the tick after it lands, so it never takes hold. Potions and mobs can still put it on; it just doesn't last."
       },
       {
        "t": "h2",
@@ -7938,6 +8094,10 @@
         [
          "Needs",
          "Astra gear"
+        ],
+        [
+         "Refreshes",
+         "Every tick (20 times a second)"
         ]
        ]
       },
@@ -7950,6 +8110,14 @@
          "sub": "Hold jump to rise, let go to hover, sneak to sink"
         }
        ]
+      },
+      {
+       "t": "h2",
+       "text": "How it works"
+      },
+      {
+       "t": "p",
+       "html": "Holding jump gives a strong Levitation that climbs fast. Letting go holds you at that height: Levitation while you're below it, Slow Falling while above. Sneaking drops the hover height and sinks you slowly. It does nothing in Creative or Spectator."
       },
       {
        "t": "h2",
@@ -8037,6 +8205,10 @@
         [
          "Needs",
          "Aqua gear for I, Ignis gear for II, Aether gear for III"
+        ],
+        [
+         "Refreshes",
+         "Every second, back up to 3 seconds"
         ]
        ]
       },
@@ -8046,19 +8218,27 @@
         {
          "name": "Speed I Augment",
          "icon": "img/icons/speed_i_augment.png",
-         "sub": "Speed I while worn"
+         "sub": "Speed I while worn. Walks 20% faster"
         },
         {
          "name": "Speed II Augment",
          "icon": "img/icons/speed_ii_augment.png",
-         "sub": "Speed II while worn"
+         "sub": "Speed II while worn. Walks 40% faster"
         },
         {
          "name": "Speed III Augment",
          "icon": "img/icons/speed_iii_augment.png",
-         "sub": "Speed III while worn"
+         "sub": "Speed III while worn. Walks 60% faster"
         }
        ]
+      },
+      {
+       "t": "h2",
+       "text": "How it works"
+      },
+      {
+       "t": "p",
+       "html": "Worn gear is checked every second and the effect renewed for 3 seconds, so it ends about 3 seconds after you take the piece off. Wearing two pieces with the same augment gives the higher level, not both."
       },
       {
        "t": "h2",
@@ -8272,6 +8452,10 @@
         [
          "Needs",
          "Ignis gear"
+        ],
+        [
+         "Refreshes",
+         "Every tick (20 times a second)"
         ]
        ]
       },
@@ -8284,6 +8468,14 @@
          "sub": "Clears Slowness while worn"
         }
        ]
+      },
+      {
+       "t": "h2",
+       "text": "How it works"
+      },
+      {
+       "t": "p",
+       "html": "Any Slowness on you is removed the tick after it lands, so it never takes hold. Potions and mobs can still put it on; it just doesn't last."
       },
       {
        "t": "h2",
@@ -8371,6 +8563,10 @@
         [
          "Needs",
          "Aqua gear for I, Ignis gear for II, Aether gear for III"
+        ],
+        [
+         "Refreshes",
+         "Every second, back up to 3 seconds"
         ]
        ]
       },
@@ -8380,19 +8576,27 @@
         {
          "name": "Jump Boost I Augment",
          "icon": "img/icons/jump_boost_i_augment.png",
-         "sub": "Jump Boost I while worn"
+         "sub": "Jump Boost I while worn. Jumps higher, and falls 1 more block before taking damage"
         },
         {
          "name": "Jump Boost II Augment",
          "icon": "img/icons/jump_boost_ii_augment.png",
-         "sub": "Jump Boost II while worn"
+         "sub": "Jump Boost II while worn. Jumps higher, and falls 2 more blocks before taking damage"
         },
         {
          "name": "Jump Boost III Augment",
          "icon": "img/icons/jump_boost_iii_augment.png",
-         "sub": "Jump Boost III while worn"
+         "sub": "Jump Boost III while worn. Jumps higher, and falls 3 more blocks before taking damage"
         }
        ]
+      },
+      {
+       "t": "h2",
+       "text": "How it works"
+      },
+      {
+       "t": "p",
+       "html": "Worn gear is checked every second and the effect renewed for 3 seconds, so it ends about 3 seconds after you take the piece off. Wearing two pieces with the same augment gives the higher level, not both."
       },
       {
        "t": "h2",
@@ -8606,6 +8810,10 @@
         [
          "Needs",
          "Ignis gear"
+        ],
+        [
+         "Refreshes",
+         "Every second, back up to 3 seconds"
         ]
        ]
       },
@@ -8615,9 +8823,17 @@
         {
          "name": "Slow Falling Augment",
          "icon": "img/icons/slow_falling_augment.png",
-         "sub": "Slow Falling while worn"
+         "sub": "Slow Falling while worn. Fall slowly and take no fall damage"
         }
        ]
+      },
+      {
+       "t": "h2",
+       "text": "How it works"
+      },
+      {
+       "t": "p",
+       "html": "Worn gear is checked every second and the effect renewed for 3 seconds, so it ends about 3 seconds after you take the piece off. Wearing two pieces with the same augment gives the higher level, not both."
       },
       {
        "t": "h2",
@@ -8705,6 +8921,10 @@
         [
          "Needs",
          "Ignis gear"
+        ],
+        [
+         "Refreshes",
+         "Every tick (20 times a second)"
         ]
        ]
       },
@@ -8717,6 +8937,14 @@
          "sub": "Slow Falling turns on once you're falling fast, so landings don't hurt"
         }
        ]
+      },
+      {
+       "t": "h2",
+       "text": "How it works"
+      },
+      {
+       "t": "p",
+       "html": "Once you're falling faster than 8 blocks a second, you get half a second of Slow Falling, renewed for as long as the fall goes on. Small jumps and steps don't trigger it, so you don't float."
       },
       {
        "t": "h2",
@@ -8804,6 +9032,10 @@
         [
          "Needs",
          "Ignis gear for I, Aether gear for II, Astra gear for III"
+        ],
+        [
+         "Activates",
+         "Every hit on a mob"
         ]
        ]
       },
@@ -8826,6 +9058,14 @@
          "sub": "20 extra damage per hit on mobs"
         }
        ]
+      },
+      {
+       "t": "h2",
+       "text": "How it works"
+      },
+      {
+       "t": "p",
+       "html": "The extra damage comes straight off the mob's health on every melee hit, even while it's still flashing red from the last one. It doesn't work on players."
       },
       {
        "t": "h2",
@@ -9039,6 +9279,10 @@
         [
          "Needs",
          "Aqua gear for I, Ignis gear for II, Aether gear for III, Astra gear for IV"
+        ],
+        [
+         "Activates",
+         "Every block you break, unless sneaking"
         ]
        ]
       },
@@ -9066,6 +9310,14 @@
          "sub": "Mines 9×9 on the face you hit. Sneak to mine one block"
         }
        ]
+      },
+      {
+       "t": "h2",
+       "text": "How it works"
+      },
+      {
+       "t": "p",
+       "html": "Only blocks the tool is meant for are taken, and containers, machines and unbreakable blocks are left alone. Fortune and Silk Touch apply to every block. Each extra block wears the tool by 1."
       },
       {
        "t": "h2",
@@ -9342,6 +9594,10 @@
         [
          "Needs",
          "Ignis gear for I, Aether gear for II, Astra gear for III"
+        ],
+        [
+         "Activates",
+         "Every melee hit on a mob"
         ]
        ]
       },
@@ -9364,6 +9620,14 @@
          "sub": "Hits mobs within 4.5 blocks of the target for 20 damage"
         }
        ]
+      },
+      {
+       "t": "h2",
+       "text": "How it works"
+      },
+      {
+       "t": "p",
+       "html": "Every other mob in range takes the extra damage as magic, so kills still count as yours. Players and tamed pets are spared. Each extra mob hit wears the sword by 1."
       },
       {
        "t": "h2",
@@ -9577,6 +9841,10 @@
         [
          "Needs",
          "Aqua gear for I, Ignis gear for II, Aether gear for III, Astra gear for IV"
+        ],
+        [
+         "Activates",
+         "Every time you till while sneaking"
         ]
        ]
       },
@@ -9604,6 +9872,14 @@
          "sub": "Tills 9×9 while you sneak"
         }
        ]
+      },
+      {
+       "t": "h2",
+       "text": "How it works"
+      },
+      {
+       "t": "p",
+       "html": "Only dirt, grass and paths with air above them are tilled. Without sneaking, the hoe tills one block. Each extra block wears the hoe by 1."
       },
       {
        "t": "h2",
@@ -9880,6 +10156,10 @@
         [
          "Needs",
          "Terra gear for I, Aqua gear for II, Ignis gear for III, Aether gear for IV"
+        ],
+        [
+         "Activates",
+         "Every time you make a path while sneaking"
         ]
        ]
       },
@@ -9907,6 +10187,14 @@
          "sub": "Makes paths 9×9 while you sneak"
         }
        ]
+      },
+      {
+       "t": "h2",
+       "text": "How it works"
+      },
+      {
+       "t": "p",
+       "html": "Grass, dirt, coarse dirt, podzol, mycelium and rooted dirt with air above them turn into paths. Without sneaking, the shovel works as normal. Each extra block wears the shovel by 1."
       },
       {
        "t": "h2",
