@@ -894,11 +894,11 @@ function blockTexture(id, mask, color, palette) {
   terrain[`${NS}_${id}`] = { textures: `textures/blocks/${id}` };
 }
 
-function block(id, sound, description, { "minecraft:display_name": name, ...components }, permutations) {
+function block(id, sound, description, { "minecraft:display_name": name, ...components }, permutations, format = FMT) {
   sounds[`${NS}:${id}`] = { sound };
   if (name) lang.push(`tile.${NS}:${id}.name=${name}\\n${TAG}`); // block names go in the lang file, as Deepcore's do
   write(path.join(BP, "blocks", `${id}.json`), {
-    format_version: FMT,
+    format_version: format,
     "minecraft:block": { description: { identifier: `${NS}:${id}`, ...description }, components, permutations },
   });
 }
@@ -1233,6 +1233,7 @@ for (const c of cfg.crops) {
       "minecraft:selection_box": { origin: [-8, 0, -8], size: [16, 6, 16] },
       "minecraft:destructible_by_mining": { seconds_to_destroy: 0 },
       "minecraft:light_dampening": 0,
+      "minecraft:connection_rule": { accepts_connections_from: "none" }, // fences and walls don't join onto crops
       // Also pops the crop when the farmland under it is broken.
       "minecraft:placement_filter": { conditions: [{ allowed_faces: ["up"], block_filter: soils }] },
       "minecraft:loot": loot(`${c.id}_crop`, [drop(seeds)]),
@@ -1246,6 +1247,7 @@ for (const c of cfg.crops) {
         ...(s === 3 && { "minecraft:loot": loot(`${c.id}_crop_ripe`, [drop(essence, ...BAL.harvestEssence), drop(seeds), ...(c.essenceCrop ? [] : [drop(`${NS}:fertilized_essence`, 1, 1, BAL.fertilizedEssenceChance)])]) }),
       },
     })),
+    "1.26.0", // connection_rule needs 1.26.0; older formats reject the whole block
   );
 
   item(`${c.id}_seeds`, SEEDS, c.color, { "minecraft:block_placer": { block: `${NS}:${c.id}_crop`, use_on: soils } });
