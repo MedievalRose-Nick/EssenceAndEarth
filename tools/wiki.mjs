@@ -76,9 +76,16 @@ const upgrade = (t, i) => {
 };
 // An item in a recipe: a crop essence, one of our materials, or a vanilla item.
 const ourCrops = new Map(ALL_CROPS.map((c) => [c.id, c]));
+// Cluster recipes live only in build.mjs, so read them back from the built pack. Each shows on the crop it makes seeds for.
+const CLUSTERS = new Map(fs.readdirSync(path.join(BP, "recipes")).filter((f) => f.endsWith("_cluster.json")).map((f) => {
+  const r = JSON.parse(fs.readFileSync(path.join(BP, "recipes", f), "utf8"))["minecraft:recipe_shaped"];
+  return [r.result.item, { pattern: r.pattern, key: Object.fromEntries(Object.entries(r.key).map(([k, v]) => [k, v.item])), result: r.result.item, count: r.result.count ?? 1 }];
+}));
+const clusterCrop = (id) => ALL_CROPS.find((c) => !c.retired && c.ingredient === id);
 const anyItem = (id) => {
   const [ns, name] = id.split(":");
   if (ns !== "ee") return vanilla(id);
+  if (clusterCrop(id)) return { name: title(name), icon: `img/icons/${name}.png`, href: cropHref(clusterCrop(id)) };
   const crop = name.endsWith("_essence") && ourCrops.get(name.slice(0, -8));
   return crop ? (crop.retired ? { name: title(name), icon: `img/icons/${name}.png` } : essenceItem(crop)) : { name: title(name), icon: `img/icons/${name}.png` };
 };
@@ -346,6 +353,7 @@ const cropCategories = cfg.tiers
           list(stages(c)),
           h2("Seeds"),
           seedsRecipe(c),
+          ...(CLUSTERS.has(c.ingredient) ? [h2(anyItem(c.ingredient).name), essenceRecipe(CLUSTERS.get(c.ingredient))] : []),
           h2("Harvest"),
           list([{ ...(c.essenceCrop ? tierItem(t) : essenceItem(c)), sub: c.essenceCrop ? terraYield : `${harvest} when ripe, ${secondary} to ${matching} chance of a second` }, { ...seedsItem(c), sub: `1, plus a ${secondary} to ${matching} chance of a second` }]),
           ...recipesOf(c).flatMap((r) => [h2(anyItem(r.result).name), essenceRecipe(r)]),
@@ -378,13 +386,14 @@ const materials = {
   entries: [
     {
       slug: "ores", name: "Ores", icon: "img/icons/essence_ore.png",
-      summary: "Essence Ore and Vita Ore, in stone and deepslate.",
+      summary: "Essence Ore and Vita Ore in the Overworld, Anima Ore in the Nether.",
       blocks: [
         list([
           { name: "Essence Ore", icon: "img/icons/essence_ore.png", sub: `y -32 to 64. Drops ${range(BAL.oreEssence)} Terra Essence` },
           { name: "Deepslate Essence Ore", icon: "img/icons/deepslate_essence_ore.png", sub: "The same, in deepslate" },
           { name: "Vita Ore", icon: "img/icons/vita_ore.png", sub: `y -60 to 24. Drops ${range(BAL.vitaShards)} Vita Shards` },
           { name: "Deepslate Vita Ore", icon: "img/icons/deepslate_vita_ore.png", sub: "The same, in deepslate" },
+          { ...named("anima_ore"), href: "wiki/infusion/soulstone", sub: `Nether, y 0 to 128, inside soulstone. Drops ${range(BAL.animaDust)} Anima Dust` },
         ]),
         p("Ore only generates in chunks explored after it was added."),
       ],
@@ -688,24 +697,18 @@ const augments = {
   ],
 };
 
-// Cluster recipes live only in build.mjs, so read them back from the built pack.
-for (const f of fs.readdirSync(path.join(BP, "recipes")).filter((f) => f.endsWith("_cluster.json"))) {
-  const r = JSON.parse(fs.readFileSync(path.join(BP, "recipes", f), "utf8"))["minecraft:recipe_shaped"];
-  essenceRecipe({ pattern: r.pattern, key: Object.fromEntries(Object.entries(r.key).map(([k, v]) => [k, v.item])), result: r.result.item, count: 1 });
-}
-
 const categories = [guide, essence, materials, infusion, farmland, accelerators, tools, gear, augments, machines, ...cropCategories];
 for (const c of categories) for (const e of c.entries) e.href = `wiki/${c.slug}/${e.slug}`;
 
 const gallery = [
   { title: "Essence tiers", items: cfg.tiers.map(tierItem) },
   { title: "Crop essence", items: cfg.crops.filter((c) => !c.essenceCrop).map(essenceItem) },
-  { title: "Clusters and blanks", items: ["air", "earth", "water", "fire", "nature", "dye", "nether", "coral", "honey", "prismarine", "end"].map((id) => `${id}_cluster`).concat("blank_skull", "blank_record", "experience_droplet").map((id) => ({ name: title(id), icon: `img/icons/${id}.png` })) },
+  { title: "Clusters and blanks", items: ["air", "earth", "water", "fire", "nature", "dye", "nether", "coral", "honey", "prismarine", "end"].map((id) => anyItem(`ee:${id}_cluster`)).concat(["blank_skull", "blank_record", "experience_droplet"].map((id) => ({ name: title(id), icon: `img/icons/${id}.png` }))) },
   { title: "Seeds", items: cfg.crops.map(seedsItem) },
   { title: "Ripe crops", items: cfg.crops.map(ripeItem) },
   { title: "Essence farmland", items: cfg.tiers.map(farmlandItem) },
   { title: "Growth accelerators", items: [...cfg.tiers, DIVUS].map(acceleratorItem) },
-  { title: "Ores", items: ["essence_ore", "deepslate_essence_ore", "vita_ore", "deepslate_vita_ore"].map((id) => ({ name: title(id), icon: `img/icons/${id}.png` })) },
+  { title: "Ores", items: ["essence_ore", "deepslate_essence_ore", "vita_ore", "deepslate_vita_ore", "anima_ore"].map((id) => ({ name: title(id), icon: `img/icons/${id}.png` })) },
   { title: "Materials", items: ["vita", "anima", ...cfg.tiers.map((t) => t.id), "divus"].flatMap((id) => [`${id}_ingot`, `${id}_gemstone`, `${id}_nugget`, `${id}_ingot_block`, `${id}_gemstone_block`].map(matItem)).concat(["vita_block", "anima_block", "divus_essence", "divus_block"].map(matItem)) },
   { title: "Fertilizer", items: [fertilized, fertilizer] },
   { title: "Infusion and souls", items: ["infusion_altar", "infusion_pedestal", "wand", "vita_seed_base", "anima_seed_base", "soul_jar", "anima_dagger", "passive_anima_dagger", "hostile_anima_dagger", "soul_dust", "anima_dust", "soulstone", "soulstone_cobble", "soulstone_smooth", "soulstone_bricks", "soulstone_cracked_bricks", "soul_glass", "anima_ore", "awakening_altar", "awakening_pedestal", "essence_vessel", "cognizant_dust", "witherproof_block"].map((id) => ({ name: title(id), icon: `img/icons/${id}.png` })) },
