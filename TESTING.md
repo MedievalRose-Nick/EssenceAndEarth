@@ -6,7 +6,7 @@ Before starting: upload the latest `addon/*.mcaddon` to the server, and use crea
 
 # Still to test
 
-## Vita crop (tier 3)
+## Vita crop (tier 3) (v1.1.0)
 
 ```
 /give @s ee:vita_seed_base
