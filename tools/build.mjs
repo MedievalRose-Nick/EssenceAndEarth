@@ -1420,10 +1420,14 @@ for (const [id, count, may_replace, iterations, pass] of NETHER_FEATURES) {
     },
   });
 }
-const furnace = (id, input, output) => write(path.join(BP, "recipes", `${id}.json`), {
-  format_version: "1.20.10",
-  "minecraft:recipe_furnace": { description: { identifier: `${NS}:${id}` }, tags: ["furnace", "blast_furnace"], input: `${NS}:${input}`, output: `${NS}:${output}` },
-});
+const DEEPCORE_SMELTS = []; // for Deepcore's Electric Furnace (see scripts/main.js)
+const furnace = (id, input, output) => {
+  DEEPCORE_SMELTS.push({ in: `${NS}:${input}`, out: `${NS}:${output}` });
+  write(path.join(BP, "recipes", `${id}.json`), {
+    format_version: "1.20.10",
+    "minecraft:recipe_furnace": { description: { identifier: `${NS}:${id}` }, tags: ["furnace", "blast_furnace"], input: `${NS}:${input}`, output: `${NS}:${output}` },
+  });
+};
 furnace("soulstone_smelted", "soulstone_cobble", "soulstone");
 furnace("soulstone_smooth_smelted", "soulstone", "soulstone_smooth");
 furnace("soul_dust_smelted", "soulstone_smooth", "soul_dust");
@@ -2031,7 +2035,7 @@ for (let i = 0; i < crateIconItems.length; i += 30)
 
 // Filled in here because the other placeholders go in before any recipes exist.
 const mainScript = path.join(BP, "scripts", "main.js");
-write(mainScript, fs.readFileSync(mainScript, "utf8").replaceAll("__DEEPCORE_RECIPES__", JSON.stringify(DEEPCORE_RECIPES)).replaceAll("__DEEPCORE_ICONS__", JSON.stringify(DEEPCORE_ICONS)));
+write(mainScript, fs.readFileSync(mainScript, "utf8").replaceAll("__DEEPCORE_RECIPES__", JSON.stringify(DEEPCORE_RECIPES)).replaceAll("__DEEPCORE_ICONS__", JSON.stringify(DEEPCORE_ICONS)).replaceAll("__DEEPCORE_SMELTS__", JSON.stringify(DEEPCORE_SMELTS)));
 
 // ---------- package ----------
 

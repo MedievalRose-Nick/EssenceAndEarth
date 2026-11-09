@@ -1551,6 +1551,13 @@ system.runTimeout(() => {
   for (const r of DEEPCORE_RECIPES) overworld.runCommand(`scriptevent dq:add_recipe ${JSON.stringify(r)}`);
 }, 20);
 
+// Same for furnace recipes: Deepcore's Electric Furnace only smelts ours if we send them (dq:add_smelt).
+const DEEPCORE_SMELTS = __DEEPCORE_SMELTS__;
+system.runTimeout(() => {
+  const overworld = world.getDimension("overworld");
+  for (const s of DEEPCORE_SMELTS) overworld.runCommand(`scriptevent dq:add_smelt ${JSON.stringify(s)}`);
+}, 20);
+
 // Readout for /function ee/test_wear: health and the held tool's durability, plus each hit's damage after armor.
 system.runInterval(() => {
   for (const player of world.getPlayers({ tags: ["ee_test"] })) {

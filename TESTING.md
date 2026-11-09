@@ -6,6 +6,11 @@ Before starting: upload the latest `addon/*.mcaddon` to the server, and use crea
 
 # Still to test
 
+## Deepcore smelts Soulstone (v1.2.1)
+
+- [ ] A Deepcore Electric Furnace turns Soulstone Cobble into Soulstone, Soulstone into Smooth Soulstone, Smooth Soulstone into Soul Dust, and Soulstone Bricks into Cracked Soulstone Bricks.
+- [ ] The server log shows no `dq:add_smelt` warnings.
+
 ## Soulstone crop (tier 2) (v1.2.0)
 
 - [ ] Soulstone Seeds craft at the altar: Vita Seed Base, 4 Soulstone and 4 Aqua Essence.
