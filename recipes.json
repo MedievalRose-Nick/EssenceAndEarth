@@ -211,5 +211,8 @@
   {"pattern":["EEE"],"key":{"E":"ee:nether_wart_essence"},"result":"minecraft:nether_wart","count":8},
   {"pattern":["EEE","E E","EEE"],"key":{"E":"ee:bone_meal_essence"},"result":"minecraft:bone_meal","count":3},
   {"pattern":["EEE","E E","EEE"],"key":{"E":"ee:anima_essence"},"result":"ee:anima_dust","count":4},
-  {"pattern":["EEE","E E","EEE"],"key":{"E":"ee:vita_essence"},"result":"ee:vita_shard","count":4}
+  {"pattern":["EEE","E E","EEE"],"key":{"E":"ee:vita_essence"},"result":"ee:vita_shard","count":4},
+  {"pattern":["EEE","E E","EEE"],"key":{"E":"ee:soulstone_essence"},"result":"ee:soulstone_cobble","count":24},
+  {"pattern":["EEE","ECE","EEE"],"key":{"E":"ee:soulstone_essence","C":"ee:coal_essence"},"result":"ee:soulstone","count":20},
+  {"pattern":["EEE","EFE","EEE"],"key":{"E":"ee:soulstone_essence","F":"ee:fire_essence"},"result":"ee:soul_dust","count":8}
 ]

@@ -1,17 +1,17 @@
 {
  "name": "Essence & Earth",
  "release": {
-  "version": "1.1.2",
-  "file": "EssenceAndEarth_v1.1.2.mcaddon",
+  "version": "1.2.0",
+  "file": "EssenceAndEarth_v1.2.0.mcaddon",
   "minBedrock": "1.21.90",
-  "download": "https://github.com/MedievalRose-Nick/EssenceAndEarth/raw/main/addon/EssenceAndEarth_v1.1.2.mcaddon",
+  "download": "https://github.com/MedievalRose-Nick/EssenceAndEarth/raw/main/addon/EssenceAndEarth_v1.2.0.mcaddon",
   "repo": "https://github.com/MedievalRose-Nick/EssenceAndEarth"
  },
  "stats": {
-  "crops": 55,
+  "crops": 56,
   "tiers": 5,
-  "recipes": 387,
-  "items": 370
+  "recipes": 391,
+  "items": 372
  },
  "categories": [
   {
@@ -572,7 +572,7 @@
      "slug": "aqua-essence",
      "name": "Aqua Essence",
      "icon": "img/icons/aqua_essence.png",
-     "summary": "Tier 2. 16 crops use it.",
+     "summary": "Tier 2. 17 crops use it.",
      "blocks": [
       {
        "t": "facts",
@@ -583,7 +583,7 @@
         ],
         [
          "Crops",
-         "16"
+         "17"
         ]
        ]
       },
@@ -736,6 +736,12 @@
          "icon": "img/icons/armadillo_seeds.png",
          "href": "wiki/aqua-crops/armadillo",
          "sub": "4 × Armadillo Scute"
+        },
+        {
+         "name": "Soulstone Seeds",
+         "icon": "img/icons/soulstone_seeds.png",
+         "href": "wiki/aqua-crops/soulstone",
+         "sub": "24 × Soulstone Cobble, or 20 × Soulstone, or 8 × Soul Dust"
         }
        ]
       }
@@ -22972,6 +22978,337 @@
       }
      ],
      "href": "wiki/aqua-crops/armadillo"
+    },
+    {
+     "slug": "soulstone",
+     "name": "Soulstone Crop",
+     "icon": "img/icons/soulstone_crop.png",
+     "summary": "24 × Soulstone Cobble, or 20 × Soulstone, or 8 × Soul Dust",
+     "blocks": [
+      {
+       "t": "facts",
+       "facts": [
+        [
+         "Tier",
+         "2 · Aqua Essence"
+        ],
+        [
+         "Best on",
+         "Aqua Farmland"
+        ],
+        [
+         "Seeds use",
+         "Soulstone"
+        ],
+        [
+         "Makes",
+         "24 × Soulstone Cobble, or 20 × Soulstone, or 8 × Soul Dust"
+        ]
+       ]
+      },
+      {
+       "t": "items",
+       "items": [
+        {
+         "name": "Stage 1",
+         "icon": "img/icons/crop_0.png"
+        },
+        {
+         "name": "Stage 2",
+         "icon": "img/icons/crop_1.png"
+        },
+        {
+         "name": "Stage 3",
+         "icon": "img/icons/crop_2.png"
+        },
+        {
+         "name": "Ripe",
+         "icon": "img/icons/soulstone_crop.png"
+        }
+       ]
+      },
+      {
+       "t": "h2",
+       "text": "Seeds"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Soulstone Seeds",
+        "icon": "img/icons/soulstone_seeds.png",
+        "href": "wiki/aqua-crops/soulstone",
+        "count": 1
+       },
+       "rows": [
+        [
+         {
+          "name": "Aqua Essence",
+          "icon": "img/icons/aqua_essence.png",
+          "href": "wiki/essence/aqua-essence"
+         },
+         {
+          "name": "Soulstone",
+          "icon": "img/icons/soulstone.png",
+          "href": "wiki/aqua-crops/soulstone"
+         },
+         {
+          "name": "Aqua Essence",
+          "icon": "img/icons/aqua_essence.png",
+          "href": "wiki/essence/aqua-essence"
+         }
+        ],
+        [
+         {
+          "name": "Soulstone",
+          "icon": "img/icons/soulstone.png",
+          "href": "wiki/aqua-crops/soulstone"
+         },
+         {
+          "name": "Vita Seed Base",
+          "icon": "img/icons/vita_seed_base.png",
+          "href": "wiki/infusion/seed-bases"
+         },
+         {
+          "name": "Soulstone",
+          "icon": "img/icons/soulstone.png",
+          "href": "wiki/aqua-crops/soulstone"
+         }
+        ],
+        [
+         {
+          "name": "Aqua Essence",
+          "icon": "img/icons/aqua_essence.png",
+          "href": "wiki/essence/aqua-essence"
+         },
+         {
+          "name": "Soulstone",
+          "icon": "img/icons/soulstone.png",
+          "href": "wiki/aqua-crops/soulstone"
+         },
+         {
+          "name": "Aqua Essence",
+          "icon": "img/icons/aqua_essence.png",
+          "href": "wiki/essence/aqua-essence"
+         }
+        ]
+       ],
+       "note": "Made at the Infusion Altar: the seed base on the altar, the rest on any pedestals"
+      },
+      {
+       "t": "h2",
+       "text": "Harvest"
+      },
+      {
+       "t": "items",
+       "items": [
+        {
+         "name": "Soulstone Essence",
+         "icon": "img/icons/soulstone_essence.png",
+         "href": "wiki/aqua-crops/soulstone",
+         "sub": "1 when ripe, 10% to 20% chance of a second"
+        },
+        {
+         "name": "Soulstone Seeds",
+         "icon": "img/icons/soulstone_seeds.png",
+         "href": "wiki/aqua-crops/soulstone",
+         "sub": "1, plus a 10% to 20% chance of a second"
+        }
+       ]
+      },
+      {
+       "t": "h2",
+       "text": "Soulstone Cobble"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Soulstone Cobble",
+        "icon": "img/icons/soulstone_cobble.png",
+        "count": 24
+       },
+       "rows": [
+        [
+         {
+          "name": "Soulstone Essence",
+          "icon": "img/icons/soulstone_essence.png",
+          "href": "wiki/aqua-crops/soulstone"
+         },
+         {
+          "name": "Soulstone Essence",
+          "icon": "img/icons/soulstone_essence.png",
+          "href": "wiki/aqua-crops/soulstone"
+         },
+         {
+          "name": "Soulstone Essence",
+          "icon": "img/icons/soulstone_essence.png",
+          "href": "wiki/aqua-crops/soulstone"
+         }
+        ],
+        [
+         {
+          "name": "Soulstone Essence",
+          "icon": "img/icons/soulstone_essence.png",
+          "href": "wiki/aqua-crops/soulstone"
+         },
+         null,
+         {
+          "name": "Soulstone Essence",
+          "icon": "img/icons/soulstone_essence.png",
+          "href": "wiki/aqua-crops/soulstone"
+         }
+        ],
+        [
+         {
+          "name": "Soulstone Essence",
+          "icon": "img/icons/soulstone_essence.png",
+          "href": "wiki/aqua-crops/soulstone"
+         },
+         {
+          "name": "Soulstone Essence",
+          "icon": "img/icons/soulstone_essence.png",
+          "href": "wiki/aqua-crops/soulstone"
+         },
+         {
+          "name": "Soulstone Essence",
+          "icon": "img/icons/soulstone_essence.png",
+          "href": "wiki/aqua-crops/soulstone"
+         }
+        ]
+       ]
+      },
+      {
+       "t": "h2",
+       "text": "Soulstone"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Soulstone",
+        "icon": "img/icons/soulstone.png",
+        "href": "wiki/aqua-crops/soulstone",
+        "count": 20
+       },
+       "rows": [
+        [
+         {
+          "name": "Soulstone Essence",
+          "icon": "img/icons/soulstone_essence.png",
+          "href": "wiki/aqua-crops/soulstone"
+         },
+         {
+          "name": "Soulstone Essence",
+          "icon": "img/icons/soulstone_essence.png",
+          "href": "wiki/aqua-crops/soulstone"
+         },
+         {
+          "name": "Soulstone Essence",
+          "icon": "img/icons/soulstone_essence.png",
+          "href": "wiki/aqua-crops/soulstone"
+         }
+        ],
+        [
+         {
+          "name": "Soulstone Essence",
+          "icon": "img/icons/soulstone_essence.png",
+          "href": "wiki/aqua-crops/soulstone"
+         },
+         {
+          "name": "Coal Essence",
+          "icon": "img/icons/coal_essence.png",
+          "href": "wiki/aqua-crops/coal"
+         },
+         {
+          "name": "Soulstone Essence",
+          "icon": "img/icons/soulstone_essence.png",
+          "href": "wiki/aqua-crops/soulstone"
+         }
+        ],
+        [
+         {
+          "name": "Soulstone Essence",
+          "icon": "img/icons/soulstone_essence.png",
+          "href": "wiki/aqua-crops/soulstone"
+         },
+         {
+          "name": "Soulstone Essence",
+          "icon": "img/icons/soulstone_essence.png",
+          "href": "wiki/aqua-crops/soulstone"
+         },
+         {
+          "name": "Soulstone Essence",
+          "icon": "img/icons/soulstone_essence.png",
+          "href": "wiki/aqua-crops/soulstone"
+         }
+        ]
+       ]
+      },
+      {
+       "t": "h2",
+       "text": "Soul Dust"
+      },
+      {
+       "t": "grid",
+       "result": {
+        "name": "Soul Dust",
+        "icon": "img/icons/soul_dust.png",
+        "count": 8
+       },
+       "rows": [
+        [
+         {
+          "name": "Soulstone Essence",
+          "icon": "img/icons/soulstone_essence.png",
+          "href": "wiki/aqua-crops/soulstone"
+         },
+         {
+          "name": "Soulstone Essence",
+          "icon": "img/icons/soulstone_essence.png",
+          "href": "wiki/aqua-crops/soulstone"
+         },
+         {
+          "name": "Soulstone Essence",
+          "icon": "img/icons/soulstone_essence.png",
+          "href": "wiki/aqua-crops/soulstone"
+         }
+        ],
+        [
+         {
+          "name": "Soulstone Essence",
+          "icon": "img/icons/soulstone_essence.png",
+          "href": "wiki/aqua-crops/soulstone"
+         },
+         {
+          "name": "Fire Essence",
+          "icon": "img/icons/fire_essence.png",
+          "href": "wiki/terra-crops/fire"
+         },
+         {
+          "name": "Soulstone Essence",
+          "icon": "img/icons/soulstone_essence.png",
+          "href": "wiki/aqua-crops/soulstone"
+         }
+        ],
+        [
+         {
+          "name": "Soulstone Essence",
+          "icon": "img/icons/soulstone_essence.png",
+          "href": "wiki/aqua-crops/soulstone"
+         },
+         {
+          "name": "Soulstone Essence",
+          "icon": "img/icons/soulstone_essence.png",
+          "href": "wiki/aqua-crops/soulstone"
+         },
+         {
+          "name": "Soulstone Essence",
+          "icon": "img/icons/soulstone_essence.png",
+          "href": "wiki/aqua-crops/soulstone"
+         }
+        ]
+       ]
+      }
+     ],
+     "href": "wiki/aqua-crops/soulstone"
     }
    ]
   },
@@ -39473,6 +39810,245 @@
   },
   {
    "result": {
+    "name": "Soulstone Seeds",
+    "icon": "img/icons/soulstone_seeds.png",
+    "href": "wiki/aqua-crops/soulstone",
+    "count": 1
+   },
+   "rows": [
+    [
+     {
+      "name": "Aqua Essence",
+      "icon": "img/icons/aqua_essence.png",
+      "href": "wiki/essence/aqua-essence"
+     },
+     {
+      "name": "Soulstone",
+      "icon": "img/icons/soulstone.png",
+      "href": "wiki/aqua-crops/soulstone"
+     },
+     {
+      "name": "Aqua Essence",
+      "icon": "img/icons/aqua_essence.png",
+      "href": "wiki/essence/aqua-essence"
+     }
+    ],
+    [
+     {
+      "name": "Soulstone",
+      "icon": "img/icons/soulstone.png",
+      "href": "wiki/aqua-crops/soulstone"
+     },
+     {
+      "name": "Vita Seed Base",
+      "icon": "img/icons/vita_seed_base.png",
+      "href": "wiki/infusion/seed-bases"
+     },
+     {
+      "name": "Soulstone",
+      "icon": "img/icons/soulstone.png",
+      "href": "wiki/aqua-crops/soulstone"
+     }
+    ],
+    [
+     {
+      "name": "Aqua Essence",
+      "icon": "img/icons/aqua_essence.png",
+      "href": "wiki/essence/aqua-essence"
+     },
+     {
+      "name": "Soulstone",
+      "icon": "img/icons/soulstone.png",
+      "href": "wiki/aqua-crops/soulstone"
+     },
+     {
+      "name": "Aqua Essence",
+      "icon": "img/icons/aqua_essence.png",
+      "href": "wiki/essence/aqua-essence"
+     }
+    ]
+   ],
+   "note": "Made at the Infusion Altar: the seed base on the altar, the rest on any pedestals"
+  },
+  {
+   "result": {
+    "name": "Soulstone Cobble",
+    "icon": "img/icons/soulstone_cobble.png",
+    "count": 24
+   },
+   "rows": [
+    [
+     {
+      "name": "Soulstone Essence",
+      "icon": "img/icons/soulstone_essence.png",
+      "href": "wiki/aqua-crops/soulstone"
+     },
+     {
+      "name": "Soulstone Essence",
+      "icon": "img/icons/soulstone_essence.png",
+      "href": "wiki/aqua-crops/soulstone"
+     },
+     {
+      "name": "Soulstone Essence",
+      "icon": "img/icons/soulstone_essence.png",
+      "href": "wiki/aqua-crops/soulstone"
+     }
+    ],
+    [
+     {
+      "name": "Soulstone Essence",
+      "icon": "img/icons/soulstone_essence.png",
+      "href": "wiki/aqua-crops/soulstone"
+     },
+     null,
+     {
+      "name": "Soulstone Essence",
+      "icon": "img/icons/soulstone_essence.png",
+      "href": "wiki/aqua-crops/soulstone"
+     }
+    ],
+    [
+     {
+      "name": "Soulstone Essence",
+      "icon": "img/icons/soulstone_essence.png",
+      "href": "wiki/aqua-crops/soulstone"
+     },
+     {
+      "name": "Soulstone Essence",
+      "icon": "img/icons/soulstone_essence.png",
+      "href": "wiki/aqua-crops/soulstone"
+     },
+     {
+      "name": "Soulstone Essence",
+      "icon": "img/icons/soulstone_essence.png",
+      "href": "wiki/aqua-crops/soulstone"
+     }
+    ]
+   ]
+  },
+  {
+   "result": {
+    "name": "Soulstone",
+    "icon": "img/icons/soulstone.png",
+    "href": "wiki/aqua-crops/soulstone",
+    "count": 20
+   },
+   "rows": [
+    [
+     {
+      "name": "Soulstone Essence",
+      "icon": "img/icons/soulstone_essence.png",
+      "href": "wiki/aqua-crops/soulstone"
+     },
+     {
+      "name": "Soulstone Essence",
+      "icon": "img/icons/soulstone_essence.png",
+      "href": "wiki/aqua-crops/soulstone"
+     },
+     {
+      "name": "Soulstone Essence",
+      "icon": "img/icons/soulstone_essence.png",
+      "href": "wiki/aqua-crops/soulstone"
+     }
+    ],
+    [
+     {
+      "name": "Soulstone Essence",
+      "icon": "img/icons/soulstone_essence.png",
+      "href": "wiki/aqua-crops/soulstone"
+     },
+     {
+      "name": "Coal Essence",
+      "icon": "img/icons/coal_essence.png",
+      "href": "wiki/aqua-crops/coal"
+     },
+     {
+      "name": "Soulstone Essence",
+      "icon": "img/icons/soulstone_essence.png",
+      "href": "wiki/aqua-crops/soulstone"
+     }
+    ],
+    [
+     {
+      "name": "Soulstone Essence",
+      "icon": "img/icons/soulstone_essence.png",
+      "href": "wiki/aqua-crops/soulstone"
+     },
+     {
+      "name": "Soulstone Essence",
+      "icon": "img/icons/soulstone_essence.png",
+      "href": "wiki/aqua-crops/soulstone"
+     },
+     {
+      "name": "Soulstone Essence",
+      "icon": "img/icons/soulstone_essence.png",
+      "href": "wiki/aqua-crops/soulstone"
+     }
+    ]
+   ]
+  },
+  {
+   "result": {
+    "name": "Soul Dust",
+    "icon": "img/icons/soul_dust.png",
+    "count": 8
+   },
+   "rows": [
+    [
+     {
+      "name": "Soulstone Essence",
+      "icon": "img/icons/soulstone_essence.png",
+      "href": "wiki/aqua-crops/soulstone"
+     },
+     {
+      "name": "Soulstone Essence",
+      "icon": "img/icons/soulstone_essence.png",
+      "href": "wiki/aqua-crops/soulstone"
+     },
+     {
+      "name": "Soulstone Essence",
+      "icon": "img/icons/soulstone_essence.png",
+      "href": "wiki/aqua-crops/soulstone"
+     }
+    ],
+    [
+     {
+      "name": "Soulstone Essence",
+      "icon": "img/icons/soulstone_essence.png",
+      "href": "wiki/aqua-crops/soulstone"
+     },
+     {
+      "name": "Fire Essence",
+      "icon": "img/icons/fire_essence.png",
+      "href": "wiki/terra-crops/fire"
+     },
+     {
+      "name": "Soulstone Essence",
+      "icon": "img/icons/soulstone_essence.png",
+      "href": "wiki/aqua-crops/soulstone"
+     }
+    ],
+    [
+     {
+      "name": "Soulstone Essence",
+      "icon": "img/icons/soulstone_essence.png",
+      "href": "wiki/aqua-crops/soulstone"
+     },
+     {
+      "name": "Soulstone Essence",
+      "icon": "img/icons/soulstone_essence.png",
+      "href": "wiki/aqua-crops/soulstone"
+     },
+     {
+      "name": "Soulstone Essence",
+      "icon": "img/icons/soulstone_essence.png",
+      "href": "wiki/aqua-crops/soulstone"
+     }
+    ]
+   ]
+  },
+  {
+   "result": {
     "name": "Copper Seeds",
     "icon": "img/icons/copper_seeds.png",
     "href": "wiki/ignis-crops/copper",
@@ -49411,6 +49987,11 @@
      "name": "Vita Essence",
      "icon": "img/icons/vita_essence.png",
      "href": "wiki/ignis-crops/vita"
+    },
+    {
+     "name": "Soulstone Essence",
+     "icon": "img/icons/soulstone_essence.png",
+     "href": "wiki/aqua-crops/soulstone"
     }
    ]
   },
@@ -49763,6 +50344,11 @@
      "name": "Vita Seeds",
      "icon": "img/icons/vita_seeds.png",
      "href": "wiki/ignis-crops/vita"
+    },
+    {
+     "name": "Soulstone Seeds",
+     "icon": "img/icons/soulstone_seeds.png",
+     "href": "wiki/aqua-crops/soulstone"
     }
    ]
   },
@@ -50043,6 +50629,11 @@
      "name": "Vita Crop",
      "icon": "img/icons/vita_crop.png",
      "href": "wiki/ignis-crops/vita"
+    },
+    {
+     "name": "Soulstone Crop",
+     "icon": "img/icons/soulstone_crop.png",
+     "href": "wiki/aqua-crops/soulstone"
     }
    ]
   },

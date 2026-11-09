@@ -6,6 +6,12 @@ Before starting: upload the latest `addon/*.mcaddon` to the server, and use crea
 
 # Still to test
 
+## Soulstone crop (tier 2) (v1.2.0)
+
+- [ ] Soulstone Seeds craft at the altar: Vita Seed Base, 4 Soulstone and 4 Aqua Essence.
+- [ ] The crop grows on farmland, and the server log shows no EssenceAndEarth_BP errors.
+- [ ] A ring of 8 Soulstone Essence makes 24 Soulstone Cobble. Coal Essence in the middle makes 20 Soulstone instead, and Fire Essence makes 8 Soul Dust.
+
 ## Vita crop (tier 3) (v1.1.0)
 
 ```
