@@ -209,6 +209,7 @@
     { "id": "rabbit", "tier": 3, "color": "#996644", "ingredient": "minecraft:rabbit_hide", "soul": "rabbit", "faceColors": {"x": "#201510", "d": "#e8d0b8"}, "face": ["..d..d..", "..d..d..", "..d..d..", "........", ".xx..xx.", "...dd...", "...dd...", "........"] },
     { "id": "breeze", "tier": 4, "color": "#7982c7", "ingredient": "minecraft:breeze_rod", "soul": "breeze", "faceColors": {"x": "#e0f0ff", "d": "#4f5898"}, "face": ["dddddddd", "........", ".xx..xx.", ".xx..xx.", "........", ".dddddd.", "...dd...", "..dddd.."] },
     { "id": "ghast", "tier": 4, "color": "#f9f6f0", "ingredient": "minecraft:ghast_tear", "soul": "ghast", "faceColors": {"x": "#303030", "d": "#c82020"}, "face": ["........", ".xx..xx.", ".xx..xx.", ".d....d.", ".d.xx.d.", "...xx...", "........", "........"] },
-    { "id": "anima", "tier": 4, "color": "#6e4bb5", "ingredient": "ee:anima_dust" }
+    { "id": "anima", "tier": 4, "color": "#6e4bb5", "ingredient": "ee:anima_dust" },
+    { "id": "vita", "tier": 3, "color": "#e0569a", "ingredient": "ee:vita_shard" }
   ]
 }

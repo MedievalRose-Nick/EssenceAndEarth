@@ -6,6 +6,18 @@ Before starting: upload the latest `addon/*.mcaddon` to the server, and use crea
 
 # Still to test
 
+## Vita crop (tier 3)
+
+```
+/give @s ee:vita_seed_base
+/give @s ee:vita_shard 4
+/give @s ee:ignis_essence 4
+```
+
+- [ ] A Vita Seed Base on the altar, with 4 Ignis Essence and 4 Vita Shards on the pedestals, makes Vita Seeds.
+- [ ] Vita Seeds grow on farmland and drop Vita Essence plus the seeds back when ripe.
+- [ ] 8 Vita Essence in a ring crafts 4 Vita Shards.
+
 ## Pale Astra and boss drops at your feet (v0.28.3)
 
 - [x] A Wither killed with the Astra or Divus Sword, including with `/damage @e[type=wither] 1000 entity_attack entity @s`, drops its Cognizant Dust and essence at the killer's feet, where its death explosion can't destroy them.
