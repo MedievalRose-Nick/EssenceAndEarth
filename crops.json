@@ -1,7 +1,7 @@
 {
   "name": "Essence & Earth",
   "namespace": "ee",
-  "version": [1, 2, 1],
+  "version": [1, 2, 2],
   "balance": {
     "growChance": 0.43,
     "grassEssenceChance": 0.2,
@@ -16,7 +16,7 @@
     "mobEssenceChance": 0.2,
     "fertilizedEssenceChance": 0.1,
     "farmlandYield": 1,
-    "farmlandRefundChance": 0.25,
+    "farmlandRefundChance": 1,
     "acceleratorSeconds": 30,
     "acceleratorRange": [9, 18, 27, 36, 45],
     "acceleratorYield": 3,

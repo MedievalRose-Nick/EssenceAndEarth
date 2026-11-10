@@ -1,10 +1,10 @@
 {
  "name": "Essence & Earth",
  "release": {
-  "version": "1.2.1",
-  "file": "EssenceAndEarth_v1.2.1.mcaddon",
+  "version": "1.2.2",
+  "file": "EssenceAndEarth_v1.2.2.mcaddon",
   "minBedrock": "1.21.90",
-  "download": "https://github.com/MedievalRose-Nick/EssenceAndEarth/raw/main/addon/EssenceAndEarth_v1.2.1.mcaddon",
+  "download": "https://github.com/MedievalRose-Nick/EssenceAndEarth/raw/main/addon/EssenceAndEarth_v1.2.2.mcaddon",
   "repo": "https://github.com/MedievalRose-Nick/EssenceAndEarth"
  },
  "stats": {
@@ -3798,7 +3798,7 @@
       },
       {
        "t": "p",
-       "html": "Use one Terra Essence on placed farmland, or craft one dirt and one Terra Essence to make 1. Using it on farmland of another tier swaps the tier, with a 25% chance of getting one of the old essence back."
+       "html": "Use one Terra Essence on placed farmland, or craft one dirt and one Terra Essence to make 1. Using it on farmland of another tier swaps the tier, and gives back the old essence."
       },
       {
        "t": "grid",
@@ -3889,7 +3889,7 @@
       },
       {
        "t": "p",
-       "html": "Use one Aqua Essence on placed farmland, or craft one dirt and one Aqua Essence to make 1. Using it on farmland of another tier swaps the tier, with a 25% chance of getting one of the old essence back."
+       "html": "Use one Aqua Essence on placed farmland, or craft one dirt and one Aqua Essence to make 1. Using it on farmland of another tier swaps the tier, and gives back the old essence."
       },
       {
        "t": "grid",
@@ -3980,7 +3980,7 @@
       },
       {
        "t": "p",
-       "html": "Use one Ignis Essence on placed farmland, or craft one dirt and one Ignis Essence to make 1. Using it on farmland of another tier swaps the tier, with a 25% chance of getting one of the old essence back."
+       "html": "Use one Ignis Essence on placed farmland, or craft one dirt and one Ignis Essence to make 1. Using it on farmland of another tier swaps the tier, and gives back the old essence."
       },
       {
        "t": "grid",
@@ -4071,7 +4071,7 @@
       },
       {
        "t": "p",
-       "html": "Use one Aether Essence on placed farmland, or craft one dirt and one Aether Essence to make 1. Using it on farmland of another tier swaps the tier, with a 25% chance of getting one of the old essence back."
+       "html": "Use one Aether Essence on placed farmland, or craft one dirt and one Aether Essence to make 1. Using it on farmland of another tier swaps the tier, and gives back the old essence."
       },
       {
        "t": "grid",
@@ -4162,7 +4162,7 @@
       },
       {
        "t": "p",
-       "html": "Use one Astra Essence on placed farmland, or craft one dirt and one Astra Essence to make 1. Using it on farmland of another tier swaps the tier, with a 25% chance of getting one of the old essence back."
+       "html": "Use one Astra Essence on placed farmland, or craft one dirt and one Astra Essence to make 1. Using it on farmland of another tier swaps the tier, and gives back the old essence."
       },
       {
        "t": "grid",

@@ -6,6 +6,10 @@ Before starting: upload the latest `addon/*.mcaddon` to the server, and use crea
 
 # Still to test
 
+## Farmland swap refunds the old essence (v1.2.2)
+
+- [ ] Using Aether Essence on Ignus Farmland always drops one Ignus Essence.
+
 ## Deepcore smelts Soulstone (v1.2.1)
 
 - [ ] A Deepcore Electric Furnace turns Soulstone Cobble into Soulstone, Soulstone into Smooth Soulstone, Smooth Soulstone into Soul Dust, and Soulstone Bricks into Cracked Soulstone Bricks.

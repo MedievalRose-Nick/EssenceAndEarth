@@ -264,7 +264,7 @@ const farmland = {
       facts([["Tier", `${i + 1} of ${cfg.tiers.length}`], ["Tier " + (i + 1) + " crops", `${matching} chance of a second essence, and of a second seed`], ["Other crops", `${secondary} chance of each`], ["Terra crop", `${BAL.terraCropYield[i]} Terra Essence per harvest on average`], ["Water", "Not needed; never dries out"]]),
       list([{ ...farmlandItem(t), name: "Top", sub: "" }, { name: "Side", icon: `img/icons/${t.id}_farmland_side.png` }]),
       h2("How to make it"),
-      p(`Use one ${tierName(t)} on placed farmland, or craft one dirt and one ${tierName(t)} to make ${BAL.farmlandYield}. Using it on farmland of another tier swaps the tier, with a ${pct(BAL.farmlandRefundChance)} chance of getting one of the old essence back.`),
+      p(`Use one ${tierName(t)} on placed farmland, or craft one dirt and one ${tierName(t)} to make ${BAL.farmlandYield}. Using it on farmland of another tier swaps the tier, ${BAL.farmlandRefundChance >= 1 ? "and gives back the old essence" : `with a ${pct(BAL.farmlandRefundChance)} chance of getting one of the old essence back`}.`),
       farmlandRecipe(t),
     ],
   })),
